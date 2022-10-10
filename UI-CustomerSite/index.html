@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="./assets/images/material/Favicon.svg">
+    <title>Home</title>
+
+    <!-- Library -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/toastr.min.css">
+
+    <link rel="stylesheet" href="./assets/css/swiper-bundle.min.css" />
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/responsive.css" />
+
+    <script src="./assets/js/fontawesome.js"></script>
+
+</head>
+
+<body class="unable-scroll">
+    <!-- Common -->
+    <div class="preloader"></div>
+    <div class="overlay"></div>
+    <div class="btn-backToTop" onclick="scrollToTop()">
+        <i class="fa-solid fa-angle-up fs-4"></i>
+    </div>
+
+
+    <header>
+        <div class="header-brand-scroll">
+            <div class="header-brand-title">
+                <p class="ms-3 m-0">Brands You Love</p>
+            </div>
+            <ul class="header-brand-item">
+                <li>
+                    <a href="#">
+                        <img src="./assets/images/material/brands/Adidas.svg" class="img-fluid"
+                            alt="logo brand header" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./assets/images/material/brands/Converse.svg" class="img-fluid"
+                            alt="logo brand header" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./assets/images/material/brands/Crocs.svg" class="img-fluid"
+                            alt="logo brand header" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./assets/images/material/brands/DrMartens.svg" class="img-fluid"
+                            alt="logo brand header" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./assets/images/material/brands/HeyDude.svg" class="img-fluid"
+                            alt="logo brand header" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./assets/images/material/brands/Nike.svg" class="img-fluid" alt="logo brand header" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./assets/images/material/brands/Timberland.svg" class="img-fluid"
+                            alt="logo brand header" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./assets/images/material/brands/Vans.svg" class="img-fluid" alt="logo brand header" />
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="header__top d-none d-md-block py-2">
+            <div class="container">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-10">
+                        <div class="header__top__left">
+                            <p class="m-0">
+                                Free shipping, 30-day return or refund guarantee.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <!-- <a href="#" class="text-light">
+                            <i class="uil uil-user fs-4"></i> <span class="ms-1">Sign in</span>
+                        </a> -->
+                        <div class="dropdown">
+                            <a href="#" class="dropdown-toggle text-light" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <img src="./assets/images/avatars/avatar.jpg"
+                                    class="img-fluid rounded-circle avatar-img" width="35px" alt="" />
+                                <span class="d-none d-md-inline-block ms-1">Nguyen thanh dung</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-account">
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Change Password</a></li>
+                                <li><a class="dropdown-item" href="#">View Addresses</a></li>
+                                <li><a class="dropdown-item" href="#">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-body pt-3 pt-md-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-4 d-lg-none" id="wrap-icon-menu">
+                        <div class="menu-btn">
+                            <div class="menu-btn__burger"></div>
+                        </div>
+                    </div>
+                    <div class="col-4 col-md-4">
+                        <a href="./index.html">
+                            <img src="assets/images/material/footwear-logo.svg" width="190" class="img-fluid" alt="logo-brand" />
+                        </a>
+                    </div>
+
+                    <div class="col-4 col-md-8">
+                        <div class="row">
+                            <div class="col-12 col-12 d-flex justify-content-end gap-3">
+                                <form id="form-search" action="#" class="d-none d-md-block">
+                                    <input type="text" class="input-search" name="search" placeholder="Find Something Famous For You" />
+                                    <button type="submit" class="btn-submit">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </button>
+                                </form>
+                                <a href="#" class="wrap-cart d-flex align-items-center">
+                                    <i class="fa-regular fa-heart fs-4"></i>
+                                    <span class="d-none d-md-block ms-1">Wishlist</span>
+                                </a>
+                                <a href="#" class="wrap-cart d-flex align-items-center">
+                                    <i class="uil uil-shopping-bag fs-4"></i>
+                                    <span class="d-none d-md-block ms-1">Cart</span> [0]
+                                </a>
+                            </div>
+                        </div>
+
+
+                        <div class="row pt-3">
+                            <div class="navigation__menu">
+                                <div class="d-md-none pt-3 px-5">
+                                    <!-- No Logged -->
+                                    <!-- <a href="#" class="wrap-cart d-flex align-items-center mb-3">
+                                        <p class="m-0 text-decoration-underline fw-semibold">Sign in / Join Now</p>
+                                    </a>  -->
+
+                                    <!-- Logined -->
+                                    <div class="text-light">
+                                        <img src="./assets/images/avatars/avatar.jpg" class="img-fluid rounded-circle avatar-img" width="35px" alt="" />
+                                        <span class="ms-1 text-dark">Nguyen thanh dung</span>
+                                    </div>
+                                    <ul class="ps-5">
+                                        <li class="mb-1"><a href="#">View Profile</a></li>
+                                        <li class="mb-1"><a href="#">Change Password</a></li>
+                                        <li class="mb-1"><a href="#">View Addresses</a></li>
+                                        <li class="mb-1"><a href="#">Logout</a></li>
+                                    </ul>
+                                </div>
+                                <div class="wrap-search-mobile"></div>
+
+                                <ul class="nav">
+                                    <li class="nav__item">
+                                        <div class="nav__item-wrap-mobile pb-md-2">
+                                            <a href="./product-list.html" class="nav-link d-none d-md-block">Women</a>
+                                            <p class="nav-link d-md-none m-0">Women</p>
+                                            <i class="uil uil-plus d-block d-md-none fs-2"></i>
+                                        </div>
+                                        <div class="megamenu-container px-md-4">
+                                            <div class="megamenu">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="row">
+                                                            <div>
+                                                                <strong>Women's Shoes</strong>
+                                                            </div>
+                                                            <ul>
+                                                                <li><a href="#">View All</a></li>
+                                                                <li><a href="#">New Arrivals</a></li>
+                                                                <li><a href="#">Sneakers & Althletics</a></li>
+                                                                <li><a href="#">Boots</a></li>
+                                                                <li><a href="#">Heels</a></li>
+                                                                <li><a href="#">Flats</a></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="row pt-2">
+                                                            <div>
+                                                                <strong>Sneakers and Athletics</strong>
+                                                            </div>
+                                                            <ul>
+                                                                <li><a href="#">View All</a></li>
+                                                                <li><a href="#">Running Shoes</a></li>
+                                                                <li><a href="#">Walking Shoes</a></li>
+                                                                <li><a href="#">Lifestyle & Fashion</a></li>
+                                                                <li><a href="#">Canvas Shoes</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="row">
+                                                            <div>
+                                                                <strong>Shop, Style & More</strong>
+                                                            </div>
+                                                            <ul>
+                                                                <li><a href="#">Boot Shop</a></li>
+                                                                <li><a href="#">Sneaker Shop</a></li>
+                                                                <li><a href="#">Active Shop</a></li>
+                                                                <li><a href="#">Sale</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="row">
+                                                            <img src="./assets/images/material/fall_22_mega_nav_bootshop.jpg" class="img-fluid" alt="" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="nav__item">
+                                        <div class="nav__item-wrap-mobile pb-md-2">
+                                            <a href="./product-list.html" class="nav-link d-none d-md-block">Men</a>
+                                            <p class="nav-link d-md-none m-0">Men</p>
+                                            <i class="uil uil-plus d-block d-md-none fs-2"></i>
+                                        </div>
+                                        <div class="megamenu-container px-md-4">
+                                            <div class="megamenu">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="row">
+                                                            <div>
+                                                                <strong>Women's Shoes</strong>
+                                                            </div>
+                                                            <ul>
+                                                                <li><a href="#">View All</a></li>
+                                                                <li><a href="#">New Arrivals</a></li>
+                                                                <li><a href="#">Sneakers & Althletics</a></li>
+                                                                <li><a href="#">Boots</a></li>
+                                                                <li><a href="#">Heels</a></li>
+                                                                <li><a href="#">Flats</a></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="row pt-2">
+                                                            <div>
+                                                                <strong>Sneakers and Athletics</strong>
+                                                            </div>
+                                                            <ul>
+                                                                <li><a href="#">View All</a></li>
+                                                                <li><a href="#">Running Shoes</a></li>
+                                                                <li><a href="#">Walking Shoes</a></li>
+                                                                <li><a href="#">Lifestyle & Fashion</a></li>
+                                                                <li><a href="#">Canvas Shoes</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="row">
+                                                            <div>
+                                                                <strong>Shop, Style & More</strong>
+                                                            </div>
+                                                            <ul>
+                                                                <li><a href="#">Boot Shop</a></li>
+                                                                <li><a href="#">Sneaker Shop</a></li>
+                                                                <li><a href="#">Active Shop</a></li>
+                                                                <li><a href="#">Sale</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="row">
+                                                            <img src="./assets/images/material/fall_22_mega_nav_sneakershop.jpg" class="img-fluid" alt="" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="nav__item">
+                                        <div class="nav__item-wrap-mobile pb-md-2">
+                                            <a href="./brands.html" class="nav-link">Brands</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav__item">
+                                        <div class="nav__item-wrap-mobile pb-md-2">
+                                            <a href="http://www.nguyenthanhdung.tk/" target="_blank" class="nav-link">About</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav__item">
+                                        <div class="nav__item-wrap-mobile pb-md-2">
+                                            <a href="./contact.html" class="nav-link active">Contact</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main">
+        <!-- Slide -->
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <a href="#">
+                        <img src="./assets/images/home/banner-2.jpg" alt="" />
+                    </a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="#">
+                        <img src="./assets/images/home/banner-4.jpg" alt="" />
+                    </a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="#">
+                        <img src="./assets/images/home/banner-1.jpg" alt="" />
+                    </a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="#">
+                        <img src="./assets/images/home/banner-3.jpg" alt="" />
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <h1 class="text-dark fw-bold">
+                            It started with a simple idea: Create quality, well-designed
+                            products that I wanted myself.
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section pt-0">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 col-md-6 text-center mb-4">
+                        <div class="featured">
+                            <a href="#" class="home-category">
+                                <img src="./assets/images/home/women.jpg" class="img-fluid" alt="">
+                            </a>
+                            <div class="mt-4">
+                                <h2><a href="/product/Men" class="text-dark">Shop Women's Collection</a></h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 text-center">
+                        <div class="featured">
+                            <a href="#" class="home-category">
+                                <img src="./assets/images/home/men.jpg" class="img-fluid" alt="">
+                            </a>
+                            <div class="mt-4">
+                                <h2><a href="/product/Women" class="text-dark">Shop Men's Collection</a></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="intro-section">
+            <div class="container">
+                <div class="row no-gutters">
+                    <div class="col-12 col-md-6 text-center md-text-end">
+                        <img src="./assets/images/home/famous-for-you.png" class="img-fluid w-75" alt="intro image">
+                    </div>
+                    <div class="col-12 col-md-6 text-start">
+                        <h4 class="color--charcoal w-75 mx-auto font-weight-bold text-center mt-2">Whatever you're famous for, we've got
+                            the top fall styles perfectly fit for you.</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="intro-section">
+            <div class="container text-center">
+                <div class="row no-gutters">
+                    <div class="col-6 col-md-6 p-0">
+                        <a href="/product/Men">
+                            <img src="./assets/images/home/banner-m-1.jpg" class="img-fluid">
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-6 p-0">
+                        <a href="/product/Men">
+                            <img src="./assets/images/home/banner-m-2.jpg" class="img-fluid">
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-6 p-0">
+                        <a href="/product/Men">
+                            <img src="./assets/images/home/banner-m-3.jpg" class="img-fluid">
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-6 p-0">
+                        <a href="/product/Men">
+                            <img src="./assets/images/home/banner-m-4.jpg" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 offset-sm-2 text-center">
+                        <h2 class="text-dark">Shop By Category</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 col-md-3">
+                        <a href="#" class="text-dark home-category">
+                            <img src="./assets/images/home/wk35_092522_categorybanner_1.jpg" class="img-fluid" alt="category product">
+                            <h4 class="text-center">Outdoor & Hiking Boots</h4>
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a href="#" class="text-dark home-category">
+                            <img src="./assets/images/home/wk35_092522_categorybanner_2.jpg" class="img-fluid" alt="category product">
+                            <h4 class="text-center">Running Shoes</h4>
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a href="#" class="text-dark home-category">
+                            <img src="./assets/images/home/wk35_092522_categorybanner_3.jpg" class="img-fluid" alt="category product">
+                            <h4 class="text-center">Ankle Boots</h4>
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a href="#" class="text-dark home-category">
+                            <img src="./assets/images/home/wk35_092522_categorybanner_4.jpg" class="img-fluid" alt="category product">
+                            <h4 class="text-center">Wide Calf Boots</h4>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 offset-sm-2 text-center">
+                        <h2 class="text-dark mb-5">Featured Product</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-3">
+                        <div class="single-product d-block">
+                            <span class="product-label">Sale</span>
+                            <div class="btn-wishlist" onclick="AddWishList(event)">
+                                <i class="fa-regular fa-heart fs-4"></i>
+                            </div>
+                            <div class="product-img">
+                                <a href="./product-detail.html">
+                                    <img src="./assets/images/products/Image/20220731001046344.jpg" class="primary-img img-fluid" alt="product image">
+                                    <img src="./assets/images/products/ImageList/20220731001046344/1.jpg" class="secondary-img img-fluid" alt="product image">
+                                </a>
+                            </div>
+                            <div class="product-info text-center">
+                                <h4>Crocs</h4>
+                                <a href="./product-detail.html" class="m-0">
+                                    Women's Chuck Taylor All Star Hi Lift Platform Sneaker
+                                    <span class="fw-bold text-danger ms-2">New</span>
+                                </a>
+                                <div class="fw-bold">
+                                    <span class="text-end me-2">$99</span>
+                                    <span class="text-start text-decoration-line-through old-price">$99</span>
+                                </div>
+                                <div class="wrap-star">
+                                    <span class="rate d-block">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <div class="single-product d-block">
+                            <span class="product-label">Sale</span>
+                            <div class="btn-wishlist" onclick="AddWishList(event)">
+                                <i class="fa-regular fa-heart fs-4"></i>
+                            </div>
+                            <div class="product-img">
+                                <a href="#">
+                                    <img src="./assets/images/products/Image/20220731001046344.jpg" class="primary-img img-fluid" alt="product image">
+                                    <img src="./assets/images/products/ImageList/20220731001046344/1.jpg" class="secondary-img img-fluid" alt="product image">
+                                </a>
+                            </div>
+                            <div class="product-info text-center">
+                                <h4>Crocs</h4>
+                                <a href="#" class="m-0">
+                                    Women's Chuck Taylor All Star Hi Lift Platform Sneaker
+                                    <!-- <span class="fw-bold text-danger ms-2">New</span> -->
+                                </a>
+                                <div class="fw-bold">
+                                    <span class="text-end me-2">$99</span>
+                                    <span class="text-start text-decoration-line-through old-price">$99</span>
+                                </div>
+                                <div class="wrap-star">
+                                    <span class="rate d-block">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <div class="single-product d-block">
+                            <span class="product-label">Sale</span>
+                            <div class="btn-wishlist" onclick="AddWishList(event)">
+                                <i class="fa-regular fa-heart fs-4"></i>
+                            </div>
+                            <div class="product-img">
+                                <a href="#">
+                                    <img src="./assets/images/products/Image/20220731001046344.jpg" class="primary-img img-fluid" alt="product image">
+                                    <img src="./assets/images/products/ImageList/20220731001046344/1.jpg" class="secondary-img img-fluid" alt="product image">
+                                </a>
+                            </div>
+                            <div class="product-info text-center">
+                                <h4>Crocs</h4>
+                                <a href="#" class="m-0">
+                                    Women's Chuck Taylor All Star Hi Lift Platform Sneaker
+                                    <!-- <span class="fw-bold text-danger ms-2">New</span> -->
+                                </a>
+                                <div class="fw-bold">
+                                    <span class="text-end me-2">$99</span>
+                                    <span class="text-start text-decoration-line-through old-price">$99</span>
+                                </div>
+                                <div class="wrap-star">
+                                    <span class="rate d-block">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <div class="single-product d-block">
+                            <span class="product-label">Sale</span>
+                            <div class="btn-wishlist" onclick="AddWishList(event)">
+                                <i class="fa-regular fa-heart fs-4"></i>
+                            </div>
+                            <div class="product-img">
+                                <a href="#">
+                                    <img src="./assets/images/products/Image/20220731001046344.jpg" class="primary-img img-fluid" alt="product image">
+                                    <img src="./assets/images/products/ImageList/20220731001046344/1.jpg" class="secondary-img img-fluid" alt="product image">
+                                </a>
+                            </div>
+                            <div class="product-info text-center">
+                                <h4>Crocs</h4>
+                                <a href="#" class="m-0">
+                                    Women's Chuck Taylor All Star Hi Lift Platform Sneaker
+                                    <!-- <span class="fw-bold text-danger ms-2">New</span> -->
+                                </a>
+                                <div class="fw-bold">
+                                    <span class="text-end me-2">$99</span>
+                                    <span class="text-start text-decoration-line-through old-price">$99</span>
+                                </div>
+                                <div class="wrap-star">
+                                    <span class="rate d-block">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12 col-md-3">
+                        <div class="single-product d-block">
+                            <span class="product-label">Sale</span>
+                            <div class="btn-wishlist" onclick="AddWishList(event)">
+                                <i class="fa-regular fa-heart fs-4"></i>
+                            </div>
+                            <div class="product-img">
+                                <a href="./product-detail.html">
+                                    <img src="./assets/images/products/Image/20220731001046344.jpg" class="primary-img img-fluid" alt="product image">
+                                    <img src="./assets/images/products/ImageList/20220731001046344/1.jpg" class="secondary-img img-fluid" alt="product image">
+                                </a>
+                            </div>
+                            <div class="product-info text-center">
+                                <h4>Crocs</h4>
+                                <a href="./product-detail.html" class="m-0">
+                                    Women's Chuck Taylor All Star Hi Lift Platform Sneaker
+                                    <span class="fw-bold text-danger ms-2">New</span>
+                                </a>
+                                <div class="fw-bold">
+                                    <span class="text-end me-2">$99</span>
+                                    <span class="text-start text-decoration-line-through old-price">$99</span>
+                                </div>
+                                <div class="wrap-star">
+                                    <span class="rate d-block">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <div class="single-product d-block">
+                            <span class="product-label">Sale</span>
+                            <div class="btn-wishlist" onclick="AddWishList(event)">
+                                <i class="fa-regular fa-heart fs-4"></i>
+                            </div>
+                            <div class="product-img">
+                                <a href="#">
+                                    <img src="./assets/images/products/Image/20220731001046344.jpg" class="primary-img img-fluid" alt="product image">
+                                    <img src="./assets/images/products/ImageList/20220731001046344/1.jpg" class="secondary-img img-fluid" alt="product image">
+                                </a>
+                            </div>
+                            <div class="product-info text-center">
+                                <h4>Crocs</h4>
+                                <a href="#" class="m-0">
+                                    Women's Chuck Taylor All Star Hi Lift Platform Sneaker
+                                    <!-- <span class="fw-bold text-danger ms-2">New</span> -->
+                                </a>
+                                <div class="fw-bold">
+                                    <span class="text-end me-2">$99</span>
+                                    <span class="text-start text-decoration-line-through old-price">$99</span>
+                                </div>
+                                <div class="wrap-star">
+                                    <span class="rate d-block">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <div class="single-product d-block">
+                            <span class="product-label">Sale</span>
+                            <div class="btn-wishlist" onclick="AddWishList(event)">
+                                <i class="fa-regular fa-heart fs-4"></i>
+                            </div>
+                            <div class="product-img">
+                                <a href="#">
+                                    <img src="./assets/images/products/Image/20220731001046344.jpg" class="primary-img img-fluid" alt="product image">
+                                    <img src="./assets/images/products/ImageList/20220731001046344/1.jpg" class="secondary-img img-fluid" alt="product image">
+                                </a>
+                            </div>
+                            <div class="product-info text-center">
+                                <h4>Crocs</h4>
+                                <a href="#" class="m-0">
+                                    Women's Chuck Taylor All Star Hi Lift Platform Sneaker
+                                    <!-- <span class="fw-bold text-danger ms-2">New</span> -->
+                                </a>
+                                <div class="fw-bold">
+                                    <span class="text-end me-2">$99</span>
+                                    <span class="text-start text-decoration-line-through old-price">$99</span>
+                                </div>
+                                <div class="wrap-star">
+                                    <span class="rate d-block">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <div class="single-product d-block">
+                            <span class="product-label">Sale</span>
+                            <div class="btn-wishlist" onclick="AddWishList(event)">
+                                <i class="fa-regular fa-heart fs-4"></i>
+                            </div>
+                            <div class="product-img">
+                                <a href="#">
+                                    <img src="./assets/images/products/Image/20220731001046344.jpg" class="primary-img img-fluid" alt="product image">
+                                    <img src="./assets/images/products/ImageList/20220731001046344/1.jpg" class="secondary-img img-fluid" alt="product image">
+                                </a>
+                            </div>
+                            <div class="product-info text-center">
+                                <h4>Crocs</h4>
+                                <a href="#" class="m-0">
+                                    Women's Chuck Taylor All Star Hi Lift Platform Sneaker
+                                    <!-- <span class="fw-bold text-danger ms-2">New</span> -->
+                                </a>
+                                <div class="fw-bold">
+                                    <span class="text-end me-2">$99</span>
+                                    <span class="text-start text-decoration-line-through old-price">$99</span>
+                                </div>
+                                <div class="wrap-star">
+                                    <span class="rate d-block">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-md-12 text-center">
+                        <p><a href="#" class="btn btn-primary btn-lg">Shop All Products</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="intro-section">
+            <div class="text-center">
+                <div class="row">
+                    <div class="col-sm-8 offset-sm-2 text-center">
+                        <h3 class="text-dark mb-3">Shop for:</h3>
+                    </div>
+                </div>
+                <h5 class="shop-for-item">
+                    <a href="#">MEN</a>&nbsp;&nbsp; &nbsp;<a href="#">WOMEN</a>&nbsp;&nbsp; &nbsp;<a href="#">SALE</a>
+                </h5>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="container">
+                <div class="row no-gutters">
+                    <div class="col-6 col-md-3 border-end mt-3">
+                        <div class="row">
+                            <div class="col-4 col-md-3"><img src="./assets/images/home/free_shipping.svg" class="img-fluid" alt=""></div>
+                            <div class="col-8 col-md-9">
+                                <p class="m-0 fw-bold"><a href="#">Free Shipping for Members</a></p>
+                                <p class="m-0">Plus, return your purchase to any store, at any time.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 border-end mt-3">
+                        <div class="row">
+                            <div class="col-4 col-md-3"><img src="./assets/images/home/gift_card.svg" class="img-fluid" alt=""></div>
+                            <div class="col-8 col-md-9">
+                                <p class="m-0 fw-bold"><a href="#">Famous Gift Cards</a></p>
+                                <p class="m-0">Fits every time! Physical card or instant eGift Card.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 border-end mt-3">
+                        <div class="row">
+                            <div class="col-4 col-md-3"><img src="./assets/images/home/FF_pickup.svg" class="img-fluid" alt=""></div>
+                            <div class="col-8 col-md-9">
+                                <p class="m-0 fw-bold"><a href="#">Famously Fast Pickup</a></p>
+                                <p class="m-0">Order online, pick up in store or at the curb. Plus, members earn a bonus reward!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 mt-3">
+                        <div class="row">
+                            <div class="col-4 col-md-3"><img src="./assets/images/home/Zip.svg" class="img-fluid" alt=""></div>
+                            <div class="col-8 col-md-9">
+                                <p class="m-0 fw-bold"><a href="#">Pay Your Way</a></p>
+                                <p class="m-0">Enjoy Zip, the Famously <strong>YOU</strong>  Rewards® Credit Card and more.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p class="fw-semibold">About Footwear</p>
+                    <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life</p>
+                    <ul class="social-icons">
+                        <li class="d-inline-block me-2 fs-4"><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                        <li class="d-inline-block me-2 fs-4"><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+                        <li class="d-inline-block me-2 fs-4"><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
+                        <li class="d-inline-block me-2 fs-4"><a href="#"><i class="fa-brands fa-skype"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <p class="fw-semibold">Customer Care</p>
+                    <ul>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Returns/Exchange</a></li>
+                        <li><a href="#">Gift Voucher</a></li>
+                        <li><a href="#">Wishlist</a></li>
+                        <li><a href="#">Special</a></li>
+                        <li><a href="#">Customer Services</a></li>
+                        <li><a href="#">Site maps</a></li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <p class="fw-semibold">Information</p>
+                    <ul>
+                        <li><a href="#">About us</a></li>
+                        <li><a href="#">Delivery Information</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Order Tracking</a></li>
+                    </ul>
+                </div>
+
+                <div class="col">
+                    <p class="fw-semibold">News</p>
+                    <ul>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Exhibitions</a></li>
+                    </ul>
+                </div>
+
+                <div class="col">
+                    <p class="fw-semibold">Contact Information</p>
+                    <ul>
+                        <li>291 South 21th Street, <br> Suite 721 New York NY 10016</li>
+                        <li><a href="tel://1234567920">+ 0706 437167</a></li>
+                        <li><a href="mailto:ntdung8124@gmail.com">ntdung8124@gmail.com</a></li>
+                        <li><a href="http://nguyenthanhdung.tk/">nguyenthanhdung.tk</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPT -->
+    <script src="./assets/js/jquery.min.js"></script>
+    <script src="./assets/js/swiper-bundle.min.js"></script>
+    <script src="./assets/js/scrollreveal.js"></script>
+    <script src="./assets/js/popper.min.js"></script>
+    <script src="./assets/js/bootstrap.min.js"></script>
+    <script src="./assets/js/toastr.min.js"></script>
+    <script src="./assets/js/app.js"></script>
+</body>
+
+</html>
+
+<!-- <button class="btn btn-primary btn-custom-loading"><div class="loader"></div><span>Detail</span></button> -->

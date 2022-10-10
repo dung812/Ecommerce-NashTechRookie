@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="./assets/images/material/Favicon.svg">
+    <title>Home</title>
+
+    <!-- Library -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/toastr.min.css">
+
+    <link rel="stylesheet" href="./assets/css/swiper-bundle.min.css" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/responsive.css" />
+
+    <script src="./assets/js/fontawesome.js"></script>
+    <style>
+        .swiper {
+            width: 100%;
+            height: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .swiper-slide {
+            background-size: cover;
+            background-position: center;
+        }
+
+        .mySwiper2 {
+            height: 80%;
+            width: 100%;
+        }
+
+        .mySwiper {
+            height: 20%;
+            box-sizing: border-box;
+            padding: 10px 0;
+        }
+
+        .mySwiper .swiper-slide {
+            width: 25%;
+            height: 100%;
+            opacity: 0.4;
+        }
+
+        .mySwiper .swiper-slide-thumb-active {
+            opacity: 1;
+        }
+
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body class="unable-scroll">
+    <!-- Common -->
+    <div class="preloader"></div>
+    <div class="overlay"></div>
+    <div class="btn-backToTop" onclick="scrollToTop()">
+        <i class="fa-solid fa-angle-up fs-4"></i>
+    </div>
+
+
+    <header>
+        <div class="header-brand-scroll">
+            <div class="header-brand-title">
+                <p class="ms-3 m-0">Brands You Love</p>
+            </div>
+            <ul class="header-brand-item">
+                <li>
+                    <a href="#">
+                        <img src="./assets/images/material/brands/Adidas.svg" class="img-fluid"
+                            alt="logo brand header" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./assets/images/material/brands/Converse.svg" class="img-fluid"
+                            alt="logo brand header" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./assets/images/material/brands/Crocs.svg" class="img-fluid"
+                            alt="logo brand header" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./assets/images/material/brands/DrMartens.svg" class="img-fluid"
+                            alt="logo brand header" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./assets/images/material/brands/HeyDude.svg" class="img-fluid"
+                            alt="logo brand header" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./assets/images/material/brands/Nike.svg" class="img-fluid" alt="logo brand header" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./assets/images/material/brands/Timberland.svg" class="img-fluid"
+                            alt="logo brand header" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./assets/images/material/brands/Vans.svg" class="img-fluid" alt="logo brand header" />
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="header__top d-none d-md-block py-2">
+            <div class="container">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-10">
+                        <div class="header__top__left">
+                            <p class="m-0">
+                                Free shipping, 30-day return or refund guarantee.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <!-- <a href="#" class="text-light">
+                            <i class="uil uil-user fs-4"></i> <span class="ms-1">Sign in</span>
+                        </a> -->
+                        <div class="dropdown">
+                            <a href="#" class="dropdown-toggle text-light" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <img src="./assets/images/avatars/avatar.jpg"
+                                    class="img-fluid rounded-circle avatar-img" width="35px" alt="" />
+                                <span class="d-none d-md-inline-block ms-1">Nguyen thanh dung</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-account">
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Change Password</a></li>
+                                <li><a class="dropdown-item" href="#">View Addresses</a></li>
+                                <li><a class="dropdown-item" href="#">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-body pt-3 pt-md-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-4 d-lg-none" id="wrap-icon-menu">
+                        <div class="menu-btn">
+                            <div class="menu-btn__burger"></div>
+                        </div>
+                    </div>
+                    <div class="col-4 col-md-4">
+                        <a href="./index.html">
+                            <img src="assets/images/material/footwear-logo.svg" width="190" class="img-fluid"
+                                alt="logo-brand" />
+                        </a>
+                    </div>
+
+                    <div class="col-4 col-md-8">
+                        <div class="row">
+                            <div class="col-12 col-12 d-flex justify-content-end gap-3">
+                                <form id="form-search" action="#" class="d-none d-md-block">
+                                    <input type="text" class="input-search" name="search"
+                                        placeholder="Find Something Famous For You" />
+                                    <button type="submit" class="btn-submit">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </button>
+                                </form>
+                                <a href="#" class="wrap-cart d-flex align-items-center">
+                                    <i class="fa-regular fa-heart fs-4"></i>
+                                    <span class="d-none d-md-block ms-1">Wishlist</span>
+                                </a>
+                                <a href="#" class="wrap-cart d-flex align-items-center">
+                                    <i class="uil uil-shopping-bag fs-4"></i>
+                                    <span class="d-none d-md-block ms-1">Cart</span> [0]
+                                </a>
+                            </div>
+                        </div>
+
+
+                        <div class="row pt-3">
+                            <div class="navigation__menu">
+                                <div class="d-md-none pt-3 px-5">
+                                    <!-- No Logged -->
+                                    <!-- <a href="#" class="wrap-cart d-flex align-items-center mb-3">
+                                        <p class="m-0 text-decoration-underline fw-semibold">Sign in / Join Now</p>
+                                    </a>  -->
+
+                                    <!-- Logined -->
+                                    <div class="text-light">
+                                        <img src="./assets/images/avatars/avatar.jpg"
+                                            class="img-fluid rounded-circle avatar-img" width="35px" alt="" />
+                                        <span class="ms-1 text-dark">Nguyen thanh dung</span>
+                                    </div>
+                                    <ul class="ps-5">
+                                        <li class="mb-1"><a href="#">View Profile</a></li>
+                                        <li class="mb-1"><a href="#">Change Password</a></li>
+                                        <li class="mb-1"><a href="#">View Addresses</a></li>
+                                        <li class="mb-1"><a href="#">Logout</a></li>
+                                    </ul>
+                                </div>
+                                <div class="wrap-search-mobile"></div>
+
+                                <ul class="nav">
+                                    <li class="nav__item">
+                                        <div class="nav__item-wrap-mobile pb-md-2">
+                                            <a href="./product-list.html" class="nav-link d-none d-md-block">Women</a>
+                                            <p class="nav-link d-md-none m-0">Women</p>
+                                            <i class="uil uil-plus d-block d-md-none fs-2"></i>
+                                        </div>
+                                        <div class="megamenu-container px-md-4">
+                                            <div class="megamenu">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="row">
+                                                            <div>
+                                                                <strong>Women's Shoes</strong>
+                                                            </div>
+                                                            <ul>
+                                                                <li><a href="#">View All</a></li>
+                                                                <li><a href="#">New Arrivals</a></li>
+                                                                <li><a href="#">Sneakers & Althletics</a></li>
+                                                                <li><a href="#">Boots</a></li>
+                                                                <li><a href="#">Heels</a></li>
+                                                                <li><a href="#">Flats</a></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="row pt-2">
+                                                            <div>
+                                                                <strong>Sneakers and Athletics</strong>
+                                                            </div>
+                                                            <ul>
+                                                                <li><a href="#">View All</a></li>
+                                                                <li><a href="#">Running Shoes</a></li>
+                                                                <li><a href="#">Walking Shoes</a></li>
+                                                                <li><a href="#">Lifestyle & Fashion</a></li>
+                                                                <li><a href="#">Canvas Shoes</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="row">
+                                                            <div>
+                                                                <strong>Shop, Style & More</strong>
+                                                            </div>
+                                                            <ul>
+                                                                <li><a href="#">Boot Shop</a></li>
+                                                                <li><a href="#">Sneaker Shop</a></li>
+                                                                <li><a href="#">Active Shop</a></li>
+                                                                <li><a href="#">Sale</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="row">
+                                                            <img src="./assets/images/material/fall_22_mega_nav_bootshop.jpg"
+                                                                class="img-fluid" alt="" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="nav__item">
+                                        <div class="nav__item-wrap-mobile pb-md-2">
+                                            <a href="./product-list.html" class="nav-link d-none d-md-block">Men</a>
+                                            <p class="nav-link d-md-none m-0">Men</p>
+                                            <i class="uil uil-plus d-block d-md-none fs-2"></i>
+                                        </div>
+                                        <div class="megamenu-container px-md-4">
+                                            <div class="megamenu">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="row">
+                                                            <div>
+                                                                <strong>Women's Shoes</strong>
+                                                            </div>
+                                                            <ul>
+                                                                <li><a href="#">View All</a></li>
+                                                                <li><a href="#">New Arrivals</a></li>
+                                                                <li><a href="#">Sneakers & Althletics</a></li>
+                                                                <li><a href="#">Boots</a></li>
+                                                                <li><a href="#">Heels</a></li>
+                                                                <li><a href="#">Flats</a></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="row pt-2">
+                                                            <div>
+                                                                <strong>Sneakers and Athletics</strong>
+                                                            </div>
+                                                            <ul>
+                                                                <li><a href="#">View All</a></li>
+                                                                <li><a href="#">Running Shoes</a></li>
+                                                                <li><a href="#">Walking Shoes</a></li>
+                                                                <li><a href="#">Lifestyle & Fashion</a></li>
+                                                                <li><a href="#">Canvas Shoes</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="row">
+                                                            <div>
+                                                                <strong>Shop, Style & More</strong>
+                                                            </div>
+                                                            <ul>
+                                                                <li><a href="#">Boot Shop</a></li>
+                                                                <li><a href="#">Sneaker Shop</a></li>
+                                                                <li><a href="#">Active Shop</a></li>
+                                                                <li><a href="#">Sale</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="row">
+                                                            <img src="./assets/images/material/fall_22_mega_nav_sneakershop.jpg"
+                                                                class="img-fluid" alt="" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="nav__item">
+                                        <div class="nav__item-wrap-mobile pb-md-2">
+                                            <a href="./brands.html" class="nav-link">Brands</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav__item">
+                                        <div class="nav__item-wrap-mobile pb-md-2">
+                                            <a href="http://www.nguyenthanhdung.tk/" target="_blank"
+                                                class="nav-link">About</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav__item">
+                                        <div class="nav__item-wrap-mobile pb-md-2">
+                                            <a href="./contact.html" class="nav-link active">Contact</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main">
+        <div class="container">
+            <a href="./product-list.html" class="text-dark"><i class="fa-solid fa-angle-left"></i> Back To Result</a>
+            <nav aria-label="breadcrumb" class="mt-2 mb-5">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#"><u>Shoes</u></a></li>
+                    <li class="breadcrumb-item"><u>Women</u></li>
+                    <li class="breadcrumb-item" aria-current="page"><u>Sneaker</u></li>
+                </ol>
+            </nav>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="wrap-slider-product">
+                        <div class="main-img">
+                            <span class="control prev">
+                                <i class="fa-solid fa-angle-left"></i>
+                            </span>
+                            <span class="control next">
+                                <i class="fa-solid fa-angle-right"></i>
+                            </span>
+                            <div class="img-wrap" onclick="HandleShowLightbox(event)">
+                                <img src="./assets/images/products/Image/20220731001046344.jpg" alt="main image" />
+                            </div>
+                        </div>
+                        <div class="list-img">
+                            <div>
+                                <img src="./assets/images/products/Image/20220731001046344.jpg" alt="" />
+                            </div>
+                            <div>
+                                <img src="./assets/images/products/ImageList/20220731001046344/1.jpg" alt="image gallery" />
+                            </div>
+                            <div>
+                                <img src="./assets/images/products/ImageList/20220731001046344/2.jpg" alt="image gallery" />
+                            </div>
+                            <div>
+                                <img src="./assets/images/products/ImageList/20220731001046344/3.jpg" alt="image gallery" />
+                            </div>
+            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus quaerat ducimus eos fugit sit ullam facere nisi ratione. Aut porro delectus natus beatae fugit velit, assumenda error iure id laudantium!
+
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus quaerat ducimus eos fugit sit ullam facere nisi ratione. Aut porro delectus natus beatae fugit velit, assumenda error iure id laudantium!
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p class="fw-semibold">About Footwear</p>
+                    <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
+                        unorthographic life</p>
+                    <ul class="social-icons">
+                        <li class="d-inline-block me-2 fs-4"><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                        <li class="d-inline-block me-2 fs-4"><a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        </li>
+                        <li class="d-inline-block me-2 fs-4"><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
+                        <li class="d-inline-block me-2 fs-4"><a href="#"><i class="fa-brands fa-skype"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <p class="fw-semibold">Customer Care</p>
+                    <ul>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Returns/Exchange</a></li>
+                        <li><a href="#">Gift Voucher</a></li>
+                        <li><a href="#">Wishlist</a></li>
+                        <li><a href="#">Special</a></li>
+                        <li><a href="#">Customer Services</a></li>
+                        <li><a href="#">Site maps</a></li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <p class="fw-semibold">Information</p>
+                    <ul>
+                        <li><a href="#">About us</a></li>
+                        <li><a href="#">Delivery Information</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Order Tracking</a></li>
+                    </ul>
+                </div>
+
+                <div class="col">
+                    <p class="fw-semibold">News</p>
+                    <ul>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Exhibitions</a></li>
+                    </ul>
+                </div>
+
+                <div class="col">
+                    <p class="fw-semibold">Contact Information</p>
+                    <ul>
+                        <li>291 South 21th Street, <br> Suite 721 New York NY 10016</li>
+                        <li><a href="tel://1234567920">+ 0706 437167</a></li>
+                        <li><a href="mailto:ntdung8124@gmail.com">ntdung8124@gmail.com</a></li>
+                        <li><a href="http://nguyenthanhdung.tk/">nguyenthanhdung.tk</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPT -->
+    <script src="./assets/js/jquery.min.js"></script>
+    <script src="./assets/js/swiper-bundle.min.js"></script>
+    <script src="./assets/js/scrollreveal.js"></script>
+    <script src="./assets/js/popper.min.js"></script>
+    <script src="./assets/js/bootstrap.min.js"></script>
+    <script src="./assets/js/toastr.min.js"></script>
+
+    <script src="./assets/js/app.js"></script>
+</body>
+
+</html>
+
+<!-- <button class="btn btn-primary btn-custom-loading"><div class="loader"></div><span>Detail</span></button> -->
