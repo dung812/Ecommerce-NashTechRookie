@@ -225,13 +225,54 @@ function HandleShowLightbox(event) {
                 <img src= "${imageSrc}"  alt="" class="img-fluid lightbox-image" />
             </div>
         </div> `;
-    document.body.insertAdjacentHTML("beforeend",templateLightbox);
+    document.body.insertAdjacentHTML("beforeend", templateLightbox);
 }
 
 /*==================== HIDDEN LIGHT BOX ====================*/
-function HandleHideLightbox (event) {
-    if(event.target.matches(".lightbox")){
+function HandleHideLightbox(event) {
+    if (event.target.matches(".lightbox")) {
         event.target.parentNode.removeChild(event.target);
     }
 }
 
+
+/*==================== ACTIVE SIZE OPTION ====================*/
+const sizeItem = document.querySelectorAll(".size-item");
+sizeItem && sizeItem.forEach(item => item.addEventListener("click", (e) => {
+    sizeItem.forEach(item => {
+        item.classList.contains("active") && item.classList.remove("active")
+    })
+
+    e.target.classList.add("active");
+}))
+
+// Handle quanlity input
+function ValidateQuanlity(event) {
+    if (parseInt(event.target.value) < 1) {
+        alert("Invalid quantity")
+        event.target.value = 1;
+    }
+    if (parseInt(event.target.value) > 10) {
+        alert("Can't buy more than 10 product")
+        event.target.value = 1;
+    }
+}
+
+
+function IncreaseQuanlity(event) {
+    const inputVal = document.querySelector('input[name="quantity"]').value;
+    if (parseInt(inputVal) >= 10) {
+        alert("Can't buy more than 10 product")
+        return 0;
+    }
+    document.querySelector('input[name="quantity"]').value = parseInt(inputVal) + 1;
+}
+
+
+function DecreaseQuanlity(event) {
+    const inputVal = document.querySelector('input[name="quantity"]').value;
+    if (parseInt(inputVal) <= 1) {
+        return 0;
+    }
+    document.querySelector('input[name="quantity"]').value = parseInt(inputVal) - 1;
+}

@@ -65,13 +65,13 @@ ul, ol {
 }
 ul li {
     list-style-type: none;
-
 }
 
 /*==================== COMMON  ====================*/
 body.unable-scroll {
     overflow: hidden;
 }
+
 .overlay {
     display: none;
     position: fixed;
@@ -414,6 +414,10 @@ footer ul li {
 
 /*! PRODUCT */
 /* Product card */
+.old-price {
+    color: #ccc;
+}
+
 .single-product {
     position: relative;
     overflow: hidden;
@@ -487,18 +491,6 @@ footer ul li {
     width: 100%;
     height: auto;
 }
-/* .product-banner {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    min-height: 300px;
-    background: url(../images/material/banner.webp);
-    background-position: bottom;
-    background-size: cover;
-}
- */
 
 .breadcrumb-item.active {
     color: var(--third-color);
@@ -576,7 +568,7 @@ footer ul li {
 /*! PRODUCT DETAIL */
 /* Thumbnail product carousel */
 .wrap-slider-product {
-	box-shadow: 0 0 10px #bbb;
+	/* box-shadow: 0 0 10px #bbb; */
 }
 
 .wrap-slider-product img {
@@ -597,7 +589,7 @@ footer ul li {
 	top: 50%;
 	transform: translateY(-50%);
 	font-size: 40px;
-	color: #646262;
+	color: #bbb;
 	cursor: pointer;
 }
 
@@ -655,4 +647,155 @@ footer ul li {
     align-items: center;
     justify-content: space-between;
     padding: 0 25px;
+}
+
+/* Product info */
+.size-wrap {
+    display: flex;
+    gap: 2%;
+}
+
+.size-item {
+    width: 40px;
+    height: 40px;
+    color: #fff;
+    background: #cccccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.size-item.active {
+    background: #616161;
+}
+
+.btn-quantity {
+    width: 40px;
+    height: 40px;
+    color: #000;
+    border-radius: 4px;
+    background: #e6e6e6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.btn-quantity:active {
+    background: #b7b6b6;
+}
+
+.product-desc a {
+    text-decoration: underline;
+    color: #2b2bf0;
+}
+
+.product-desc ul, ol {
+    padding-left: 2rem;
+}
+.product-desc ul li {
+    list-style-type: circle;
+}
+
+.nav-item .nav-link {
+    color: #adadad!important;
+}
+
+.nav-item .nav-link.active {
+    color: inherit!important;
+}
+
+
+
+/* Rating star */
+.star-widget input {
+    display: none;
+}
+.star-widget .label-rate {
+    font-size: 25px;
+    color: #cbcbcb;
+    padding: 10px;
+    float:right;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.star-rate-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.input-rate[name='rate']:not(:checked) ~ .label-rate:hover,
+.input-rate[name='rate']:not(:checked) ~ .label-rate:hover ~ .label-rate {
+    color: #fd4;
+}
+
+.input-rate:checked ~ .label-rate {
+    color: #fd4;
+}
+
+.input-rate#rate-5:checked ~ .label-rate {
+    color: #fe7;
+    text-shadow: 0 0 20px #952;
+}
+
+#rate-1:checked ~ form header:before {
+    content: "I just hate it ";
+}
+
+#rate-2:checked ~ form header:before {
+    content: "I don't like it ";
+}
+
+#rate-3:checked ~ form header:before {
+    content: "It is awesome ";
+}
+
+#rate-4:checked ~ form header:before {
+    content: "I just like it ";
+}
+
+#rate-5:checked ~ form header:before {
+    content: "I just love it ";
+}
+
+#form-comment {
+    display: none;
+}
+
+.input-rate:checked ~ #form-comment {
+    display: block!important;
+}
+
+#form-comment header {
+    width: 100%;
+    font-size: 20px;
+    color: #ffe004;
+    font-weight: 500;
+    margin: 5px 0 20px 0;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+#form-comment textarea {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    color: #000;
+    border-color: #ccc!important;
+    padding: 10px;
+    font-size: 17px;
+    font-weight: 400;
+    resize: none;
+}
+
+#form-comment textarea:focus {
+    border-color: #444!important;
+}
+
+/* Close rating star */
+
+.star-statistic {
+    padding: 2em;
+    background: #fafafa;
 }

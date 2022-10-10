@@ -18,6 +18,10 @@
         width: 300px;
         margin: 0 auto;
     }
+
+    .btn-primary {
+        width: 100%;
+    }
 }
 
 @media (min-width: 576px) {
