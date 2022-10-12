@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="./assets/images/material/Favicon.svg">
-    <title>Cart</title>
+    <title>Profile</title>
 
     <!-- Library -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
@@ -327,173 +327,157 @@
             <nav aria-label="breadcrumb" class="pb-0 py-3 border-bottom">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="./cart.html">Shopping cart</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+                    <li class="breadcrumb-item active" aria-current="page">Profile</li>
                 </ol>
             </nav>
 
-            <div class="section">
-                <div class="row justify-content-center mb-md-5">
-                    <div class="col-12 col-md-6 mb-5">
-                        <div class="process-wrap">
-                            <div class="process text-center active">
-                                <p><span>01</span></p>
-                                <h3>Shopping Cart</h3>
+            <div class="intro-section">
+                <div class="my-3">
+                    <div class="section-header">
+                        <h3 class="section-header__title">My account</h3>
+                        <a href="/User/Logout"><u>Log out</u></a>
+                    </div>
+                </div>
+                <div class="row flex-column-reverse flex-md-row">
+                    <div class="col-md-8 col-12">
+                        <h2>Order History</h2>
+                        <div class="container px-1 py-2 mx-auto">
+                            <div class="card">
+                                <div class="row px-3 pt-4 order-card-section">
+                                    <div class="col-12 col-md-6">
+                                        <h5>ORDER <a href="/order-detail/HD10112022_084054"><span class="order-id fw-bold">#HD10112022_084054</span></a></h5>
+                                    </div>
+                                    <div class="col-12 col-md-6 text-md-end mt-2 mt-md-0">
+                                        <p class="mb-0">Order date <span class="fw-bold">10/11/2022 10:40:54 PM</span></p>
+                                        <p class="mb-0">USPS <span class="fw-bold">234094567242423422898</span></p>
+                                    </div>
+                                </div>
+                                <!-- Add class 'active' to progress -->
+                                <div class="row d-flex justify-content-center" style="z-index: 99;">
+                                    <div class="col-12">
+                                        <ul id="progressbar" class="text-center">
+                                            <li class="active step0"></li>
+                                            <li class="step0"></li>
+                                            <li class="step0"></li>
+                                            <li class="step0"></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row order-card-section">
+                                    <div class="col-3 d-flex flex-column flex-md-row justify-content-center icon-content">
+                                        <img class="icon img-fluid" src="./assets/images/material/cart-status-1.png">
+                                        <p class="font-weight-bold">Order<br>Processed</p>
+                                    </div>
+                                    <div class="col-3 d-flex flex-column flex-md-row justify-content-center icon-content">
+                                        <img class="icon img-fluid" src="./assets/images/material/cart-status-2.png">
+                                        <p class="font-weight-bold">Order<br>Shipped</p> 
+                                    </div>
+                                    <div class="col-3 d-flex flex-column flex-md-row justify-content-center icon-content">
+                                        <img class="icon img-fluid" src="./assets/images/material/cart-status-3.png">
+                                        <p class="font-weight-bold">Order<br>En Route</p>
+                                    </div>
+                                    <div class="col-3 d-flex flex-column flex-md-row justify-content-center icon-content">
+                                        <img class="icon img-fluid" src="./assets/images/material/cart-status-4.png">
+                                        <p class="font-weight-bold">Order<br>Arrived</p>
+                                    </div>
+                                </div>
+                                <div class="card-footer px-sm-3 py-3 px-0">
+                                    <div class="row text-center ">
+                                        <div class="col my-auto border-line ">
+                                            <h5 class="mb-0"><a href="/order-detail/HD10112022_084054">Track</a></h5>
+                                        </div>
+                                        <div class="col my-auto border-line ">
+                                            <h5 class="mb-0"><a href="/User/DeleteOrder?orderId=HD10112022_084054&amp;customerId=1" onclick="return confirm('Are you sure you want to delete this order?')">Delete</a></h5>
+                                        </div>
+                                        <div class="col my-auto border-line ">
+                                            <h5 class="mb-0"><a href="#">Pre-pay</a></h5>
+                                        </div>
+                                        <div class="col my-auto mx-0 px-0 cursor-pointer"><img class="img-fluid cursor-pointer" src="./assets/images/material/three-dot.png" width="30" height="30"></div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="process text-center active">
-                                <p><span>02</span></p>
-                                <h3>Checkout</h3>
-                            </div>
-                            <div class="process text-center">
-                                <p><span>03</span></p>
-                                <h3>Order Complete</h3>
+                        </div>
+                        <div class="container px-1 py-2 mx-auto">
+                            <div class="card">
+                                <div class="row px-3 pt-4 order-card-section">
+                                    <div class="col-12 col-md-6">
+                                        <h5>ORDER <a href="/order-detail/HD10112022_084054"><span class="order-id fw-bold">#HD10112022_084054</span></a></h5>
+                                    </div>
+                                    <div class="col-12 col-md-6 text-md-end mt-2 mt-md-0">
+                                        <p class="mb-0">Order date <span class="fw-bold">10/11/2022 10:40:54 PM</span></p>
+                                        <p class="mb-0">USPS <span class="fw-bold">234094567242423422898</span></p>
+                                    </div>
+                                </div>
+                                <!-- Add class 'active' to progress -->
+                                <div class="row d-flex justify-content-center" style="z-index: 99;">
+                                    <div class="col-12">
+                                        <ul id="progressbar" class="text-center">
+                                            <li class="active step0"></li>
+                                            <li class="step0"></li>
+                                            <li class="step0"></li>
+                                            <li class="step0"></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row order-card-section">
+                                    <div class="col-3 d-flex flex-column flex-md-row justify-content-center icon-content">
+                                        <img class="icon img-fluid" src="./assets/images/material/cart-status-1.png">
+                                        <p class="font-weight-bold">Order<br>Processed</p>
+                                    </div>
+                                    <div class="col-3 d-flex flex-column flex-md-row justify-content-center icon-content">
+                                        <img class="icon img-fluid" src="./assets/images/material/cart-status-2.png">
+                                        <p class="font-weight-bold">Order<br>Shipped</p> 
+                                    </div>
+                                    <div class="col-3 d-flex flex-column flex-md-row justify-content-center icon-content">
+                                        <img class="icon img-fluid" src="./assets/images/material/cart-status-3.png">
+                                        <p class="font-weight-bold">Order<br>En Route</p>
+                                    </div>
+                                    <div class="col-3 d-flex flex-column flex-md-row justify-content-center icon-content">
+                                        <img class="icon img-fluid" src="./assets/images/material/cart-status-4.png">
+                                        <p class="font-weight-bold">Order<br>Arrived</p>
+                                    </div>
+                                </div>
+                                <div class="card-footer px-sm-3 py-3 px-0">
+                                    <div class="row text-center ">
+                                        <div class="col my-auto border-line ">
+                                            <h5 class="mb-0"><a href="/order-detail/HD10112022_084054">Track</a></h5>
+                                        </div>
+                                        <div class="col my-auto border-line ">
+                                            <h5 class="mb-0"><a href="/User/DeleteOrder?orderId=HD10112022_084054&amp;customerId=1" onclick="return confirm('Are you sure you want to delete this order?')">Delete</a></h5>
+                                        </div>
+                                        <div class="col my-auto border-line ">
+                                            <h5 class="mb-0"><a href="#">Pre-pay</a></h5>
+                                        </div>
+                                        <div class="col my-auto mx-0 px-0 cursor-pointer"><img class="img-fluid cursor-pointer" src="./assets/images/material/three-dot.png" width="30" height="30"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="row mt-5">
-                    <div class="col-12 col-md-8">
-                        <div class="wrap-checkout">
-                            <form method="post" action="#">
-                                <!-- <input type="hidden" name="customerId" value="1">
-                                <input type="hidden" name="paymentId" value="1"> -->
-                                <h3 class="mb-4">Billing Details</h3>
-                                <div>
-                                    <h5>Contact information</h5>
-                                    <div class="customer-info">
-                                        <div>
-                                            <img src="./assets/images/avatars/avatar.jpg" class="img-fluid rounded-circle" alt="avatar customer">
-                                        </div>
-                                        <p>
-                                            Nguyen Thanh Dung
-                                            <span class="contact-gmail">knguyn16@gmail.com</span>
-                                        </p>
-                                    </div>
+                    <div class="col-md-4 col-12">
+                        <h3>Account details</h3>
+                        <div>
+                            <form method="post" action="#" id="change-avatar">
+                                <!-- <input type="hidden" value="1" name="customerId"> -->
+                                <div class="position-relative">
+                                    <img id="avatar-img" src="./assets/images/avatars/avatar.jpg" class="rounded-circle img-fluid d-block mx-auto" width="35%">
+                                    <input type="file" class="form-control w- mx-auto d-none" id="file" name="file">
+                                    <label for="file" class="btn-changeAva"><i class="fa-solid fa-camera"></i></label>
                                 </div>
-                                <div class="checkout-address mt-4">
-                                    <h5>Shipping address</h5>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="country">Select Your Address</label>
-                                                <div class="form-field">
-                                                    <i class="uil uil-arrow-down icon"></i>
-                                                    <select name="address-list" id="address" class="form-control">
-                                                        <option value="Nguyễn Thanh Dũng, +844706437167, QN" selected="">Nguyen Thanh Dung, +844706437167, Quy Nhơn City <span>(Default address)</span></option>
-                                                        <option value="Nguyễn Thanh Dũng, +844706437167, QN">Nguyen Thanh Dung, +844706437167, Thạnh Lộc q12</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="first-name">First Name</label>
-                                                <input type="text" id="first-name" name="first-name" class="form-control" placeholder="" required="">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="last-name">Last Name</label>
-                                                <input type="text" id="last-name" name="last-name" class="form-control" placeholder="" required="">
-                                            </div>
-                                        </div>
-                
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="phone">Phone number</label>
-                                                <input type="tel" id="phone" name="phone" class="form-control" placeholder="">
-                                            </div>
-                                        </div>
-                
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="address">Address</label>
-                                                <input type="text" id="address" name="address" class="form-control" placeholder="">
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="text-center mt-2">
+                                    <button type="submit" class="btn btn-primary">Change avatar</button>
                                 </div>
                             </form>
                         </div>
-
-                    </div>
-
-                    <div class="col-12 col-md-4 mt-4 mt-md-0">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="cart-detail wrap-checkout">
-                                    <h5 class="mb-4">Cart Total</h5>
-                                    <div>
-                                        <div class="row my-3">
-                                            <div class="col-8">Men's Boston Soft Footbed Clog - Size: 39 (Qty: 1)</div>
-                                            <div class="col-4 text-end">$224</div>
-                                        </div>
-                                        <div class="row my-3">
-                                            <div class="col-8">Men's Boston Soft Footbed Clog - Size: 39 (Qty: 1)</div>
-                                            <div class="col-4 text-end">$224</div>
-                                        </div>
-
-                                        <hr>
-
-                                        <div class="row mt-2">
-                                            <div class="col-8">Subtotal</div>
-                                            <div class="col-4 text-end">$224</div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col-8">Shipping</div>
-                                            <div class="col-4 text-end">free</div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col-8">Order Total</div>
-                                            <div class="col-4 fw-bold fs-6 text-end">$224</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-4">
-                            <div class="col-12">
-                                <div class="wrap-checkout">
-                                    <h5 class="mb-4">Cart Total</h5>
-                                    <div class="form-group my-4">
-                                        <div class="col-md-12">
-                                            <div class="radio">
-                                                <label><input type="radio" name="optpayment" value="1" onclick="ChangeActionPayment(this);" checked=""> Cash on delivery</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group my-4">
-                                        <div class="col-md-12">
-                                            <div class="radio">
-                                                <label><input type="radio" name="optpayment" value="2" onclick="ChangeActionPayment(this);"> Paypal</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" value="" onchange="document.getElementById('btn-submit').classList.toggle('disabled'); document.querySelector('.btn-submit-paypal').classList.toggle('disabled')"> I have read and accept the terms and conditions</label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mt-4">
-                            <div class="col-md-12 text-center">
-                                <div class="btn btn-primary disabled" id="btn-submit"><a href="./success-order.html" style="color:#fff">Place an order</a></div>
-                                <!-- <div class="btn btn-primary disabled" id="btn-submit">Place an order</div> -->
-                                <a href="./success-order.html" class="btn btn-submit-paypal btn-custom-loading disabled d-none">
-                                    <div class="loader"></div><img src="./assets/images/material/paypalicon.svg" class="img-fluid"><img src="./assets/images/material/paypalcontent.svg" class="img-fluid w-50 paypal-icon">
-                                </a>
-                            </div>
-                        </div>
-
+            
+                        <p class="h5 mt-3">Nguyễn Thanh Dũng</p>
+            
+                        <p>Nguyễn Thanh Dũng<br>+844706437167<br>QN</p>
+            
+                        <p><a href="./addresses.html" class="text-link"><u>View addresses (1)</u></a></p>
                     </div>
                 </div>
+
             </div>
         </div>
 
