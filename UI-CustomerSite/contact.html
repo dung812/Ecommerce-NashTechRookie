@@ -146,7 +146,7 @@
                                     <i class="fa-regular fa-heart fs-4"></i>
                                     <span class="d-none d-md-block ms-1">Wishlist</span>
                                 </a>
-                                <a href="#" class="wrap-cart d-flex align-items-center">
+                                <a href="./cart.html" class="wrap-cart d-flex align-items-center">
                                     <i class="uil uil-shopping-bag fs-4"></i>
                                     <span class="d-none d-md-block ms-1">Cart</span> [0]
                                 </a>
@@ -180,7 +180,7 @@
                                 <ul class="nav">
                                     <li class="nav__item">
                                         <div class="nav__item-wrap-mobile pb-md-2">
-                                            <a href="./product-list.html" class="nav-link d-none d-md-block active">Women</a>
+                                            <a href="./product-list.html" class="nav-link d-none d-md-block">Women</a>
                                             <p class="nav-link d-md-none m-0">Women</p>
                                             <i class="uil uil-plus d-block d-md-none fs-2"></i>
                                         </div>
@@ -309,7 +309,7 @@
                                     </li>
                                     <li class="nav__item">
                                         <div class="nav__item-wrap-mobile pb-md-2">
-                                            <a href="./contact.html" class="nav-link">Contact</a>
+                                            <a href="./contact.html" class="nav-link active">Contact</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -323,9 +323,86 @@
 
 
     <div class="main pb-5">
+        <div class="container mt-4">
+            <nav aria-label="breadcrumb" class="pb-0 py-3 border-bottom">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Contact</li>
+                </ol>
+            </nav>
 
+            <div class="section">
+                <div>
+                    <h3 class="text-center text-md-start">Contact information</h3>
+                    <div class="row mt-3">
+                        <div class="col-12 col-md-3 mt-2 md-md-0">
+                            <i class="fa-solid fa-location-dot me-2 fs-5"></i> 198 West 21th Street, Suite 721 New York NY 10016
+                        </div>
+                        <div class="col-12 col-md-3 mt-2 md-md-0">
+                            <a href="tel: 0706437167"><i class="fa-solid fa-phone me-2 fs-5"></i> +0706 437 167</a>
+                        </div>
+                        <div class="col-12 col-md-3 mt-2 md-md-0">
+                            <a href="mailto: ntdung8124@gmail.com"><i class="fa-solid fa-envelope me-2 fs-5"></i> ntdung8124@gmail.com</a>
+                        </div>
+                        <div class="col-12 col-md-3 mt-2 md-md-0">
+                            <a href="http://www.nguyenthanhdung.tk/"><i class="fa-solid fa-globe me-2 fs-5"></i> http://www.nguyenthanhdung.tk</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center mt-5">
+                    <div class="col-md-6">
+                        <div class="contact-wrap">
+                            <h3 class="text-center">Get In Touch</h3>
+                            <form id="contact-form" class="font-weight-bold">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="name" class="form-label fw-semibold">Full name</label>
+                                            <div>
+                                                <input type="text" id="Name" name="Name" class="form-control" placeholder="Your name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="email" class="form-label fw-semibold">Email</label>
+                                            <div>
+                                                <input type="text" id="email" name="Email" class="form-control" placeholder="Your email address">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="subject" class="form-label fw-semibold">Subject</label>
+                                            <div>
+                                                <input type="text" id="subject" name="Subject" class="form-control" placeholder="Your subject of this message">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="message" class="form-label fw-semibold">Message</label>
+                                            <div>
+                                                <textarea id="message" name="Message" cols="30" rows="10" class="form-control" placeholder="Say something about us"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 mt-2">
+                                        <div class="form-group text-end">
+                                            <input type="submit" value="Send Message" class="btn btn-primary">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
     </div>
+
     <footer>
         <div class="container">
             <div class="row">

@@ -246,6 +246,9 @@ sizeItem && sizeItem.forEach(item => item.addEventListener("click", (e) => {
     e.target.classList.add("active");
 }))
 
+
+
+/*==================== QUANTITY PRODUCT CART ====================*/
 // Handle quanlity input
 function ValidateQuanlity(event) {
     if (parseInt(event.target.value) < 1) {
@@ -260,19 +263,106 @@ function ValidateQuanlity(event) {
 
 
 function IncreaseQuanlity(event) {
-    const inputVal = document.querySelector('input[name="quantity"]').value;
+    const inputVal = event.target.parentNode.querySelector('input[name="quantity"]').value;
     if (parseInt(inputVal) >= 10) {
         alert("Can't buy more than 10 product")
         return 0;
     }
-    document.querySelector('input[name="quantity"]').value = parseInt(inputVal) + 1;
+    event.target.parentNode.querySelector('input[name="quantity"]').value = parseInt(inputVal) + 1;
 }
 
 
 function DecreaseQuanlity(event) {
-    const inputVal = document.querySelector('input[name="quantity"]').value;
+    const inputVal = event.target.parentNode.querySelector('input[name="quantity"]').value;
     if (parseInt(inputVal) <= 1) {
         return 0;
     }
-    document.querySelector('input[name="quantity"]').value = parseInt(inputVal) - 1;
+    event.target.parentNode.querySelector('input[name="quantity"]').value = parseInt(inputVal) - 1;
 }
+
+
+/*==================== CHANGE BUTTON CHECKOUT ====================*/
+// Change link action form based on payment
+function ChangeActionPayment(myRadio) {
+    var paymentContent = myRadio.parentNode.textContent.trim();
+    var currentValue = myRadio.value;
+
+    console.log(paymentContent)
+
+    if (paymentContent === "Cash on delivery") {
+        // Choose cash on delivery
+        const btnSubmit = document.querySelector("#btn-submit")
+        const btnSubmitPaypal = document.querySelector(".btn-submit-paypal")
+
+        btnSubmit.classList.remove("d-none");
+        btnSubmitPaypal.classList.add("d-none");
+    }
+    else if (paymentContent === "Paypal") {
+        // Choose paypal
+        const btnSubmit = document.querySelector("#btn-submit")
+        const btnSubmitPaypal = document.querySelector(".btn-submit-paypal")
+
+        btnSubmit.classList.add("d-none");
+        btnSubmitPaypal.classList.remove("d-none");
+
+    }
+
+}
+
+
+
+/*==================== HANDLE EVENT ADDRESS LIST OF CUSTOMER ====================*/
+const btnAddAddress = document.querySelector("button[name='add']");
+// const btnDeleteAddress = document.querySelectorAll("button[name='delete']");
+const btnShowFormUpdate = document.querySelectorAll("button[name='edit']");
+const btnCancelAdd = document.querySelector("button[name='cancel-add']");
+
+// Handle click button add show form add new address
+btnAddAddress && btnAddAddress.addEventListener("click", function (e) {
+    const addAddress = document.querySelector(".add-address");
+    addAddress.classList.toggle("d-none");
+})
+
+// Handle click button update show form update address
+btnShowFormUpdate && btnShowFormUpdate.forEach(item => item.addEventListener("click", function (e) {
+    const updateAddress = e.target.parentNode.parentNode.querySelector(".update-address");
+    updateAddress && updateAddress.classList.toggle("d-none");
+}));
+
+// Handle click button cancel of add hide form
+
+btnCancelAdd && btnCancelAdd.addEventListener("click", function (e) {
+    const addAddress = document.querySelector(".add-address");
+    addAddress.classList.add("d-none");
+})
+
+// Handle click button cancel of update hide form
+function HandleHideFormUpdate(event) {
+    const updateAddress = event.target.parentNode.parentNode.parentNode.querySelector(".update-address")
+    updateAddress && updateAddress.classList.add("d-none");
+}
+
+
+
+/*==================== HANDLE EVENT PROFILE OF CUSTOMER ====================*/
+// Preview avatar
+const inputAvatarImage = document.querySelector("input[name='file']");
+inputAvatarImage && inputAvatarImage.addEventListener("change", function (event) {
+    var output = document.getElementById('avatar-img');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function () {
+        URL.revokeObjectURL(output.src)
+    }
+})
+
+var formAvatar = document.querySelector("#change-avatar");
+formAvatar && formAvatar.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    if (!this.elements["file"].value) {
+        alert("Please choose your avatar!")
+    }
+    else {
+        this.submit();
+    }
+})
