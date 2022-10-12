@@ -3,7 +3,7 @@ Họ tên: Nguyễn Thanh Dũng
 
 ## Source structure
 .
-└── Assignment-Ecommerce-Rookie
+└── Assignment-Ecommerce-Rookie <br>
 &nbsp;&nbsp;&nbsp;&nbsp;├── Ecommerce-Project       : Thư mục project ASP NET core mvc <br>
 &nbsp;&nbsp;&nbsp;&nbsp;├── Database                :	Thư mục lưu trữ database   <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ &nbsp;└── Query.sql           : File query insert dữ liệu database <br>	
