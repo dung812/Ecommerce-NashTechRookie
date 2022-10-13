@@ -1,0 +1,17 @@
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.Data\obj\Debug\net6.0\ShoesShop.Data.csproj.AssemblyReference.cache
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.Data\obj\Debug\net6.0\ShoesShop.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.Data\obj\Debug\net6.0\ShoesShop.Data.AssemblyInfoInputs.cache
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.Data\obj\Debug\net6.0\ShoesShop.Data.AssemblyInfo.cs
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.Data\obj\Debug\net6.0\ShoesShop.Data.csproj.CoreCompileInputs.cache
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.Data\bin\Debug\net6.0\ShoesShop.Data.deps.json
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.Data\bin\Debug\net6.0\ShoesShop.Data.runtimeconfig.json
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.Data\bin\Debug\net6.0\ShoesShop.Data.dll
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.Data\bin\Debug\net6.0\ShoesShop.Data.pdb
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.Data\bin\Debug\net6.0\ShoesShop.Domain.dll
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.Data\bin\Debug\net6.0\ShoesShop.Domain.pdb
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.Data\obj\Debug\net6.0\ShoesShop.Data.csproj.CopyComplete
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.Data\obj\Debug\net6.0\ShoesShop.Data.dll
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.Data\obj\Debug\net6.0\refint\ShoesShop.Data.dll
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.Data\obj\Debug\net6.0\ShoesShop.Data.pdb
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.Data\obj\Debug\net6.0\ShoesShop.Data.genruntimeconfig.cache
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.Data\obj\Debug\net6.0\ref\ShoesShop.Data.dll

@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "ShoesShop.DTO/1.0.0": {
+        "dependencies": {
+          "ShoesShop.Domain": "1.0.0"
+        },
+        "runtime": {
+          "ShoesShop.DTO.dll": {}
+        }
+      },
+      "ShoesShop.Domain/1.0.0": {
+        "runtime": {
+          "ShoesShop.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ShoesShop.DTO/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ShoesShop.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

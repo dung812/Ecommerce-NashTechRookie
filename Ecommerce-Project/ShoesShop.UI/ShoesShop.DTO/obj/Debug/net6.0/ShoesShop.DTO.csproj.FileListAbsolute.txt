@@ -1,0 +1,15 @@
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.DTO\bin\Debug\net6.0\ShoesShop.DTO.deps.json
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.DTO\bin\Debug\net6.0\ShoesShop.DTO.dll
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.DTO\bin\Debug\net6.0\ShoesShop.DTO.pdb
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.DTO\bin\Debug\net6.0\ShoesShop.Domain.dll
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.DTO\bin\Debug\net6.0\ShoesShop.Domain.pdb
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.DTO\obj\Debug\net6.0\ShoesShop.DTO.csproj.AssemblyReference.cache
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.DTO\obj\Debug\net6.0\ShoesShop.DTO.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.DTO\obj\Debug\net6.0\ShoesShop.DTO.AssemblyInfoInputs.cache
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.DTO\obj\Debug\net6.0\ShoesShop.DTO.AssemblyInfo.cs
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.DTO\obj\Debug\net6.0\ShoesShop.DTO.csproj.CoreCompileInputs.cache
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.DTO\obj\Debug\net6.0\ShoesShop.DTO.csproj.CopyComplete
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.DTO\obj\Debug\net6.0\ShoesShop.DTO.dll
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.DTO\obj\Debug\net6.0\refint\ShoesShop.DTO.dll
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.DTO\obj\Debug\net6.0\ShoesShop.DTO.pdb
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.DTO\obj\Debug\net6.0\ref\ShoesShop.DTO.dll
