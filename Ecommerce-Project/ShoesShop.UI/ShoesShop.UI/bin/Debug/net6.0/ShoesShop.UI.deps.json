@@ -9,8 +9,7 @@
       "ShoesShop.UI/1.0.0": {
         "dependencies": {
           "ShoesShop.DTO": "1.0.0",
-          "ShoesShop.Data": "1.0.0",
-          "ShoesShop.Domain": "1.0.0"
+          "ShoesShop.Service": "1.0.0"
         },
         "runtime": {
           "ShoesShop.UI.dll": {}
@@ -436,6 +435,16 @@
         "runtime": {
           "ShoesShop.DTO.dll": {}
         }
+      },
+      "ShoesShop.Service/1.0.0": {
+        "dependencies": {
+          "ShoesShop.DTO": "1.0.0",
+          "ShoesShop.Data": "1.0.0",
+          "ShoesShop.Domain": "1.0.0"
+        },
+        "runtime": {
+          "ShoesShop.Service.dll": {}
+        }
       }
     }
   },
@@ -736,6 +745,11 @@
       "sha512": ""
     },
     "ShoesShop.DTO/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ShoesShop.Service/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

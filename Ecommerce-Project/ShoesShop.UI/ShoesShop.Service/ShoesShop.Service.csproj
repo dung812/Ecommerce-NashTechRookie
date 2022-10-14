@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ShoesShop.Data\ShoesShop.Data.csproj" />
+    <ProjectReference Include="..\ShoesShop.Domain\ShoesShop.Domain.csproj" />
+    <ProjectReference Include="..\ShoesShop.DTO\ShoesShop.DTO.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,37 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShoesShop.UI.Models;
 using System.Diagnostics;
-using Microsoft.EntityFrameworkCore;
-using ShoesShop.Data;
 using ShoesShop.DTO;
-using ShoesShop.Domain;
+using ShoesShop.Service;
 
 namespace ShoesShop.UI.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IProductService productService;
+        public HomeController(IProductService productService)
         {
-            _logger = logger;
+            this.productService = productService;
         }
 
         public IActionResult Index()
         {
-            // Test get list product
-            List<ProductViewModel> products = new List<ProductViewModel>();
-            using (var context = new ApplicationDbContext())
-            {
-                products = context.Products
-                    .TagWith("Test get list product fill data in viewmodel")
-                    .Select(m => new ProductViewModel
-                        {
-                            ProductName = m.ProductName,
-                            OriginalPrice = m.OriginalPrice
-                        }).ToList();
-            }
-            return View(products);
+            //List<ProductViewModel> products = new List<ProductViewModel>();
+            //products = productService.GetAllProduct();
+
+            //ProductViewModel getProductDetail = new ProductViewModel();
+            //getProductDetail = productService.GetSingleProduct(1);
+
+            return View();
         }
 
         public IActionResult Privacy()
