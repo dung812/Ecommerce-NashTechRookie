@@ -25,6 +25,7 @@ namespace ShoesShop.Domain
         public bool Status { get; set; }
         public Gender ProductGenderCategory { get; set; } 
         public DateTime DateCreate { get; set; } = DateTime.Now;
+        public DateTime? UpdateDate { get; set; }
         public int AdminId { get; set; }
         public int ManufactureId { get; set; }
         public int CatalogId { get; set; }
