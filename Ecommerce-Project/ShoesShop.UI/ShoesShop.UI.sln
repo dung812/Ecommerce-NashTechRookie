@@ -11,9 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoesShop.Domain", "ShoesSh
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoesShop.DTO", "ShoesShop.DTO\ShoesShop.DTO.csproj", "{35E94442-0D7E-4509-908E-C00C65F6D8C9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTesting", "UnitTesting\UnitTesting.csproj", "{B7ECFF65-4165-4686-B5A4-4EA8529C3995}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoesShop.Service", "ShoesShop.Service\ShoesShop.Service.csproj", "{51E48A5D-3CCF-4932-96B2-BA10F3558FBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoesShop.Service", "ShoesShop.Service\ShoesShop.Service.csproj", "{51E48A5D-3CCF-4932-96B2-BA10F3558FBE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +35,6 @@ Global
 		{35E94442-0D7E-4509-908E-C00C65F6D8C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35E94442-0D7E-4509-908E-C00C65F6D8C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35E94442-0D7E-4509-908E-C00C65F6D8C9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B7ECFF65-4165-4686-B5A4-4EA8529C3995}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7ECFF65-4165-4686-B5A4-4EA8529C3995}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B7ECFF65-4165-4686-B5A4-4EA8529C3995}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B7ECFF65-4165-4686-B5A4-4EA8529C3995}.Release|Any CPU.Build.0 = Release|Any CPU
 		{51E48A5D-3CCF-4932-96B2-BA10F3558FBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{51E48A5D-3CCF-4932-96B2-BA10F3558FBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51E48A5D-3CCF-4932-96B2-BA10F3558FBE}.Release|Any CPU.ActiveCfg = Release|Any CPU

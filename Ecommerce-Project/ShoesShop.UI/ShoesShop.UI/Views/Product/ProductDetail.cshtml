@@ -1,0 +1,469 @@
+﻿@{
+    ViewData["Title"] = "ProductDetail";
+}
+
+<div class="container">
+    <a href="./product-list.html" class="text-dark"><i class="fa-solid fa-angle-left"></i> Back To Result</a>
+    <nav aria-label="breadcrumb" class="mt-2 mb-5">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item">Shoes</li>
+            <li class="breadcrumb-item">Women</li>
+            <li class="breadcrumb-item active" aria-current="page"><u>Sneaker</u></li>
+        </ol>
+    </nav>
+
+    <!-- Product info-->
+    <div class="row product-section">
+        <div class="col-md-7">
+            <div class="wrap-slider-product">
+                <div class="main-img">
+                    <span class="control prev">
+                        <i class="fa-solid fa-angle-left"></i>
+                    </span>
+                    <span class="control next">
+                        <i class="fa-solid fa-angle-right"></i>
+                    </span>
+                    <div class="img-wrap" onclick="HandleShowLightbox(event)">
+                        <img src="~/images/products/Image/20220731001046344.jpg" alt="main image" />
+                    </div>
+                </div>
+                <div class="list-img">
+                    <div>
+                        <img src="~/images/products/Image/20220731001046344.jpg" alt="main image" />
+                    </div>
+                    <div>
+                        <img src="~/images/products/ImageList/20220731001046344/1.jpg" alt="image gallery" />
+                    </div>
+                    <div>
+                        <img src="~/images/products/ImageList/20220731001046344/2.jpg" alt="image gallery" />
+                    </div>
+                    <div>
+                        <img src="~/images/products/ImageList/20220731001046344/3.jpg" alt="image gallery" />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 mt-4">
+            <h4>Crocs</h4>
+            <h3>Women's Chuck Taylor All Star Hi Lift Platform Sneaker</h3>
+            <div>
+                <span class="text-end fw-bold me-1">$99</span>
+                <span class="text-start text-decoration-line-through old-price me-3">$99</span>
+                <span class="text-danger fw-bold">Save 0%</span>
+            </div>
+            <div class="wrap-star">
+                <span class="rate d-block">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    (2 Rating)
+                </span>
+            </div>
+
+            <div class="row my-3">
+                <p class="fs-5 m-0">Size</p>
+                <div class="size-wrap">
+                    <input type="radio" id="39" name="size" value="1" hidden="">
+                    <label for="39" class="size-item active">39</label>
+                    <input type="radio" id="40" name="size" value="2" hidden="">
+                    <label for="40" class="size-item">40</label>
+                    <input type="radio" id="41" name="size" value="3" hidden="">
+                    <label for="41" class="size-item">41</label>
+                    <input type="radio" id="42" name="size" value="4" hidden="">
+                    <label for="42" class="size-item">42</label>
+                </div>
+            </div>
+
+            <div class="row my-3">
+                <div class="col-12 col-md-6">
+                    <div class="input-group">
+                        <div class="quantity-left-minus btn-quantity rounded me-1" onclick="DecreaseQuanlity(event)">
+                            <i class="uil uil-minus" style="pointer-events: none;"></i>
+                        </div>
+                        <input type="number" id="quantity" name="quantity" class="form-control input-number text-center" onblur="ValidateQuanlity(event)" value="1" min="1" max="10">
+                        <div class="quantity-right-plus btn-quantity rounded ms-1" onclick="IncreaseQuanlity(event)">
+                            <i class="uil uil-plus" style="pointer-events: none;"></i>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row my-3">
+                <div class="col-sm-12">
+                    <div class="btn btn-primary btn-custom-loading btn-addtocart"><div class="loader"></div><span>Add to Cart</span></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Description/Rating product -->
+    <div class="intro-section">
+        <div class="container" style="margin-top: 10px;">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="tab" href="#desc">DESCRIPTION</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#review">REVIEW</a>
+                </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content mt-4">
+                <div class="tab-pane container product-desc active" id="desc">
+                    <p>A lace-up combat boot with standout style and comfort you’ll <a href="#">love</a>.</p>
+                    <ul>
+                        <li>SUSTAINABLY CRAFTED: Linings and topcloth made from recycled plastic bottles, recycled toe box and heel counter</li>
+                        <li>MATERIALS: Faux leather upper</li>
+                        <li>FIT: Lace-up front with back pull tab for easy on/off and padded collar for extra cushioning</li>
+                        <li>SUSTAINABLE COMFORT: Anti-microbial, anti-odor Susterra® foam insole crafted from 11% bio-based materials with soft and lightweight cushioning, built-in arch support, and a molded heel cup</li>
+                        <li>EASY LANDING COMFORT SYSTEM: Ultra-flexible and pliable design with a rounded heel, anatomical heel cup and arch for underfoot comfort, no-slip heel padding, UltimateFlex built-in flex grooves, and soft and light outsole</li>
+                        <li>STYLE: Combat-inspired lace-up boot with a lug sole</li>
+                        <li>CONSCIOUSLY PACKAGED: This style is shipped in a box made with recyclable materials &amp; soy-based inks</li>
+                    </ul>
+                </div>
+                <div class="tab-pane container fade" id="review">
+                    <div class="row">
+                        <div class="col-12 col-md-8">
+                            <h5 class="mb-4">0 Reviews</h5>
+                            <!-- No login -->
+                            <!-- <p>Your must login before comment! <a href="#" class="text-primary">Login</a></p> -->
+
+                            <div class="rate-area">
+                                <h3 class="title-rate text-center">How would you rate this product?</h3>
+                                <div class="star-rate-wrap">
+                                    <div class="star-widget">
+                                        <input type="radio" class="input-rate" name="rate" id="rate-5">
+                                        <label for="rate-5" class="fas fa-star label-rate" aria-hidden="true"></label>
+                                        <input type="radio" class="input-rate" name="rate" id="rate-4">
+                                        <label for="rate-4" class="fas fa-star label-rate" aria-hidden="true"></label>
+                                        <input type="radio" class="input-rate" name="rate" id="rate-3">
+                                        <label for="rate-3" class="fas fa-star label-rate" aria-hidden="true"></label>
+                                        <input type="radio" class="input-rate" name="rate" id="rate-2">
+                                        <label for="rate-2" class="fas fa-star label-rate" aria-hidden="true"></label>
+                                        <input type="radio" class="input-rate" name="rate" id="rate-1">
+                                        <label for="rate-1" class="fas fa-star label-rate" aria-hidden="true"></label>
+                                        <form action="/Shop/AddComment" id="form-comment" method="post">
+                                            <header></header>
+                                            <div class="form-group">
+                                                <textarea class="form-control" rows="4" id="comment" name="comment" placeholder="Writting your review!"></textarea>
+                                            </div>
+                                            <div class="form-group text-center mt-2">
+                                                <button type="submit" class="btn btn-primary btn-submit-comment btn-custom-loading"><div class="loader"></div><span>Submit review</span></button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div class="msg-success-rate">
+                                <div class="text-center text-danger fw-bold">Thanks for rating us!</div>
+                            </div> -->
+
+                            <div class="wrap-comments">
+                                <div class="review-item row mt-4">
+                                    <div class="col-2 col-md-1">
+                                        <img src="~/images/avatars/avatar.jpg" class="img-fluid rounded-circle user-img" alt="avatar image">
+                                    </div>
+                                    <div class="col-10 col-md-11">
+                                        <div class="row">
+                                            <div class="col-8">
+                                                <p>
+                                                    Nguyễn Thanh Dũng
+                                                </p>
+                                                <div class="wrap-star">
+                                                    <span class="rate d-block">
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                    </span>
+                                                </div>
+                                                <p>Good product</p>
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                <p>10/10/2022 7:50 AM</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="review-item row mt-4">
+                                    <div class="col-2 col-md-1">
+                                        <img src="~/images/avatars/justin-bieber.jpg" class="img-fluid rounded-circle user-img" alt="avatar image">
+                                    </div>
+                                    <div class="col-10 col-md-11">
+                                        <div class="row">
+                                            <div class="col-8">
+                                                <p>
+                                                    Justin Bieber
+                                                </p>
+                                                <div class="wrap-star">
+                                                    <span class="rate d-block">
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                    </span>
+                                                </div>
+                                                <p>So bad</p>
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                <p>10/10/2022 7:50 AM</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-12 col-md-4">
+                            <h5 class="mb-4 mt-4 mt-md-0">GIVE A REVIEW</h5>
+                            <div class="star-statistic">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="wrap-star">
+                                            <span class="rate d-block">
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                (0%)
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">0 Reviews</div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-6">
+                                        <div class="wrap-star">
+                                            <span class="rate d-block">
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                (0%)
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">0 Reviews</div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-6">
+                                        <div class="wrap-star">
+                                            <span class="rate d-block">
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                (0%)
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">0 Reviews</div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-6">
+                                        <div class="wrap-star">
+                                            <span class="rate d-block">
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                (0%)
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">0 Reviews</div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-6">
+                                        <div class="wrap-star">
+                                            <span class="rate d-block">
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                (0%)
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">0 Reviews</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product related-->
+    <div class="section">
+        <div class="container pb-5">
+            <div class="row">
+                <div class="col-sm-8 offset-sm-2 text-center">
+                    <h2 class="text-dark mb-5">WE THINK YOU MAY LIKE</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-3">
+                    <div class="single-product d-block">
+                        <span class="product-label">Sale</span>
+                        <div class="btn-wishlist" onclick="AddWishList(event)">
+                            <i class="fa-regular fa-heart fs-4"></i>
+                        </div>
+                        <div class="product-img">
+                            <a href="./product-detail.html">
+                                <img src="~/images/products/Image/20220731001046344.jpg" class="primary-img img-fluid" alt="product image">
+                                <img src="~/images/products/ImageList/20220731001046344/1.jpg" class="secondary-img img-fluid" alt="product image">
+                            </a>
+                        </div>
+                        <div class="product-info text-center">
+                            <h4>Crocs</h4>
+                            <a href="./product-detail.html" class="m-0">
+                                Women's Chuck Taylor All Star Hi Lift Platform Sneaker
+                                <span class="fw-bold text-danger ms-2">New</span>
+                            </a>
+                            <div class="fw-bold">
+                                <span class="text-end me-2">$99</span>
+                                <span class="text-start text-decoration-line-through old-price">$99</span>
+                            </div>
+                            <div class="wrap-star">
+                                <span class="rate d-block">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-regular fa-star"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-3">
+                    <div class="single-product d-block">
+                        <span class="product-label">Sale</span>
+                        <div class="btn-wishlist" onclick="AddWishList(event)">
+                            <i class="fa-regular fa-heart fs-4"></i>
+                        </div>
+                        <div class="product-img">
+                            <a href="#">
+                                <img src="~/images/products/Image/20220731001046344.jpg" class="primary-img img-fluid" alt="product image">
+                                <img src="~/images/products/ImageList/20220731001046344/1.jpg" class="secondary-img img-fluid" alt="product image">
+                            </a>
+                        </div>
+                        <div class="product-info text-center">
+                            <h4>Crocs</h4>
+                            <a href="#" class="m-0">
+                                Women's Chuck Taylor All Star Hi Lift Platform Sneaker
+                                <!-- <span class="fw-bold text-danger ms-2">New</span> -->
+                            </a>
+                            <div class="fw-bold">
+                                <span class="text-end me-2">$99</span>
+                                <span class="text-start text-decoration-line-through old-price">$99</span>
+                            </div>
+                            <div class="wrap-star">
+                                <span class="rate d-block">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-regular fa-star"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-3">
+                    <div class="single-product d-block">
+                        <span class="product-label">Sale</span>
+                        <div class="btn-wishlist" onclick="AddWishList(event)">
+                            <i class="fa-regular fa-heart fs-4"></i>
+                        </div>
+                        <div class="product-img">
+                            <a href="#">
+                                <img src="~/images/products/Image/20220731001046344.jpg" class="primary-img img-fluid" alt="product image">
+                                <img src="~/images/products/ImageList/20220731001046344/1.jpg" class="secondary-img img-fluid" alt="product image">
+                            </a>
+                        </div>
+                        <div class="product-info text-center">
+                            <h4>Crocs</h4>
+                            <a href="#" class="m-0">
+                                Women's Chuck Taylor All Star Hi Lift Platform Sneaker
+                                <!-- <span class="fw-bold text-danger ms-2">New</span> -->
+                            </a>
+                            <div class="fw-bold">
+                                <span class="text-end me-2">$99</span>
+                                <span class="text-start text-decoration-line-through old-price">$99</span>
+                            </div>
+                            <div class="wrap-star">
+                                <span class="rate d-block">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-regular fa-star"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-3">
+                    <div class="single-product d-block">
+                        <span class="product-label">Sale</span>
+                        <div class="btn-wishlist" onclick="AddWishList(event)">
+                            <i class="fa-regular fa-heart fs-4"></i>
+                        </div>
+                        <div class="product-img">
+                            <a href="#">
+                                <img src="~/images/products/Image/20220731001046344.jpg" class="primary-img img-fluid" alt="product image">
+                                <img src="~/images/products/ImageList/20220731001046344/1.jpg" class="secondary-img img-fluid" alt="product image">
+                            </a>
+                        </div>
+                        <div class="product-info text-center">
+                            <h4>Crocs</h4>
+                            <a href="#" class="m-0">
+                                Women's Chuck Taylor All Star Hi Lift Platform Sneaker
+                                <!-- <span class="fw-bold text-danger ms-2">New</span> -->
+                            </a>
+                            <div class="fw-bold">
+                                <span class="text-end me-2">$99</span>
+                                <span class="text-start text-decoration-line-through old-price">$99</span>
+                            </div>
+                            <div class="wrap-star">
+                                <span class="rate d-block">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-regular fa-star"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

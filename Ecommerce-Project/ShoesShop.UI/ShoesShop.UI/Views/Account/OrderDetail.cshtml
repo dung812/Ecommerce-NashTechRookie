@@ -1,0 +1,108 @@
+﻿@{
+    ViewData["Title"] = "Order detail";
+}
+
+<div class="container mt-4">
+    <nav aria-label="breadcrumb" class="pb-0 py-3 border-bottom">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Order Detail</li>
+        </ol>
+    </nav>
+
+    <div class="intro-section mt-3 mb-5 pb-5">
+        <h4 class="mb-3 text-dark text-uppercase">Order detail / #HD10112022_084054</h4>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="text-center" style="width: 45%">Product</th>
+                                    <th scope="col" class="text-center">Quality</th>
+                                    <th scope="col" class="text-center">Price</th>
+                                    <th scope="col" class="text-center">Discounted</th>
+                                    <th scope="col" class="text-center">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                    <td width="400px">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <img src="~/images/products/Image/20220731001046344.jpg" class="img-fluid">
+                                            </div>
+                                            <div class="col-md-9">
+                                                Men's Boston Soft Footbed Clog (Size: 39)
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">1</td>
+                                    <td class="text-center">
+                                        <span class="font-weight-normal">$200</span>
+                                    </td>
+                                    <td class="text-center">
+                                        -$0
+                                    </td>
+                                    <td class="text-center">
+                                        $154
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-9 text-right">
+                                        <p class="mb-0">Subtotal:</p>
+                                        <p class="mb-0">Shipping:</p>
+                                        <p class="mb-0">Discounted: </p>
+                                        <p class="font-weight-bold">Total:</p>
+                                    </div>
+                                    <div class="col-md-3 text-right">
+                                        <p class="mb-0">$154</p>
+                                        <p class="mb-0">$0</p>
+                                        <p class="mb-0">-$0</p>
+                                        <p class="font-weight-bold">$154</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 style="margin-bottom: 25px">Orderer information</h4>
+                        <p class="m-0">
+                            Nguyễn Thanh Dũng
+                        </p>
+                        <p class="m-0">
+                            +844706437167
+                        </p>
+                        <p class="m-0">
+                            QN
+                        </p>
+                    </div>
+                </div>
+                <div class="card mt-2">
+                    <div class="card-body">
+                        <h4 style="margin-bottom: 25px">Payment</h4>
+                        <p style="margin: 0">
+                            Cash on delivery
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

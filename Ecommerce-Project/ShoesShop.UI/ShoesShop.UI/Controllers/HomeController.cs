@@ -25,7 +25,7 @@ namespace ShoesShop.UI.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Contact()
         {
             return View();
         }
