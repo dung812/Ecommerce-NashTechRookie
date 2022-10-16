@@ -4,6 +4,7 @@ using System.Diagnostics;
 using ShoesShop.DTO;
 using ShoesShop.Service;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace ShoesShop.UI.Controllers
 {
@@ -11,10 +12,12 @@ namespace ShoesShop.UI.Controllers
     {
         private readonly IProductService productService;
         private readonly ICommentProductService commentProductService;
-        public HomeController(IProductService productService, ICommentProductService commentProductService)
+        private readonly IContactService contactService;
+        public HomeController(IProductService productService, ICommentProductService commentProductService, IContactService contactService)
         {
             this.productService = productService;
             this.commentProductService = commentProductService;
+            this.contactService = contactService;
         }
 
         public List<ProductViewModel> HandleAvgRatingProduct(List<ProductViewModel> list)
@@ -48,17 +51,31 @@ namespace ShoesShop.UI.Controllers
 
             return View();
         }
+
+
         [HttpGet]
         public IActionResult Contact()
         {
             return View();
         }
-        //[HttpPost]      
-        
-        //public IActionResult Contact(Contact)
-        //{
-        //    return View();
-        //}
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Contact(ContactViewModel contactViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                contactService.Create(contactViewModel);
+                TempData["success"] = "Your message has been received by us. We will contact you as soon as possible.";
+
+                return RedirectToAction("Index");
+            }
+            else 
+            {
+                TempData["error"] = "Error";
+            }
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
