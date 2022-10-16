@@ -7,6 +7,7 @@ builder.Services.AddControllersWithViews();
 
 // Registration service
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICommentProductService, CommentProductService>();
 
 
 
