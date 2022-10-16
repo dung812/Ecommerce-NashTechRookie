@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7+jNJctefPwCFqkr0NdNIrn4cBizKiOYJIN8SBLqpHWqDK6dJT1qd6JyYPf22rjsVdqcnGqBcLXfSSn9Knwc7A==",
+  "dgSpecHash": "OkGb1cr7SukptKlVKXMv6bO0jYGP33NRduFId2utZMcFkegYjF2ySsX9laFT+9UGLJjjol1XgUrFtLW0rW5O8g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\ShoesShop.UI.csproj",
+  "projectFilePath": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie-main\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\ShoesShop.UI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\NguyenDung\\.nuget\\packages\\humanizer.core\\2.2.0\\humanizer.core.2.2.0.nupkg.sha512",
     "C:\\Users\\NguyenDung\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",

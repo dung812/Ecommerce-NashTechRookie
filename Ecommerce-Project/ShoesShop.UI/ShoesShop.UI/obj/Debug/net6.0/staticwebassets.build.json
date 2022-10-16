@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Y/jMqadOw4CP5dVNoWLyS5MhVBXznVHcf5c5fWY1Kps=",
+  "Hash": "FDwvXl2zuysQG0RUdUaeTNaRQvTDUXHHTEJjUIi8jI4=",
   "Source": "ShoesShop.UI",
   "BasePath": "_content/ShoesShop.UI",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "ShoesShop.UI\\wwwroot",
       "Source": "ShoesShop.UI",
-      "ContentRoot": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie-main\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\",
       "BasePath": "_content/ShoesShop.UI",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\obj\\Debug\\net6.0\\scopedcss\\bundle\\ShoesShop.UI.styles.css",
+      "Identity": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie-main\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\obj\\Debug\\net6.0\\scopedcss\\bundle\\ShoesShop.UI.styles.css",
       "SourceId": "ShoesShop.UI",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\obj\\Debug\\net6.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie-main\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\obj\\Debug\\net6.0\\scopedcss\\bundle\\",
       "BasePath": "_content/ShoesShop.UI",
       "RelativePath": "ShoesShop.UI.styles.css",
       "AssetKind": "All",
@@ -31,13 +31,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\obj\\Debug\\net6.0\\scopedcss\\bundle\\ShoesShop.UI.styles.css"
+      "OriginalItemSpec": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie-main\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\obj\\Debug\\net6.0\\scopedcss\\bundle\\ShoesShop.UI.styles.css"
     },
     {
-      "Identity": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\ShoesShop.UI.bundle.scp.css",
+      "Identity": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie-main\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\ShoesShop.UI.bundle.scp.css",
       "SourceId": "ShoesShop.UI",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie-main\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/ShoesShop.UI",
       "RelativePath": "ShoesShop.UI.bundle.scp.css",
       "AssetKind": "All",
@@ -48,7 +48,7 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\ShoesShop.UI.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie-main\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\ShoesShop.UI.bundle.scp.css"
     }
   ]
 }

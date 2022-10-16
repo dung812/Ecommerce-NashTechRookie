@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8gf14VoInvh6DvF8liZf4zkwRiP3lEaqQRZIUBqJaAlAqdwzZf/6hi4zgOUymrLb4xz0SK4UP3U/VGawWkcO8w==",
+  "dgSpecHash": "Ne6ExO34BaSz2cx85lPco2KTWJBI6+JZJi9VTWRN0GxjZi/PdJDN96eP1XmW2RXQyZkHnPknVtJvltiyh+PQoQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.Data\\ShoesShop.Data.csproj",
+  "projectFilePath": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie-main\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.Data\\ShoesShop.Data.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\NguyenDung\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\NguyenDung\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

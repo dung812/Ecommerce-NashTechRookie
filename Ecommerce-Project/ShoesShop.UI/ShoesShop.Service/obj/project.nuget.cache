@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kmZLbcb22q8htTrfOVNEdjsKwGsjnjadC85NM5fRPEeTq8s1UN2PXm1FtdzEMfOpuNw74ZlcTwDYyMQ693kA8g==",
+  "dgSpecHash": "/ub05caNBErJrTkrOY8uWrDutCdKRrsXjHVuo8iYCIVmHulVgR2wbLtxe7KjsJOPQMp0WviYZ6ztRGMtQrOx/w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.Service\\ShoesShop.Service.csproj",
+  "projectFilePath": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie-main\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.Service\\ShoesShop.Service.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\NguyenDung\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\NguyenDung\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
