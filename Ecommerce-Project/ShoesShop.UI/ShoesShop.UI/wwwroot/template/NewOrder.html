@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Thông tin đơn hàng mới từ khách hàng: {{CustomerName}}</title>
+    <meta charset="utf-8" />
+
+</head>
+<body style=" background-color: rgb(237 237 237) !important;">
+    <div style=" background-color: #fff; border-radius: .5rem; padding: 3rem 5rem; color: #595959 !important; text-align: center; max-width: 1024px; margin: 0 auto;">
+        <h1 style="margin: 0">Footwear</h1>
+        <h1 style="font-weight: 500;">Your order is on its ways.</h1>
+        <img src="https://whizardapi.com/wp-content/uploads/2021/06/delivery.gif" alt="" style=" display: block; margin: 0 auto; width: 20%;" />
+
+        <a href="{{url}}" style="text-decoration: none; border: none; color: #fff; background-color: #007bff; border-color: #007bff; padding: 8px 24px; border-radius: .25rem; transition: color .15s; cursor: pointer; margin-top: 1.2rem;">TRACK YOUR ORDER</a>
+        <p style=" margin-top: .5rem; font-weight: 500; font-style: italic;">Please allow 24 hours to track your order.</p>
+
+        <div style=" display: grid; grid-template-columns: 1fr 1fr; text-align: left; margin-bottom: 2rem;">
+            <div style="border: 1px solid rgb(177, 177, 177); padding: .8rem 1.5rem;">
+                <p style="font-weight: bold; font-size: 1.3rem; margin-top: 0; padding: 0;">Summary:</p>
+                <div>
+                    <span style="font-weight: bold">Order:</span>
+                    <span class="col">#{{OrderId}}</span>
+                </div>
+                <div>
+                    <span style="font-weight: bold">Order Date:</span>
+                    <span class="col">{{OrderDate}}</span>
+                </div>
+                <div>
+                    <span style="font-weight: bold">Total Money:</span>
+                    <span class="col">${{TotalMoney}}</span>
+                </div>
+            </div>
+            <div style="border: 1px solid rgb(177, 177, 177); padding: .8rem 1.5rem;">
+                <p style="font-weight: bold; font-size: 1.3rem; margin-top: 0; padding: 0;">Shipping address:</p>
+                <div>
+                    <span style="font-weight: bold">Order name:</span>
+                    <span class="col">{{CustomerName}}</span>
+                </div>
+                <div>
+                    <span style="font-weight: bold">Phone:</span>
+                    <span class="col">{{Phone}}</span>
+                </div>
+                <div>
+                    <span style="font-weight: bold">Address:</span>
+                    <span class="col">{{Address}}</span>
+                </div>
+            </div>
+        </div>
+
+
+        <table border="1" style="width: 100%">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">ITEMS SHIPPED</th>
+                    <th scope="col">QTY</th>
+                    <th scope="col">PRICE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>
+                        <p class="text-left">MEN'S COURT VISION LOW SNEAKER</p>
+                    </td>
+                    <td>1</td>
+                    <td style="font-weight: bold; color: red">$75</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr />
+
+        <div style="float: right; text-align: left">
+            <div class="col-8"></div>
+            <div class="col">
+                <div>
+                    <span>Subtotal(2 items):</span>
+                    <span>$75</span>
+                </div>
+                <div>
+                    <span>Shipping</span>
+                    <span>$0</span>
+                </div>
+                <div>
+                    <span class="font-weight-bold">Order Total:</span>
+                    <span style="font-weight: bold; color: red">$75</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

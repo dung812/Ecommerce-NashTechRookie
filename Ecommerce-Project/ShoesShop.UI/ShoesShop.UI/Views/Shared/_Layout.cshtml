@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var cusomterSession = Context.Session.GetString("CustomerInfo");
+    var customerInfo = JsonConvert.DeserializeObject<Customer>(cusomterSession != null ? cusomterSession : "");
+}
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -21,6 +26,9 @@
     <link rel="stylesheet" href="~/css/responsive.css" asp-append-version="true" />
 
     <script src="~/js/fontawesome.js"></script>
+
+    <script>(function (w, d) { w.CollectId = "60827f2b34b8b76f099ef81c"; var h = d.head || d.getElementsByTagName("head")[0]; var s = d.createElement("script"); s.setAttribute("type", "text/javascript"); s.async = true; s.setAttribute("src", "https://collectcdn.com/launcher.js"); h.appendChild(s); })(window, document);</script>
+
 
 </head>
 
@@ -98,23 +106,28 @@
                         </div>
                     </div>
                     <div class="col-md-2 text-end">
-                        <a asp-controller="Account" asp-action="LoginRegistration" class="text-light">
-                            <i class="uil uil-user fs-4"></i> <span class="ms-1">Sign in</span>
-                        </a>
-                        <!-- <div class="dropdown">
-                            <a href="#" class="dropdown-toggle text-light" type="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                <img src="~/images/avatars/avatar.jpg"
-                                    class="img-fluid rounded-circle avatar-img" width="35px" alt="" />
-                                <span class="d-none d-md-inline-block ms-1">Nguyen thanh dung</span>
+                        @if (cusomterSession == null) 
+                        {
+                            <a asp-controller="Account" asp-action="LoginRegistration" class="text-light">
+                                <i class="uil uil-user fs-4"></i> <span class="ms-1">Sign in</span>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-account">
-                                <li><a class="dropdown-item" asp-controller="Account" asp-action="Profile">Profile</a></li>
-                                <li><a class="dropdown-item" asp-controller="Account" asp-action="ChangePassword">Change Password</a></li>
-                                <li><a class="dropdown-item" asp-controller="Account" asp-action="AddressManager">View Addresses</a></li>
-                                <li><a class="dropdown-item" asp-controller="Account" asp-action="Logout" asp-route-id="1">Logout</a></li>
-                            </ul>
-                        </div> -->
+                        } else
+                        {
+                            <div class="dropdown">
+                                <a href="#" class="dropdown-toggle text-light" type="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                    <img src="~/images/avatars/@customerInfo.Avatar"
+                                     class="img-fluid rounded-circle avatar-img" width="35px" alt="" />
+                                    <span class="d-none d-md-inline-block ms-1">@customerInfo.FirstName @customerInfo.LastName</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-account">
+                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="Profile">Profile</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="ChangePassword">Change Password</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="AddressManager">View Addresses</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="Logout">Logout</a></li>
+                                </ul>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
@@ -159,23 +172,25 @@
                         <div class="row pt-3">
                             <div class="navigation__menu">
                                 <div class="d-md-none pt-3 px-5">
-                                    <!-- No Logged -->
-                                    <!-- <a asp-controller="Account" asp-action="LoginRegistration" class="wrap-cart d-flex align-items-center mb-3">
-                                        <p class="m-0 text-decoration-underline fw-semibold">Sign in / Join Now</p>
-                                    </a>  -->
-
-                                    <!-- Logined -->
-                                    <div class="text-light">
-                                        <img src="~/images/avatars/avatar.jpg"
-                                            class="img-fluid rounded-circle avatar-img" width="35px" alt="" />
-                                        <span class="ms-1 text-dark">Nguyen thanh dung</span>
-                                    </div>
-                                    <ul class="ps-5">
-                                        <li class="mb-1"><a asp-controller="Account" asp-action="Profile">View Profile</a></li>
-                                        <li class="mb-1"><a asp-controller="Account" asp-action="ChangePassword">Change Password</a></li>
-                                        <li class="mb-1"><a asp-controller="Account" asp-action="AddressManager">View Addresses</a></li>
-                                        <li class="mb-1"><a asp-controller="Account" asp-action="Logout" asp-route-id="1">Logout</a></li>
-                                    </ul>
+                                    @if (cusomterSession == null) 
+                                    {
+                                        <a asp-controller="Account" asp-action="LoginRegistration" class="wrap-cart d-flex align-items-center mb-3">
+                                            <p class="m-0 text-decoration-underline fw-semibold">Sign in / Join Now</p>
+                                        </a>
+                                    } else
+                                    {
+                                        <div class="text-light">
+                                            <img src="~/images/avatars/@customerInfo.Avatar"
+                                             class="img-fluid rounded-circle avatar-img" width="35px" alt="" />
+                                            <span class="ms-1 text-dark">@customerInfo.FirstName @customerInfo.LastName</span>
+                                        </div>
+                                        <ul class="ps-5">
+                                            <li class="mb-1"><a asp-controller="Account" asp-action="Profile">View Profile</a></li>
+                                            <li class="mb-1"><a asp-controller="Account" asp-action="ChangePassword">Change Password</a></li>
+                                            <li class="mb-1"><a asp-controller="Account" asp-action="AddressManager">View Addresses</a></li>
+                                            <li class="mb-1"><a asp-controller="Account" asp-action="Logout">Logout</a></li>
+                                        </ul>
+                                    }
                                 </div>
                                 <div class="wrap-search-mobile"></div>
 

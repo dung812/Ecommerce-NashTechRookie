@@ -10,6 +10,35 @@ namespace ShoesShop.Test
 {
     public class TestHomeController
     {
+        // Test Service
+        [Fact]
+        public void Test_ProductService_GetListProduct()
+        {
+            List<ProductViewModel> products = new List<ProductViewModel>()
+            {
+                new ProductViewModel(),
+                new ProductViewModel()
+            };
+
+            // Arrange
+            var mockRepo = new Mock<IProductService>();
+            mockRepo.Setup(x => x.GetAllProduct())
+                    .Returns(products);
+
+            ProductService productService = new ProductService();
+
+
+            // Act
+            var result = productService.GetAllProduct();
+
+            // Assert
+            Assert.IsType<List<ProductViewModel>>(result); // Check type
+            //Assert.Equal(products.Count, result.Count); // Check quantity list item
+
+        }
+
+
+        // Test Action
         [Fact]
         public void Test_Contact_GET_ReturnsViewResultNullModel()
         {
@@ -61,7 +90,7 @@ namespace ShoesShop.Test
         }
 
         [Fact]
-        public async Task Test_Contact_POST_ValidModelState()
+        public void Test_Contact_POST_ValidModelState()
         {
             // Arrange
             ContactViewModel contactViewModel = new ContactViewModel()

@@ -5,6 +5,8 @@ using ShoesShop.DTO;
 using ShoesShop.Service;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
+using System.Security.Policy;
 
 namespace ShoesShop.UI.Controllers
 {
@@ -53,7 +55,7 @@ namespace ShoesShop.UI.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet("Contact")]
         public IActionResult Contact()
         {
             return View();

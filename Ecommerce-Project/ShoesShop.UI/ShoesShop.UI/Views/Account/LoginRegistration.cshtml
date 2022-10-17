@@ -1,4 +1,5 @@
-﻿@{
+﻿@model CustomerViewModel
+@{
     Layout = null;
 }
 <!DOCTYPE html>
@@ -14,15 +15,16 @@
 </head>
 
 <body>
+    <partial name="_Notification" />
     <section>
         <div class="container">
             <div class="user singinBx">
                 <div class="imgBx"><img src="~/images/login/lock.jpg" alt=""></div>
                 <div class="formBx">
 
-                    <form id="form-valide-login" action="#" method="post">
+                    <form id="form-valide-login" asp-action="Login" method="post">
                         <h2>Sign In</h2>
-                        <p class="incorrect-smg">Fail something</p>
+                        <p class="incorrect-smg">@TempData["loginFail"]</p>
                         <div class="form-group">
                             <div>
                                 <input type="email" name="email" placeholder="Your email address" required>
@@ -45,23 +47,26 @@
             </div>
             <div class="user singupBx">
                 <div class="formBx">
-                    <form id="form-valide-registration">
+                    <form id="form-valide-registration" action="#" method="post">
                         <h2>Create an account</h2>
-                        <p class="msgError">Fail something</p>
+                        <p class="msgError"></p>
                         <div class="form-group">
                             <div>
-                                <input type="text" name="firstName" placeholder="First name">
+                                <input type="text" asp-for="FirstName" placeholder="First name">
+                                <span asp-validation-for="FirstName" class="text-danger msg-error"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <div>
-                                <input type="text" name="lastName" placeholder="Last name">
+                                <input type="text" asp-for="LastName" placeholder="Last name">
+                                <span asp-validation-for="LastName" class="text-danger msg-error"></span>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div>
-                                <input type="email" name="email" placeholder="Email Address">
+                                <input type="email" asp-for="Email" placeholder="Email Address">
+                                <span asp-validation-for="Email" class="text-danger msg-error"></span>
                             </div>
                         </div>
 
@@ -90,96 +95,11 @@
     </section>
 
 
-    <!-- Jquery Validation -->
-    <script src="~/js/jquery.min.js"></script>
-    <script src="~/js/jquery.validate.min.js"></script>
+    <script src="~/js/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/js/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
-    <script>
-        jQuery("#form-valide-registration").validate({
-            rules: {
-                "firstName": {
-                    required: !0,
-                    minlength: 2
-                },
-                "lastName": {
-                    required: !0,
-                    minlength: 2
-                },
-                "email": {
-                    required: !0,
-                    email: !0
-                },
-            },
-            messages: {
-                "firstName": {
-                    required: "Please enter your first name",
-                    minlength: "First name must consist of at least 2 characters"
-                },
-                "lastName": {
-                    required: "Please enter your last name",
-                    minlength: "Last name must consist of at least 2 characters"
-                },
-                "email": "Please enter a valid email address",
-            },
 
-            ignore: [],
-            errorClass: "invalid-feedback animated fadeInUp",
-            errorElement: "div",
-            errorPlacement: function (e, a) {
-                jQuery(a).parents(".form-group > div").append(e)
-            },
-            highlight: function (e) {
-                jQuery(e).closest(".form-group").removeClass("is-invalid").addClass("is-invalid")
-            },
-            success: function (e) {
-                jQuery(e).closest(".form-group").removeClass("is-invalid"), jQuery(e).remove();
-            },
-            submitHandler: function (form) {
-                var firstName = $('#form-valide-registration input[name="firstName"]').val();
-                var lastName = $('#form-valide-registration input[name="lastName"]').val();
-                var email = $('#form-valide-registration input[name="email"]').val();
-                // $.ajax({
-                //     url: "/User/Registration",
-                //     type: "POST",
-                //     data: {
-                //         firstName: firstName,
-                //         lastName: lastName,
-                //         email: email,
-                //     },
-                //     beforeSend: function () {
-                //         document.querySelector(".msgError").textContent = "";
-
-                //         const btnSubmit = document.querySelector(".btn-custom-loading");
-                //         btnSubmit.classList.add("is-loading");
-                //     },
-                //     success: function (data) {
-                //         const btnSubmit = document.querySelector(".btn-custom-loading");
-                //         btnSubmit.classList.remove("is-loading");
-
-                //         if (data.status) {
-                //             const successRegister = document.querySelector(".signup-success");
-                //             successRegister.classList.remove("hide");
-
-                //             form.classList.add("hide")
-
-                //             document.querySelector("#email-register").textContent = data.email;
-
-                //         }
-                //         else {
-                //             document.querySelector(".msgError").textContent = data.msg;
-                //         }
-                //     },
-                //     error: function (err) {
-                //         const btnSubmit = document.querySelector(".btn-custom-loading");
-                //         btnSubmit.classList.remove("is-loading");
-                //     }
-                // });
-
-                return false;  //This doesn't prevent the form from submitting.
-                //form.submit();
-            }
-        });
-    </script>
     <script>
         function toggleForm() {
             var section = document.querySelector('section');
@@ -188,11 +108,53 @@
             section.classList.toggle('active');
         }
 
-        document.querySelector('.registration').addEventListener('click', function (e) {
-            const successRegister = document.querySelector(".signup-success");
-            successRegister.classList.remove("hide");
-            document.querySelector("#form-valide-registration").classList.add("hide")
-            document.querySelector("#email-register").textContent = "knguyn16@gmail.com";
+        const formSubmit = document.querySelector("#form-valide-registration");
+        formSubmit.addEventListener("submit", function(e) {
+            e.preventDefault();
+            var firstName = formSubmit.elements["FirstName"].value;
+            var lastName = formSubmit.elements["LastName"].value;
+            var email = formSubmit.elements["Email"].value;
+            console.log({ firstName, lastName, email })
+            if (firstName != '' || lastName != '' || email != '') 
+            {
+
+                $.ajax({
+                    url: "/Account/Registration",
+                    type: "POST",
+                    data: {
+                        firstName: firstName,
+                        lastName: lastName,
+                        email: email,
+                    },
+                    beforeSend: function () {
+                        document.querySelector(".msgError").textContent = "";
+
+                        const btnSubmit = document.querySelector(".btn-custom-loading");
+                        btnSubmit.classList.add("is-loading");
+                    },
+                    success: function (data) {
+                        const btnSubmit = document.querySelector(".btn-custom-loading");
+                        btnSubmit.classList.remove("is-loading");
+
+                        if (data.status) {
+                            const successRegister = document.querySelector(".signup-success");
+                            successRegister.classList.remove("hide");
+
+                            formSubmit.classList.add("hide")
+
+                            document.querySelector("#email-register").textContent = data.email;
+
+                        }
+                        else {
+                            document.querySelector(".msgError").textContent = data.msg;
+                        }
+                    },
+                    error: function (err) {
+                        const btnSubmit = document.querySelector(".btn-custom-loading");
+                        btnSubmit.classList.remove("is-loading");
+                    }
+                });
+            }
         })
     </script>
 
