@@ -121,9 +121,9 @@
                                     <span class="d-none d-md-inline-block ms-1">@customerInfo.FirstName @customerInfo.LastName</span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-account">
-                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="Profile">Profile</a></li>
-                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="ChangePassword">Change Password</a></li>
-                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="AddressManager">View Addresses</a></li>
+                                    <li><a class="dropdown-item" href="~/Profile/@customerInfo.CustomerId">Profile</a></li>
+                                    <li><a class="dropdown-item" href="~/Change-password/@customerInfo.CustomerId">Change Password</a></li>
+                                    <li><a class="dropdown-item" href="~/Address/@customerInfo.CustomerId">View Addresses</a></li>
                                     <li><a class="dropdown-item" asp-controller="Account" asp-action="Logout">Logout</a></li>
                                 </ul>
                             </div>
@@ -185,9 +185,9 @@
                                             <span class="ms-1 text-dark">@customerInfo.FirstName @customerInfo.LastName</span>
                                         </div>
                                         <ul class="ps-5">
-                                            <li class="mb-1"><a asp-controller="Account" asp-action="Profile">View Profile</a></li>
-                                            <li class="mb-1"><a asp-controller="Account" asp-action="ChangePassword">Change Password</a></li>
-                                            <li class="mb-1"><a asp-controller="Account" asp-action="AddressManager">View Addresses</a></li>
+                                            <li class="mb-1"><a href="~/Profile/@customerInfo.CustomerId">View Profile</a></li>
+                                            <li class="mb-1"><a href="~/Change-password/@customerInfo.CustomerId">Change Password</a></li>
+                                            <li class="mb-1"><a href="~/Address/@customerInfo.CustomerId">View Addresses</a></li>
                                             <li class="mb-1"><a asp-controller="Account" asp-action="Logout">Logout</a></li>
                                         </ul>
                                     }

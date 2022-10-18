@@ -141,7 +141,7 @@
                     <form method="post" action="#" id="change-avatar">
                         <!-- <input type="hidden" value="1" name="customerId"> -->
                         <div class="position-relative">
-                            <img id="avatar-img" src="~/images/avatars/avatar.jpg" class="rounded-circle img-fluid d-block mx-auto" width="35%">
+                            <img id="avatar-img" src="~/images/avatars/@ViewBag.Avatar" class="rounded-circle img-fluid d-block mx-auto" width="35%">
                             <input type="file" class="form-control w- mx-auto d-none" id="file" name="file">
                             <label for="file" class="btn-changeAva"><i class="fa-solid fa-camera"></i></label>
                         </div>
@@ -151,11 +151,19 @@
                     </form>
                 </div>
 
-                <p class="h5 mt-3">Nguyễn Thanh Dũng</p>
+                <p class="h5 mt-3">@ViewBag.CustomerName</p>
 
-                <p>Nguyễn Thanh Dũng<br>+844706437167<br>QN</p>
+                @if (ViewBag.DefaultAddress != null)
+                {
+                    <p>
+                        @ViewBag.DefaultAddress.FirstName @ViewBag.DefaultAddress.LastName<br>
+                        @ViewBag.DefaultAddress.Phone<br>
+                        @ViewBag.DefaultAddress.Address
+                    </p>
+                }
 
-                <p><a href="./addresses.html" class="text-link"><u>View addresses (1)</u></a></p>
+
+                <p><a href="~/Address/@ViewBag.CustomerId" class="text-link"><u>View addresses (@ViewBag.CountAddress)</u></a></p>
             </div>
         </div>
 

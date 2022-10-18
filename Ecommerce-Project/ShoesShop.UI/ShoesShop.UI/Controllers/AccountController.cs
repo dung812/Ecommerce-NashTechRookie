@@ -15,13 +15,16 @@ namespace ShoesShop.UI.Controllers
     {
         private IWebHostEnvironment hostEnvironment;
         private readonly ICustomerService customerService;
-        public AccountController(IWebHostEnvironment environment, ICustomerService customerService)
+        private readonly ICustomerAddressService customerAddressService;
+
+        public AccountController(IWebHostEnvironment environment, ICustomerService customerService, ICustomerAddressService customerAddressService)
         {
             this.hostEnvironment = environment;
             this.customerService = customerService;
+            this.customerAddressService = customerAddressService;
         }
 
-        //[HttpGet("Login-registration")]
+        [HttpGet("Login-registration")]
         public IActionResult LoginRegistration()
         {
             var customer = HttpContext.Session.GetString("CustomerInfo");
@@ -189,9 +192,41 @@ namespace ShoesShop.UI.Controllers
             }
             return View();
         }
-        [HttpGet]
-        public IActionResult Profile()
+
+
+        [HttpGet("Profile/{customerId}")]
+        public IActionResult Profile(int customerId)
         {
+            // Get customer info data of session
+            var cusomterSession = HttpContext.Session.GetString("CustomerInfo");
+            var customerInfoSession = JsonConvert.DeserializeObject<Customer>(cusomterSession != null ? cusomterSession : "");
+
+            if (cusomterSession == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (customerId == null || customerInfoSession.CustomerId != customerId)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+            var customer = customerService.GetValidCustomerById(customerId);
+            var defaultAddress = customerAddressService.GetDefaultAddressOfCustomer(customerId);
+
+            if (defaultAddress != null)
+            {
+                CustomerAddressViewModel customerAddressViewModel = new CustomerAddressViewModel();
+                customerAddressViewModel.FirstName = defaultAddress.FirstName;
+                customerAddressViewModel.LastName = defaultAddress.LastName;
+                customerAddressViewModel.Address = defaultAddress.Address;
+                customerAddressViewModel.Phone = defaultAddress.Phone;
+                ViewBag.DefaultAddress = customerAddressService.GetDefaultAddressOfCustomer(customerId);
+            }
+
+            ViewBag.CustomerId = customerId;
+            ViewBag.CustomerName = customer.FirstName + " " + customer.LastName;
+            ViewBag.Avatar = customer.Avatar;
+            ViewBag.CountAddress = customerAddressService.CountAddressOfCustomer(customerId);
+
             return View();
         }
         
@@ -199,20 +234,111 @@ namespace ShoesShop.UI.Controllers
         public IActionResult OrderDetail()
         {
             return View();
-        }  
-        
-        [HttpGet]
-        public IActionResult ChangePassword()
+        }
+
+        //[HttpPost]
+        //public ActionResult ChangeAvatar(HttpPostedFileBase file, FormCollection form)
+        //{
+        //    if (file != null)
+        //    {
+        //        var customerId = Int32.Parse(form["customerId"]);
+
+        //        string ImageName = System.IO.Path.GetFileName(file.FileName);
+        //        string physicalPath = Server.MapPath("~/Content/images/avatars/" + ImageName);
+
+        //        // save image in folder
+        //        file.SaveAs(physicalPath);
+
+        //        //save new record in database
+        //        var customer = db.Customers.Find(customerId);
+        //        customer.Avatar = ImageName;
+        //        db.SaveChanges();
+
+        //        // Lấy thông tin mới của cusomter lưu lại vào session hiển thị
+        //        Session["CustomerInfo"] = customer;
+
+        //        TempData["toastSuccess"] = "Successfully change your avatar!";
+        //        return RedirectToAction("ProfileDetail", new { customerId = customerId });
+        //    }
+        //    else
+        //    {
+
+        //        TempData["toastError"] = "Have error!";
+        //        return RedirectToAction("Index", "Home");
+        //    }
+
+        //}
+
+
+        [HttpGet("Change-password/{customerId}")]
+        public IActionResult ChangePassword(int customerId)
         {
+            // Get customer info data of session
+            var cusomterSession = HttpContext.Session.GetString("CustomerInfo");
+            var customerInfoSession = JsonConvert.DeserializeObject<Customer>(cusomterSession != null ? cusomterSession : "");
+
+            if (cusomterSession == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (customerId == null || customerInfoSession.CustomerId != customerId)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            var customer = customerService.GetValidCustomerById(customerId);
+
+            ViewBag.CustomerId = customer.CustomerId;
+
             return View();
-        }   
-        
-        [HttpGet]
-        public IActionResult AddressList()
+        }
+
+        [HttpPost]
+        public IActionResult ChangePassword(IFormCollection form)
         {
+            var customerId = Convert.ToInt32(form["customerId"][0]);
+            var currentPassword = Functions.MD5Hash(form["current-password"][0]);
+            var newPassword = Functions.MD5Hash(form["password"][0]);
+
+           
+            var customer = customerService.GetValidCustomerById(customerId);
+
+            if (customer.Password == currentPassword)
+            {
+                customerService.ChangePassword(customerId, newPassword);
+
+                TempData["success"] = "Successfully change your password.";
+                return RedirectToAction("Index", "Home");
+            }
+
+            ViewBag.CustomerId = customer.CustomerId;
+            ViewBag.IncorrectPassword = "Your current password incorrect";
             return View();
-        }    
-        
+        }
+
+
+        [HttpGet("Address/{customerId}")]
+        public IActionResult AddressList(int customerId)
+        {
+            // Get customer info data of session
+            var cusomterSession = HttpContext.Session.GetString("CustomerInfo");
+            var customerInfoSession = JsonConvert.DeserializeObject<Customer>(cusomterSession != null ? cusomterSession : "");
+
+            if (cusomterSession == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (customerId == null || customerInfoSession.CustomerId != customerId)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            var customer = customerService.GetValidCustomerById(customerId);
+
+            ViewBag.CustomerId = customer.CustomerId;
+
+            return View();
+        }
 
         public IActionResult Logout()
         {

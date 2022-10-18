@@ -16,6 +16,7 @@ namespace ShoesShop.Service
         public bool CreateCustomer(CustomerViewModel customerViewModel);
         public bool CheckExistEmailOfCustomer(string email);
         public Customer GetValidCustomerByEmail(string email);
+        public Customer GetValidCustomerById(int customerId);
 
         public Customer ValidateCustomerAccount(string email, string password);
         public void ChangePassword(int customerId, string newPassword);
@@ -71,6 +72,15 @@ namespace ShoesShop.Service
             using (var context = new ApplicationDbContext())
             {
                 customer = context.Customers.Where(m => m.Status == true).FirstOrDefault(m => m.Email == email);
+            }
+            return customer;
+        }        
+        public Customer GetValidCustomerById(int customerId) 
+        {
+            Customer customer = new Customer();
+            using (var context = new ApplicationDbContext())
+            {
+                customer = context.Customers.Where(m => m.Status == true).FirstOrDefault(m => m.CustomerId == customerId);
             }
             return customer;
         }
