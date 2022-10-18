@@ -21,6 +21,7 @@ namespace ShoesShop.Domain
         public DateTime RegisterDate { get; set; } = DateTime.Now;
         public bool Status { get; set; }
 
+        public virtual ICollection<ForgotPassword> ForgotPasswords { get; set; }
         public virtual ICollection<CommentProduct> CommentProducts { get; set; }
         public virtual ICollection<CustomerAddress> CustomerAddresses { get; set; }
         public virtual ICollection<Order> Orders { get; set; }

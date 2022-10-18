@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using System.Security.Policy;
+using ShoesShop.Data;
+using ShoesShop.Domain;
 
 namespace ShoesShop.UI.Controllers
 {
@@ -50,6 +52,7 @@ namespace ShoesShop.UI.Controllers
 
             // Get Featured Product
             ViewBag.FeaturedProduct = productViewModels.Take(8);
+
 
             return View();
         }

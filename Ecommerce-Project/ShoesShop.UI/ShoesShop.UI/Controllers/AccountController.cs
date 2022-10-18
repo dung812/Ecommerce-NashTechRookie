@@ -21,7 +21,7 @@ namespace ShoesShop.UI.Controllers
             this.customerService = customerService;
         }
 
-        [HttpGet("Login-registration")]
+        //[HttpGet("Login-registration")]
         public IActionResult LoginRegistration()
         {
             var customer = HttpContext.Session.GetString("CustomerInfo");
@@ -35,7 +35,8 @@ namespace ShoesShop.UI.Controllers
             //var obj = JsonConvert.DeserializeObject<Customer>(str);
 
             return View();
-        }        
+        }      
+        
         [HttpPost]
         public IActionResult Login(IFormCollection formFields)
         {
@@ -53,7 +54,7 @@ namespace ShoesShop.UI.Controllers
                 {
                     // Case customer login account was locked;
                     TempData["loginFail"] = "Your account has been locked.";
-                    return View();
+                    return RedirectToAction("LoginRegistration");
                 }
                 else
                 {
@@ -68,7 +69,7 @@ namespace ShoesShop.UI.Controllers
                 }
             }
             TempData["loginFail"] = "Incorrect username or password.";
-            return View();
+            return RedirectToAction("LoginRegistration");
         }
 
         [HttpPost]
@@ -120,15 +121,31 @@ namespace ShoesShop.UI.Controllers
 
             if (customer != null)
             {
-                // Generate UUID
-                Guid myuuid = Guid.NewGuid();
-                string myuuidAsString = myuuid.ToString();
+                if (customerService.CountTokenInCurrentDayOfCustomer(customer.CustomerId) < 3)
+                {
 
-                // Create URL UUID
-                string url = String.Concat(this.Request.Scheme, "://", this.Request.Host, "/reset-password/", myuuidAsString);
+                    // Generate token with UUID and add in URL reset password
+                    Guid myuuid = Guid.NewGuid();
+                    string token = myuuid.ToString();
 
-                return Json(new { status = 200, smg = "Successfully send email!" });
+                    string url = String.Concat(this.Request.Scheme, "://", this.Request.Host, "/Reset-password/", token);
 
+                    // Create new token forgot password in database
+                    customerService.CreateTokenForgotPassword(customer.CustomerId, email, token);
+
+                    // Send  URl to email customer
+                    string content = System.IO.File.ReadAllText(Path.Combine(hostEnvironment.WebRootPath, "template\\ResetPassword.html"));
+                    content = content.Replace("{{url}}", url);
+
+                    Functions.SendMail(email, "[Shoes shop] Reset your password", content);
+
+                    return Json(new { status = 200, smg = "Successfully send email!" });
+                } 
+
+                else
+                {
+                    return Json(new { status = 500, smg = "You cannot be used forgot password feature more than 3 times in day!" });
+                }
             }
             return Json(new { status = 500, smg = "That address is either invalid, not a verified primary email or is not associated with a personal user account." });
         }
@@ -136,9 +153,42 @@ namespace ShoesShop.UI.Controllers
         [HttpGet("Reset-password/{token}")]
         public IActionResult ResetPassword(string token)
         {
+            var checkToken = customerService.TokenValidate(token);
+            if (token == null || checkToken == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            else
+            {
+                Customer customer = customerService.GetValidCustomerByEmail(checkToken.Email);
+                ViewBag.token = checkToken.Token;
+                ViewBag.Email = customer.Email;
+                ViewBag.customerId = customer.CustomerId;
+                return View();
+            } 
+        }
+        [HttpPost]
+        public IActionResult ResetPassword(IFormCollection form)
+        {
+            var newPassword = Functions.MD5Hash(form["password"][0].Trim());
+            var customerId = Convert.ToInt32(form["customerId"][0]);
+            var token = form["token"][0];
+
+            var checkToken = customerService.TokenValidate(token);
+
+            if (checkToken != null)
+            {
+                customerService.ChangePassword(customerId, newPassword);
+
+                // Set token false to unactive token
+                customerService.ActiveToken(token);
+
+                TempData["success"] = "Successfully reset your password.";
+                return RedirectToAction("LoginRegistration");
+            }
             return View();
-        } 
-        
+        }
         [HttpGet]
         public IActionResult Profile()
         {

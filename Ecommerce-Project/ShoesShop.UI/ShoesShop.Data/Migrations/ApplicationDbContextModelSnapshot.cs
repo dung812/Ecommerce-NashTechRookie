@@ -320,6 +320,9 @@ namespace ShoesShop.Data.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -332,6 +335,8 @@ namespace ShoesShop.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("ForgotPasswords");
                 });
@@ -614,6 +619,15 @@ namespace ShoesShop.Data.Migrations
                     b.Navigation("Customer");
                 });
 
+            modelBuilder.Entity("ShoesShop.Domain.ForgotPassword", b =>
+                {
+                    b.HasOne("ShoesShop.Domain.Customer", "Customer")
+                        .WithMany("ForgotPasswords")
+                        .HasForeignKey("CustomerId");
+
+                    b.Navigation("Customer");
+                });
+
             modelBuilder.Entity("ShoesShop.Domain.Order", b =>
                 {
                     b.HasOne("ShoesShop.Domain.Customer", "Customer")
@@ -735,6 +749,8 @@ namespace ShoesShop.Data.Migrations
                     b.Navigation("CommentProducts");
 
                     b.Navigation("CustomerAddresses");
+
+                    b.Navigation("ForgotPasswords");
 
                     b.Navigation("Orders");
                 });

@@ -54,6 +54,8 @@ namespace ShoesShop.Test
             Assert.Null(viewResult.ViewData.Model);
 
             //This test is done because the Contact action method does not use IContactService.
+
+
         }
 
         [Fact]

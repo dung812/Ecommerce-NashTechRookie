@@ -16,5 +16,8 @@ namespace ShoesShop.Domain
         public string Token { get; set; } = null!;
         public DateTime CreateDate { get; set; } = DateTime.Now;
         public bool? Status { get; set; }
+        public int? CustomerId { get; set; }
+
+        public virtual Customer? Customer { get; set; }
     }
 }
