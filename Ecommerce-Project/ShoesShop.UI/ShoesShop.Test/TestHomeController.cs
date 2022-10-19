@@ -83,8 +83,6 @@ namespace ShoesShop.Test
             // Act
             var result = controller.Contact(contactViewModel);
 
-
-
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
             Assert.Null(viewResult.ViewData.Model);

@@ -35,22 +35,29 @@ namespace ShoesShop.Service
         {
             try
             {
-                Customer customer = new Customer
+                var checkExistEmail = CheckExistEmailOfCustomer(customerViewModel.Email);
+                if (!checkExistEmail)
                 {
-                    FirstName = customerViewModel.FirstName,
-                    LastName = customerViewModel.LastName,
-                    Email = customerViewModel.Email,
-                    Password = customerViewModel.Password,
-                    RegisterDate = DateTime.Now,
-                    Avatar = "avatar.jpg",
-                    Status = true
-                };
-                using (var context = new ApplicationDbContext())
-                {
-                    context.Customers.Add(customer);
-                    context.SaveChanges();
+                    Customer customer = new Customer
+                    {
+                        Email = customerViewModel.Email,
+                        FirstName = customerViewModel.FirstName,
+                        LastName = customerViewModel.LastName,
+                        Password = customerViewModel.Password,
+                        RegisterDate = DateTime.Now,
+                        Avatar = "avatar.jpg",
+                        Status = true
+                    };
+                    using (var context = new ApplicationDbContext())
+                    {
+                        context.Customers.Add(customer);
+                        context.SaveChanges();
+                    }
+                    return true;
                 }
-                return true;
+                else
+                    return false;
+                
             }
             catch (Exception)
             {
@@ -65,7 +72,7 @@ namespace ShoesShop.Service
             {
                 isExist = context.Customers.FirstOrDefault(m => m.Email == email);
             }
-            return isExist == null;
+            return isExist != null ? true : false;
         }
 
         public Customer GetValidCustomerByEmail(string email) 

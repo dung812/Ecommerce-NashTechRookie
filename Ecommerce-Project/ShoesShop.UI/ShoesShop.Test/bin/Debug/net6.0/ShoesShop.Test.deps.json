@@ -2591,6 +2591,7 @@
       },
       "ShoesShop.UI/1.0.0": {
         "dependencies": {
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.10",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.10",
           "ShoesShop.DTO": "1.0.0",
           "ShoesShop.Service": "1.0.0"

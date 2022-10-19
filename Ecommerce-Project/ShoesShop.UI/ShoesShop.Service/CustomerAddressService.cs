@@ -16,9 +16,9 @@ namespace ShoesShop.Service
         public CustomerAddress GetCustomerAddressById(int customerAddressId);
         public CustomerAddress GetDefaultAddressOfCustomer(int customerId);
         public int CountAddressOfCustomer(int customerId);
-        public void CreateAddressOfCustomer(CustomerAddressViewModel customerAddressViewModel, bool isDefault);
-        public void UpdateAddressOfCustomer(int customerAddressId, CustomerAddressViewModel customerAddressViewModel, bool isDefault);
-        public void DeleteAddressOfCustomer(int customerAddressId, int customerId);
+        public bool CreateAddressOfCustomer(CustomerAddressViewModel customerAddressViewModel, bool isDefault);
+        public bool UpdateAddressOfCustomer(int customerAddressId, CustomerAddressViewModel customerAddressViewModel, bool isDefault);
+        public bool DeleteAddressOfCustomer(int customerAddressId, int customerId);
     }
     public class CustomerAddressService : ICustomerAddressService
     {
@@ -69,60 +69,21 @@ namespace ShoesShop.Service
             }
             return count;
         }
-        public void CreateAddressOfCustomer(CustomerAddressViewModel customerAddressViewModel, bool isDefault)
+        public bool CreateAddressOfCustomer(CustomerAddressViewModel customerAddressViewModel, bool isDefault)
         {
-            using (var context = new ApplicationDbContext())
+            try
             {
-                CustomerAddress customerAddress = new CustomerAddress
+                using (var context = new ApplicationDbContext())
                 {
-                    CustomerId = customerAddressViewModel.CustomerId,
-                    FirstName = customerAddressViewModel.FirstName,
-                    LastName = customerAddressViewModel.LastName,
-                    Address = customerAddressViewModel.Address,
-                    Phone = customerAddressViewModel.Phone,
-                    Status = true
-                };
-
-                if (isDefault)
-                {
-                    // Set all default address is false
-                    context.Database.ExecuteSqlRaw("UPDATE CustomerAddresses SET IsDefault = 0 WHERE IsDefault = '1' AND CustomerId = '" + customerAddressViewModel.CustomerId + "'");
-
-                    customerAddress.IsDefault = true;
-                }
-                else
-                {
-                    int countAddress = CountAddressOfCustomer(customerAddressViewModel.CustomerId);
-
-                    if (countAddress == 0)
+                    CustomerAddress customerAddress = new CustomerAddress
                     {
-                        // If new address is first
-                        customerAddress.IsDefault = true;
-                    }
-                    else
-                    {
-                        customerAddress.IsDefault = false;
-                    }
-
-                }
-
-                context.CustomerAddresses.Add(customerAddress);
-                context.SaveChanges();
-            }
-        }
-        public void UpdateAddressOfCustomer(int customerAddressId, CustomerAddressViewModel customerAddressViewModel, bool isDefault)
-        {
-            using (var context = new ApplicationDbContext())
-            {
-
-                var customerAddress = context.CustomerAddresses.Find(customerAddressId);
-
-                if (customerAddress != null)
-                {
-                    customerAddress.FirstName = customerAddressViewModel.FirstName;
-                    customerAddress.LastName = customerAddressViewModel.LastName;
-                    customerAddress.Address = customerAddressViewModel.Address;
-                    customerAddress.Phone = customerAddressViewModel.Phone;
+                        CustomerId = customerAddressViewModel.CustomerId,
+                        FirstName = customerAddressViewModel.FirstName,
+                        LastName = customerAddressViewModel.LastName,
+                        Address = customerAddressViewModel.Address,
+                        Phone = customerAddressViewModel.Phone,
+                        Status = true
+                    };
 
                     if (isDefault)
                     {
@@ -131,24 +92,88 @@ namespace ShoesShop.Service
 
                         customerAddress.IsDefault = true;
                     }
-                    context.CustomerAddresses.Update(customerAddress);
+                    else
+                    {
+                        int countAddress = CountAddressOfCustomer(customerAddressViewModel.CustomerId);
+
+                        if (countAddress == 0)
+                        {
+                            // If new address is first
+                            customerAddress.IsDefault = true;
+                        }
+                        else
+                        {
+                            customerAddress.IsDefault = false;
+                        }
+
+                    }
+
+                    context.CustomerAddresses.Add(customerAddress);
                     context.SaveChanges();
                 }
-            }
-        }
-        public void DeleteAddressOfCustomer(int customerAddressId, int customerId)
-        {
-            using (var context = new ApplicationDbContext())
+                return true;
+            } catch(Exception)
             {
-                var customerAddress = GetCustomerAddressById(customerAddressId);
-
-                if (customerAddress.IsDefault == true)
+                return false;
+            }
+            
+        }
+        public bool UpdateAddressOfCustomer(int customerAddressId, CustomerAddressViewModel customerAddressViewModel, bool isDefault)
+        {
+            try
+            {
+                using (var context = new ApplicationDbContext())
                 {
-                    // Case address was deleted is default, set first address in list is default
-                    context.Database.ExecuteSqlRaw("UPDATE TOP (1) CustomerAddresses SET IsDefault = 1 WHERE IsDefault = '0' AND CustomerId = '" + customerId + "'");
+
+                    var customerAddress = context.CustomerAddresses.Find(customerAddressId);
+
+                    if (customerAddress != null)
+                    {
+                        customerAddress.FirstName = customerAddressViewModel.FirstName;
+                        customerAddress.LastName = customerAddressViewModel.LastName;
+                        customerAddress.Address = customerAddressViewModel.Address;
+                        customerAddress.Phone = customerAddressViewModel.Phone;
+
+                        if (isDefault)
+                        {
+                            // Set all default address is false
+                            context.Database.ExecuteSqlRaw("UPDATE CustomerAddresses SET IsDefault = 0 WHERE IsDefault = '1' AND CustomerId = '" + customerAddressViewModel.CustomerId + "'");
+
+                            customerAddress.IsDefault = true;
+                        }
+                        context.CustomerAddresses.Update(customerAddress);
+                        context.SaveChanges();
+                    }
+                    else
+                        return false;
                 }
-                context.CustomerAddresses.Remove(customerAddress);
-                context.SaveChanges();
+                return true;
+            } catch(Exception)
+            {
+                return false;
+            }
+            
+        }
+        public bool DeleteAddressOfCustomer(int customerAddressId, int customerId)
+        {
+            try
+            {
+                using (var context = new ApplicationDbContext())
+                {
+                    var customerAddress = GetCustomerAddressById(customerAddressId);
+
+                    if (customerAddress.IsDefault == true)
+                    {
+                        // Case address was deleted is default, set first address in list is default
+                        context.Database.ExecuteSqlRaw("UPDATE TOP (1) CustomerAddresses SET IsDefault = 1 WHERE IsDefault = '0' AND CustomerId = '" + customerId + "'");
+                    }
+                    context.CustomerAddresses.Remove(customerAddress);
+                    context.SaveChanges();
+                }
+                return true;
+            } catch(Exception)
+            {
+                return false;
             }
         }
 

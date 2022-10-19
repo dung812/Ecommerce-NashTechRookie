@@ -56,7 +56,7 @@ namespace ShoesShop.UI.Controllers
                 if (checkAccount.Status == false)
                 {
                     // Case customer login account was locked;
-                    TempData["loginFail"] = "Your account has been locked.";
+                    TempData["error"] = "Your account has been locked.";
                     return RedirectToAction("LoginRegistration");
                 }
                 else
@@ -71,7 +71,7 @@ namespace ShoesShop.UI.Controllers
                     return RedirectToAction("Index", "Home");
                 }
             }
-            TempData["loginFail"] = "Incorrect username or password.";
+            TempData["error"] = "Incorrect username or password.";
             return RedirectToAction("LoginRegistration");
         }
 
@@ -81,7 +81,7 @@ namespace ShoesShop.UI.Controllers
             // Check exist email
             var checkExistEmail = customerService.CheckExistEmailOfCustomer(email);
 
-            if (checkExistEmail)
+            if (!checkExistEmail)
             {
                 var password = Functions.RandomString();
                 // Add new customer
@@ -355,23 +355,22 @@ namespace ShoesShop.UI.Controllers
             string address = form["address"][0];
             string phone = form["phone"][0];
             bool isDefault = form["default"].Count() == 0 ? false : true;
-            try
+
+            CustomerAddressViewModel customer = new CustomerAddressViewModel();
+            customer.FirstName = firstName;
+            customer.LastName = lastName;
+            customer.Address = address;
+            customer.Phone = phone;
+            customer.CustomerId = customerId;
+
+            if (customerAddressService.CreateAddressOfCustomer(customer, isDefault))
             {
-                CustomerAddressViewModel customer = new CustomerAddressViewModel();
-                customer.FirstName = firstName;
-                customer.LastName = lastName;
-                customer.Address = address;
-                customer.Phone = phone;
-                customer.CustomerId = customerId;
-
-                customerAddressService.CreateAddressOfCustomer(customer, isDefault);
-
                 TempData["success"] = "Successfully add a new address!";
                 return Redirect("~/Address/" + customerId);
             }
-            catch(Exception e)
+            else
             {
-                TempData["error"] = "Something were wrong! " + e;
+                TempData["error"] = "Something were wrong!";
                 return Redirect("~/Address/" + customerId);
             }
         }
@@ -388,46 +387,39 @@ namespace ShoesShop.UI.Controllers
             bool isDefault = form["default"].Count() == 0 ? false : true;
 
 
-            try
+            CustomerAddressViewModel customer = new CustomerAddressViewModel();
+            customer.FirstName = firstName;
+            customer.LastName = lastName;
+            customer.Address = address;
+            customer.Phone = phone;
+            customer.CustomerId = customerId;
+
+            if (customerAddressService.UpdateAddressOfCustomer(customerAddressId, customer, isDefault))
             {
-                CustomerAddressViewModel customer = new CustomerAddressViewModel();
-                customer.FirstName = firstName;
-                customer.LastName = lastName;
-                customer.Address = address;
-                customer.Phone = phone;
-                customer.CustomerId = customerId;
-
-                customerAddressService.UpdateAddressOfCustomer(customerAddressId, customer, isDefault);
-
-
                 TempData["success"] = "Successfully update your address!";
                 return Redirect("~/Address/" + customerId);
             }
-            catch (Exception e)
+            else
             {
-                {
-                    TempData["error"] = "Something were wrong! " + e;
-                    return Redirect("~/Address/" + customerId);
-                }
+                TempData["error"] = "Something were wrong!";
+                return Redirect("~/Address/" + customerId);
             }
         }
 
         //[HttpPost]
         public IActionResult DeleteAddress(int addressId, int customerId)
         {
-            try
+            if (customerAddressService.DeleteAddressOfCustomer(addressId, customerId))
             {
-                customerAddressService.DeleteAddressOfCustomer(addressId, customerId);
                 TempData["success"] = "Successfully delete your address!";
                 return Redirect("~/Address/" + customerId);
             }
-            catch (Exception e)
+            else
             {
-                TempData["error"] = "Something were wrong! " + e;
+                TempData["error"] = "Something were wrong!";
                 return Redirect("~/Address/" + customerId);
             }
         }
-
 
         public IActionResult Logout()
         {
