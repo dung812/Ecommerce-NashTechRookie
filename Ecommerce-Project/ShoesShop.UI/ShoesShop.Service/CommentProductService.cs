@@ -19,13 +19,12 @@ namespace ShoesShop.Service
     {
         public List<CommentProduct> GetListCommentOfProductById(int productId)
         {
-            List<CommentProduct> list = new List<CommentProduct>();
+            List<CommentProduct> comments = new List<CommentProduct>();
             using (var context = new ApplicationDbContext())
             {
-                var comments = context.CommentProducts.Where(p => p.ProductId == productId).ToList();
-                list = comments;
+                comments = context.CommentProducts.Where(p => p.ProductId == productId).ToList();
             }
-            return list;
+            return comments;
         }
     }
 }

@@ -17,12 +17,14 @@ namespace ShoesShop.Service
     {
         public void Create(ContactViewModel contactViewModel)
         {
-            Contact contact = new Contact();
-            contact.Name = contactViewModel.Name;
-            contact.Subject = contactViewModel.Subject;
-            contact.Message = contactViewModel.Message;
-            contact.Email = contactViewModel.Email;
-            contact.DateContact = DateTime.Now;
+            Contact contact = new Contact()
+            {
+                Name = contactViewModel.Name,
+                Subject = contactViewModel.Subject,
+                Message = contactViewModel.Message,
+                Email = contactViewModel.Email,
+                DateContact = DateTime.Now,
+            };
 
             using (var context = new ApplicationDbContext())
             {

@@ -44,7 +44,7 @@ namespace ShoesShop.Service
         }
         public ProductViewModel GetSingleProduct(int productId)
         {
-            ProductViewModel? product = new ProductViewModel();
+            ProductViewModel? product = new();
             using (var context = new ApplicationDbContext()) 
             {
                 product = context.Products
@@ -70,7 +70,7 @@ namespace ShoesShop.Service
                                         }).SingleOrDefault(m => m.ProductId == productId);
             }
                 
-            return product;
+            return product ?? new ProductViewModel();
         }
     }
 }

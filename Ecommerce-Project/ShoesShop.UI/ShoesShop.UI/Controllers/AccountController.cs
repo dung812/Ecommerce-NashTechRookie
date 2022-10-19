@@ -205,7 +205,7 @@ namespace ShoesShop.UI.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            if (customerId == null || customerInfoSession.CustomerId != customerId)
+            if (customerId == null || customerInfoSession?.CustomerId != customerId)
             {
                 return RedirectToAction("Error", "Home");
             }
@@ -281,7 +281,7 @@ namespace ShoesShop.UI.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            if (customerId == null || customerInfoSession.CustomerId != customerId)
+            if (customerId == null || customerInfoSession?.CustomerId != customerId)
             {
                 return RedirectToAction("Error", "Home");
             }
@@ -328,17 +328,106 @@ namespace ShoesShop.UI.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            if (customerId == null || customerInfoSession.CustomerId != customerId)
+            if (customerId == null || customerInfoSession?.CustomerId != customerId)
             {
                 return RedirectToAction("Error", "Home");
             }
 
             var customer = customerService.GetValidCustomerById(customerId);
 
+            List<CustomerAddressViewModel> addresses = new List<CustomerAddressViewModel>();
+            addresses = customerAddressService.GetAddressListOfCustomerById(customer.CustomerId);
+
             ViewBag.CustomerId = customer.CustomerId;
 
-            return View();
+            if (addresses != null)
+            {
+                ViewBag.IsOnlyOneDefault = addresses.Count() == 1 ? true : false;
+            }    
+            return View(addresses);
         }
+        [HttpPost]
+        public IActionResult CreateAddress(IFormCollection form)
+        {
+            int customerId = Int32.Parse(form["id"][0]);
+            string firstName = form["firstName"][0];
+            string lastName = form["lastName"][0];
+            string address = form["address"][0];
+            string phone = form["phone"][0];
+            bool isDefault = form["default"].Count() == 0 ? false : true;
+            try
+            {
+                CustomerAddressViewModel customer = new CustomerAddressViewModel();
+                customer.FirstName = firstName;
+                customer.LastName = lastName;
+                customer.Address = address;
+                customer.Phone = phone;
+                customer.CustomerId = customerId;
+
+                customerAddressService.CreateAddressOfCustomer(customer, isDefault);
+
+                TempData["success"] = "Successfully add a new address!";
+                return Redirect("~/Address/" + customerId);
+            }
+            catch(Exception e)
+            {
+                TempData["error"] = "Something were wrong! " + e;
+                return Redirect("~/Address/" + customerId);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult UpdateAddress(IFormCollection form)
+        {
+            var customerId = Int32.Parse(form["customerId"][0]);
+            var customerAddressId = Int32.Parse(form["customerAddressId"][0]);
+            string firstName = form["firstName"][0];
+            string lastName = form["lastName"][0];
+            string address = form["address"][0];
+            string phone = form["phone"][0];
+            bool isDefault = form["default"].Count() == 0 ? false : true;
+
+
+            try
+            {
+                CustomerAddressViewModel customer = new CustomerAddressViewModel();
+                customer.FirstName = firstName;
+                customer.LastName = lastName;
+                customer.Address = address;
+                customer.Phone = phone;
+                customer.CustomerId = customerId;
+
+                customerAddressService.UpdateAddressOfCustomer(customerAddressId, customer, isDefault);
+
+
+                TempData["success"] = "Successfully update your address!";
+                return Redirect("~/Address/" + customerId);
+            }
+            catch (Exception e)
+            {
+                {
+                    TempData["error"] = "Something were wrong! " + e;
+                    return Redirect("~/Address/" + customerId);
+                }
+            }
+        }
+
+        //[HttpPost]
+        public IActionResult DeleteAddress(int addressId, int customerId)
+        {
+            try
+            {
+                customerAddressService.DeleteAddressOfCustomer(addressId, customerId);
+                TempData["success"] = "Successfully delete your address!";
+                return Redirect("~/Address/" + customerId);
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = "Something were wrong! " + e;
+                return Redirect("~/Address/" + customerId);
+            }
+        }
+
 
         public IActionResult Logout()
         {
