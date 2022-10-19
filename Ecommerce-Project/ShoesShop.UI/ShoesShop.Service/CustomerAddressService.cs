@@ -27,21 +27,21 @@ namespace ShoesShop.Service
             List<CustomerAddressViewModel> addresses = new List<CustomerAddressViewModel>();
             using (var context = new ApplicationDbContext())
             {
-                addresses = context.CustomerAddresses.Where(m => m.CustomerId == customerId && m.Status == true).Select(m => new CustomerAddressViewModel
-                {
-                    customerAddressId = m.CustomerAddressId,
-                    CustomerId = m.CustomerId,
-                    FirstName = m.FirstName,
-                    LastName = m.LastName,
-                    Address = m.Address,
-                    Phone = m.Phone,   
-                    IsDefault = m.IsDefault ?? false,
-                }).ToList(); 
+                addresses = context.CustomerAddresses
+                    .Where(m => m.CustomerId == customerId && m.Status == true)
+                    .Select(m => new CustomerAddressViewModel
+                    {
+                        customerAddressId = m.CustomerAddressId,
+                        CustomerId = m.CustomerId,
+                        FirstName = m.FirstName,
+                        LastName = m.LastName,
+                        Address = m.Address,
+                        Phone = m.Phone,   
+                        IsDefault = m.IsDefault ?? false,
+                    }).ToList(); 
             }
             return addresses;
         }
-
-
         public CustomerAddress GetCustomerAddressById(int customerAddressId)
         {
             var customerAddress = new CustomerAddress();
@@ -58,7 +58,7 @@ namespace ShoesShop.Service
             {
                 addressDefault = context.CustomerAddresses.Where(m => m.IsDefault == true && m.CustomerId == customerId).FirstOrDefault();
             }
-            return addressDefault;
+            return addressDefault ?? new CustomerAddress();
         }
         public int CountAddressOfCustomer(int customerId)
         {
@@ -73,13 +73,15 @@ namespace ShoesShop.Service
         {
             using (var context = new ApplicationDbContext())
             {
-                CustomerAddress customerAddress = new CustomerAddress();
-                customerAddress.CustomerId = customerAddressViewModel.CustomerId;
-                customerAddress.FirstName = customerAddressViewModel.FirstName;
-                customerAddress.LastName = customerAddressViewModel.LastName;
-                customerAddress.Address = customerAddressViewModel.Address;
-                customerAddress.Phone = customerAddressViewModel.Phone;
-                customerAddress.Status = true;
+                CustomerAddress customerAddress = new CustomerAddress
+                {
+                    CustomerId = customerAddressViewModel.CustomerId,
+                    FirstName = customerAddressViewModel.FirstName,
+                    LastName = customerAddressViewModel.LastName,
+                    Address = customerAddressViewModel.Address,
+                    Phone = customerAddressViewModel.Phone,
+                    Status = true
+                };
 
                 if (isDefault)
                 {

@@ -35,14 +35,16 @@ namespace ShoesShop.Service
         {
             try
             {
-                Customer customer = new Customer();
-                customer.FirstName = customerViewModel.FirstName;
-                customer.LastName = customerViewModel.LastName;
-                customer.Email = customerViewModel.Email;
-                customer.Password = customerViewModel.Password;
-                customer.RegisterDate = DateTime.Now;
-                customer.Avatar = "avatar.jpg";
-                customer.Status = true;
+                Customer customer = new Customer
+                {
+                    FirstName = customerViewModel.FirstName,
+                    LastName = customerViewModel.LastName,
+                    Email = customerViewModel.Email,
+                    Password = customerViewModel.Password,
+                    RegisterDate = DateTime.Now,
+                    Avatar = "avatar.jpg",
+                    Status = true
+                };
                 using (var context = new ApplicationDbContext())
                 {
                     context.Customers.Add(customer);
@@ -63,7 +65,7 @@ namespace ShoesShop.Service
             {
                 isExist = context.Customers.FirstOrDefault(m => m.Email == email);
             }
-            return isExist == null ? true : false;
+            return isExist == null;
         }
 
         public Customer GetValidCustomerByEmail(string email) 
@@ -77,12 +79,12 @@ namespace ShoesShop.Service
         }        
         public Customer GetValidCustomerById(int customerId) 
         {
-            Customer customer = new Customer();
+            var customer = new Customer();
             using (var context = new ApplicationDbContext())
             {
-                customer = context.Customers.Where(m => m.Status == true).FirstOrDefault(m => m.CustomerId == customerId);
+                customer = context.Customers.FirstOrDefault(m => m.CustomerId == customerId && m.Status);
             }
-            return customer;
+            return customer ?? new Customer();
         }
 
         public Customer ValidateCustomerAccount(string email, string password)
@@ -92,7 +94,7 @@ namespace ShoesShop.Service
             {
                 customer = context.Customers.FirstOrDefault(m => m.Email == email && m.Password == password);
             }
-            return customer;
+            return customer ?? new Customer();
         }
 
         public void ChangePassword(int customerId, string newPassword)
@@ -128,12 +130,14 @@ namespace ShoesShop.Service
                 context.Database.ExecuteSqlRaw("UPDATE ForgotPasswords SET Status = 0 WHERE CustomerId = " + customerId + "");
 
                 // Add new token
-                ForgotPassword forgotPassword = new ForgotPassword();
-                forgotPassword.Email = email.Trim();
-                forgotPassword.Token = token;
-                forgotPassword.CreateDate = DateTime.Now;
-                forgotPassword.Status = true;
-                forgotPassword.CustomerId = customerId;
+                ForgotPassword forgotPassword = new ForgotPassword
+                {
+                    Email = email.Trim(),
+                    Token = token,
+                    CreateDate = DateTime.Now,
+                    Status = true,
+                    CustomerId = customerId
+                };
                 context.ForgotPasswords.Add(forgotPassword);
                 context.SaveChanges();
             }
@@ -141,12 +145,12 @@ namespace ShoesShop.Service
 
         public ForgotPassword TokenValidate(string token)
         {
-            ForgotPassword forgotPassword = new ForgotPassword();
+            var forgotPassword = new ForgotPassword();
             using (var context = new ApplicationDbContext())
             {
                 forgotPassword = context.ForgotPasswords.FirstOrDefault(m => m.Token == token && m.Status == true);
             }
-            return forgotPassword;
+            return forgotPassword ?? new ForgotPassword();
         }
 
         public void ActiveToken(string token)
