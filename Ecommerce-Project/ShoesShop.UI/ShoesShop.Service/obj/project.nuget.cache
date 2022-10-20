@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "/ub05caNBErJrTkrOY8uWrDutCdKRrsXjHVuo8iYCIVmHulVgR2wbLtxe7KjsJOPQMp0WviYZ6ztRGMtQrOx/w==",
+  "dgSpecHash": "LnI5TN0hE8KD8vUhFD44awGC3BwgQ+1kv4fi9BvuoDyrhT+aOJ4q/Cc2OT+d/5UBPgnA0pIyiaSuwOh7Exkflg==",
   "success": true,
   "projectFilePath": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie-main\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.Service\\ShoesShop.Service.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\NguyenDung\\.nuget\\packages\\jetbrains.annotations\\2022.1.0\\jetbrains.annotations.2022.1.0.nupkg.sha512",
     "C:\\Users\\NguyenDung\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\NguyenDung\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "C:\\Users\\NguyenDung\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.1.1\\microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",
@@ -43,7 +44,9 @@
     "C:\\Users\\NguyenDung\\.nuget\\packages\\system.security.permissions\\4.7.0\\system.security.permissions.4.7.0.nupkg.sha512",
     "C:\\Users\\NguyenDung\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512",
     "C:\\Users\\NguyenDung\\.nuget\\packages\\system.text.encoding.codepages\\4.7.0\\system.text.encoding.codepages.4.7.0.nupkg.sha512",
-    "C:\\Users\\NguyenDung\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512"
+    "C:\\Users\\NguyenDung\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512",
+    "C:\\Users\\NguyenDung\\.nuget\\packages\\x.pagedlist\\8.4.3\\x.pagedlist.8.4.3.nupkg.sha512",
+    "C:\\Users\\NguyenDung\\.nuget\\packages\\x.pagedlist.mvc.core\\8.4.3\\x.pagedlist.mvc.core.8.4.3.nupkg.sha512"
   ],
   "logs": []
 }

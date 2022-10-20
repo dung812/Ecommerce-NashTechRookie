@@ -115,7 +115,6 @@ namespace ShoesShop.Test
             Assert.True(result);
         }
 
-
         [Fact]
         public void Test_UpdateAddress_InvalidAddressId()
         {

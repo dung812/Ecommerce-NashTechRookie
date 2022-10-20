@@ -1,0 +1,121 @@
+﻿
+@model ProductViewModel
+
+
+<div class="col-12 col-md-3 mt-5">
+    <div class="single-product d-block">
+        @if (Model.PromotionPercent > 0)
+        {
+            <span class="product-label">Sale</span>
+        }
+
+        <div class="btn-wishlist" onclick="AddWishList(event)">
+            <i class="fa-regular fa-heart fs-4"></i>
+        </div>
+        <div class="product-img">
+            <a asp-controller="Product" asp-action="ProductDetail" asp-route-productId="@Model.ProductId">
+                <img src="~/images/products/Image/@Model.Image" class="primary-img img-fluid" alt="product image">
+                <img src="~/images/products/ImageList/@Model.ImageList/1.jpg" class="secondary-img img-fluid" alt="product image">
+            </a>
+        </div>
+        <div class="product-info text-center">
+            <h4>Crocs</h4>
+            <a asp-controller="Product" asp-action="ProductDetail" asp-route-productId="@Model.ProductId" class="m-0">
+                @Model.ProductName
+                <span class="fw-bold text-danger ms-2">New</span>
+            </a>
+            @if (Model.PromotionPercent > 0)
+            {
+                <div>
+                    <span class="text-end fw-bold me-2">$@Functions.DiscountedPriceCalulator(Model.OriginalPrice, Model.PromotionPercent)</span>
+                    <span class="text-start text-decoration-line-through old-price">$@Model.OriginalPrice</span>
+                </div>
+            }
+            else
+            {
+                <div>
+                    <span class="text-end fw-bold me-2">$@Model.OriginalPrice</span>
+                </div>
+            }
+
+            @if (@Model.AvgStar == 1)
+            {
+                <div class="wrap-star">
+                    <span class="rate d-block">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <span class="ms-1">(@Model.TotalComment rating)</span>
+                    </span>
+                </div>
+            }
+            else if (@Model.AvgStar == 2)
+            {
+                <div class="wrap-star">
+                    <span class="rate d-block">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <span class="ms-1">(@Model.TotalComment rating)</span>
+                    </span>
+                </div>
+            }
+            else if (@Model.AvgStar == 3)
+            {
+                <div class="wrap-star">
+                    <span class="rate d-block">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <span class="ms-1">(@Model.TotalComment rating)</span>
+                    </span>
+                </div>
+            }
+            else if (@Model.AvgStar == 4)
+            {
+                <div class="wrap-star">
+                    <span class="rate d-block">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <span class="ms-1">(@Model.TotalComment rating)</span>
+                    </span>
+                </div>
+            }
+            else if (@Model.AvgStar == 5)
+            {
+                <div class="wrap-star">
+                    <span class="rate d-block">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <span class="ms-1">(@Model.TotalComment rating)</span>
+                    </span>
+                </div>
+            }
+            else
+            {
+                <div class="wrap-star">
+                    <span class="rate d-block">
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <span class="ms-1">(@Model.TotalComment rating)</span>
+                    </span>
+                </div>
+            }
+        </div>
+    </div>
+</div>

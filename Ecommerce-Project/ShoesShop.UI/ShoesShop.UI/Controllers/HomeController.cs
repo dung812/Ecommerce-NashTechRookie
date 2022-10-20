@@ -17,7 +17,7 @@ namespace ShoesShop.UI.Controllers
         private readonly IProductService productService;
         private readonly ICommentProductService commentProductService;
         private readonly IContactService contactService;
-        public HomeController(IProductService productService, ICommentProductService commentProductService, IContactService contactService)
+        public HomeController(IWebHostEnvironment environment, IProductService productService, ICommentProductService commentProductService, IContactService contactService)
         {
             this.productService = productService;
             this.commentProductService = commentProductService;

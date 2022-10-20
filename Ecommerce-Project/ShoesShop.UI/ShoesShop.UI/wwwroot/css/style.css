@@ -387,7 +387,7 @@ textarea#comment {
     left: 0;
     right: 0;
     transition: all 0.3s ease-in-out;
-    z-index: var(--z-fixed);
+    z-index: var(--z-modal);
 }
 
 .header-brand-scroll.is-fixed {
@@ -561,11 +561,15 @@ footer ul li {
     padding: 0;
 }
 
+.pagination {
+    justify-content: center;
+}
 
 .pagination-items {
     display: inline-block;
     margin-bottom: 4px;
     font-weight: 400;
+    margin: 0 2px;
 }
 
 .pagination-items a,

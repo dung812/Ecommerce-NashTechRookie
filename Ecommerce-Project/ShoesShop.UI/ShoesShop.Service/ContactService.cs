@@ -1,11 +1,6 @@
 ﻿using ShoesShop.Data;
 using ShoesShop.Domain;
 using ShoesShop.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShoesShop.Service
 {

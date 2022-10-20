@@ -10,10 +10,19 @@
         "dependencies": {
           "ShoesShop.DTO": "1.0.0",
           "ShoesShop.Data": "1.0.0",
-          "ShoesShop.Domain": "1.0.0"
+          "ShoesShop.Domain": "1.0.0",
+          "X.PagedList.Mvc.Core": "8.4.3"
         },
         "runtime": {
           "ShoesShop.Service.dll": {}
+        }
+      },
+      "JetBrains.Annotations/2022.1.0": {
+        "runtime": {
+          "lib/netstandard2.0/JetBrains.Annotations.dll": {
+            "assemblyVersion": "4242.42.42.42",
+            "fileVersion": "2022.1.0.0"
+          }
         }
       },
       "Microsoft.CSharp/4.5.0": {},
@@ -128,12 +137,6 @@
       "Microsoft.Extensions.Caching.Abstractions/6.0.0": {
         "dependencies": {
           "Microsoft.Extensions.Primitives": "6.0.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.Extensions.Caching.Abstractions.dll": {
-            "assemblyVersion": "6.0.0.0",
-            "fileVersion": "6.0.21.52210"
-          }
         }
       },
       "Microsoft.Extensions.Caching.Memory/6.0.1": {
@@ -154,12 +157,6 @@
       "Microsoft.Extensions.Configuration.Abstractions/6.0.0": {
         "dependencies": {
           "Microsoft.Extensions.Primitives": "6.0.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.dll": {
-            "assemblyVersion": "6.0.0.0",
-            "fileVersion": "6.0.21.52210"
-          }
         }
       },
       "Microsoft.Extensions.DependencyInjection/6.0.1": {
@@ -174,14 +171,7 @@
           }
         }
       },
-      "Microsoft.Extensions.DependencyInjection.Abstractions/6.0.0": {
-        "runtime": {
-          "lib/net6.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
-            "assemblyVersion": "6.0.0.0",
-            "fileVersion": "6.0.21.52210"
-          }
-        }
-      },
+      "Microsoft.Extensions.DependencyInjection.Abstractions/6.0.0": {},
       "Microsoft.Extensions.Logging/6.0.0": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "6.0.1",
@@ -189,43 +179,18 @@
           "Microsoft.Extensions.Logging.Abstractions": "6.0.0",
           "Microsoft.Extensions.Options": "6.0.0",
           "System.Diagnostics.DiagnosticSource": "6.0.0"
-        },
-        "runtime": {
-          "lib/netstandard2.1/Microsoft.Extensions.Logging.dll": {
-            "assemblyVersion": "6.0.0.0",
-            "fileVersion": "6.0.21.52210"
-          }
         }
       },
-      "Microsoft.Extensions.Logging.Abstractions/6.0.0": {
-        "runtime": {
-          "lib/net6.0/Microsoft.Extensions.Logging.Abstractions.dll": {
-            "assemblyVersion": "6.0.0.0",
-            "fileVersion": "6.0.21.52210"
-          }
-        }
-      },
+      "Microsoft.Extensions.Logging.Abstractions/6.0.0": {},
       "Microsoft.Extensions.Options/6.0.0": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0",
           "Microsoft.Extensions.Primitives": "6.0.0"
-        },
-        "runtime": {
-          "lib/netstandard2.1/Microsoft.Extensions.Options.dll": {
-            "assemblyVersion": "6.0.0.0",
-            "fileVersion": "6.0.21.52210"
-          }
         }
       },
       "Microsoft.Extensions.Primitives/6.0.0": {
         "dependencies": {
           "System.Runtime.CompilerServices.Unsafe": "6.0.0"
-        },
-        "runtime": {
-          "lib/net6.0/Microsoft.Extensions.Primitives.dll": {
-            "assemblyVersion": "6.0.0.0",
-            "fileVersion": "6.0.21.52210"
-          }
         }
       },
       "Microsoft.Identity.Client/4.21.1": {
@@ -458,6 +423,28 @@
           }
         }
       },
+      "X.PagedList/8.4.3": {
+        "dependencies": {
+          "JetBrains.Annotations": "2022.1.0"
+        },
+        "runtime": {
+          "lib/net6.0/X.PagedList.dll": {
+            "assemblyVersion": "8.4.3.0",
+            "fileVersion": "8.4.3.0"
+          }
+        }
+      },
+      "X.PagedList.Mvc.Core/8.4.3": {
+        "dependencies": {
+          "X.PagedList": "8.4.3"
+        },
+        "runtime": {
+          "lib/net6.0/X.PagedList.Mvc.Core.dll": {
+            "assemblyVersion": "8.4.3.0",
+            "fileVersion": "8.4.3.0"
+          }
+        }
+      },
       "ShoesShop.Data/1.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "6.0.10",
@@ -488,6 +475,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "JetBrains.Annotations/2022.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ASfpoFJxiRsC9Xc4TWuPM41Zb/gl64xwfMOhnOZ3RnVWGYIZchjpWQV5zshJgoc/ZxVtgjaF7b577lURj7E6ig==",
+      "path": "jetbrains.annotations/2022.1.0",
+      "hashPath": "jetbrains.annotations.2022.1.0.nupkg.sha512"
     },
     "Microsoft.CSharp/4.5.0": {
       "type": "package",
@@ -768,6 +762,20 @@
       "sha512": "sha512-CeWTdRNfRaSh0pm2gDTJFwVaXfTq6Xwv/sA887iwPTneW7oMtMlpvDIO+U60+3GWTB7Aom6oQwv5VZVUhQRdPQ==",
       "path": "system.windows.extensions/4.7.0",
       "hashPath": "system.windows.extensions.4.7.0.nupkg.sha512"
+    },
+    "X.PagedList/8.4.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wVVbgv++0NmOaUFgNOAky+wt4MdAAwn2Roz/+u+jlEX1s/ELIbbnan70Skhk/um6w5NnM5eC4Kux1GAPjzHOeQ==",
+      "path": "x.pagedlist/8.4.3",
+      "hashPath": "x.pagedlist.8.4.3.nupkg.sha512"
+    },
+    "X.PagedList.Mvc.Core/8.4.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-f1M+6o0AGSUGBuIRiXl9PGfoFbymw8uKjcuA1pJb2XkfginndZg1UR9zgppXW0GMLWCMzCoD5uVGD3SSywSimQ==",
+      "path": "x.pagedlist.mvc.core/8.4.3",
+      "hashPath": "x.pagedlist.mvc.core.8.4.3.nupkg.sha512"
     },
     "ShoesShop.Data/1.0.0": {
       "type": "project",

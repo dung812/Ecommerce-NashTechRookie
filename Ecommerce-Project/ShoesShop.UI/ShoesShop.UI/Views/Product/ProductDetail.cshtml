@@ -1,4 +1,5 @@
-﻿@{
+﻿@model ProductViewModel
+@{
     ViewData["Title"] = "ProductDetail";
 }
 
@@ -25,33 +26,41 @@
                         <i class="fa-solid fa-angle-right"></i>
                     </span>
                     <div class="img-wrap" onclick="HandleShowLightbox(event)">
-                        <img src="~/images/products/Image/20220731001046344.jpg" alt="main image" />
+                        <img src="~/images/products/Image/@Model.Image" alt="main image" />
                     </div>
                 </div>
                 <div class="list-img">
                     <div>
-                        <img src="~/images/products/Image/20220731001046344.jpg" alt="main image" />
+                        <img src="~/images/products/Image/@Model.Image" alt="main image" />
                     </div>
                     <div>
-                        <img src="~/images/products/ImageList/20220731001046344/1.jpg" alt="image gallery" />
+                        <img src="~/images/products/ImageList/@Model.ImageList/1.jpg" alt="image gallery" />
                     </div>
                     <div>
-                        <img src="~/images/products/ImageList/20220731001046344/2.jpg" alt="image gallery" />
+                        <img src="~/images/products/ImageList/@Model.ImageList/2.jpg" alt="image gallery" />
                     </div>
                     <div>
-                        <img src="~/images/products/ImageList/20220731001046344/3.jpg" alt="image gallery" />
+                        <img src="~/images/products/ImageList/@Model.ImageList/3.jpg" alt="image gallery" />
                     </div>
 
                 </div>
             </div>
         </div>
         <div class="col-md-5 mt-4">
-            <h4>Crocs</h4>
-            <h3>Women's Chuck Taylor All Star Hi Lift Platform Sneaker</h3>
+            <h4>@Model.CatalogName</h4>
+            <h3>@Model.ProductName</h3>
             <div>
-                <span class="text-end fw-bold me-1">$99</span>
-                <span class="text-start text-decoration-line-through old-price me-3">$99</span>
-                <span class="text-danger fw-bold">Save 0%</span>
+                @if (Model.PromotionPercent > 0)
+                {
+                    <span class="text-end fw-bold me-1">$@Functions.DiscountedPriceCalulator(Model.OriginalPrice, Model.PromotionPercent)</span>
+                    <span class="text-start text-decoration-line-through old-price me-3">$@Model.OriginalPrice</span>
+                    <span class="text-danger fw-bold">Save @Model.PromotionPercent%</span>
+                }
+                else
+                {
+                    <span class="text-end fw-bold me-2">$@Model.OriginalPrice</span>
+                }
+
             </div>
             <div class="wrap-star">
                 <span class="rate d-block">

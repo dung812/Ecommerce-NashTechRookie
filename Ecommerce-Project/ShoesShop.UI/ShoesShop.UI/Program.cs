@@ -11,6 +11,8 @@ builder.Services.AddScoped<ICommentProductService, CommentProductService>();
 builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<ICustomerAddressService, CustomerAddressService>();
+builder.Services.AddScoped<IManufactureService, ManufactureService>();
+builder.Services.AddScoped<ICatalogService, CatalogService>();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
