@@ -12,6 +12,7 @@ namespace ShoesShop.Service
         List<ProductViewModel> GetAllProduct();
         public IPagedList<ProductViewModel> GetAllProductPage(Gender cateGender, int? manufactureId, int? catalogId, int pageNumber, int pageSize);
         ProductViewModel GetProductById(int productId);
+        public IPagedList<ProductViewModel> FilterProduct(string filterType, Gender cateGender, int pageNumber, int pageSize);
     }
 
     public class ProductService : IProductService
@@ -27,6 +28,7 @@ namespace ShoesShop.Service
                                         .Include(m => m.Catalog)
                                         .Include(m => m.Manufacture)
                                         .Include(m => m.Admin)
+                                        .OrderByDescending(m => m.DateCreate)
                                         .Select(m => new ProductViewModel
                                         {
                                             ProductId = m.ProductId,
@@ -57,6 +59,7 @@ namespace ShoesShop.Service
                                         .Include(m => m.Catalog)
                                         .Include(m => m.Manufacture)
                                         .Include(m => m.Admin)
+                                        .OrderByDescending(m => m.DateCreate)
                                         .Select(m => new ProductViewModel
                                         {
                                             ProductId = m.ProductId,
@@ -156,6 +159,116 @@ namespace ShoesShop.Service
             }
                 
             return product ?? new ProductViewModel();
+        }
+
+        public IPagedList<ProductViewModel> FilterProduct(string filterType, Gender cateGender, int pageNumber, int pageSize)
+        {
+            IPagedList<ProductViewModel> productList;
+            using (var context = new ApplicationDbContext())
+            {
+                if (filterType == "high to low")
+                {
+                    productList = context.Products
+                                            .TagWith("Get list product")
+                                            .Where(m => m.Status == true && m.ProductGenderCategory == cateGender)
+                                            .Include(m => m.Catalog)
+                                            .Include(m => m.Manufacture)
+                                            .Include(m => m.Admin)
+                                            .OrderByDescending(m => m.OriginalPrice)
+                                            .Select(m => new ProductViewModel
+                                            {
+                                                ProductId = m.ProductId,
+                                                ProductName = m.ProductName,
+                                                Image = m.Image,
+                                                ImageList = m.ImageList,
+                                                OriginalPrice = m.OriginalPrice,
+                                                PromotionPercent = m.PromotionPercent,
+                                                Description = m.Description,
+                                                ProductGenderCategory = m.ProductGenderCategory,
+                                                ManufactureName = m.Manufacture.Name,
+                                                CatalogName = m.Catalog.Name,
+                                                AdminCreate = m.Admin.UserName,
+                                                DateCreate = m.DateCreate,
+                                            }).ToPagedList(pageNumber, pageSize);
+                }
+                else if (filterType == "low to high")
+                {
+                    productList = context.Products
+                                            .TagWith("Get list product")
+                                            .Where(m => m.Status == true && m.ProductGenderCategory == cateGender)
+                                            .Include(m => m.Catalog)
+                                            .Include(m => m.Manufacture)
+                                            .Include(m => m.Admin)
+                                            .OrderBy(m => m.OriginalPrice)
+                                            .Select(m => new ProductViewModel
+                                            {
+                                                ProductId = m.ProductId,
+                                                ProductName = m.ProductName,
+                                                Image = m.Image,
+                                                ImageList = m.ImageList,
+                                                OriginalPrice = m.OriginalPrice,
+                                                PromotionPercent = m.PromotionPercent,
+                                                Description = m.Description,
+                                                ProductGenderCategory = m.ProductGenderCategory,
+                                                ManufactureName = m.Manufacture.Name,
+                                                CatalogName = m.Catalog.Name,
+                                                AdminCreate = m.Admin.UserName,
+                                                DateCreate = m.DateCreate,
+                                            }).ToPagedList(pageNumber, pageSize);
+                }
+                else if (filterType == "Sale")
+                {
+                    productList = context.Products
+                                        .TagWith("Get list product")
+                                        .Where(m => m.Status == true && 
+                                               m.ProductGenderCategory == cateGender &&
+                                               m.PromotionPercent > 0)
+                                        .Include(m => m.Catalog)
+                                        .Include(m => m.Manufacture)
+                                        .Include(m => m.Admin)
+
+                                        .Select(m => new ProductViewModel
+                                        {
+                                            ProductId = m.ProductId,
+                                            ProductName = m.ProductName,
+                                            Image = m.Image,
+                                            ImageList = m.ImageList,
+                                            OriginalPrice = m.OriginalPrice,
+                                            PromotionPercent = m.PromotionPercent,
+                                            Description = m.Description,
+                                            ProductGenderCategory = m.ProductGenderCategory,
+                                            ManufactureName = m.Manufacture.Name,
+                                            CatalogName = m.Catalog.Name,
+                                            AdminCreate = m.Admin.UserName,
+                                            DateCreate = m.DateCreate,
+                                        }).ToPagedList(pageNumber, pageSize);
+                }
+                else
+                {
+                    productList = context.Products
+                                            .TagWith("Get list product")
+                                            .Where(m => m.Status == true)
+                                            .Include(m => m.Catalog)
+                                            .Include(m => m.Manufacture)
+                                            .Include(m => m.Admin)
+                                            .Select(m => new ProductViewModel
+                                            {
+                                                ProductId = m.ProductId,
+                                                ProductName = m.ProductName,
+                                                Image = m.Image,
+                                                ImageList = m.ImageList,
+                                                OriginalPrice = m.OriginalPrice,
+                                                PromotionPercent = m.PromotionPercent,
+                                                Description = m.Description,
+                                                ProductGenderCategory = m.ProductGenderCategory,
+                                                ManufactureName = m.Manufacture.Name,
+                                                CatalogName = m.Catalog.Name,
+                                                AdminCreate = m.Admin.UserName,
+                                                DateCreate = m.DateCreate,
+                                            }).ToPagedList(pageNumber, pageSize);
+                }
+            }
+            return productList;
         }
     }
 }

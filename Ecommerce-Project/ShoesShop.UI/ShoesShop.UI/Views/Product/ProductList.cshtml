@@ -1,7 +1,4 @@
-﻿@using X.PagedList.Mvc.Core;
-@using X.PagedList;
-
-@model X.PagedList.PagedList<ProductViewModel>
+﻿@model X.PagedList.PagedList<ProductViewModel>
 @{
     ViewData["Title"] = "ProductList";
 }
@@ -60,19 +57,19 @@
                 @if (ViewBag.ManufactureId != null || ViewBag.CatalogId != null)
                 {
                     <div class="py-3 pe-2 border-bottom d-none d-md-block">
-                        <a href="~/Product/ProductList?cateGender=@ViewBag.CateGender" class="d-block"><u>Clear All Refinements</u></a>
+                        <a href="~/Product?cateGender=@ViewBag.CateGender" class="d-block"><u>Clear All Refinements</u></a>
                     </div>
                 }
 
 
                 <div class="py-3 pe-2 border-bottom d-none d-md-block">
                     <p class="fs-6 fs-md-5 fw-semibold m-0 event-none mb-2">Sort by</p>
-                    <select class="form-select" aria-label="Featured">
+                    <select class="form-select" id="filter" aria-label="Featured" onchange="FilterProduct(this)">
                         <option selected>Featured</option>
                         <option value="1">Top Rated</option>
-                        <option value="2">Newest</option>
-                        <option value="3">Price: High To Low</option>
-                        <option value="3">Price: Low To High</option>
+                        <option value="Sale">Sale</option>
+                        <option value="high to low">Price: High To Low</option>
+                        <option value="low to high">Price: Low To High</option>
                     </select>
                 </div>
                 <div class="filter-cats py-3 pe-2 border-bottom">
@@ -84,7 +81,7 @@
                         <ul class="pt-2">
                             @foreach (var i in ViewBag.Catalogs)
                             {
-                                <li class="my-2"><a href="~/Product/ProductList?cateGender=@ViewBag.CateGender&catalogId=@i.CatalogId">@i.Name</a></li>
+                                <li class="my-2"><a href="@Url.Action("ProductList", new { page = 1, cateGender = ViewBag.CateGender, catalogId = i.CatalogId})">@i.Name</a></li>
                             }
                         </ul>
                     </div>
@@ -98,7 +95,7 @@
                         <ul class="pt-2">
                             @foreach (var i in ViewBag.Manufatures)
                             {
-                                <li class="my-2"><a href="~/Product/ProductList?cateGender=@ViewBag.CateGender&manufactureId=@i.ManufactureId">@i.Name</a></li>
+                                <li class="my-2"><a href="@Url.Action("ProductList", new { page = 1, cateGender = ViewBag.CateGender, manufactureId = i.ManufactureId})">@i.Name</a></li>
                             }
                         </ul>
                     </div>
@@ -292,8 +289,17 @@
 
 </div>
 <script>
+
+    // Style for pagelist library
     const paginationItems = document.querySelectorAll(".pagination li");
     paginationItems.forEach(item => {
         item.classList.add("pagination-items");
     })
+    //window.location.replace("http://stackoverflow.com");
+    console.log(window.location.origin)
+    function FilterProduct(selectObject) {
+      var value = selectObject.value;  
+      console.log(value);
+        window.location.replace(window.location.origin + "/Filter-product/?filterType=" + value + "&cateGender=" + '@ViewBag.CateGender')
+    }
 </script>

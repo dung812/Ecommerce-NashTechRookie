@@ -7,6 +7,8 @@ using System.Net.NetworkInformation;
 using X.PagedList.Mvc.Core;
 using X.PagedList;
 using ShoesShop.Data;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using ShoesShop.Domain;
 
 namespace ShoesShop.UI.Controllers
 {
@@ -43,7 +45,7 @@ namespace ShoesShop.UI.Controllers
             return list;
         }
 
-        [HttpGet]
+        [HttpGet("Product")]
         public IActionResult ProductList(int? page, string cateGender, int? manufactureId, int? catalogId)
         {
             ViewBag.Catalogs = catalogService.GetAllCatalog();
@@ -65,6 +67,35 @@ namespace ShoesShop.UI.Controllers
 
             return View(products);
         }
+
+        [HttpGet("Filter-product")]
+        public IActionResult FilterProduct(int? page, string cateGender, string filterType)
+        {
+            ViewBag.Catalogs = catalogService.GetAllCatalog();
+            ViewBag.Manufatures = manufactureService.GetAllManufacture();
+            ViewBag.CateGender = cateGender;
+            ViewBag.FilterType = filterType;
+
+            var pageNumber = page ?? 1;
+            var pageSize = 5; //Show 10 rows every time
+
+            Gender gender = Gender.Women;
+            if (cateGender == "Men")
+            {
+                gender = Gender.Men;
+            }
+
+            var productFilered = productService.FilterProduct(filterType, gender, pageNumber, pageSize);
+
+            return View(productFilered);
+        }     
+        
+
+        //[HttpGet]
+        //public IActionResult SearchProduct()
+        //{
+        //    return View();
+        //}
 
 
         [HttpGet]
