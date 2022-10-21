@@ -1,0 +1,291 @@
+﻿@model X.PagedList.PagedList<ProductViewModel>
+@{
+    ViewData["Title"] = "ProductList";
+}
+
+<div class="product-banner d-none">
+    <img src="~/images/material/banner.webp" alt="banner product list">
+</div>
+
+
+<div class="container product-list-section">
+    <!-- Breadcrumb -->
+    <h2 class="mt-4">Women's Shoes</h2>
+    <nav aria-label="breadcrumb" class="pb-0 py-3 border-bottom">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item">Shoes</li>
+            <li class="breadcrumb-item active" aria-current="page">Women</li>
+        </ol>
+    </nav>
+    <!-- Product list wrap -->
+    <div class="row mt-3">
+        <div class="col-12 col-md-3">
+
+            <!--Btn mobile-->
+            <div class="d-md-none">
+                <div class="container">
+                    <div class="row g-0">
+                        <div class="col-6 border">
+                            <div class="btn-filtering" onclick="HandleShowFilterArea(event)">Filter <i class="uil uil-filter ms-2"></i></div>
+                        </div>
+                        <div class="col-6 border">
+                            <div class="dropdown">
+                                <div class="btn-filtering dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                     aria-expanded="false">
+                                    Sort <i class="uil uil-align-center-v ms-2"></i>
+                                </div>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Top Rated</a></li>
+                                    <li><a class="dropdown-item" href="#">Newest</a></li>
+                                    <li><a class="dropdown-item" href="#">Price: High To Low</a></li>
+                                    <li><a class="dropdown-item" href="#">Price: Low To High</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filtering area -->
+            <div class="filtering-area px-4 px-md-0">
+                <div class="d-flex justify-content-between d-md-none text-end border-bottom">
+                    <div></div>
+                    <h3>Filter</h3>
+                    <i class="fa-solid fa-xmark fs-1 cursor-poiter" onclick="HandleCloseFilterArea(event)"></i>
+                </div>
+
+                <div class="py-3 pe-2 border-bottom d-none d-md-block">
+                    <p class="fs-6 fs-md-5 fw-semibold m-0 event-none mb-2">Sort by</p>
+                    <select class="form-select" id="filter" aria-label="Featured" onchange="FilterProduct(this)">
+                        <option selected>Featured</option>
+                        <option value="1">Top Rated</option>
+                        <option value="Sale">Sale</option>
+                        <option value="high to low">Price: High To Low</option>
+                        <option value="low to high">Price: Low To High</option>
+                    </select>
+                </div>
+                <div class="filter-cats py-3 pe-2 border-bottom">
+                    <div class="d-flex justify-content-between align-items-center cursor-poiter" onclick="HandleToggleCatList(event)">
+                        <p class="fs-6 fs-md-5 fw-semibold m-0 event-none">Category</p>
+                        <i class="fa-solid fa-plus event-none fs-5"></i>
+                    </div>
+                    <div class="filter-cat-list">
+                        <ul class="pt-2">
+                            @foreach (var i in ViewBag.Catalogs)
+                            {
+                                <li class="my-2"><a href="~/Product?cateGender=@ViewBag.CateGender&catalogId=@i.CatalogId">@i.Name</a></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="filter-cats py-3 pe-2 border-bottom">
+                    <div class="d-flex justify-content-between align-items-center cursor-poiter" onclick="HandleToggleCatList(event)">
+                        <p class="fs-6 fs-md-5 fw-semibold m-0 event-none">Brands</p>
+                        <i class="fa-solid fa-plus event-none fs-5"></i>
+                    </div>
+                    <div class="filter-cat-list">
+                        <ul class="pt-2">
+                            @foreach (var i in ViewBag.Manufatures)
+                            {
+                                <li class="my-2"><a href="~/Product?cateGender=@ViewBag.CateGender&manufactureId=@i.ManufactureId">@i.Name</a></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="py-3 pe-2">
+                    <p class="fs-6 fs-md-5 fw-semibold">Size</p>
+                    <ul>
+                        <li class="d-inline-block">
+                            <div class="size-items d-flex justify-content-center align-items-center border">38</div>
+                        </li>
+                        <li class="d-inline-block">
+                            <div class="size-items d-flex justify-content-center align-items-center border">39</div>
+                        </li>
+                        <li class="d-inline-block">
+                            <div class="size-items d-flex justify-content-center align-items-center border">40</div>
+                        </li>
+                        <li class="d-inline-block">
+                            <div class="size-items d-flex justify-content-center align-items-center border">41</div>
+                        </li>
+                        <li class="d-inline-block">
+                            <div class="size-items d-flex justify-content-center align-items-center border">42</div>
+                        </li>
+                        <li class="d-inline-block">
+                            <div class="size-items d-flex justify-content-center align-items-center border">43</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="banner-left d-none d-md-block">
+                    <a href="#">
+                        <img src="https://htmldemo.net/james/james/img/product/banner_left.jpg" class="img-fluid" alt="">
+                    </a>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-12 col-md-9 product-section">
+            <!-- Product items-->
+            <div class="row">
+                @if (Model.Count == 0)
+                {
+                    <p>No match any product</p>
+                }
+                else
+                {
+                    foreach (var i in Model)
+                    {
+                        <div class="col-12 col-md-3 mt-5">
+                            <div class="single-product d-block">
+                                @if (i.PromotionPercent > 0)
+                                {
+                                    <span class="product-label">Sale</span>
+                                }
+
+                                <div class="btn-wishlist" onclick="AddWishList(event)">
+                                    <i class="fa-regular fa-heart fs-4"></i>
+                                </div>
+                                <div class="product-img">
+                                    <a asp-controller="Product" asp-action="ProductDetail" asp-route-productId="@i.ProductId">
+                                        <img src="~/images/products/Image/@i.Image" class="primary-img img-fluid" alt="product image">
+                                        <img src="~/images/products/ImageList/@i.ImageList/1.jpg" class="secondary-img img-fluid" alt="product image">
+                                    </a>
+                                </div>
+                                <div class="product-info text-center">
+                                    <h4>Crocs</h4>
+                                    <a asp-controller="Product" asp-action="ProductDetail" asp-route-productId="@i.ProductId" class="m-0">
+                                        @i.ProductName
+                                        <span class="fw-bold text-danger ms-2">New</span>
+                                    </a>
+                                    @if (i.PromotionPercent > 0)
+                                    {
+                                        <div>
+                                            <span class="text-end fw-bold me-2">$@Functions.DiscountedPriceCalulator(i.OriginalPrice, i.PromotionPercent)</span>
+                                            <span class="text-start text-decoration-line-through old-price">$@i.OriginalPrice</span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div>
+                                            <span class="text-end fw-bold me-2">$@i.OriginalPrice</span>
+                                        </div>
+                                    }
+
+                                    @if (@i.AvgStar == 1)
+                                    {
+                                        <div class="wrap-star">
+                                            <span class="rate d-block">
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <span class="ms-1">(@i.TotalComment rating)</span>
+                                            </span>
+                                        </div>
+                                    }
+                                    else if (@i.AvgStar == 2)
+                                    {
+                                        <div class="wrap-star">
+                                            <span class="rate d-block">
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <span class="ms-1">(@i.TotalComment rating)</span>
+                                            </span>
+                                        </div>
+                                    }
+                                    else if (@i.AvgStar == 3)
+                                    {
+                                        <div class="wrap-star">
+                                            <span class="rate d-block">
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <span class="ms-1">(@i.TotalComment rating)</span>
+                                            </span>
+                                        </div>
+                                    }
+                                    else if (@i.AvgStar == 4)
+                                    {
+                                        <div class="wrap-star">
+                                            <span class="rate d-block">
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <span class="ms-1">(@i.TotalComment rating)</span>
+                                            </span>
+                                        </div>
+                                    }
+                                    else if (@i.AvgStar == 5)
+                                    {
+                                        <div class="wrap-star">
+                                            <span class="rate d-block">
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <span class="ms-1">(@i.TotalComment rating)</span>
+                                            </span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="wrap-star">
+                                            <span class="rate d-block">
+                                                <i class="fa-regular fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <span class="ms-1">(@i.TotalComment rating)</span>
+                                            </span>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+
+            <!-- Pagination-->
+            <div class="row mt-5 text-center">
+                <div class="col-12">
+                    <div class="pagination-wrap">
+                        @if (Model.Count > 0)
+                        {
+                            @Html.PagedListPager((IPagedList)Model, page => Url.Action("SearchProduct", new { page, ViewBag.Keyword }) )
+                        }                   
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<script>
+
+    // Style for pagelist library
+    const paginationItems = document.querySelectorAll(".pagination li");
+    paginationItems.forEach(item => {
+        item.classList.add("pagination-items");
+    })
+
+    function FilterProduct(selectObject) {
+        var value = selectObject.value;
+        console.log(value);
+        window.location.replace(window.location.origin + "/Filter-product/?filterType=" + value)
+    }
+
+</script>

@@ -1201,3 +1201,7 @@ select.form-control {
 textarea#Message {
     height: auto !important;
 }
+
+.ui-menu-item {
+    padding: 2px 12px;
+}

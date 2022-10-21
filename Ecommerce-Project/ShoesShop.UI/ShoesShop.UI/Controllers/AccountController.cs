@@ -157,7 +157,7 @@ namespace ShoesShop.UI.Controllers
         public IActionResult ResetPassword(string token)
         {
             var checkToken = customerService.TokenValidate(token);
-            if (token == null || checkToken == null)
+            if (token == null || checkToken.Token == null)
             {
                 return RedirectToAction("Error", "Home");
             }

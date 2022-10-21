@@ -9,6 +9,7 @@ using X.PagedList;
 using ShoesShop.Data;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ShoesShop.Domain;
+using System.Drawing.Printing;
 
 namespace ShoesShop.UI.Controllers
 {
@@ -88,14 +89,31 @@ namespace ShoesShop.UI.Controllers
             var productFilered = productService.FilterProduct(filterType, gender, pageNumber, pageSize);
 
             return View(productFilered);
-        }     
-        
+        }
 
-        //[HttpGet]
-        //public IActionResult SearchProduct()
-        //{
-        //    return View();
-        //}
+        public JsonResult ProductNameList(string keyword)
+        {
+            var data = productService.GetNameProductList(keyword);
+            return Json(new { data = data, status = true });
+        }
+
+        [HttpGet("Search-product")]
+        public IActionResult SearchProduct(int? page, string keyword)
+        {
+            ViewBag.Catalogs = catalogService.GetAllCatalog();
+            ViewBag.Manufatures = manufactureService.GetAllManufacture();
+            ViewBag.Keyword = keyword;
+
+            var pageNumber = page ?? 1;
+            var pageSize = 5; //Show 10 rows every time
+
+
+            var products = productService.SearchProduct(keyword, pageNumber, pageSize);
+
+            return View(products);
+        }
+
+        
 
 
         [HttpGet]

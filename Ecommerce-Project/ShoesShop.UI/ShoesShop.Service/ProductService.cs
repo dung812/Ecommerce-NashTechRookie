@@ -13,6 +13,8 @@ namespace ShoesShop.Service
         public IPagedList<ProductViewModel> GetAllProductPage(Gender cateGender, int? manufactureId, int? catalogId, int pageNumber, int pageSize);
         ProductViewModel GetProductById(int productId);
         public IPagedList<ProductViewModel> FilterProduct(string filterType, Gender cateGender, int pageNumber, int pageSize);
+        public IPagedList<ProductViewModel> SearchProduct(string keyword, int pageNumber, int pageSize);
+        public List<string> GetNameProductList(string keyword);
     }
 
     public class ProductService : IProductService
@@ -267,6 +269,48 @@ namespace ShoesShop.Service
                                                 DateCreate = m.DateCreate,
                                             }).ToPagedList(pageNumber, pageSize);
                 }
+            }
+            return productList;
+        }
+    
+        public IPagedList<ProductViewModel> SearchProduct(string keyword, int pageNumber, int pageSize)
+        {
+            IPagedList<ProductViewModel> productList;
+            using (var context = new ApplicationDbContext())
+            {
+                productList = context.Products
+                                           .TagWith("Search product")
+                                           .Where(  m => m.Status == true && 
+                                                    m.ProductName.Contains(keyword))
+                                           .Include(m => m.Catalog)
+                                           .Include(m => m.Manufacture)
+                                           .Include(m => m.Admin)
+                                           .OrderByDescending(m => m.OriginalPrice)
+                                           .Select(m => new ProductViewModel
+                                           {
+                                               ProductId = m.ProductId,
+                                               ProductName = m.ProductName,
+                                               Image = m.Image,
+                                               ImageList = m.ImageList,
+                                               OriginalPrice = m.OriginalPrice,
+                                               PromotionPercent = m.PromotionPercent,
+                                               Description = m.Description,
+                                               ProductGenderCategory = m.ProductGenderCategory,
+                                               ManufactureName = m.Manufacture.Name,
+                                               CatalogName = m.Catalog.Name,
+                                               AdminCreate = m.Admin.UserName,
+                                               DateCreate = m.DateCreate,
+                                           }).ToPagedList(pageNumber, pageSize);
+            }    
+
+            return productList;
+        }
+        public List<string> GetNameProductList(string keyword)
+        {
+            var productList = new List<string>();
+            using (var context = new ApplicationDbContext())
+            {
+                productList = context.Products.Where(m => m.ProductName.Contains(keyword)).Select(m => m.ProductName).ToList();
             }
             return productList;
         }
