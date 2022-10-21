@@ -15,6 +15,7 @@ namespace ShoesShop.Service
         public IPagedList<ProductViewModel> FilterProduct(string filterType, Gender cateGender, int pageNumber, int pageSize);
         public IPagedList<ProductViewModel> SearchProduct(string keyword, int pageNumber, int pageSize);
         public List<string> GetNameProductList(string keyword);
+        public List<AttributeViewModel> GetAttributeOfProduct(int productId);
     }
 
     public class ProductService : IProductService
@@ -313,6 +314,20 @@ namespace ShoesShop.Service
                 productList = context.Products.Where(m => m.ProductName.Contains(keyword)).Select(m => m.ProductName).ToList();
             }
             return productList;
+        }
+    
+        public List<AttributeViewModel> GetAttributeOfProduct(int productId)
+        {
+            var attributes = new List<AttributeViewModel>();
+            using (var context = new ApplicationDbContext())
+            {
+                attributes = context.ProductAttributes.Where(m => m.ProductId == productId && m.Status).Include(m => m.AttributeValue).Select(m => new AttributeViewModel
+                {
+                    AttributeId = m.AttributeValueId,
+                    AttributeName = m.AttributeValue.Name
+                }).ToList();
+            }
+            return attributes;
         }
     }
 }

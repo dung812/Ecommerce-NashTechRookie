@@ -10,6 +10,7 @@ using ShoesShop.Data;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ShoesShop.Domain;
 using System.Drawing.Printing;
+using Newtonsoft.Json;
 
 namespace ShoesShop.UI.Controllers
 {
@@ -26,24 +27,22 @@ namespace ShoesShop.UI.Controllers
             this.catalogService = catalogService;
             this.commentProductService = commentProductService;
         }
-
-        public List<ProductViewModel> HandleAvgRatingProduct(List<ProductViewModel> list)
+     
+        public ProductViewModel HandleAvgRatingProduct(ProductViewModel productViewModel)
         {
-            for (var i = 0; i < list.Count(); i++)
+            var productId = productViewModel.ProductId;
+            var getComments = commentProductService.GetListCommentOfProductById(productId);
+            if (getComments.Count() == 0)
             {
-                var productId = list[i].ProductId;
-                var getComments = commentProductService.GetListCommentOfProductById(productId);
-                if (getComments.Count() == 0)
-                {
-                    list[i].AvgStar = 0;
-                }
-                else
-                {
-                    list[i].AvgStar = Functions.AverageRatingCalculator(getComments);
-                }
-                list[i].TotalComment = getComments.Count();
+                productViewModel.AvgStar = 0;
             }
-            return list;
+            else
+            {
+                productViewModel.AvgStar = Functions.AverageRatingCalculator(getComments);
+            }
+            productViewModel.TotalComment = getComments.Count();
+
+            return productViewModel;
         }
 
         [HttpGet("Product")]
@@ -66,6 +65,9 @@ namespace ShoesShop.UI.Controllers
 
             IPagedList<ProductViewModel> products = productService.GetAllProductPage(gender, manufactureId, catalogId, pageNumber, pageSize);
 
+            foreach(var i in products)
+                HandleAvgRatingProduct(i);
+
             return View(products);
         }
 
@@ -87,11 +89,14 @@ namespace ShoesShop.UI.Controllers
             }
 
             var productFilered = productService.FilterProduct(filterType, gender, pageNumber, pageSize);
+            foreach (var i in productFilered)
+                HandleAvgRatingProduct(i);
+
 
             return View(productFilered);
         }
 
-        public JsonResult ProductNameList(string keyword)
+        public JsonResult GetProductNameList(string keyword)
         {
             var data = productService.GetNameProductList(keyword);
             return Json(new { data = data, status = true });
@@ -109,22 +114,68 @@ namespace ShoesShop.UI.Controllers
 
 
             var products = productService.SearchProduct(keyword, pageNumber, pageSize);
+            foreach (var i in products)
+                HandleAvgRatingProduct(i);
 
             return View(products);
         }
 
-        
-
-
-        [HttpGet]
+        [HttpGet("Product/{slug}-{productId}")]
         public IActionResult ProductDetail(int productId)
         {
             if (productId == null)
             {
                 return RedirectToAction("Error", "Home");
             }
+
+            // Get customer info data of session
+            var cusomterSession = HttpContext.Session.GetString("CustomerInfo");
+            var customerInfoSession = JsonConvert.DeserializeObject<Customer>(cusomterSession != null ? cusomterSession : "");
+
+            // Get customer infor from session
+            ViewBag.CustomerInfoSession = customerInfoSession;
+
+            // Varial check customer are commented yet
+            ViewBag.IsCommented = customerInfoSession != null ? commentProductService.CheckCustomerCommentYet(productId, customerInfoSession.CustomerId) : false;
+
+
+            ViewBag.SizeOfProduct = productService.GetAttributeOfProduct(productId);
+
             ProductViewModel product = productService.GetProductById(productId);
+            HandleAvgRatingProduct(product);
+
             return View(product);
+        }
+
+
+        // Rating product
+        public JsonResult GetCommentList(int productId)
+        {
+            var comments = commentProductService.GetListCommentOfProductById(productId);
+            return Json(new { status = 200, comments });
+        }
+
+        public JsonResult GetStarOfProduct(int productId)
+        {
+            var product = productService.GetProductById(productId);
+            HandleAvgRatingProduct(product);
+
+            return Json(new { status = 200, product = product });
+        }
+
+        [HttpPost]
+        public JsonResult AddComment(int productId, int customerId, int star, string content)
+        {
+            System.Threading.Thread.Sleep(2000);
+
+            if (commentProductService.AddCommentOfProduct(productId, customerId, star, content))
+            {
+                return Json(new { status = 200 });
+            }
+            else
+            {
+                return Json(new { status = 500 });
+            }
         }
     }
 }

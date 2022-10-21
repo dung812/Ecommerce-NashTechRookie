@@ -76,14 +76,11 @@
             <div class="row my-3">
                 <p class="fs-5 m-0">Size</p>
                 <div class="size-wrap">
-                    <input type="radio" id="39" name="size" value="1" hidden="">
-                    <label for="39" class="size-item active">39</label>
-                    <input type="radio" id="40" name="size" value="2" hidden="">
-                    <label for="40" class="size-item">40</label>
-                    <input type="radio" id="41" name="size" value="3" hidden="">
-                    <label for="41" class="size-item">41</label>
-                    <input type="radio" id="42" name="size" value="4" hidden="">
-                    <label for="42" class="size-item">42</label>
+                    @foreach (var i in ViewBag.SizeOfProduct)
+                    {
+                        <input type="radio" id="@i.AttributeName" name="size" value="@i.AttributeId" hidden>
+                        <label for="@i.AttributeName" class="size-item">@i.AttributeName</label>
+                    }
                 </div>
             </div>
 
@@ -141,43 +138,55 @@
                 <div class="tab-pane container fade" id="review">
                     <div class="row">
                         <div class="col-12 col-md-8">
-                            <h5 class="mb-4">0 Reviews</h5>
-                            <!-- No login -->
-                            <!-- <p>Your must login before comment! <a href="#" class="text-primary">Login</a></p> -->
-
-                            <div class="rate-area">
-                                <h3 class="title-rate text-center">How would you rate this product?</h3>
-                                <div class="star-rate-wrap">
-                                    <div class="star-widget">
-                                        <input type="radio" class="input-rate" name="rate" id="rate-5">
-                                        <label for="rate-5" class="fas fa-star label-rate" aria-hidden="true"></label>
-                                        <input type="radio" class="input-rate" name="rate" id="rate-4">
-                                        <label for="rate-4" class="fas fa-star label-rate" aria-hidden="true"></label>
-                                        <input type="radio" class="input-rate" name="rate" id="rate-3">
-                                        <label for="rate-3" class="fas fa-star label-rate" aria-hidden="true"></label>
-                                        <input type="radio" class="input-rate" name="rate" id="rate-2">
-                                        <label for="rate-2" class="fas fa-star label-rate" aria-hidden="true"></label>
-                                        <input type="radio" class="input-rate" name="rate" id="rate-1">
-                                        <label for="rate-1" class="fas fa-star label-rate" aria-hidden="true"></label>
-                                        <form action="/Shop/AddComment" id="form-comment" method="post">
-                                            <header></header>
-                                            <div class="form-group">
-                                                <textarea class="form-control" rows="4" id="comment" name="comment" placeholder="Writting your review!"></textarea>
-                                            </div>
-                                            <div class="form-group text-center mt-2">
-                                                <button type="submit" class="btn btn-primary btn-submit-comment btn-custom-loading"><div class="loader"></div><span>Submit review</span></button>
-                                            </div>
-                                        </form>
+                            <h5 class="mb-4 head-comment">0 Reviews</h5>
+                            @if (ViewBag.CustomerInfoSession == null)
+                            {
+                                <p>Your must login before comment! <a href="~/Login-registration" class="text-primary">Login</a></p>
+                            }
+                            else 
+                            {
+                                if (ViewBag.IsCommented == true)
+                                {
+                                    <p>You commented on this product before!</p>
+                                }
+                                else 
+                                {
+                                    <div class="msg-success-rate d-none">
+                                        <div class="text-center text-danger fw-bold">Thanks for rating us!</div>
                                     </div>
-                                </div>
-                            </div>
+                                    <div class="rate-area">
+                                        <h3 class="title-rate text-center">How would you rate this product?</h3>
+                                        <div class="star-rate-wrap">
+                                            <div class="star-widget">
+                                                <input type="radio" class="input-rate" name="rate" id="rate-5">
+                                                <label for="rate-5" class="fas fa-star label-rate" aria-hidden="true"></label>
+                                                <input type="radio" class="input-rate" name="rate" id="rate-4">
+                                                <label for="rate-4" class="fas fa-star label-rate" aria-hidden="true"></label>
+                                                <input type="radio" class="input-rate" name="rate" id="rate-3">
+                                                <label for="rate-3" class="fas fa-star label-rate" aria-hidden="true"></label>
+                                                <input type="radio" class="input-rate" name="rate" id="rate-2">
+                                                <label for="rate-2" class="fas fa-star label-rate" aria-hidden="true"></label>
+                                                <input type="radio" class="input-rate" name="rate" id="rate-1">
+                                                <label for="rate-1" class="fas fa-star label-rate" aria-hidden="true"></label>
+                                                <form action="~/Account/AddNewComment" id="form-comment" method="post">
+                                                    <header></header>
+                                                    <div class="form-group">
+                                                        <textarea class="form-control" rows="4" id="comment" name="comment" placeholder="Writting your review!"></textarea>
+                                                    </div>
+                                                    <div class="form-group text-center mt-2">
+                                                        <button type="submit" class="btn btn-primary btn-submit-comment btn-custom-loading"><div class="loader"></div><span>Submit review</span></button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
 
-                            <!-- <div class="msg-success-rate">
-                                <div class="text-center text-danger fw-bold">Thanks for rating us!</div>
-                            </div> -->
+                            }
+
 
                             <div class="wrap-comments">
-                                <div class="review-item row mt-4">
+                                @*<div class="review-item row mt-4">
                                     <div class="col-2 col-md-1">
                                         <img src="~/images/avatars/avatar.jpg" class="img-fluid rounded-circle user-img" alt="avatar image">
                                     </div>
@@ -203,35 +212,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="review-item row mt-4">
-                                    <div class="col-2 col-md-1">
-                                        <img src="~/images/avatars/justin-bieber.jpg" class="img-fluid rounded-circle user-img" alt="avatar image">
-                                    </div>
-                                    <div class="col-10 col-md-11">
-                                        <div class="row">
-                                            <div class="col-8">
-                                                <p>
-                                                    Justin Bieber
-                                                </p>
-                                                <div class="wrap-star">
-                                                    <span class="rate d-block">
-                                                        <i class="fa-solid fa-star"></i>
-                                                        <i class="fa-regular fa-star"></i>
-                                                        <i class="fa-regular fa-star"></i>
-                                                        <i class="fa-regular fa-star"></i>
-                                                        <i class="fa-regular fa-star"></i>
-                                                    </span>
-                                                </div>
-                                                <p>So bad</p>
-                                            </div>
-                                            <div class="col-4 text-end">
-                                                <p>10/10/2022 7:50 AM</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
+                                </div>*@
+                           
                             </div>
 
                         </div>
@@ -476,3 +458,252 @@
 
 </div>
 
+<script>
+
+    //================== Render Comment Feature ====================
+    $(document).ready(function () {
+        GetCommentList();
+        GetRatingOfProduct();
+    });
+
+    function GetCommentList() {
+        $.ajax({
+            url: "/Product/GetCommentList?productId=" + Number(@Model.ProductId),
+            type: "GET",
+            beforeSend: function () {
+                //$(".dataTables_empty").html('<div class="loading-table"></div>')
+            },
+            success: function (data) {
+                console.log(data.comments)
+
+                const countNumberCommentElement = document.querySelector(".head-comment");
+                countNumberCommentElement.innerHTML = `${data.comments.length} Reviews`;
+
+                const wrapComment = document.querySelector(".wrap-comments");
+                let template = "";
+
+                // Trường hợp danh sách trả về ko có phần tử nào
+                if (data.comments.length == 0) {
+                    template = `<div class="review"><p>No comment!</p></div>`;
+                    wrapComment.insertAdjacentHTML("afterbegin", template);
+                }
+                else {
+                    if (data.status == 200) {
+                        wrapComment.innerHTML = "";
+                        [...data.comments].forEach(item => {
+                            let starTemplate = "";
+
+                            var date = new Date(Date.parse(item.date));
+                            var dateFormat =
+                                ("0" + date.getUTCDate()).slice(-2)   + "/" +
+                                ("0" + (date.getUTCMonth() + 1)).slice(-2) + "/" +
+                                date.getUTCFullYear() + " " +
+
+                                ("0" + date.getUTCHours()).slice(-2) + ":" +
+                                ("0" + date.getUTCMinutes()).slice(-2);
+
+
+                            if (item.star == 1) {
+                                starTemplate = `
+                                        <span class="rate d-block">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-regular fa-star"></i>
+                                            <i class="fa-regular fa-star"></i>
+                                            <i class="fa-regular fa-star"></i>
+                                            <i class="fa-regular fa-star"></i>
+                                        </span>`;
+                            }
+                            else if (item.star == 2) {
+                                starTemplate = `
+                                            <span class="rate d-block">
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                            </span>`;
+                            }
+                            else if (item.star == 3) {
+                                starTemplate = `
+                                        <span class="rate d-block">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-regular fa-star"></i>
+                                            <i class="fa-regular fa-star"></i>
+                                        </span>`;
+                            }
+                            else if (item.star == 4) {
+                                starTemplate = `
+                                        <span class="rate d-block">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-regular fa-star"></i>
+                                        </span>`;
+                            }
+                            else {
+                                starTemplate = `
+                                        <span class="rate d-block">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                        </span>`;
+                            }
+                            template = `<div class="review-item row mt-4">
+                                            <div class="col-2 col-md-1">
+                                                    <img src="/images/avatars/${item.avatar}" class="img-fluid rounded-circle user-img" alt="avatar image">
+                                            </div>
+                                            <div class="col-10 col-md-11">
+                                                <div class="row">
+                                                    <div class="col-8">
+                                                        <p>
+                                                            ${item.firstName} ${item.lastName}
+                                                        </p>
+                                                        <div class="wrap-star">
+                                                            ${starTemplate}
+                                                        </div>
+                                                        <p>${item.content}</p>
+                                                    </div>
+                                                    <div class="col-4 text-end">
+                                                        <p>${dateFormat}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>`;
+                            wrapComment.insertAdjacentHTML("afterbegin", template);
+                        })
+
+                    }
+                }
+
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        });
+    };
+
+    function GetRatingOfProduct() {
+        $.ajax({
+            url: "/Product/GetStarOfProduct?productId=" + Number(@Model.ProductId),
+            type: "GET",
+            success: function (data) {
+                console.log(data.product)
+                console.log(data.product.avgStar)
+
+                if (data.status == 200) {
+                    const starWrap = document.querySelector(".wrap-star");
+                    let star = "";
+                    if (data.product.avgStar === 0) {
+                        star = `<i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>`;
+                    }                    
+                    else if (data.product.avgStar === 1) {
+                        star = `<i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>`;
+                    }
+                    else if (data.product.avgStar === 2) {
+                        star = `<i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>`;
+                    }
+                    else if (data.product.avgStar === 3) {
+                        star = `<i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>`;
+                    }
+                    else if (data.product.avgStar === 4) {
+                        star = `<i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i>`;
+                    }
+                    else {
+                        star = `<i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>`;
+                    }
+
+                    const template = `
+                        <div class="rate">
+                            ${star}
+                                (${data.product.totalComment} Rating)
+                            </div>`;
+
+                    starWrap.innerHTML = '';
+                    starWrap.innerHTML = template;
+
+
+                } 
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        });
+    };
+
+
+
+    // Handle submit form rating product
+    const formComment = document.querySelector("#form-comment");
+    formComment && formComment.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const star = parseInt(document.querySelector("input[name='rate']:checked").getAttribute("id").split("").reverse()[0]);
+        const commentVal = this.elements["comment"].value;
+        const productId = Number(@Model.ProductId);
+        const customerId = Number(@ViewBag.CustomerInfoSession?.CustomerId);
+
+        console.log({ star, commentVal, productId, customerId })
+
+        $.ajax({
+            url: "/Product/AddComment",
+            type: "POST",
+            data: {
+                productId: productId,
+                customerId: customerId,
+                star: star,
+                content: commentVal
+            },
+            beforeSend: function () {
+                //$(".dataTables_empty").html('<div class="loading-table"></div>')
+                const btnSubmit = document.querySelector(".btn-submit-comment");
+                btnSubmit.classList.add("is-loading");
+            },
+            success: function (data) {
+                const btnSubmit = document.querySelector(".btn-submit-comment");
+                btnSubmit.classList.add("is-loading");
+
+                if (data.status == 200) {
+                    const rateArea = document.querySelector(".rate-area");
+                    const rateSuccess = document.querySelector(".msg-success-rate");
+                    !rateArea.classList.contains("d-none") && rateArea.classList.add("d-none")
+                    rateSuccess.classList.contains("d-none") && rateSuccess.classList.remove("d-none")
+                    // Re-render comment list
+                    GetCommentList();
+                    GetRatingOfProduct();
+                }
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        });
+
+    });
+</script>

@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="~/css/responsive.css" asp-append-version="true" />
 
     <script src="~/js/fontawesome.js"></script>
-
+    <script src="~/js/jquery.min.js"></script>
 
 
     <script>(function (w, d) { w.CollectId = "60827f2b34b8b76f099ef81c"; var h = d.head || d.getElementsByTagName("head")[0]; var s = d.createElement("script"); s.setAttribute("type", "text/javascript"); s.async = true; s.setAttribute("src", "https://collectcdn.com/launcher.js"); h.appendChild(s); })(window, document);</script>
@@ -154,12 +154,9 @@
                         <div class="row">
                             <div class="col-12 col-12 d-flex justify-content-end gap-3">
 
-                                <form id="form-search" action="~/Search-product" method="get" class="d-none d-md-block">
-                                    <input type="search" class="input-search" id="txtkeyword" name="keyword" placeholder="Find Something Famous For You" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}" />
-                                    <button type="submit" class="btn-submit">
-                                        <i class="fa-solid fa-magnifying-glass"></i>
-                                    </button>
-                                </form>
+                                <partial name="_SearchInput.cshtml" />
+
+
 
                                 <a href="#" class="wrap-cart d-flex align-items-center">
                                     <i class="fa-regular fa-heart fs-4"></i>
@@ -406,7 +403,7 @@
     </footer>
 
     <!-- SCRIPT -->
-    <script src="~/js/jquery.min.js"></script>
+    @*<script src="~/js/jquery.min.js"></script>*@
     <script src="~/js/swiper-bundle.min.js"></script>
     <script src="~/js/scrollreveal.js"></script>
     <script src="~/js/popper.min.js"></script>
@@ -414,47 +411,9 @@
     <script src="~/js/toastr.min.js"></script>
     <script src="~/js/app.js"  asp-append-version="true"></script>
 
-        <!-- Autocomplete Textbox Jquery -->
-    <script src="~/js/jquery-ui.js"></script>
 
-    <script>
-        var common = {
-            init: function () {
-                common.registerevent();
-            },
-            registerevent: function () {
-                $("#txtkeyword").autocomplete({
-                    minlength: 0,
-                    source: function (request, response) {
-                        $.ajax({
-                            url: "/Product/ProductNameList",
-                            datatype: "json",
-                            data: {
-                                keyword: request.term
-                            },
-                            success: function (res) {
-                                response(res.data);
-                                console.log(res.data)
-                            }
-                        });
-                    },
-                    focus: function (event, ui) {
-                        $("#txtkeyword").val(ui.item.label);
-                        return false;
-                    },
-                    select: function (event, ui) {
-                        $("#txtkeyword").val(ui.item.label);
-                        return false;
-                    }
-                }).autocomplete("instance")._renderitem = function (ul, item) {
-                        return $("<li>")
-                            .append("<a>" + item.label + "</a>")
-                            .appendto(ul);
-                    };
-            }
-        }
-        common.init();
-    </script>
+
+
 
     @await RenderSectionAsync("Scripts", required: false)
 

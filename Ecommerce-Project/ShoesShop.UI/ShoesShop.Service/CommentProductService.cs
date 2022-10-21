@@ -1,11 +1,9 @@
 ﻿using ShoesShop.Data;
-using ShoesShop.Domain;
+using ShoesShop.Domain.Enum;
 using ShoesShop.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ShoesShop.Domain;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace ShoesShop.Service
 {
@@ -13,18 +11,68 @@ namespace ShoesShop.Service
     {
         //List<ProductViewModel> GetAllProduct();
         //ProductViewModel GetSingleProduct(int productId);
-        public List<CommentProduct> GetListCommentOfProductById(int productId);
+        public List<CommentProductViewModel> GetListCommentOfProductById(int productId);
+        public bool CheckCustomerCommentYet(int productId, int customerId);
+        public bool AddCommentOfProduct(int productId, int customerId, int star, string content);
     }
     public class CommentProductService : ICommentProductService
     {
-        public List<CommentProduct> GetListCommentOfProductById(int productId)
+        public List<CommentProductViewModel> GetListCommentOfProductById(int productId)
         {
-            List<CommentProduct> comments = new List<CommentProduct>();
+            List<CommentProductViewModel> comments = new List<CommentProductViewModel>();
             using (var context = new ApplicationDbContext())
             {
-                comments = context.CommentProducts.Where(p => p.ProductId == productId).ToList();
+                comments = context.CommentProducts
+                    .Where(p => p.ProductId == productId)
+                    .Include(m => m.Customer)
+                    .Select(m => new CommentProductViewModel
+                    {
+                        FirstName = m.Customer.FirstName,
+                        LastName = m.Customer.LastName,
+                        Avatar = m.Customer.Avatar,
+                        Star = m.Star,
+                        Content = m.Content,
+                        Date = m.Date
+                    }).ToList();
             }
             return comments;
+        }
+
+        public bool CheckCustomerCommentYet(int productId, int customerId)
+        {
+            var result = false;
+            using (var context = new ApplicationDbContext())
+            {
+                var countCommentOfCustomer = context.CommentProducts.Where(m => m.ProductId == productId && m.CustomerId == customerId).Count();
+                if (countCommentOfCustomer >= 1)
+                    result = true;
+            }
+            return result;
+        }
+
+        public bool AddCommentOfProduct(int productId, int customerId, int star, string content)
+        {
+            try
+            {
+                using (var context = new ApplicationDbContext())
+                {
+                    CommentProduct commentProduct = new CommentProduct();
+                    commentProduct.ProductId = productId;
+                    commentProduct.CustomerId = customerId;
+                    commentProduct.Star = star;
+                    commentProduct.Content = content;
+                    commentProduct.Date = DateTime.Now;
+                    commentProduct.Status = true;
+
+                    context.CommentProducts.Add(commentProduct);
+                    context.SaveChanges();
+                }
+
+                return true;
+            } catch(Exception)
+            {
+                return false;
+            }
         }
     }
 }

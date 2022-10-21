@@ -1835,19 +1835,6 @@
           }
         }
       },
-      "PagedList/1.17.0": {
-        "type": "package",
-        "compile": {
-          "lib/net40/PagedList.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net40/PagedList.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
         "type": "package",
         "runtimeTargets": {
@@ -2017,6 +2004,15 @@
             "assetType": "native",
             "rid": "ubuntu.16.10-x64"
           }
+        }
+      },
+      "SlugGenerator/2.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp2.0/SlugGenerator.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/SlugGenerator.dll": {}
         }
       },
       "System.AppContext/4.3.0": {
@@ -6016,19 +6012,6 @@
         "nuget.versioning.nuspec"
       ]
     },
-    "PagedList/1.17.0": {
-      "sha512": "Ou6F3WKXh49hOo0TxWM+SkIGuKllYPuPPvnSYOlQ1sTrtuEyuDUhYbSJd5Sdb06i/sWUJZTjiUecEs3Ht/Hx3g==",
-      "type": "package",
-      "path": "pagedlist/1.17.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net40/PagedList.dll",
-        "lib/net40/PagedList.xml",
-        "pagedlist.1.17.0.nupkg.sha512",
-        "pagedlist.nuspec"
-      ]
-    },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
       "sha512": "HdSSp5MnJSsg08KMfZThpuLPJpPwE5hBXvHwoKWosyHHfe8Mh5WKT0ylEOf6yNzX6Ngjxe4Whkafh5q7Ymac4Q==",
       "type": "package",
@@ -6251,6 +6234,22 @@
         "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
         "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.nuspec",
         "runtimes/ubuntu.16.10-x64/native/System.Security.Cryptography.Native.OpenSsl.so"
+      ]
+    },
+    "SlugGenerator/2.0.2": {
+      "sha512": "YnZfqVSdEaD+Ulif5GihlnrQjhSKpA4iDxC+S8i344w90IkBWjGDqYBRbl4aO47kXIDoFyUvWJWzvWNO6LLhXw==",
+      "type": "package",
+      "path": "sluggenerator/2.0.2",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net45/SlugGenerator.dll",
+        "lib/netcoreapp2.0/SlugGenerator.dll",
+        "lib/netstandard2.0/SlugGenerator.dll",
+        "sluggenerator.2.0.2.nupkg.sha512",
+        "sluggenerator.nuspec",
+        "tools/install.ps1"
       ]
     },
     "System.AppContext/4.3.0": {
@@ -10035,9 +10034,9 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.10",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.10",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 6.0.10",
-      "PagedList >= 1.17.0",
       "ShoesShop.DTO >= 1.0.0",
       "ShoesShop.Service >= 1.0.0",
+      "SlugGenerator >= 2.0.2",
       "X.PagedList.Mvc.Core >= 8.4.3"
     ]
   },
@@ -10101,9 +10100,9 @@
             "target": "Package",
             "version": "[6.0.10, )"
           },
-          "PagedList": {
+          "SlugGenerator": {
             "target": "Package",
-            "version": "[1.17.0, )"
+            "version": "[2.0.2, )"
           },
           "X.PagedList.Mvc.Core": {
             "target": "Package",
@@ -10132,17 +10131,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'PagedList 1.17.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
-      "libraryId": "PagedList",
-      "targetGraphs": [
-        "net6.0"
-      ]
-    }
-  ]
+  }
 }

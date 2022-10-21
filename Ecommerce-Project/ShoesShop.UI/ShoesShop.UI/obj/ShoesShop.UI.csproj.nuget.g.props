@@ -17,6 +17,7 @@
     <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore.design\6.0.10\build\net6.0\Microsoft.EntityFrameworkCore.Design.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore.design\6.0.10\build\net6.0\Microsoft.EntityFrameworkCore.Design.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgSlugGenerator Condition=" '$(PkgSlugGenerator)' == '' ">C:\Users\NguyenDung\.nuget\packages\sluggenerator\2.0.2</PkgSlugGenerator>
     <PkgMicrosoft_EntityFrameworkCore_Tools Condition=" '$(PkgMicrosoft_EntityFrameworkCore_Tools)' == '' ">C:\Users\NguyenDung\.nuget\packages\microsoft.entityframeworkcore.tools\6.0.10</PkgMicrosoft_EntityFrameworkCore_Tools>
     <PkgMessagePackAnalyzer Condition=" '$(PkgMessagePackAnalyzer)' == '' ">C:\Users\NguyenDung\.nuget\packages\messagepackanalyzer\2.1.152</PkgMessagePackAnalyzer>
     <PkgMicrosoft_CodeAnalysis_Analyzers Condition=" '$(PkgMicrosoft_CodeAnalysis_Analyzers)' == '' ">C:\Users\NguyenDung\.nuget\packages\microsoft.codeanalysis.analyzers\3.3.2</PkgMicrosoft_CodeAnalysis_Analyzers>

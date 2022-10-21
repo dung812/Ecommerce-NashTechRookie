@@ -152,14 +152,14 @@
                                     <i class="fa-regular fa-heart fs-4"></i>
                                 </div>
                                 <div class="product-img">
-                                    <a asp-controller="Product" asp-action="ProductDetail" asp-route-productId="@i.ProductId">
+                                    <a href="~/Product/@SlugGenerator.SlugGenerator.GenerateSlug(i.ProductName)-@i.ProductId">
                                         <img src="~/images/products/Image/@i.Image" class="primary-img img-fluid" alt="product image">
                                         <img src="~/images/products/ImageList/@i.ImageList/1.jpg" class="secondary-img img-fluid" alt="product image">
                                     </a>
                                 </div>
                                 <div class="product-info text-center">
-                                    <h4>Crocs</h4>
-                                    <a asp-controller="Product" asp-action="ProductDetail" asp-route-productId="@i.ProductId" class="m-0">
+                                    <h4>@i.CatalogName</h4>
+                                    <a href="~/Product/@SlugGenerator.SlugGenerator.GenerateSlug(i.ProductName)-@i.ProductId" class="m-0">
                                         @i.ProductName
                                         <span class="fw-bold text-danger ms-2">New</span>
                                     </a>

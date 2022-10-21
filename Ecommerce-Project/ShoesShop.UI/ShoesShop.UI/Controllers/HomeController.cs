@@ -24,23 +24,21 @@ namespace ShoesShop.UI.Controllers
             this.contactService = contactService;
         }
 
-        public List<ProductViewModel> HandleAvgRatingProduct(List<ProductViewModel> list)
+        public ProductViewModel HandleAvgRatingProduct(ProductViewModel productViewModel)
         {
-            for (var i = 0; i < list.Count(); i++)
+            var productId = productViewModel.ProductId;
+            var getComments = commentProductService.GetListCommentOfProductById(productId);
+            if (getComments.Count() == 0)
             {
-                var productId = list[i].ProductId;
-                var getComments = commentProductService.GetListCommentOfProductById(productId);
-                if (getComments.Count() == 0)
-                {
-                    list[i].AvgStar = 0;
-                }
-                else
-                {
-                    list[i].AvgStar = Functions.AverageRatingCalculator(getComments);
-                }
-                list[i].TotalComment = getComments.Count();
+                productViewModel.AvgStar = 0;
             }
-            return list;
+            else
+            {
+                productViewModel.AvgStar = Functions.AverageRatingCalculator(getComments);
+            }
+            productViewModel.TotalComment = getComments.Count();
+
+            return productViewModel;
         }
 
         public IActionResult Index()
@@ -48,7 +46,8 @@ namespace ShoesShop.UI.Controllers
             List<ProductViewModel> productViewModels = new List<ProductViewModel>();
 
             productViewModels = productService.GetAllProduct();
-            productViewModels = HandleAvgRatingProduct(productViewModels);
+            foreach (var i in productViewModels)
+                HandleAvgRatingProduct(i);
 
             // Get Featured Product
             ViewBag.FeaturedProduct = productViewModels.Take(8);

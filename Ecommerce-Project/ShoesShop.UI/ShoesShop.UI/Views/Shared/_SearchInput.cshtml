@@ -1,0 +1,47 @@
+﻿<form id="form-search" action="~/Search-product" method="get" class="d-none d-md-block">
+    <input type="search" class="input-search" id="txtkeyword" name="keyword" placeholder="Find Something Famous For You" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}" />
+    <button type="submit" class="btn-submit">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+</form>
+
+<!-- Autocomplete Textbox Jquery -->
+<script src="~/js/jquery-ui.js"></script>
+<script>
+    var common = {
+        init: function () {
+            common.registerevent();
+        },
+        registerevent: function () {
+            $("#txtkeyword").autocomplete({
+                minlength: 0,
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/Product/GetProductNameList",
+                        datatype: "json",
+                        data: {
+                            keyword: request.term
+                        },
+                        success: function (res) {
+                            response(res.data);
+                            console.log(res.data)
+                        }
+                    });
+                },
+                focus: function (event, ui) {
+                    $("#txtkeyword").val(ui.item.label);
+                    return false;
+                },
+                select: function (event, ui) {
+                    $("#txtkeyword").val(ui.item.label);
+                    return false;
+                }
+            }).autocomplete("instance")._renderitem = function (ul, item) {
+                return $("<li>")
+                    .append("<a>" + item.label + "</a>")
+                    .appendto(ul);
+            };
+        }
+    }
+    common.init();
+</script>

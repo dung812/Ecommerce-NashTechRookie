@@ -4,6 +4,7 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
+using ShoesShop.DTO;
 
 namespace ShoesShop.UI.Models
 {
@@ -89,7 +90,7 @@ namespace ShoesShop.UI.Models
             return OriginalPrice - ((OriginalPrice * PromotionPercent) / 100);
         }
 
-        public static int AverageRatingCalculator(List<CommentProduct> comments)
+        public static int AverageRatingCalculator(List<CommentProductViewModel> comments)
         {
             var totalComment = comments.Count();
             var SumStarValue = 0;
