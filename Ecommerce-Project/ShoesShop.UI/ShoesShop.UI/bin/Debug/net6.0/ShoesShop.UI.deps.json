@@ -2281,6 +2281,7 @@
       },
       "ShoesShop.DTO/1.0.0": {
         "dependencies": {
+          "ShoesShop.Data": "1.0.0",
           "ShoesShop.Domain": "1.0.0"
         },
         "runtime": {

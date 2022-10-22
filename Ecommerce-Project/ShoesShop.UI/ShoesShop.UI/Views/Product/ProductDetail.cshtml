@@ -1,6 +1,6 @@
 ﻿@model ProductViewModel
 @{
-    ViewData["Title"] = "ProductDetail";
+    ViewData["Title"] = "Product";
 }
 
 <div class="container">
@@ -459,6 +459,56 @@
 </div>
 
 <script>
+    //================== Order ====================
+    // Click add to cart
+    const btnAddToCart = document.querySelector(".btn-addtocart");
+    btnAddToCart.addEventListener("click", () => {
+        const getValueSize = document.querySelector('input[name="size"]:checked') ? parseInt(document.querySelector('input[name="size"]:checked').value) : null;
+        const quantityVal = parseInt(document.querySelector('input[name="quantity"]').value);
+        const productId = parseInt(@Model.ProductId);
+
+
+        if (getValueSize == null) {
+            alert("Please select size!");
+            return;
+        }
+        console.log({ getValueSize, quantityVal, productId })
+
+        $.ajax({
+            url: "/Cart/AddToCart",
+            data: {
+                productId: productId,
+                quantity: quantityVal,
+                attributeId: getValueSize
+            },
+            type: "POST",
+            beforeSend: function () {
+                btnAddToCart.classList.add("is-loading");
+            },
+            success: function (data) {
+                // Change number cart item DOM
+                //GetNumberItemCart();
+
+                //
+                btnAddToCart.classList.remove("is-loading");
+
+                if (data.status == 200) {
+                    console.log("success")
+                }
+                else {
+
+                }
+            },
+            error: function (err) {
+                btnAddToCart.classList.remove("is-loading");
+                    console.log(err)
+
+            }
+        });
+
+    })
+
+
 
     //================== Render Comment Feature ====================
     $(document).ready(function () {
@@ -658,7 +708,6 @@
             }
         });
     };
-
 
 
     // Handle submit form rating product
