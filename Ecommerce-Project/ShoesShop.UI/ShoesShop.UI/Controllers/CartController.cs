@@ -10,7 +10,7 @@ namespace ShoesShop.UI.Controllers
     {
         public List<CartViewModel> GetCartSession() // Create list cart and save in session 
         {
-            // Get customer info data of session
+            // Get list cart data of session
             var cartSession = HttpContext.Session.GetString("Cart");
             var cartInfoSession = JsonConvert.DeserializeObject<List<CartViewModel>>(cartSession != null ? cartSession : "");
 
@@ -61,6 +61,11 @@ namespace ShoesShop.UI.Controllers
             return total;
         }
 
+        public JsonResult GetQuantityCartNavbar()
+        {
+            return Json(new { status = 200, quantity = Quanlity() });
+        }
+
         public JsonResult GetCartList()
         {
             List<CartViewModel> listCart = GetCartSession();
@@ -101,14 +106,45 @@ namespace ShoesShop.UI.Controllers
             }
         }
 
+        [HttpPost]
+        public JsonResult UpdateQuantityItemCart(int cartItemId, int quantity)
+        {
+            //System.Threading.Thread.Sleep(1000);
 
+            if (quantity <= 0)
+            {
+                return Json(new { status = 500, smg = "Invalid quantity" });
+            }
 
+            List<CartViewModel> listCart = GetCartSession();
+            CartViewModel item = listCart.FirstOrDefault(model => model.ItemId == cartItemId);
+            if (item != null)
+            {
+                item.Quantity = quantity;
+                item.TotalDiscountedPrice = (item.UnitPrice - item.CurrentPriceItem) * quantity;
+                
+                UpdateCartSession(listCart);
+            }
 
+            return Json(new { status = 200 });
+        }
 
+        [HttpPost]
+        public JsonResult DeteteItemCart(int cartItemId)
+        {
+            //System.Threading.Thread.Sleep(2000);
+            List<CartViewModel> listCart = GetCartSession();
+            CartViewModel item = listCart.SingleOrDefault(model => model.ItemId == cartItemId);
+
+            listCart.Remove(item);
+            UpdateCartSession(listCart);
+            return Json(new { status = 200 });
+        }
 
 
         public IActionResult CartPage()
         {
+            //List<CartViewModel> cartList = GetCartSession();
             return View();
         }        
         public IActionResult Checkout()

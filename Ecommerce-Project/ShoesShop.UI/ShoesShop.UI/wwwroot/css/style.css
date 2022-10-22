@@ -1205,3 +1205,8 @@ textarea#Message {
 .ui-menu-item {
     padding: 2px 12px;
 }
+
+.cart-item-wrap.is-loading {
+    opacity: 0.4;
+    pointer-events: none;
+}

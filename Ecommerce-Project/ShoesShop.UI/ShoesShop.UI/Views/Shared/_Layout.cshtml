@@ -156,16 +156,13 @@
 
                                 <partial name="_SearchInput.cshtml" />
 
-
-
                                 <a href="#" class="wrap-cart d-flex align-items-center">
                                     <i class="fa-regular fa-heart fs-4"></i>
                                     <span class="d-none d-md-block ms-1">Wishlist</span>
                                 </a>
-                                <a asp-controller="Cart" asp-action="CartPage" class="wrap-cart d-flex align-items-center">
-                                    <i class="uil uil-shopping-bag fs-4"></i>
-                                    <span class="d-none d-md-block ms-1">Cart</span> [0]
-                                </a>
+
+                                <partial name="_CartIcon.cshtml" />
+
                             </div>
                         </div>
 

@@ -487,16 +487,17 @@
             },
             success: function (data) {
                 // Change number cart item DOM
-                //GetNumberItemCart();
+                GetNumberItemCart();
 
                 //
                 btnAddToCart.classList.remove("is-loading");
 
                 if (data.status == 200) {
-                    console.log("success")
+                    toastr.success(data.smg);
                 }
-                else {
-
+                else 
+                {
+                    toastr.error(data.smg);
                 }
             },
             error: function (err) {
