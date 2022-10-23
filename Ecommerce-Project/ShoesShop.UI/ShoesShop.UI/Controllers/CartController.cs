@@ -157,6 +157,7 @@ namespace ShoesShop.UI.Controllers
             return Json(new { status = 200 });
         }
 
+        [HttpGet("Cart")]
         public IActionResult CartPage()
         {
             // Get customer info data of session
@@ -170,7 +171,7 @@ namespace ShoesShop.UI.Controllers
             return View();
         }
         
-        [HttpGet]
+        [HttpGet("Checkout-{customerId}")]
         public IActionResult Checkout(int customerId)
         {
             // Get customer info data of session
@@ -285,6 +286,7 @@ namespace ShoesShop.UI.Controllers
             }
         }
 
+        [HttpGet("Successfully-order")]
         public IActionResult OrderSuccess()
         {
             return View();

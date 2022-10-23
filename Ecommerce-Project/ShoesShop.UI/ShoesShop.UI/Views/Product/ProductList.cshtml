@@ -1,6 +1,6 @@
 ﻿@model X.PagedList.PagedList<ProductViewModel>
 @{
-    ViewData["Title"] = "ProductList";
+    ViewData["Title"] = @ViewBag.CateGender + " Product";
 }
 
 <div class="product-banner d-none">
@@ -290,11 +290,21 @@
 </div>
 <script>
 
-    // Style for pagelist library
+    // Active nav item in navbar header (UI)
+    var genderCate = '@ViewBag.CateGender';
+    console.log(genderCate)
+    const navItem = document.querySelectorAll(".nav-link");
+    navItem.forEach(item => {
+        if (item.textContent == genderCate)
+            item.classList.add("active")
+    })
+
+    // Style for pagelist library (UI)
     const paginationItems = document.querySelectorAll(".pagination li");
     paginationItems.forEach(item => {
         item.classList.add("pagination-items");
     })
+
     //window.location.replace("http://stackoverflow.com");
     console.log(window.location.origin)
     function FilterProduct(selectObject) {

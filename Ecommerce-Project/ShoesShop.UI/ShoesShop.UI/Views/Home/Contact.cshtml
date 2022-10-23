@@ -88,3 +88,11 @@
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
 }
+
+<script>
+        const navItem = document.querySelectorAll(".nav-link");
+        navItem.forEach(item => {
+            if (item.textContent == "Contact")
+                item.classList.add("active")
+        })
+</script>

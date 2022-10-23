@@ -1,6 +1,6 @@
 ﻿@model X.PagedList.PagedList<ProductViewModel>
 @{
-    ViewData["Title"] = "ProductList";
+    ViewData["Title"] = @ViewBag.CateGender + " Product";
 }
 
 <div class="product-banner d-none">
@@ -280,6 +280,15 @@
 
 </div>
 <script>
+
+    // Active nav item in navbar header (UI)
+    var genderCate = '@ViewBag.CateGender';
+    console.log(genderCate)
+    const navItem = document.querySelectorAll(".nav-link");
+    navItem.forEach(item => {
+        if (item.textContent == genderCate)
+            item.classList.add("active")
+    })
 
     // Style for pagelist library
     const paginationItems = document.querySelectorAll(".pagination li");
