@@ -25,4 +25,30 @@ Họ tên: Nguyễn Thanh Dũng
 
 
 ### Các công việc đã hoàn thành tuần 2
+#### Phần tài khoản (Account)
+-   Đăng nhập, Đăng kí
+-   Quên mật khẩu
+-   Đổi mật khẩu
+-   Xem profile
+-   Thêm xóa sửa danh sách address
+-   Hiển thị danh sách đơn hàng đã đặt
+-   Xem chi tiết đơn hàng đã đặt
+-   Xóa đơn hàng đã đặt
+#### Phần sản phẩm (Product)
+-   Home page: hiển thị category menu, features products
+-   Xem chi tiết sản phẩm, hiển thị related product
+-   Lọc, sắp sếp, tìm kiếm danh sách sản phẩm
+-   Đánh giá sản phẩm
+-   Giỏ hàng
+-   Thanh toán
+#### Phần giao diện
+-   Fix một số lỗi giao diện
+-   AI Chatbox
+#### Phần unit test 
+-   Test các service phần tài khoản (đăng nhập, đăng ký)
+-   Test chức năng thêm, xóa sửa address
+
+[Link video báo cáo](https://drive.google.com/file/d/1A6vrJZ1nJ000_xp1ocVzGCFBkszvksx3/view?usp=sharing)
+
+### Các công việc đã hoàn thành tuần 3
 -   ...
