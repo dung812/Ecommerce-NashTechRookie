@@ -110,6 +110,19 @@
                                         <textarea class="form-control" name="note" id="note" rows="3" style="height:auto!important"></textarea>
                                     </div>
                                 </div>
+
+                                @if (ViewBag.AddressList.Count == 0)
+                                {
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="radio">
+                                                <label><input type="checkbox" name="checkAddAddress"> Save this information for next time</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+
                             </div>
                         </div>
                     </form>
@@ -193,7 +206,7 @@
 
                 <div class="row mt-4">
                     <div class="col-md-12 text-center">
-                        <button type="submit" form="order-form" class="btn btn-primary disabled" id="btn-submit">Place an order</button>
+                        <button type="submit" form="order-form" class="btn btn-primary btn-custom-loading disabled" id="btn-submit"><div class="loader"></div><span>Place an order</span></button>
                         <a asp-controller="Cart" asp-action="OrderSuccess" class="btn btn-submit-paypal btn-custom-loading disabled d-none">
                             <div class="loader"></div><img src="~/images/material/paypalicon.svg" class="img-fluid"><img src="~/images/material/paypalcontent.svg" class="img-fluid w-50 paypal-icon">
                         </a>
@@ -236,6 +249,7 @@
         }
 
     }
+
     // Change link action form based on payment
     function ChangeActionPayment(myRadio) {
         var paymentContent = myRadio.parentNode.textContent.trim();
@@ -267,6 +281,58 @@
 
         }
     }
+
+
+    const orderForm =  document.querySelector("#order-form");
+    orderForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        var getCustomerId = document.querySelector("input[name='customerId']").value;
+        var firstName = document.querySelector("input[name='first-name']").value;
+        var lastName = document.querySelector("input[name='last-name']").value;
+        var address = document.querySelector("input[name='address']").value;
+        var phone = document.querySelector("input[name='phone']").value;
+
+        if (!firstName || !lastName || !phone || !address) {
+            alert("Some field is blank")
+            return;
+        }
+
+        console.log({ getCustomerId, firstName, lastName, phone });
+
+        document.querySelector("#btn-submit").classList.add("is-loading");
+
+        // Check save address when customer checked (case cusomter haven't address)
+        const chboxAddress = document.querySelector("input[name='checkAddAddress']");
+        if (chboxAddress) {
+            if (chboxAddress.checked) {
+                console.log("check")
+                // call ajax add new customer address
+                $.ajax({
+                    type: 'POST',
+                    url: '/Cart/SaveAddressNextTime',
+                    data: {
+                        customerId: getCustomerId,
+                        firstName: firstName,
+                        lastName: lastName,
+                        address: address,
+                        phone: phone,
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                    },
+                    error: function (err) {
+                        alert("err")
+                        document.querySelector("#btn-submit").classList.remove("is-loading");
+                    }
+                });
+            }
+        }
+
+        orderForm.submit();
+
+    })
+
 
 
 </script>

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<OrderDetailViewModel>
+@{
     ViewData["Title"] = "Order detail";
 }
 
@@ -11,7 +12,7 @@
     </nav>
 
     <div class="intro-section mt-3 mb-5 pb-5">
-        <h4 class="mb-3 text-dark text-uppercase">Order detail / #HD10112022_084054</h4>
+        <h4 class="mb-3 text-dark text-uppercase">Order detail / #@ViewBag.OrderInfo.OrderId</h4>
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
@@ -27,30 +28,44 @@
                                 </tr>
                             </thead>
                             <tbody>
-
-                                <tr>
-                                    <td width="400px">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <img src="~/images/products/Image/20220731001046344.jpg" class="img-fluid">
+                                @foreach(var i in Model)
+                                {
+                                    var currentPrice = Functions.DiscountedPriceCalulator(i.UnitPrice, i.PromotionPercent);
+                                    var totalDiscount = (i.UnitPrice - currentPrice) * i.Quantity;
+                                    var totalPrice = (i.UnitPrice * i.Quantity) - totalDiscount;
+                                    <tr>
+                                        <td width="400px">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <img src="~/images/products/Image/@i.ProductImage" class="img-fluid">
+                                                </div>
+                                                <div class="col-md-9">
+                                                    @i.ProductName (Size: @i.AttributeName)
+                                                </div>
                                             </div>
-                                            <div class="col-md-9">
-                                                Men's Boston Soft Footbed Clog (Size: 39)
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-center">1</td>
-                                    <td class="text-center">
-                                        <span class="font-weight-normal">$200</span>
-                                    </td>
-                                    <td class="text-center">
-                                        -$0
-                                    </td>
-                                    <td class="text-center">
-                                        $154
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td class="text-center">@i.Quantity</td>
 
+                                        <td class="text-center">
+                                            @if (i.PromotionPercent > 0)
+                                            {
+                                                <span class="font-weight-normal">$@currentPrice</span> <span><s class="text-black-50">$@i.UnitPrice</s></span>
+
+                                            }
+                                            else
+                                            {
+                                                <span class="font-weight-normal">$@currentPrice</span>
+                                            }
+                                        </td>
+
+                                        <td class="text-center">
+                                            -$@totalDiscount
+                                        </td>
+                                        <td class="text-center">
+                                            $@totalPrice
+                                        </td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
 
@@ -67,10 +82,10 @@
                                         <p class="font-weight-bold">Total:</p>
                                     </div>
                                     <div class="col-md-3 text-right">
-                                        <p class="mb-0">$154</p>
+                                        <p class="mb-0">$@ViewBag.TotalPrice</p>
                                         <p class="mb-0">$0</p>
-                                        <p class="mb-0">-$0</p>
-                                        <p class="font-weight-bold">$154</p>
+                                        <p class="mb-0">-$@ViewBag.TotalDiscount</p>
+                                        <p class="font-weight-bold">$@ViewBag.TotalPrice</p>
                                     </div>
                                 </div>
                             </div>
@@ -84,13 +99,13 @@
                     <div class="card-body">
                         <h4 style="margin-bottom: 25px">Orderer information</h4>
                         <p class="m-0">
-                            Nguyễn Thanh Dũng
+                            @ViewBag.OrderInfo.OrderName
                         </p>
                         <p class="m-0">
-                            +844706437167
+                            @ViewBag.OrderInfo.Phone
                         </p>
                         <p class="m-0">
-                            QN
+                            @ViewBag.OrderInfo.Address
                         </p>
                     </div>
                 </div>
@@ -98,7 +113,7 @@
                     <div class="card-body">
                         <h4 style="margin-bottom: 25px">Payment</h4>
                         <p style="margin: 0">
-                            Cash on delivery
+                            @ViewBag.OrderInfo.PaymentName
                         </p>
                     </div>
                 </div>

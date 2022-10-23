@@ -140,14 +140,10 @@
 
                 @if (ViewBag.DefaultAddress != null)
                 {
-                    <p>
-                        @ViewBag.DefaultAddress.FirstName @ViewBag.DefaultAddress.LastName<br>
-                        @ViewBag.DefaultAddress.Phone<br>
-                        @ViewBag.DefaultAddress.Address
-                    </p>
+                    <div>@ViewBag.DefaultAddress.FirstName @ViewBag.DefaultAddress.LastName</div>
+                    <div>@ViewBag.DefaultAddress.Phone</div>
+                    <div>@ViewBag.DefaultAddress.Address</div>
                 }
-
-
                 <p><a href="~/Address/@ViewBag.CustomerId" class="text-link"><u>View addresses (@ViewBag.CountAddress)</u></a></p>
             </div>
         </div>

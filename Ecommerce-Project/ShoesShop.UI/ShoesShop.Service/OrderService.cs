@@ -18,7 +18,8 @@ namespace ShoesShop.Service
         public bool CreateNewOrder(OrderViewModel orderViewModel, int customerId, int paymentId);
         public bool CreateOrderDetail(string orderId, List<CartViewModel> listCart);
         public List<OrderViewModel> GetListOrderByCustomerId(int customerId);
-        public OrderViewModel GetOrderDetail(int customerId, string orderId);
+        public OrderViewModel GetOrderDetailById(string orderId);
+        public List<OrderDetailViewModel> GetItemOfOderById(string orderId);
         public bool DeleteOrder(int customerId, string orderId);
     }
     public class OrderService : IOrderService
@@ -105,6 +106,7 @@ namespace ShoesShop.Service
                         DeliveryDate = m.DeliveryDate,
                         OrderName = m.OrderName,
                         Address = m.Address,
+                        Phone = m.Phone,    
                         Note = m.Note,
                         PaymentName = m.Payment.PaymentName
                     }).ToList();
@@ -112,13 +114,13 @@ namespace ShoesShop.Service
             return orders;
         }
 
-        public OrderViewModel GetOrderDetail(int customerId, string orderId)
+        public OrderViewModel GetOrderDetailById(string orderId)
         {
-            var order = new OrderViewModel();
+            var orderDetail = new OrderViewModel();
             using (var context = new ApplicationDbContext())
             {
-                order = context.Orders
-                    .Where(m => m.CustomerId == customerId && m.OrderId == orderId)
+                orderDetail = context.Orders
+                    .Where(m => m.OrderId == orderId)
                     .Include(m => m.Payment)
                     .OrderByDescending(m => m.OrderDate)
                     .Select(m => new OrderViewModel
@@ -129,11 +131,35 @@ namespace ShoesShop.Service
                         DeliveryDate = m.DeliveryDate,
                         OrderName = m.OrderName,
                         Address = m.Address,
+                        Phone = m.Phone,
                         Note = m.Note,
                         PaymentName = m.Payment.PaymentName
                     }).FirstOrDefault();
             }
-            return order;
+            return orderDetail;
+        }
+
+        public List<OrderDetailViewModel> GetItemOfOderById(string orderId)
+        {
+            List<OrderDetailViewModel> orderDetail = new List<OrderDetailViewModel>();
+            using (var context = new ApplicationDbContext())
+            {
+                orderDetail = context.OrderDetails
+                    .Where(m => m.OrderId == orderId)
+                    .Include(m => m.Product)
+                    .Include(m => m.AttributeValue)
+                    .Select(m => new OrderDetailViewModel
+                    {
+                        OrderId = m.OrderId,
+                        ProductName = m.Product.ProductName,
+                        ProductImage = m.Product.Image,
+                        AttributeName = m.AttributeValue.Name,
+                        Quantity = m.Quantity,
+                        UnitPrice = m.UnitPrice,
+                        PromotionPercent = m.PromotionPercent
+                    }).ToList();
+            }
+            return orderDetail;
         }
 
         public bool DeleteOrder(int customerId, string orderId)

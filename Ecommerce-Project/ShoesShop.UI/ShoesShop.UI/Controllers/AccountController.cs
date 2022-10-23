@@ -241,14 +241,32 @@ namespace ShoesShop.UI.Controllers
             var cusomterSession = HttpContext.Session.GetString("CustomerInfo");
             var customerInfoSession = JsonConvert.DeserializeObject<Customer>(cusomterSession != null ? cusomterSession : "");
 
-            var order = orderService.GetOrderDetail(customerId, orderId);
+            var orderItems = orderService.GetItemOfOderById(orderId);
+            var orderDetail = orderService.GetOrderDetailById(orderId);
 
-            if (customerInfoSession.CustomerId != customerId || order == null)
+            if (customerInfoSession.CustomerId != customerId || orderDetail == null)
             {
                 return RedirectToAction("Error", "Home");
             }
 
-            return View(order);
+            // Handle display price of order
+            var totalPrice = 0;
+            var totalDiscount = 0;
+            foreach (var i in orderItems)
+            {
+                var currentPrice = Functions.DiscountedPriceCalulator(i.UnitPrice, i.PromotionPercent); // tính tiền giảm %
+                var totalDiscountOfProduct = (i.UnitPrice - currentPrice) * i.Quantity;
+                var totalPriceOfProduct = (i.UnitPrice * i.Quantity) - totalDiscountOfProduct;
+
+                totalPrice += totalPriceOfProduct;
+                totalDiscount += totalDiscountOfProduct;
+            }
+
+            ViewBag.OrderInfo = orderDetail; // Information of order
+            ViewBag.TotalPrice = totalPrice; // Total money of order
+            ViewBag.TotalDiscount = totalDiscount; // Total discounted money of order
+
+            return View(orderItems);
         }  
         
         public IActionResult DeleteOrder(string orderId, int customerId)

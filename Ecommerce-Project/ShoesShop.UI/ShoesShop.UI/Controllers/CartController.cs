@@ -265,6 +265,26 @@ namespace ShoesShop.UI.Controllers
             }
         }
 
+        [HttpPost]
+        public JsonResult SaveAddressNextTime(int customerId, string firstName, string lastName, string address, string phone)
+        {
+            CustomerAddressViewModel customerAddressViewModel = new CustomerAddressViewModel();
+            customerAddressViewModel.CustomerId = customerId;
+            customerAddressViewModel.FirstName = firstName;
+            customerAddressViewModel.LastName = lastName;
+            customerAddressViewModel.Address = address;
+            customerAddressViewModel.Phone = phone;
+
+            if (customerAddressService.CreateAddressOfCustomer(customerAddressViewModel, true))
+            {
+                return Json(new { status = 200 });
+            }
+            else
+            {
+                return Json(new { status = 500 });
+            }
+        }
+
         public IActionResult OrderSuccess()
         {
             return View();
