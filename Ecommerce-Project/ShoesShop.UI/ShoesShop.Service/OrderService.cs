@@ -17,8 +17,9 @@ namespace ShoesShop.Service
     {
         public bool CreateNewOrder(OrderViewModel orderViewModel, int customerId, int paymentId);
         public bool CreateOrderDetail(string orderId, List<CartViewModel> listCart);
-        public List<OrderViewModel> GetOrderByCustomerId(int customerId);
-        public List<OrderDetailViewModel> GetOrderDetailById(string orderId);
+        public List<OrderViewModel> GetListOrderByCustomerId(int customerId);
+        public OrderViewModel GetOrderDetail(int customerId, string orderId);
+        public bool DeleteOrder(int customerId, string orderId);
     }
     public class OrderService : IOrderService
     {
@@ -87,7 +88,7 @@ namespace ShoesShop.Service
             }
         }
 
-        public List<OrderViewModel> GetOrderByCustomerId(int customerId)
+        public List<OrderViewModel> GetListOrderByCustomerId(int customerId)
         {
             List<OrderViewModel> orders = new List<OrderViewModel>();
             using (var context = new ApplicationDbContext())
@@ -111,27 +112,47 @@ namespace ShoesShop.Service
             return orders;
         }
 
-        public List<OrderDetailViewModel> GetOrderDetailById(string orderId)
+        public OrderViewModel GetOrderDetail(int customerId, string orderId)
         {
-            List<OrderDetailViewModel> orderDetail = new List<OrderDetailViewModel>();
+            var order = new OrderViewModel();
             using (var context = new ApplicationDbContext())
             {
-                orderDetail = context.OrderDetails
-                    .Where(m => m.OrderId == orderId)
-                    .Include(m => m.Product)
-                    .Include(m => m.AttributeValue)
-                    .Select(m => new OrderDetailViewModel
+                order = context.Orders
+                    .Where(m => m.CustomerId == customerId && m.OrderId == orderId)
+                    .Include(m => m.Payment)
+                    .OrderByDescending(m => m.OrderDate)
+                    .Select(m => new OrderViewModel
                     {
                         OrderId = m.OrderId,
-                        ProductName = m.Product.ProductName,
-                        ProductImage = m.Product.Image,
-                        AttributeName = m.AttributeValue.Name,
-                        Quantity = m.Quantity,
-                        UnitPrice = m.UnitPrice,
-                        PromotionPercent = m.PromotionPercent
-                    }).ToList();
+                        OrderDate = m.OrderDate,
+                        OrderStatus = m.OrderStatus,
+                        DeliveryDate = m.DeliveryDate,
+                        OrderName = m.OrderName,
+                        Address = m.Address,
+                        Note = m.Note,
+                        PaymentName = m.Payment.PaymentName
+                    }).FirstOrDefault();
             }
-            return orderDetail;
+            return order;
+        }
+
+        public bool DeleteOrder(int customerId, string orderId)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var order = context.Orders.FirstOrDefault(m => m.CustomerId == customerId && m.OrderId == orderId);
+                if (order != null)
+                {
+                    // Delete order detail
+                    context.Database.ExecuteSqlRaw("DELETE FROM OrderDetailS WHERE OrderId = '" + orderId + "'");
+
+                    // Delete order
+                    context.Orders.Remove(order);
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

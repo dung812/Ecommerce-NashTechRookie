@@ -16,12 +16,14 @@ namespace ShoesShop.UI.Controllers
         private IWebHostEnvironment hostEnvironment;
         private readonly ICustomerService customerService;
         private readonly ICustomerAddressService customerAddressService;
+        private readonly IOrderService orderService;
 
-        public AccountController(IWebHostEnvironment environment, ICustomerService customerService, ICustomerAddressService customerAddressService)
+        public AccountController(IWebHostEnvironment environment, ICustomerService customerService, ICustomerAddressService customerAddressService, IOrderService orderService)
         {
             this.hostEnvironment = environment;
             this.customerService = customerService;
             this.customerAddressService = customerAddressService;
+            this.orderService = orderService;
         }
 
         [HttpGet("Login-registration")]
@@ -227,14 +229,43 @@ namespace ShoesShop.UI.Controllers
             ViewBag.Avatar = customer.Avatar;
             ViewBag.CountAddress = customerAddressService.CountAddressOfCustomer(customerId);
 
+            ViewBag.OrderHistorys = orderService.GetListOrderByCustomerId(customerId);
+
             return View();
         }
         
-        [HttpGet]
-        public IActionResult OrderDetail()
+        [HttpGet("Order-detail/{orderId}-{customerId}")]
+        public IActionResult OrderDetail(int customerId, string orderId)
         {
-            return View();
+            // Get customer info data of session
+            var cusomterSession = HttpContext.Session.GetString("CustomerInfo");
+            var customerInfoSession = JsonConvert.DeserializeObject<Customer>(cusomterSession != null ? cusomterSession : "");
+
+            var order = orderService.GetOrderDetail(customerId, orderId);
+
+            if (customerInfoSession.CustomerId != customerId || order == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            return View(order);
+        }  
+        
+        public IActionResult DeleteOrder(string orderId, int customerId)
+        {
+            if (orderService.DeleteOrder(customerId, orderId))
+            {
+                TempData["success"] = "Successfully delete your order!";
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                TempData["error"] = "Error delete your order!";
+                return RedirectToAction("Index", "Home");
+            }
         }
+
+
 
         //[HttpPost]
         //public ActionResult ChangeAvatar(HttpPostedFileBase file, FormCollection form)
