@@ -43,7 +43,7 @@ namespace ShoesShop.DTO
             this.ProductId = idProduct;
             this.NameItem = item.ProductName;
             this.ImageItem = item.Image;
-            this.AttributeId = (int)attribute.AttributeId;
+            this.AttributeId = attribute.AttributeValueId;
             this.AttributeName = attribute.Name;
             this.UnitPrice = int.Parse(item.OriginalPrice.ToString());
             this.PromotionPercent = item.PromotionPercent;

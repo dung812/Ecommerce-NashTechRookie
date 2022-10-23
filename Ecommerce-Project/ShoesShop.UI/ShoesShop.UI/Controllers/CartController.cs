@@ -233,7 +233,7 @@ namespace ShoesShop.UI.Controllers
 
             // Save order & order detail in Database
             bool saveOderStatus = orderService.CreateNewOrder(orderViewModel, customerId, paymentId);
-            bool saveOderDetailStatus = orderService.CreateOrderDetail(orderViewModel.OrderId, GetCartSession());
+            bool saveOderDetailStatus = orderService.CreateOrderDetail(orderViewModel.OrderId, cartList);
 
             if (saveOderStatus && saveOderDetailStatus) // Save successfull
             {
