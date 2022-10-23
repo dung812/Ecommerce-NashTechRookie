@@ -1,13 +1,29 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
+using NuGet.Common;
 using ShoesShop.Domain;
 using ShoesShop.DTO;
+using ShoesShop.Service;
+using ShoesShop.UI.Models;
 
 namespace ShoesShop.UI.Controllers
 {
     public class CartController : Controller
     {
+        private readonly IWebHostEnvironment hostEnvironment;
+        private readonly ICustomerAddressService customerAddressService;
+        private readonly IPaymentService paymentService;
+        private readonly IOrderService orderService;
+        public CartController(IWebHostEnvironment hostEnvironment, ICustomerAddressService customerAddressService, IPaymentService paymentService, IOrderService orderService)
+        {
+            this.hostEnvironment = hostEnvironment;
+            this.customerAddressService = customerAddressService;
+            this.paymentService = paymentService;
+            this.orderService = orderService;
+        }
+
         public List<CartViewModel> GetCartSession() // Create list cart and save in session 
         {
             // Get list cart data of session
@@ -141,16 +157,114 @@ namespace ShoesShop.UI.Controllers
             return Json(new { status = 200 });
         }
 
-
         public IActionResult CartPage()
         {
-            //List<CartViewModel> cartList = GetCartSession();
+            // Get customer info data of session
+            var cusomterSession = HttpContext.Session.GetString("CustomerInfo");
+            var customerInfoSession = JsonConvert.DeserializeObject<Customer>(cusomterSession != null ? cusomterSession : "");
+
+
+            ViewBag.IsLogged = cusomterSession != null ? true : false;
+            ViewBag.CustomerId = customerInfoSession?.CustomerId;
+
             return View();
-        }        
-        public IActionResult Checkout()
+        }
+        
+        [HttpGet]
+        public IActionResult Checkout(int customerId)
         {
-            return View();
-        }        
+            // Get customer info data of session
+            var cusomterSession = HttpContext.Session.GetString("CustomerInfo");
+            var customerInfoSession = JsonConvert.DeserializeObject<Customer>(cusomterSession != null ? cusomterSession : "");
+            List<CartViewModel> listCart = GetCartSession();
+
+
+            if (cusomterSession == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (customerId == null || customerInfoSession?.CustomerId != customerId || listCart.Count == 0)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            ViewBag.TotalPrice = TotalPrice();
+            ViewBag.AddressList = customerAddressService.GetAddressListOfCustomerById(customerId);
+            ViewBag.Payments = paymentService.GetAllPayment();
+            ViewBag.Customer = customerInfoSession;
+
+            return View(listCart);
+        }
+        
+        [HttpPost]
+        public IActionResult Checkout(IFormCollection form)
+        {
+            // Get value in form submit
+            var customerId = Int32.Parse(form["customerId"][0]);
+            var paymentId = Int32.Parse(form["paymentId"][0]);
+            var email = form["email"][0].Trim();
+            var firstName = form["first-name"][0].Trim();
+            var lastName = form["last-name"][0].Trim();
+            var phone = form["phone"][0].Trim();
+            var address = form["address"][0].Trim();
+            var note = form["note"][0];
+
+            // Get cart list value
+            List<CartViewModel> cartList = GetCartSession();
+            // Get customer info data of session
+            var cusomterSession = HttpContext.Session.GetString("CustomerInfo");
+            var customerInfoSession = JsonConvert.DeserializeObject<Customer>(cusomterSession != null ? cusomterSession : "");
+
+            if (customerInfoSession?.CustomerId != customerId || cartList.Count == 0)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            // Handle save order
+            OrderViewModel orderViewModel = new OrderViewModel()
+            {
+                OrderId = Functions.CreateKey("HD"),
+                OrderName = firstName + " " + lastName,
+                OrderDate = DateTime.Now,
+                Address = address,
+                Phone = phone,
+                Note = note,
+            };
+
+            // Save order & order detail in Database
+            bool saveOderStatus = orderService.CreateNewOrder(orderViewModel, customerId, paymentId);
+            bool saveOderDetailStatus = orderService.CreateOrderDetail(orderViewModel.OrderId, GetCartSession());
+
+            if (saveOderStatus && saveOderDetailStatus) // Save successfull
+            {
+                // Create url watch quickly order detail
+                string url = String.Concat(this.Request.Scheme, "://", this.Request.Host, "/Order-detail/", orderViewModel.OrderId);
+
+                // Send email new order to customer
+                string content = System.IO.File.ReadAllText(Path.Combine(hostEnvironment.WebRootPath, "template\\NewOrder.html"));
+
+                content = content.Replace("{{url}}", url);
+
+                content = content.Replace("{{OrderId}}", orderViewModel.OrderId);
+                content = content.Replace("{{OrderDate}}", orderViewModel.OrderDate.ToString("g"));
+                content = content.Replace("{{TotalMoney}}", TotalPrice().ToString());
+                content = content.Replace("{{CustomerName}}", firstName.Trim() + " " + lastName.Trim());
+                content = content.Replace("{{Phone}}", phone);
+                content = content.Replace("{{Address}}", address);
+
+                Functions.SendMail(email, "[Shoes shop] New Order At Footwear", content);
+
+                // Clear cart session
+                HttpContext.Session.Remove("Cart");
+                return RedirectToAction("OrderSuccess");
+            }
+            else
+            {
+                TempData["error"] = "Something were wrong!";
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
         public IActionResult OrderSuccess()
         {
             return View();

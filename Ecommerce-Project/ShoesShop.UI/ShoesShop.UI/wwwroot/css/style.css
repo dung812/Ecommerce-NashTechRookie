@@ -1004,13 +1004,21 @@ ol {
     margin: 0;
 }
 
-.form-group .form-field .icon {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 20px;
-    color: #cccccc;
-}
+
+    .form-group .form-field .icon-dropdown {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 20px;
+        color: #cccccc;
+    }
+
+        .form-group .form-field .icon-dropdown::before {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
 
 select.form-control {
     color: inherit
@@ -1209,4 +1217,19 @@ textarea#Message {
 .cart-item-wrap.is-loading {
     opacity: 0.4;
     pointer-events: none;
+}
+
+.form-group .form-field .icon-dropdown {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 20px;
+    color: #cccccc;
+}
+
+.form-group .form-field .icon-dropdown::before {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
 }

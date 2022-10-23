@@ -105,9 +105,18 @@
                     <div class="col-4 fw-bold fs-6 text-end total-price">$224</div>
                 </div>
                 <div class="row mt-4 justify-content-end">
-                    <div class="col-12 text-end">
-                        <a asp-controller="Cart" asp-action="Checkout" class="btn btn-primary w-md-auto">Proceed To Checkout</a>
-                    </div>
+                    @if (ViewBag.IsLogged)
+                    {
+                        <div class="col-12 text-end">
+                            <a asp-controller="Cart" asp-action="Checkout" asp-route-customerId="@ViewBag.CustomerId" class="btn btn-primary w-md-auto btn-redirect-checkout">Proceed To Checkout</a>
+                        </div>
+                    } else
+                    {
+                        <div class="text-center">
+                            <p class="msg-login">You must login before order! <a href="~/Login-registration" class="text-primary">Login</a></p>
+                        </div>
+                    }
+                    
                 </div>
             </div>
         </div>

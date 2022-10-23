@@ -283,31 +283,31 @@ function DecreaseQuanlity(event) {
 
 /*==================== CHANGE BUTTON CHECKOUT ====================*/
 // Change link action form based on payment
-function ChangeActionPayment(myRadio) {
-    var paymentContent = myRadio.parentNode.textContent.trim();
-    var currentValue = myRadio.value;
+//function ChangeActionPayment(myRadio) {
+//    var paymentContent = myRadio.parentNode.textContent.trim();
+//    var currentValue = myRadio.value;
 
-    console.log(paymentContent)
+//    console.log(paymentContent)
 
-    if (paymentContent === "Cash on delivery") {
-        // Choose cash on delivery
-        const btnSubmit = document.querySelector("#btn-submit")
-        const btnSubmitPaypal = document.querySelector(".btn-submit-paypal")
+//    if (paymentContent === "Cash on delivery") {
+//        // Choose cash on delivery
+//        const btnSubmit = document.querySelector("#btn-submit")
+//        const btnSubmitPaypal = document.querySelector(".btn-submit-paypal")
 
-        btnSubmit.classList.remove("d-none");
-        btnSubmitPaypal.classList.add("d-none");
-    }
-    else if (paymentContent === "Paypal") {
-        // Choose paypal
-        const btnSubmit = document.querySelector("#btn-submit")
-        const btnSubmitPaypal = document.querySelector(".btn-submit-paypal")
+//        btnSubmit.classList.remove("d-none");
+//        btnSubmitPaypal.classList.add("d-none");
+//    }
+//    else if (paymentContent === "Paypal") {
+//        // Choose paypal
+//        const btnSubmit = document.querySelector("#btn-submit")
+//        const btnSubmitPaypal = document.querySelector(".btn-submit-paypal")
 
-        btnSubmit.classList.add("d-none");
-        btnSubmitPaypal.classList.remove("d-none");
+//        btnSubmit.classList.add("d-none");
+//        btnSubmitPaypal.classList.remove("d-none");
 
-    }
+//    }
 
-}
+//}
 
 
 

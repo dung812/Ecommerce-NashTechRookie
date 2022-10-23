@@ -1,4 +1,4 @@
-﻿
+﻿@model List<CartViewModel>
 @{
     ViewData["Title"] = "Checkout";
 }
@@ -34,61 +34,80 @@
         <div class="row mt-5">
             <div class="col-12 col-md-8">
                 <div class="wrap-checkout">
-                    <form method="post" action="#">
-                        <!-- <input type="hidden" name="customerId" value="1">
-                        <input type="hidden" name="paymentId" value="1"> -->
+                    <form method="post" action="/Cart/Checkout" id="order-form">
+                        <input type="hidden" name="customerId" value="@ViewBag.Customer.CustomerId">
+                        <input type="hidden" name="email" value="@ViewBag.Customer.Email">
+                        <input type="hidden" name="paymentId" value="@ViewBag.Payments[0].PaymentId"> 
                         <h3 class="mb-4">Billing Details</h3>
                         <div>
                             <h5>Contact information</h5>
                             <div class="customer-info">
                                 <div>
-                                    <img src="~/images/avatars/avatar.jpg" class="img-fluid rounded-circle" alt="avatar customer">
+                                    <img src="~/images/avatars/@ViewBag.Customer.Avatar" class="img-fluid rounded-circle" alt="avatar customer">
                                 </div>
                                 <p>
-                                    Nguyen Thanh Dung
-                                    <span class="contact-gmail">knguyn16@gmail.com</span>
+                                    @ViewBag.Customer.FirstName @ViewBag.Customer.LastName
+                                    <span class="contact-gmail">@ViewBag.Customer.Email</span>
                                 </p>
                             </div>
                         </div>
                         <div class="checkout-address mt-4">
                             <h5>Shipping address</h5>
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="country">Select Your Address</label>
-                                        <div class="form-field">
-                                            <i class="uil uil-arrow-down icon"></i>
-                                            <select name="address-list" id="address" class="form-control">
-                                                <option value="Nguyễn Thanh Dũng, +844706437167, QN" selected="">Nguyen Thanh Dung, +844706437167, Quy Nhơn City <span>(Default address)</span></option>
-                                                <option value="Nguyễn Thanh Dũng, +844706437167, QN">Nguyen Thanh Dung, +844706437167, Thạnh Lộc q12</option>
-                                            </select>
+
+                                @if (ViewBag.AddressList.Count > 0)
+                                {
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="country">Select Your Address</label>
+                                            <div class="form-field">
+                                                <i class="uil uil-arrow-down icon-dropdown"></i>
+                                                <select name="address-list" id="address" class="form-control" onchange="HandleFillValueOnFormOrder()">
+                                                    @foreach (var i in ViewBag.AddressList)
+                                                    {
+                                                        if(i.IsDefault)
+                                                        {
+                                                            <option value="@i.FirstName @i.LastName, @i.Phone, @i.Address" selected="">@i.FirstName @i.LastName, @i.Phone, @i.Address <span>(Default address)</span></option>
+                                                        }
+                                                        <option value="@i.FirstName @i.LastName, @i.Phone, @i.Address">@i.FirstName @i.LastName, @i.Phone, @i.Address</option>
+                                                    }
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                }
+
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="first-name">First Name</label>
-                                        <input type="text" id="first-name" name="first-name" class="form-control" placeholder="" required="">
+                                        <input type="text" id="first-name" name="first-name" class="form-control" placeholder="" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="last-name">Last Name</label>
-                                        <input type="text" id="last-name" name="last-name" class="form-control" placeholder="" required="">
+                                        <input type="text" id="last-name" name="last-name" class="form-control" placeholder="" required>
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="phone">Phone number</label>
-                                        <input type="tel" id="phone" name="phone" class="form-control" placeholder="">
+                                        <input type="tel" id="phone" name="phone" class="form-control" placeholder="" required>
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="address">Address</label>
-                                        <input type="text" id="address" name="address" class="form-control" placeholder="">
+                                        <input type="text" id="address" name="address" class="form-control" placeholder="" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="note">Note</label>
+                                        <textarea class="form-control" name="note" id="note" rows="3" style="height:auto!important"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -104,20 +123,20 @@
                         <div class="cart-detail wrap-checkout">
                             <h5 class="mb-4">Cart Total</h5>
                             <div>
-                                <div class="row my-3">
-                                    <div class="col-8">Men's Boston Soft Footbed Clog - Size: 39 (Qty: 1)</div>
-                                    <div class="col-4 text-end">$224</div>
-                                </div>
-                                <div class="row my-3">
-                                    <div class="col-8">Men's Boston Soft Footbed Clog - Size: 39 (Qty: 1)</div>
-                                    <div class="col-4 text-end">$224</div>
-                                </div>
+
+                                @foreach(var i in Model)
+                                {
+                                    <div class="row my-3">
+                                        <div class="col-8">@i.NameItem<br/>Size: @i.AttributeName (Qty: @i.Quantity)</div>
+                                        <div class="col-4 text-end">$@i.CurrentPriceItem</div>
+                                    </div>
+                                }
 
                                 <hr>
 
                                 <div class="row mt-2">
                                     <div class="col-8">Subtotal</div>
-                                    <div class="col-4 text-end">$224</div>
+                                    <div class="col-4 text-end">$@ViewBag.TotalPrice</div>
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-8">Shipping</div>
@@ -125,7 +144,7 @@
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-8">Order Total</div>
-                                    <div class="col-4 fw-bold fs-6 text-end">$224</div>
+                                    <div class="col-4 fw-bold fs-6 text-end">$@ViewBag.TotalPrice</div>
                                 </div>
                             </div>
                         </div>
@@ -134,21 +153,32 @@
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="wrap-checkout">
-                            <h5 class="mb-4">Cart Total</h5>
-                            <div class="form-group my-4">
-                                <div class="col-md-12">
-                                    <div class="radio">
-                                        <label><input type="radio" name="optpayment" value="1" onclick="ChangeActionPayment(this);" checked=""> Cash on delivery</label>
+                            <h5 class="mb-4">Payment Method</h5>
+
+                            @foreach (var i in ViewBag.Payments)
+                            {
+                                if(i.PaymentId == 1)
+                                {
+                                    <div class="form-group my-4">
+                                        <div class="col-md-12">
+                                            <div class="radio">
+                                                <label><input type="radio" name="optpayment" value="@i.PaymentId" onclick="ChangeActionPayment(this);" checked=""> @i.PaymentName</label>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="form-group my-4">
-                                <div class="col-md-12">
-                                    <div class="radio">
-                                        <label><input type="radio" name="optpayment" value="2" onclick="ChangeActionPayment(this);"> Paypal</label>
+                                }
+                                else 
+                                {
+                                    <div class="form-group my-4">
+                                        <div class="col-md-12">
+                                            <div class="radio">
+                                                <label><input type="radio" name="optpayment" value="@i.PaymentId" onclick="ChangeActionPayment(this);"> @i.PaymentName</label>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
+                                }
+
+                            }
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="checkbox">
@@ -163,8 +193,7 @@
 
                 <div class="row mt-4">
                     <div class="col-md-12 text-center">
-                        <div class="btn btn-primary disabled" id="btn-submit"><a asp-controller="Cart" asp-action="OrderSuccess" style="color:#fff">Place an order</a></div>
-                        <!-- <div class="btn btn-primary disabled" id="btn-submit">Place an order</div> -->
+                        <button type="submit" form="order-form" class="btn btn-primary disabled" id="btn-submit">Place an order</button>
                         <a asp-controller="Cart" asp-action="OrderSuccess" class="btn btn-submit-paypal btn-custom-loading disabled d-none">
                             <div class="loader"></div><img src="~/images/material/paypalicon.svg" class="img-fluid"><img src="~/images/material/paypalcontent.svg" class="img-fluid w-50 paypal-icon">
                         </a>
@@ -175,3 +204,69 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    var addressOpt = document.querySelector("select[name='address-list']");
+    if (addressOpt != null)
+    {
+        HandleFillValueOnFormOrder(); //Handle fill first address on form
+
+        function HandleFillValueOnFormOrder() // Event function
+        {
+            var name = addressOpt.value.split(",")[0].trim();
+            var [firstName, ...lastName] = name.split(" ");
+            lastName = lastName.join(" ");
+            var phone = addressOpt.value.split(",")[1].trim();
+            var address = addressOpt.value.split(",")[2].trim();
+            console.log({ firstName, lastName, phone, address })
+            ChangeInputValue({ firstName, lastName, phone, address })
+        }
+
+        function ChangeInputValue(info) {
+            var firstNameElement = document.querySelector("input[name='first-name']");
+            var lastNameElement = document.querySelector("input[name='last-name']");
+            var phoneElement = document.querySelector("input[name='phone']");
+            var addressElement = document.querySelector("input[name='address']");
+
+            firstNameElement.value = info.firstName;
+            lastNameElement.value = info.lastName;
+            phoneElement.value = info.phone;
+            addressElement.value = info.address;
+        }
+
+    }
+    // Change link action form based on payment
+    function ChangeActionPayment(myRadio) {
+        var paymentContent = myRadio.parentNode.textContent.trim();
+        var currentValue = myRadio.value;
+
+        var getPaymentId = document.querySelector("input[name='paymentId']");
+
+        console.log(getPaymentId)
+
+        if (paymentContent === "Cash on delivery") {
+            // Choose cash on delivery
+            const btnSubmit = document.querySelector("#btn-submit")
+            const btnSubmitPaypal = document.querySelector(".btn-submit-paypal")
+
+            document.querySelector("input[name='paymentId']").value = 1;
+
+            btnSubmit.classList.remove("d-none");
+            btnSubmitPaypal.classList.add("d-none");
+        }
+        else if (paymentContent === "Paypal") {
+            // Choose paypal
+            const btnSubmit = document.querySelector("#btn-submit")
+            const btnSubmitPaypal = document.querySelector(".btn-submit-paypal")
+
+            document.querySelector("input[name='paymentId']").value = 2;
+
+            btnSubmit.classList.add("d-none");
+            btnSubmitPaypal.classList.remove("d-none");
+
+        }
+    }
+
+
+</script>
