@@ -138,11 +138,15 @@ namespace ShoesShop.UI.Controllers
             // Varial check customer are commented yet
             ViewBag.IsCommented = customerInfoSession != null ? commentProductService.CheckCustomerCommentYet(productId, customerInfoSession.CustomerId) : false;
 
-
+            // Get size attribute of product
             ViewBag.SizeOfProduct = productService.GetAttributeOfProduct(productId);
+
 
             ProductViewModel product = productService.GetProductById(productId);
             HandleAvgRatingProduct(product);
+
+            // Get related products
+            ViewBag.RelativeProducts = productService.RelatedProduct(productId);
 
             return View(product);
         }

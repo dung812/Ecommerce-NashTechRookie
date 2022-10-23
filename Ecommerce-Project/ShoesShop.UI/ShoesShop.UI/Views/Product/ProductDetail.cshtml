@@ -313,142 +313,128 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 col-md-3">
-                    <div class="single-product d-block">
-                        <span class="product-label">Sale</span>
-                        <div class="btn-wishlist" onclick="AddWishList(event)">
-                            <i class="fa-regular fa-heart fs-4"></i>
-                        </div>
-                        <div class="product-img">
-                            <a href="./product-detail.html">
-                                <img src="~/images/products/Image/20220731001046344.jpg" class="primary-img img-fluid" alt="product image">
-                                <img src="~/images/products/ImageList/20220731001046344/1.jpg" class="secondary-img img-fluid" alt="product image">
-                            </a>
-                        </div>
-                        <div class="product-info text-center">
-                            <h4>Crocs</h4>
-                            <a href="./product-detail.html" class="m-0">
-                                Women's Chuck Taylor All Star Hi Lift Platform Sneaker
-                                <span class="fw-bold text-danger ms-2">New</span>
-                            </a>
-                            <div class="fw-bold">
-                                <span class="text-end me-2">$99</span>
-                                <span class="text-start text-decoration-line-through old-price">$99</span>
+                @foreach(var i in ViewBag.RelativeProducts)
+                {
+                    <div class="col-12 col-md-3 mt-5">
+                        <div class="single-product d-block">
+                            @if (i.PromotionPercent > 0)
+                            {
+                                <span class="product-label">Sale</span>
+                            }
+
+                            <div class="btn-wishlist" onclick="AddWishList(event)">
+                                <i class="fa-regular fa-heart fs-4"></i>
                             </div>
-                            <div class="wrap-star">
-                                <span class="rate d-block">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                </span>
+                            <div class="product-img">
+                                <a href="~/Product/@SlugGenerator.SlugGenerator.GenerateSlug(i.ProductName)-@i.ProductId">
+                                    <img src="~/images/products/Image/@i.Image" class="primary-img img-fluid" alt="product image">
+                                    <img src="~/images/products/ImageList/@i.ImageList/1.jpg" class="secondary-img img-fluid" alt="product image">
+                                </a>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-3">
-                    <div class="single-product d-block">
-                        <span class="product-label">Sale</span>
-                        <div class="btn-wishlist" onclick="AddWishList(event)">
-                            <i class="fa-regular fa-heart fs-4"></i>
-                        </div>
-                        <div class="product-img">
-                            <a href="#">
-                                <img src="~/images/products/Image/20220731001046344.jpg" class="primary-img img-fluid" alt="product image">
-                                <img src="~/images/products/ImageList/20220731001046344/1.jpg" class="secondary-img img-fluid" alt="product image">
-                            </a>
-                        </div>
-                        <div class="product-info text-center">
-                            <h4>Crocs</h4>
-                            <a href="#" class="m-0">
-                                Women's Chuck Taylor All Star Hi Lift Platform Sneaker
-                                <!-- <span class="fw-bold text-danger ms-2">New</span> -->
-                            </a>
-                            <div class="fw-bold">
-                                <span class="text-end me-2">$99</span>
-                                <span class="text-start text-decoration-line-through old-price">$99</span>
-                            </div>
-                            <div class="wrap-star">
-                                <span class="rate d-block">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-3">
-                    <div class="single-product d-block">
-                        <span class="product-label">Sale</span>
-                        <div class="btn-wishlist" onclick="AddWishList(event)">
-                            <i class="fa-regular fa-heart fs-4"></i>
-                        </div>
-                        <div class="product-img">
-                            <a href="#">
-                                <img src="~/images/products/Image/20220731001046344.jpg" class="primary-img img-fluid" alt="product image">
-                                <img src="~/images/products/ImageList/20220731001046344/1.jpg" class="secondary-img img-fluid" alt="product image">
-                            </a>
-                        </div>
-                        <div class="product-info text-center">
-                            <h4>Crocs</h4>
-                            <a href="#" class="m-0">
-                                Women's Chuck Taylor All Star Hi Lift Platform Sneaker
-                                <!-- <span class="fw-bold text-danger ms-2">New</span> -->
-                            </a>
-                            <div class="fw-bold">
-                                <span class="text-end me-2">$99</span>
-                                <span class="text-start text-decoration-line-through old-price">$99</span>
-                            </div>
-                            <div class="wrap-star">
-                                <span class="rate d-block">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-3">
-                    <div class="single-product d-block">
-                        <span class="product-label">Sale</span>
-                        <div class="btn-wishlist" onclick="AddWishList(event)">
-                            <i class="fa-regular fa-heart fs-4"></i>
-                        </div>
-                        <div class="product-img">
-                            <a href="#">
-                                <img src="~/images/products/Image/20220731001046344.jpg" class="primary-img img-fluid" alt="product image">
-                                <img src="~/images/products/ImageList/20220731001046344/1.jpg" class="secondary-img img-fluid" alt="product image">
-                            </a>
-                        </div>
-                        <div class="product-info text-center">
-                            <h4>Crocs</h4>
-                            <a href="#" class="m-0">
-                                Women's Chuck Taylor All Star Hi Lift Platform Sneaker
-                                <!-- <span class="fw-bold text-danger ms-2">New</span> -->
-                            </a>
-                            <div class="fw-bold">
-                                <span class="text-end me-2">$99</span>
-                                <span class="text-start text-decoration-line-through old-price">$99</span>
-                            </div>
-                            <div class="wrap-star">
-                                <span class="rate d-block">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                </span>
+                            <div class="product-info text-center">
+                                <h4>@i.CatalogName</h4>
+                                <a href="~/Product/@SlugGenerator.SlugGenerator.GenerateSlug(i.ProductName)-@i.ProductId" class="m-0">
+                                    @i.ProductName
+                                    <span class="fw-bold text-danger ms-2">New</span>
+                                </a>
+                                @if (i.PromotionPercent > 0)
+                                {
+                                    <div>
+                                        <span class="text-end fw-bold me-2">$@Functions.DiscountedPriceCalulator(i.OriginalPrice, i.PromotionPercent)</span>
+                                        <span class="text-start text-decoration-line-through old-price">$@i.OriginalPrice</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div>
+                                        <span class="text-end fw-bold me-2">$@i.OriginalPrice</span>
+                                    </div>
+                                }
+
+                                @if (@i.AvgStar == 1)
+                                {
+                                    <div class="wrap-star">
+                                        <span class="rate d-block">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-regular fa-star"></i>
+                                            <i class="fa-regular fa-star"></i>
+                                            <i class="fa-regular fa-star"></i>
+                                            <i class="fa-regular fa-star"></i>
+                                            <span class="ms-1">(@i.TotalComment rating)</span>
+                                        </span>
+                                    </div>
+                                }
+                                else if (@i.AvgStar == 2)
+                                {
+                                    <div class="wrap-star">
+                                        <span class="rate d-block">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-regular fa-star"></i>
+                                            <i class="fa-regular fa-star"></i>
+                                            <i class="fa-regular fa-star"></i>
+                                            <span class="ms-1">(@i.TotalComment rating)</span>
+                                        </span>
+                                    </div>
+                                }
+                                else if (@i.AvgStar == 3)
+                                {
+                                    <div class="wrap-star">
+                                        <span class="rate d-block">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-regular fa-star"></i>
+                                            <i class="fa-regular fa-star"></i>
+                                            <span class="ms-1">(@i.TotalComment rating)</span>
+                                        </span>
+                                    </div>
+                                }
+                                else if (@i.AvgStar == 4)
+                                {
+                                    <div class="wrap-star">
+                                        <span class="rate d-block">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-regular fa-star"></i>
+                                            <span class="ms-1">(@i.TotalComment rating)</span>
+                                        </span>
+                                    </div>
+                                }
+                                else if (@i.AvgStar == 5)
+                                {
+                                    <div class="wrap-star">
+                                        <span class="rate d-block">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <span class="ms-1">(@i.TotalComment rating)</span>
+                                        </span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="wrap-star">
+                                        <span class="rate d-block">
+                                            <i class="fa-regular fa-star"></i>
+                                            <i class="fa-regular fa-star"></i>
+                                            <i class="fa-regular fa-star"></i>
+                                            <i class="fa-regular fa-star"></i>
+                                            <i class="fa-regular fa-star"></i>
+                                            <span class="ms-1">(@i.TotalComment rating)</span>
+                                        </span>
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
-                </div>
+                }
+
+
             </div>
         </div>
     </div>

@@ -12,6 +12,7 @@ namespace ShoesShop.Service
         List<ProductViewModel> GetAllProduct();
         public IPagedList<ProductViewModel> GetAllProductPage(Gender cateGender, int? manufactureId, int? catalogId, int pageNumber, int pageSize);
         ProductViewModel GetProductById(int productId);
+        public List<ProductViewModel> RelatedProduct(int productId);
         public IPagedList<ProductViewModel> FilterProduct(string filterType, Gender cateGender, int pageNumber, int pageSize);
         public IPagedList<ProductViewModel> SearchProduct(string keyword, int pageNumber, int pageSize);
         public List<string> GetNameProductList(string keyword);
@@ -162,6 +163,39 @@ namespace ShoesShop.Service
             }
                 
             return product ?? new ProductViewModel();
+        }
+
+        public List<ProductViewModel> RelatedProduct(int productId)
+        {
+
+            List<ProductViewModel> products = new List<ProductViewModel>();
+            using (var context = new ApplicationDbContext())
+            {
+                var product = context.Products.FirstOrDefault(m => m.ProductId == productId);
+                products = context.Products.TagWith("Get related product list")
+                                        .Where(m => m.Status == true &&
+                                                    m.CatalogId == product.CatalogId &&
+                                                    m.ProductId != productId)
+                                        .Include(m => m.Catalog)
+                                        .Include(m => m.Manufacture)
+                                        .Include(m => m.Admin)
+                                        .Select(m => new ProductViewModel
+                                        {
+                                            ProductId = m.ProductId,
+                                            ProductName = m.ProductName,
+                                            Image = m.Image,
+                                            ImageList = m.ImageList,
+                                            OriginalPrice = m.OriginalPrice,
+                                            PromotionPercent = m.PromotionPercent,
+                                            Description = m.Description,
+                                            ProductGenderCategory = m.ProductGenderCategory,
+                                            ManufactureName = m.Manufacture.Name,
+                                            CatalogName = m.Catalog.Name,
+                                            AdminCreate = m.Admin.UserName,
+                                            DateCreate = m.DateCreate,
+                                        }).Take(4).ToList();
+            }
+            return products;
         }
 
         public IPagedList<ProductViewModel> FilterProduct(string filterType, Gender cateGender, int pageNumber, int pageSize)
