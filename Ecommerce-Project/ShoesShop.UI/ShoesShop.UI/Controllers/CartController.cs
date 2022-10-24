@@ -26,19 +26,24 @@ namespace ShoesShop.UI.Controllers
 
         public List<CartViewModel> GetCartSession() // Create list cart and save in session 
         {
-            // Get list cart data of session
-            var cartSession = HttpContext.Session.GetString("Cart");
-            var cartInfoSession = JsonConvert.DeserializeObject<List<CartViewModel>>(cartSession != null ? cartSession : "");
-
-            List<CartViewModel> listCart = cartInfoSession as List<CartViewModel>;
-            if (listCart == null)
+            if (HttpContext.Session.GetString("Cart") != null)
             {
-                // If the list item in the cart empty, it will create a list contains items
-                listCart = new List<CartViewModel>();
-                var parseCart = JsonConvert.SerializeObject(listCart);
-                HttpContext.Session.SetString("Cart", parseCart);
+                // Get list cart data of session
+                var cartSession = HttpContext.Session.GetString("Cart");
+                var cartInfoSession = JsonConvert.DeserializeObject<List<CartViewModel>>(cartSession != null ? cartSession : "");
+
+
+                List<CartViewModel> listCart = cartInfoSession as List<CartViewModel>;
+                if (listCart == null)
+                {
+                    // If the list item in the cart empty, it will create a list contains items
+                    listCart = new List<CartViewModel>();
+                    var parseCart = JsonConvert.SerializeObject(listCart);
+                    HttpContext.Session.SetString("Cart", parseCart);
+                }
+                return listCart;
             }
-            return listCart;
+            return new List<CartViewModel>();
         }
         public void UpdateCartSession(List<CartViewModel> cart)
         {

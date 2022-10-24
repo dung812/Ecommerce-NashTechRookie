@@ -350,3 +350,7 @@ C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie-main\Ecommer
 C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie-main\Ecommerce-Project\ShoesShop.UI\ShoesShop.Test\obj\Debug\net6.0\ShoesShop.Test.pdb
 C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie-main\Ecommerce-Project\ShoesShop.UI\ShoesShop.Test\obj\Debug\net6.0\ShoesShop.Test.genruntimeconfig.cache
 C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie-main\Ecommerce-Project\ShoesShop.UI\ShoesShop.Test\obj\Debug\net6.0\ref\ShoesShop.Test.dll
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie-main\Ecommerce-Project\ShoesShop.UI\ShoesShop.Test\bin\Debug\net6.0\JetBrains.Annotations.dll
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie-main\Ecommerce-Project\ShoesShop.UI\ShoesShop.Test\bin\Debug\net6.0\SlugGenerator.dll
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie-main\Ecommerce-Project\ShoesShop.UI\ShoesShop.Test\bin\Debug\net6.0\X.PagedList.dll
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie-main\Ecommerce-Project\ShoesShop.UI\ShoesShop.Test\bin\Debug\net6.0\X.PagedList.Mvc.Core.dll

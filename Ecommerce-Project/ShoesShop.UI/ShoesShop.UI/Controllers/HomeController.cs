@@ -81,6 +81,7 @@ namespace ShoesShop.UI.Controllers
             return View();
         }
 
+        [HttpGet("Error")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
