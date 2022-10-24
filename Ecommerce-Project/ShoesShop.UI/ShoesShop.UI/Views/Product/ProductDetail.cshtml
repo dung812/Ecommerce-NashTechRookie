@@ -124,16 +124,7 @@
             <!-- Tab panes -->
             <div class="tab-content mt-4">
                 <div class="tab-pane container product-desc active" id="desc">
-                    <p>A lace-up combat boot with standout style and comfort you’ll <a href="#">love</a>.</p>
-                    <ul>
-                        <li>SUSTAINABLY CRAFTED: Linings and topcloth made from recycled plastic bottles, recycled toe box and heel counter</li>
-                        <li>MATERIALS: Faux leather upper</li>
-                        <li>FIT: Lace-up front with back pull tab for easy on/off and padded collar for extra cushioning</li>
-                        <li>SUSTAINABLE COMFORT: Anti-microbial, anti-odor Susterra® foam insole crafted from 11% bio-based materials with soft and lightweight cushioning, built-in arch support, and a molded heel cup</li>
-                        <li>EASY LANDING COMFORT SYSTEM: Ultra-flexible and pliable design with a rounded heel, anatomical heel cup and arch for underfoot comfort, no-slip heel padding, UltimateFlex built-in flex grooves, and soft and light outsole</li>
-                        <li>STYLE: Combat-inspired lace-up boot with a lug sole</li>
-                        <li>CONSCIOUSLY PACKAGED: This style is shipped in a box made with recyclable materials &amp; soy-based inks</li>
-                    </ul>
+                    @Html.Raw(@Model.Description)
                 </div>
                 <div class="tab-pane container fade" id="review">
                     <div class="row">
@@ -493,6 +484,12 @@
     })
 
 
+    function FormatDateTime(datetime)
+    {
+        let date = `${datetime.split("T")[0].split("-")[2]}-${datetime.split("T")[0].split("-")[1]}-${datetime.split("T")[0].split("-")[0]}`;
+        let time = `${datetime.split("T")[1].split(":")[0]}:${datetime.split("T")[1].split(":")[1]}`;
+        return `${date} ${time}`;
+    }
 
     //================== Render Comment Feature ====================
     $(document).ready(function () {
@@ -527,14 +524,7 @@
                         [...data.comments].forEach(item => {
                             let starTemplate = "";
 
-                            var date = new Date(Date.parse(item.date));
-                            var dateFormat =
-                                ("0" + date.getUTCDate()).slice(-2)   + "/" +
-                                ("0" + (date.getUTCMonth() + 1)).slice(-2) + "/" +
-                                date.getUTCFullYear() + " " +
-
-                                ("0" + date.getUTCHours()).slice(-2) + ":" +
-                                ("0" + date.getUTCMinutes()).slice(-2);
+                            
 
 
                             if (item.star == 1) {
@@ -603,7 +593,7 @@
                                                         <p>${item.content}</p>
                                                     </div>
                                                     <div class="col-4 text-end">
-                                                        <p>${dateFormat}</p>
+                                                        <p>${FormatDateTime(item.date)}</p>
                                                     </div>
                                                 </div>
                                             </div>

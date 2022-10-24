@@ -65,11 +65,12 @@
                                                 <select name="address-list" id="address" class="form-control" onchange="HandleFillValueOnFormOrder()">
                                                     @foreach (var i in ViewBag.AddressList)
                                                     {
-                                                        if(i.IsDefault)
-                                                        {
-                                                            <option value="@i.FirstName @i.LastName, @i.Phone, @i.Address" selected="">@i.FirstName @i.LastName, @i.Phone, @i.Address <span>(Default address)</span></option>
-                                                        }
-                                                        <option value="@i.FirstName @i.LastName, @i.Phone, @i.Address">@i.FirstName @i.LastName, @i.Phone, @i.Address</option>
+                                                        <option value="@i.FirstName @i.LastName, @i.Phone, @i.Address" selected="@i.IsDefault">
+                                                            @i.FirstName @i.LastName, @i.Phone, @i.Address
+                                                            @if(i.IsDefault){
+                                                            <span>(Default address)</span>
+                                                            }
+                                                        </option>
                                                     }
                                                 </select>
                                             </div>

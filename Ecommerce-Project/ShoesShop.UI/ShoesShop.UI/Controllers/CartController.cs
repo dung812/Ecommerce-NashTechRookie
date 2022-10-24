@@ -239,7 +239,7 @@ namespace ShoesShop.UI.Controllers
             if (saveOderStatus && saveOderDetailStatus) // Save successfull
             {
                 // Create url watch quickly order detail
-                string url = String.Concat(this.Request.Scheme, "://", this.Request.Host, "/Order-detail/", orderViewModel.OrderId);
+                string url = String.Concat(this.Request.Scheme, "://", this.Request.Host, "/Order-detail/", orderViewModel.OrderId, "-", customerId);
 
                 // Send email new order to customer
                 string content = System.IO.File.ReadAllText(Path.Combine(hostEnvironment.WebRootPath, "template\\NewOrder.html"));
