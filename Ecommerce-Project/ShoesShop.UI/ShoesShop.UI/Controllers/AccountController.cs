@@ -46,32 +46,35 @@ namespace ShoesShop.UI.Controllers
         public IActionResult Login(IFormCollection formFields)
         {
             var email = formFields["email"][0];
-            var password = formFields["password"][0];
+            var password = Functions.MD5Hash(formFields["password"][0].Trim());
 
-            password = Functions.MD5Hash(password.Trim());
 
             //var getValidCustomerAccount = customerService.GetValidCustomerByEmail(email);
             Customer checkAccount = customerService.ValidateCustomerAccount(email, password);
 
             if(checkAccount != null)
             {
-                if (checkAccount.Status == false)
-                {
-                    // Case customer login account was locked;
-                    TempData["error"] = "Your account has been locked.";
-                    return RedirectToAction("LoginRegistration");
-                }
-                else
-                {
-                    // Case valid account
-                    //HttpContext.Session.Remove("CountNumberError"); // Xóa biến đếm số lần sai
+                //if (checkAccount.Status == false)
+                //{
+                //    // Case customer login account was locked;
+                //    TempData["error"] = "Your account has been locked.";
+                //    return RedirectToAction("LoginRegistration");
+                //}
+                //else
+                //{
+                //    // Case valid account
+                //    //HttpContext.Session.Remove("CountNumberError"); // Xóa biến đếm số lần sai
 
-                    var parseCustomerInfo = JsonConvert.SerializeObject(checkAccount);
-                    HttpContext.Session.SetString("CustomerInfo", parseCustomerInfo);
+                //    var parseCustomerInfo = JsonConvert.SerializeObject(checkAccount);
+                //    HttpContext.Session.SetString("CustomerInfo", parseCustomerInfo);
 
 
-                    return RedirectToAction("Index", "Home");
-                }
+                //    return RedirectToAction("Index", "Home");
+                //}
+
+                var parseCustomerInfo = JsonConvert.SerializeObject(checkAccount);
+                HttpContext.Session.SetString("CustomerInfo", parseCustomerInfo);
+                return RedirectToAction("Index", "Home");
             }
             TempData["error"] = "Incorrect username or password.";
             return RedirectToAction("LoginRegistration");

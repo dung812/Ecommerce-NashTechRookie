@@ -91,7 +91,7 @@ namespace ShoesShop.Service
             {
                 customer = context.Customers.FirstOrDefault(m => m.CustomerId == customerId && m.Status);
             }
-            return customer ?? new Customer();
+            return customer;
         }
 
         public Customer ValidateCustomerAccount(string email, string password)
@@ -101,7 +101,7 @@ namespace ShoesShop.Service
             {
                 customer = context.Customers.FirstOrDefault(m => m.Email == email && m.Password == password);
             }
-            return customer ?? new Customer();
+            return customer;
         }
 
         public void ChangePassword(int customerId, string newPassword)
