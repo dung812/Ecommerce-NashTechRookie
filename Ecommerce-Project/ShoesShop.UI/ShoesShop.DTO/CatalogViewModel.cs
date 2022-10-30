@@ -8,7 +8,7 @@ namespace ShoesShop.DTO
 {
     public class CatalogViewModel
     {
-        public int CatalogId { get; set; }
+        public int? CatalogId { get; set; }
         public string Name { get; set; }
     }
 }

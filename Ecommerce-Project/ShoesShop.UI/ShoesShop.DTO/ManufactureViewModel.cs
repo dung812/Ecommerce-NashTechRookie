@@ -8,7 +8,7 @@ namespace ShoesShop.DTO
 {
     public class ManufactureViewModel
     {
-        public int ManufactureId { get; set; }
+        public int? ManufactureId { get; set; }
         public string Name { get; set; } 
         public string? Logo { get; set; }
     }

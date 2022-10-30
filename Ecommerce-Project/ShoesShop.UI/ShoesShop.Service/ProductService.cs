@@ -17,6 +17,9 @@ namespace ShoesShop.Service
         public IPagedList<ProductViewModel> SearchProduct(string keyword, int pageNumber, int pageSize);
         public List<string> GetNameProductList(string keyword);
         public List<AttributeViewModel> GetAttributeOfProduct(int productId);
+        public bool CreateProduct(ProductViewModel productViewModel);
+        public bool UpdateProduct(int productId, ProductViewModel productViewModel);
+        public bool DeleteProduct(int productId);
     }
 
     public class ProductService : IProductService
@@ -362,6 +365,111 @@ namespace ShoesShop.Service
                 }).ToList();
             }
             return attributes;
+        }
+    
+        public bool CreateProduct(ProductViewModel productViewModel)
+        {
+            try
+            {
+                Product product = new Product()
+                {
+                    ProductName = productViewModel.ProductName,
+                    Image = productViewModel.Image,
+                    ImageList = productViewModel.ImageList,
+                    OriginalPrice = productViewModel.OriginalPrice,
+                    PromotionPercent = productViewModel.PromotionPercent,
+                    Description = productViewModel.Description,
+                    Quantity = 50,
+                    Status = true,
+                    ProductGenderCategory = productViewModel.Gender == "Women" ? Gender.Women : Gender.Men,
+                    DateCreate = DateTime.Now,
+                    AdminId = productViewModel.AdminId,
+                    ManufactureId = productViewModel.ManufactureId,
+                    CatalogId = productViewModel.CatalogId
+                };
+                using (var context = new ApplicationDbContext())
+                {
+                    context.Products.Add(product);
+                    context.SaveChanges();
+                }
+                return true;
+
+            } catch(Exception)
+            {
+                return false;
+            }
+ 
+        }
+        public bool UpdateProduct (int productId, ProductViewModel productViewModel)
+        {
+            try
+            {
+                bool result;
+
+                using (var context = new ApplicationDbContext())
+                {
+                    var product = context.Products.Find(productId);
+
+                    if (product != null)
+                    {
+                        product.ProductName = productViewModel.ProductName;
+                        product.Image = productViewModel.Image;
+                        product.ImageList = productViewModel.ImageList;
+                        product.OriginalPrice = productViewModel.OriginalPrice;
+                        product.PromotionPercent = productViewModel.PromotionPercent;
+                        product.Description = productViewModel.Description;
+                        product.ProductGenderCategory = productViewModel.Gender == "Women" ? Gender.Women : Gender.Men;
+                        product.AdminId = productViewModel.AdminId;
+                        product.ManufactureId = productViewModel.ManufactureId;
+                        product.CatalogId = productViewModel.CatalogId;
+                        product.UpdateDate = DateTime.Now;
+
+                        context.Products.Update(product);
+                        context.SaveChanges();
+
+                        result = true;
+                    }
+                    else
+                        result = false;
+                }
+                return result;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+        public bool DeleteProduct(int productId)
+        {
+            try
+            {
+                bool result;
+                using (var context = new ApplicationDbContext())
+                {
+                    var product = context.Products.Find(productId);
+                    if (product != null)
+                    {
+
+                        product.Status = false;
+
+                        context.Products.Update(product);
+                        context.SaveChanges();
+
+                        result = true;
+                    }
+                    else
+                    {
+                        result = false;
+                    }
+                }
+                return result;
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+   
         }
     }
 }

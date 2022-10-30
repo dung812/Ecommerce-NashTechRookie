@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "Hash": "2k57/YXqxlApLzkbT2NEZSR4qhZdJ6MsU9Fs/I5TXJk=",
+  "Source": "ShoesShop.API",
+  "BasePath": "_content/ShoesShop.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "ShoesShop.API\\wwwroot",
+      "Source": "ShoesShop.API",
+      "ContentRoot": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie-main\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.API\\wwwroot\\",
+      "BasePath": "_content/ShoesShop.API",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie-main\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.API\\wwwroot\\Upload\\313295470_1353247462097341_7453576175892685928_n.jpg",
+      "SourceId": "ShoesShop.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie-main\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.API\\wwwroot\\",
+      "BasePath": "_content/ShoesShop.API",
+      "RelativePath": "Upload/313295470_1353247462097341_7453576175892685928_n.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Upload\\313295470_1353247462097341_7453576175892685928_n.jpg"
+    }
+  ]
+}

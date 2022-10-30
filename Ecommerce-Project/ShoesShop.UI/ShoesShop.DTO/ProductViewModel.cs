@@ -20,12 +20,18 @@ namespace ShoesShop.DTO
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         public Gender ProductGenderCategory { get; set; }
-        public string ManufactureName { get; set; }
-        public string CatalogName { get; set; }
-        public string AdminCreate { get; set; }
+        public string? ManufactureName { get; set; }
+        public string? CatalogName { get; set; }
+        public string? AdminCreate { get; set; }
         public DateTime DateCreate { get; set; }
         public int Income { get; set; } //  Tổng doanh thu sản phẩm
         public int AvgStar { get; set; } // Trung bình số sao đánh giá
         public int TotalComment { get; set; } // Tổng số lượt đánh giá
+
+
+        public int AdminId { get; set; }
+        public int CatalogId { get; set; }
+        public int ManufactureId { get; set; }
+        public string? Gender { get; set; }
     }
 }
