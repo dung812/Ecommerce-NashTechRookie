@@ -5,16 +5,17 @@ Họ tên: Nguyễn Thanh Dũng
 
 
 ## Source structure
-.
-└── Assignment-Ecommerce-Rookie <br>
-&nbsp;&nbsp;&nbsp;&nbsp;├── Ecommerce-Project       : Thư mục project ASP NET core mvc <br>
-&nbsp;&nbsp;&nbsp;&nbsp;├── Database                :	Thư mục lưu trữ database   <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ &nbsp;└── Query.sql           : File query insert dữ liệu database <br>	
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ &nbsp;└── database-desc.docx  : File mô tả database		  <br>  
-&nbsp;&nbsp;&nbsp;&nbsp;├── UI-AdminSite            : Thư mục source React Admin site    <br>
-&nbsp;&nbsp;&nbsp;&nbsp;├── UI-CustomerSite         : Thư mục template cho Customer site   <br>
-&nbsp;&nbsp;&nbsp;&nbsp;├── Planning-Assigment.xlsx : File planning (các use-case dự án và todolist)  
 
+```
+.
+└── Assignment-Ecommerce-Rookie 
+ ├── Ecommerce-Project       : Thư mục project ASP NET
+ ├── Database                : Thư mục lưu trữ database  
+ │ └── Query.sql             : File query insert dữ liệu database	
+ │ └── database-desc.docx    : File mô tả database		    
+ ├── UI-CustomerSite         : Thư mục template cho Customer site   
+ ├── Planning-Assigment.xlsx : File planning (các use-case dự án và todolist)  
+```
 
 ## Báo cáo tiến độ
 ### Các công việc đã hoàn thành tuần 1
@@ -59,5 +60,6 @@ Họ tên: Nguyễn Thanh Dũng
 -   Tổ chức source React cho Admin site: áp dụng cách tổ chức theo feature để apply redux toolkit cho dự án. [Source code tham khảo](https://github.com/paulnguyen-mn/redux-photo-app.git)
 -   Làm giao diện admin (pending)
 -   Ôn lại react, redux và nghiên cứu 1 số thư viện và công nghệ (redux toolkit, redux thunk, typescript, bootstrap, datatable,…) để apply cho dự án.
+
 [Link video báo cáo](https://drive.google.com/file/d/1wSL15zItw5dh8VewHfaD1hujCH0X0rF5/view?usp=sharing)
 
