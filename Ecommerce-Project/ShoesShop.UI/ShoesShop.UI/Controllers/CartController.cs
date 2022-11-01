@@ -145,9 +145,10 @@ namespace ShoesShop.UI.Controllers
                 item.TotalDiscountedPrice = (item.UnitPrice - item.CurrentPriceItem) * quantity;
                 
                 UpdateCartSession(listCart);
+                return Json(new { status = 200 });
             }
-
-            return Json(new { status = 200 });
+            else
+                return Json(new { status = 500, smg = "Not exist product" });
         }
 
         [HttpPost]

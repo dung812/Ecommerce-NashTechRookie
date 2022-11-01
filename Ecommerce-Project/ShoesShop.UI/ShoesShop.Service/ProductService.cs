@@ -76,6 +76,7 @@ namespace ShoesShop.Service
                                             OriginalPrice = m.OriginalPrice,
                                             PromotionPercent = m.PromotionPercent,
                                             Description = m.Description,
+                                            Quantity = m.Quantity,
                                             ProductGenderCategory = m.ProductGenderCategory,
                                             ManufactureName = m.Manufacture.Name,
                                             CatalogName = m.Catalog.Name,
@@ -157,6 +158,7 @@ namespace ShoesShop.Service
                                             OriginalPrice = m.OriginalPrice,
                                             PromotionPercent = m.PromotionPercent,
                                             Description = m.Description,
+                                            Quantity = m.Quantity,
                                             ProductGenderCategory = m.ProductGenderCategory,
                                             ManufactureName = m.Manufacture.Name,
                                             CatalogName = m.Catalog.Name,
@@ -379,7 +381,7 @@ namespace ShoesShop.Service
                     OriginalPrice = productViewModel.OriginalPrice,
                     PromotionPercent = productViewModel.PromotionPercent,
                     Description = productViewModel.Description,
-                    Quantity = 50,
+                    Quantity = productViewModel.Quantity,
                     Status = true,
                     ProductGenderCategory = productViewModel.Gender == "Women" ? Gender.Women : Gender.Men,
                     DateCreate = DateTime.Now,
@@ -418,6 +420,7 @@ namespace ShoesShop.Service
                         product.OriginalPrice = productViewModel.OriginalPrice;
                         product.PromotionPercent = productViewModel.PromotionPercent;
                         product.Description = productViewModel.Description;
+                        product.Quantity = productViewModel.Quantity;
                         product.ProductGenderCategory = productViewModel.Gender == "Women" ? Gender.Women : Gender.Men;
                         product.AdminId = productViewModel.AdminId;
                         product.ManufactureId = productViewModel.ManufactureId;

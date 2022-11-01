@@ -19,6 +19,7 @@ namespace ShoesShop.DTO
         public int PromotionPercent { get; set; }
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
+        public int Quantity { get; set; }
         public Gender ProductGenderCategory { get; set; }
         public string? ManufactureName { get; set; }
         public string? CatalogName { get; set; }
