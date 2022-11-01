@@ -60,7 +60,7 @@ namespace ShoesShop.UI.Controllers.API
         }
 
         [HttpPost("PostImage")]
-        public string PostImage(IFormFile objFile)
+        public ActionResult PostImage(IFormFile objFile)
         {
             try
             {
@@ -74,18 +74,48 @@ namespace ShoesShop.UI.Controllers.API
                     {
                         objFile.CopyTo(fileStream);
                         fileStream.Flush();
-                        return "\\images\\products\\Image\\" + objFile.FileName;
+                        return Ok();
                     };
                 }
                 else
                 {
-                    return "Failed";
+                    return BadRequest();
                 }
             }
             catch (Exception ex)
             {
 
-                return ex.Message.ToString();
+                return BadRequest();
+            }
+        }
+
+        [HttpPost("PostImageGallery")]
+        public ActionResult PostImageGallery(IFormFile objFile, string imageName, string imageGalleryName)
+        {
+            try
+            {
+                if (objFile.Length > 0)
+                {
+                    if (!Directory.Exists(webHostEnvironment.WebRootPath + "\\images\\products\\ImageList\\" + imageName + "\\"))
+                    {
+                        Directory.CreateDirectory(webHostEnvironment.WebRootPath + "\\images\\products\\ImageList\\" + imageName + "\\");
+                    }
+                    using (FileStream fileStream = System.IO.File.Create(webHostEnvironment.WebRootPath + "\\images\\products\\ImageList\\" + imageName + "\\" + imageGalleryName))
+                    {
+                        objFile.CopyTo(fileStream);
+                        fileStream.Flush();
+                        return Ok();
+                    };
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest();
             }
         }
 
