@@ -1,7 +1,7 @@
 # Tên đề tài: E-commerce Shoes shopping - Rookie Assignment
 Họ tên: Nguyễn Thanh Dũng
 
-[Link repository React project Admin site](https://github.com/dung812/Assignment-admin-site.git)
+[Link repository React project Admin site](https://github.com/dung812/Assignment-AdminSite.git)
 
 
 ## Source structure
