@@ -59,7 +59,7 @@ Họ tên: Nguyễn Thanh Dũng
 -   Làm authentication JWT cho phần login admin
 -   Tổ chức source React cho Admin site: áp dụng cách tổ chức theo feature để apply redux toolkit cho dự án. [Source code tham khảo](https://github.com/paulnguyen-mn/redux-photo-app.git)
 -   Làm giao diện admin (pending)
--   Ôn lại react, redux và nghiên cứu 1 số thư viện và công nghệ (redux toolkit, redux thunk, typescript, bootstrap, datatable,…) để apply cho dự án.
+-   Ôn lại react, redux và nghiên cứu 1 số thư viện và công nghệ (redux toolkit, redux thunk, bootstrap, datatable,…) để apply cho dự án.
 
 [Link video báo cáo](https://drive.google.com/file/d/1wSL15zItw5dh8VewHfaD1hujCH0X0rF5/view?usp=sharing)
 
