@@ -82,7 +82,42 @@ namespace ShoesShop.UI.Controllers.API
                     return BadRequest();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
+        }
+
+        [HttpPost("UpdatePostImage")]
+        public ActionResult UpdatePostImage(IFormFile objFile, string imageName)
+        {
+            string imageNameOld = imageName.Split('.')[0];
+            string imageNameNew = objFile.FileName.Split('.')[0];
+            try
+            {
+                if (objFile.Length > 0)
+                {
+                    if (!Directory.Exists(webHostEnvironment.WebRootPath + "\\images\\products\\Image\\"))
+                    {
+                        Directory.CreateDirectory(webHostEnvironment.WebRootPath + "\\images\\products\\Image\\");
+                    }
+
+                    using (FileStream fileStream = System.IO.File.Create(webHostEnvironment.WebRootPath + "\\images\\products\\Image\\" + objFile.FileName))
+                    {
+                        objFile.CopyTo(fileStream);
+                        fileStream.Flush();
+
+                        Directory.Move(webHostEnvironment.WebRootPath + "\\images\\products\\ImageList\\" + imageNameOld + "\\", webHostEnvironment.WebRootPath + "\\images\\products\\ImageList\\" + imageNameNew + "\\");
+                        return Ok();
+                    };
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception)
             {
 
                 return BadRequest();
@@ -112,12 +147,50 @@ namespace ShoesShop.UI.Controllers.API
                     return BadRequest();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 return BadRequest();
             }
         }
 
+        
+        
+        
+        //[HttpPost("PostImageGalleryNew")]
+        //public ActionResult PostImageGalleryNew(IFormFile objFile, string imageName, string indexImageGallery)
+        //{
+        //    // imageName: nashtech
+        //    // indexImageGallery: 1
+        //    // -> images/producs/ImageList/imageName(nashtech)/indexImageGallery(1)/    *file: objFile.FileName*
+
+        //    try
+        //    {
+        //        if (objFile.Length > 0)
+        //        {
+        //            if (!Directory.Exists(webHostEnvironment.WebRootPath + "\\images\\products\\ImageList\\" + imageName + "\\" + indexImageGallery + "\\"))
+        //            {
+        //                Directory.CreateDirectory(webHostEnvironment.WebRootPath + "\\images\\products\\ImageList\\" + imageName + "\\" + indexImageGallery + "\\");
+        //            }
+        //            using (FileStream fileStream = System.IO.File.Create(webHostEnvironment.WebRootPath + "\\images\\products\\ImageList\\" + imageName + "\\" + indexImageGallery + "\\" + objFile.FileName))
+        //            {
+        //                objFile.CopyTo(fileStream);
+        //                fileStream.Flush();
+        //                return Ok();
+        //            };
+        //        }
+        //        else
+        //        {
+        //            return BadRequest();
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        return BadRequest();
+        //    }
+        //}
+
     }
+
 }

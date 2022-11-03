@@ -48,8 +48,12 @@ namespace ShoesShop.Service
                                             ProductGenderCategory = m.ProductGenderCategory,
                                             ManufactureName = m.Manufacture.Name,
                                             CatalogName = m.Catalog.Name,
+                                            CatalogId = m.CatalogId,
+                                            ManufactureId = m.ManufactureId,
+                                            Quantity = m.Quantity,
                                             AdminCreate = m.Admin.UserName,
                                             DateCreate = m.DateCreate,
+                                            Gender = m.ProductGenderCategory == Gender.Men ? "Men": "Women"
                                         }).ToList();
             }
             return productList;
@@ -80,6 +84,8 @@ namespace ShoesShop.Service
                                             ProductGenderCategory = m.ProductGenderCategory,
                                             ManufactureName = m.Manufacture.Name,
                                             CatalogName = m.Catalog.Name,
+                                            CatalogId = m.CatalogId,
+                                            ManufactureId = m.ManufactureId,
                                             AdminCreate = m.Admin.UserName,
                                             DateCreate = m.DateCreate,
                                         }).ToPagedList(pageNumber, pageSize);
@@ -162,6 +168,8 @@ namespace ShoesShop.Service
                                             ProductGenderCategory = m.ProductGenderCategory,
                                             ManufactureName = m.Manufacture.Name,
                                             CatalogName = m.Catalog.Name,
+                                            CatalogId = m.CatalogId,
+                                            ManufactureId = m.ManufactureId,
                                             AdminCreate = m.Admin.UserName,
                                             DateCreate = m.DateCreate,
                                         }).SingleOrDefault(m => m.ProductId == productId);
