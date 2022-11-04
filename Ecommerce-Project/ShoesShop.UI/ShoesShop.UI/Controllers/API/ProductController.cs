@@ -6,7 +6,7 @@ using ShoesShop.Service;
 
 namespace ShoesShop.UI.Controllers.API
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase

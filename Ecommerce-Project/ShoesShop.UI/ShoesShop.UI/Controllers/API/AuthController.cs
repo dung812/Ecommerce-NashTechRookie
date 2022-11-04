@@ -27,18 +27,14 @@ namespace ShoesShop.UI.Controllers.API
         [HttpPost]
         public IActionResult Login(LoginViewModel loginInfo)
         {
-            //IActionResult response = Unauthorized();
-
             loginInfo.Password = Functions.MD5Hash(loginInfo.Password);
 
             var admin = adminService.AuthenticateAdmin(loginInfo);
             if (admin != null)
             {
                 var tokenStr = GenerateJSONWebToken(admin);
-                //response = Ok(new { token = tokenStr });
 
-
-                return Ok(new { adminInfo = admin, token = tokenStr });
+                return Ok(new { info = admin, token = tokenStr });
             }
             else
             {
@@ -65,7 +61,6 @@ namespace ShoesShop.UI.Controllers.API
                 //new Claim("Role", "employee"),
 
                 new Claim(ClaimTypes.Name, admin.UserName),
-                new Claim(ClaimTypes.Email, admin.Email),
                 new Claim(ClaimTypes.Role, admin.RoleName),
 
 

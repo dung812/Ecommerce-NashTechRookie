@@ -93,8 +93,6 @@ namespace ShoesShop.Service
                         Phone = m.Phone,
                         Birthday = m.Birthday,
                         Gender = m.Gender == Gender.Men ? "Men" : "Women",
-                        RegisteredDate = m.RegisteredDate,
-                        RoleId = m.RoleId,
                         RoleName = m.Role.RoleName
                     }).FirstOrDefault();
             }
