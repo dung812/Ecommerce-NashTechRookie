@@ -995,12 +995,18 @@ ol {
     margin: 0;
 }
 
-.form-group .form-field .icon {
+.form-group .form-field .icon-dropdown {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     right: 20px;
     color: #cccccc;
+}
+.form-group .form-field .icon-dropdown::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }
 
 select.form-control {
@@ -1189,4 +1195,7 @@ select.form-control {
 }
 
 
-
+textarea#message,
+textarea#comment {
+    height: auto!important;
+}
