@@ -3,18 +3,29 @@ import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom';
 
 import './Sidebar.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutAccount } from 'features/Auth/AuthSlice';
 
 function Sidebar(props) {
     const sidebar = useRef(null);
 
+    let adminRole = useSelector((state) => state.authAdmin.admin.info);
+
+    const dispatch = useDispatch();
+    function Logout() {
+        const action = logoutAccount();
+        dispatch(action);
+    }
+
     useEffect(() => {
+
         const navItems = document.querySelectorAll(".nav-items");
 
         navItems.forEach(item => item.addEventListener('click', () => {
             navItems.forEach(item => item.classList.remove('active'));
-            item.classList.add('active');
+            // item.classList.add('active');
         }))
-    },[])
+    }, [])
 
     function HandleClickMenuSidebar(event) {
         sidebar.current !== null && sidebar.current.classList.toggle("open");
@@ -26,7 +37,7 @@ function Sidebar(props) {
         header.classList.toggle("active");
         const content = document.querySelector(".content-body");
         content.classList.toggle("active");
-        
+
     }
 
     function HandleClickSearchBtn(event) {
@@ -43,10 +54,10 @@ function Sidebar(props) {
         let sidebar = document.querySelector(".sidebar");
         let closeBtn = document.querySelector("#btn");
 
-        if(sidebar?.classList.contains("open")){
+        if (sidebar?.classList.contains("open")) {
             closeBtn?.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
-        }else {
-            closeBtn?.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
+        } else {
+            closeBtn?.classList.replace("bx-menu-alt-right", "bx-menu");//replacing the iocns class
         }
     }
 
@@ -71,13 +82,23 @@ function Sidebar(props) {
                     </NavLink>
                     <span className="tooltip">Dashboard</span>
                 </li>
-                <li>
+                {
+                    adminRole?.roleName === "Admin" &&
+                    <li>
+                        <NavLink to="/product" className='nav-items'>
+                            <i className='bx bx-store-alt'></i>
+                            <span className="links_name">Product</span>
+                        </NavLink>
+                        <span className="tooltip">Product</span>
+                    </li>
+                }
+                {/* <li>
                     <NavLink to="/product" className='nav-items'>
                         <i className='bx bx-store-alt'></i>
                         <span className="links_name">Product</span>
                     </NavLink>
                     <span className="tooltip">Product</span>
-                </li>
+                </li> */}
                 <li>
                     <NavLink to="/category" className='nav-items'>
                         <i className='bx bx-category'></i>
@@ -130,12 +151,12 @@ function Sidebar(props) {
                 <li className="profile">
                     <div className="profile-details">
                         <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2022/02/avatar-trang-y-nghia.jpeg?fit=512%2C20000&quality=95&ssl=1" alt="profileImg" />
-                            <div className="name_job">
-                                <div className="name">Nguyen Dung</div>
-                                <div className="job">Role: Admin</div>
-                            </div>
+                        <div className="name_job">
+                            <div className="name">Nguyen Dung</div>
+                            <div className="job">Role: Admin</div>
+                        </div>
                     </div>
-                    <i className='bx bx-log-out' id="log_out" ></i>
+                    <i className='bx bx-log-out' id="log_out" onClick={() => Logout()}></i>
                 </li>
             </ul>
         </div>

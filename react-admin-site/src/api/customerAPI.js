@@ -1,4 +1,3 @@
-// api/productApi.js
 import axiosClient from "./axiosClient";
 
 const customerApi = {

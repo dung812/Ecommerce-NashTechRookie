@@ -2,10 +2,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './Header.scss'
 import { Dropdown } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { logoutAccount } from 'features/Auth/AuthSlice';
 
 Header.propTypes = {}
 
 function Header(props) {
+    const dispatch = useDispatch();
+
+    function Logout() {
+        const action = logoutAccount();
+		dispatch(action);
+    }
+
     return (
         <div className='header px-4 py-3'>
             <div className="d-flex justify-content-between align-items-center">
@@ -55,7 +64,7 @@ function Header(props) {
                         <Dropdown.Menu>
                             <Dropdown.Item href="/profile"><i className='bx bx-user'></i> Profile</Dropdown.Item>
                             <Dropdown.Item href="/change-password"><i className='bx bx-eraser'></i> Change password</Dropdown.Item>
-                            <Dropdown.Item href="#"><i className='bx bx-dock-left'></i> Logout</Dropdown.Item>
+                            <Dropdown.Item onClick={() => Logout()}><i className='bx bx-dock-left'></i> Logout</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
 
