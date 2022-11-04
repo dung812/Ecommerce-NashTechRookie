@@ -24,6 +24,7 @@ function App() {
         window.addEventListener('beforeunload', (e) => {
             e.returnValue = "Changes you made may not be saved."
         })
+        console.log("test")
     }, []);
 
 
