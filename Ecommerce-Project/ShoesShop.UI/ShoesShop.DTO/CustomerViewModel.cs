@@ -9,6 +9,7 @@ namespace ShoesShop.DTO
 {
     public class CustomerViewModel
     {
+        public int CustomerId { get; set; }
         [Display(Name = "First name")]
         [Required]
         public string FirstName { get; set; } = null!;
@@ -20,5 +21,8 @@ namespace ShoesShop.DTO
         public string Password { get; set; } = null!;
         public string Avatar { get; set; } = null!;
         public DateTime RegisterDate { get; set; } = DateTime.Now;
+        public int TotalOrderSuccess { get; set; }
+        public int TotalOrderCancel { get; set; }
+        public int TotalMoneyPuschased { get; set; }
     }
 }

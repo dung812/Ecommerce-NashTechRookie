@@ -8,11 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Microsoft.EntityFrameworkCore;
+using ShoesShop.Domain.Enum;
 
 namespace ShoesShop.Service
 {
     public interface ICustomerService
     {
+        public List<CustomerViewModel> GetAllCustomer();
         public bool CreateCustomer(CustomerViewModel customerViewModel);
         public bool CheckExistEmailOfCustomer(string email);
         public Customer GetValidCustomerByEmail(string email);
@@ -31,6 +33,39 @@ namespace ShoesShop.Service
     }
     public class CustomerService : ICustomerService
     {
+
+        public List<CustomerViewModel> GetAllCustomer()
+        {
+            List<CustomerViewModel> customers = new List<CustomerViewModel>();
+            using (var context = new ApplicationDbContext())
+            {
+                customers = context.Customers
+                                        .TagWith("Get list customer")
+                                        .OrderByDescending(m => m.RegisterDate)
+                                        .Select(m => new CustomerViewModel
+                                        {
+                                            CustomerId = m.CustomerId,
+                                            FirstName = m.FirstName,
+                                            LastName = m.LastName,
+                                            Avatar = m.Avatar,
+                                            Email = m.Email,
+                                            RegisterDate = m.RegisterDate,
+                                            TotalMoneyPuschased = 0,
+                                            TotalOrderSuccess = 0,
+                                            TotalOrderCancel = 0,
+                                        }).ToList();
+            }
+
+
+            // Handle money puschased
+
+            // Handle total order success
+
+            // Handle total order cancellation
+
+            return customers;
+        }
+
         public bool CreateCustomer(CustomerViewModel customerViewModel)
         {
             try
