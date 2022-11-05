@@ -107,6 +107,9 @@ namespace ShoesShop.Test
             Assert.True(result);
         }
 
+
+
+        // Test update new admin entry
         [Fact]
         public void Test_CheckExistUserName_NotExistUsername()
         {
@@ -121,7 +124,6 @@ namespace ShoesShop.Test
             // Assert
             Assert.False(result);
         }
-
         [Fact]
         public void Test_CheckExistUserName_ExistUsername()
         {
@@ -136,8 +138,6 @@ namespace ShoesShop.Test
             // Assert
             Assert.True(result);
         }
-
-        // Test update new admin entry
         [Fact]
         public void Test_UpdateAdmin_InvalidAdminId()
         {
@@ -194,7 +194,21 @@ namespace ShoesShop.Test
 
         // Test delete admin entry
         [Fact]
-        public void Test_DeleteAdmin()
+        public void Test_DeleteAdmin_InvalidId()
+        {
+            // Arrange
+            int adminId = 60;
+
+            AdminService adminService = new AdminService();
+
+            // Act
+            bool result = adminService.DeleteAdmin(adminId);
+
+            // Assert
+            Assert.False(result);
+        }        
+        [Fact]
+        public void Test_DeleteAdmin_ValidId()
         {
             // Arrange
             int adminId = 6;
@@ -207,5 +221,7 @@ namespace ShoesShop.Test
             // Assert
             Assert.True(result);
         }
+    
+    
     }
 }
