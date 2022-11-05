@@ -1,13 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Card } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import axios from 'axios';
 
 import "./AddEdit.scss"
 import ProductForm from 'features/Product/components/ProductForm/Index';
 import { useDispatch, useSelector } from 'react-redux';
-import { addNewProduct, fetchProduct, updateProduct } from 'features/Product/ProductSlice';
+import { addNewProduct, updateProduct } from 'features/Product/ProductSlice';
 import Swal from 'sweetalert2';
 
 const AddEditPage = () => {
@@ -15,6 +14,8 @@ const AddEditPage = () => {
     const { productId } = useParams();
 
     const dispatch = useDispatch();
+
+    let admin = useSelector((state) => state.authAdmin.admin.info); // Get admin if to Admin info state
 
     let editedProduct = useSelector((state) => state.products.products.find(product => product.productId === parseInt(productId)));
     const isAddMode = !productId;
@@ -59,7 +60,7 @@ const AddEditPage = () => {
                 Description: data.description,
                 Quantity: data.quantity,
                 Gender: gender.value,
-                AdminId: 1, // get token infor
+                AdminId: admin.adminId, // get token infor
                 ManufactureId: parseInt(manufactureId.value),
                 CatalogId: parseInt(catalogId.value)
             }
@@ -69,11 +70,12 @@ const AddEditPage = () => {
                 HandleSaveProductImageGallery("#input-image-gallery-2", image.files[0].name.split(".")[0], "2.jpg"),
                 HandleSaveProductImageGallery("#input-image-gallery-3", image.files[0].name.split(".")[0], "3.jpg"),
                 dispatch(addNewProduct(newProduct))
-            ]).then(axios.spread((firstResponse, secondResponse, thirdResponse, fourResponse) => {
+            ])
+            .then(axios.spread((firstResponse, secondResponse, thirdResponse, fourResponse) => {
 
                 navigate("/product");
             }))
-                .catch(error => console.log(error));
+            .catch(error => console.log(error));
         }
         else {
             // Handle update image
@@ -91,7 +93,7 @@ const AddEditPage = () => {
                 Description: data.description,
                 Quantity: data.quantity,
                 Gender: gender.value,
-                AdminId: 1, // get token infor
+                AdminId: admin.adminId, // get token infor
                 ManufactureId: parseInt(manufactureId.value),
                 CatalogId: parseInt(catalogId.value)
             }
@@ -209,10 +211,6 @@ const AddEditPage = () => {
     );
 };
 
-
-AddEditPage.propTypes = {
-
-};
 
 
 export default AddEditPage;
