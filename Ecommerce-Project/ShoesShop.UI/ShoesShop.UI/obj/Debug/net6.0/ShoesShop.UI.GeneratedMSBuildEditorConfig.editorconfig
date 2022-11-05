@@ -8,109 +8,109 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ShoesShop.UI
 build_property.RootNamespace = ShoesShop.UI
-build_property.ProjectDir = C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie-main\Ecommerce-Project\ShoesShop.UI\ShoesShop.UI\
+build_property.ProjectDir = C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.UI\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie-main\Ecommerce-Project\ShoesShop.UI\ShoesShop.UI
+build_property.MSBuildProjectDirectory = C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.UI
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie-main/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Account/AddressList.cshtml]
+[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Account/AddressList.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxBZGRyZXNzTGlzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie-main/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Account/ChangePassword.cshtml]
+[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Account/ChangePassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxDaGFuZ2VQYXNzd29yZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie-main/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Account/ForgotPassword.cshtml]
+[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Account/ForgotPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxGb3Jnb3RQYXNzd29yZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie-main/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Account/LoginRegistration.cshtml]
+[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Account/LoginRegistration.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpblJlZ2lzdHJhdGlvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie-main/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Account/OrderDetail.cshtml]
+[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Account/OrderDetail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxPcmRlckRldGFpbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie-main/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Account/Profile.cshtml]
+[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Account/Profile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxQcm9maWxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie-main/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Account/ResetPassword.cshtml]
+[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Account/ResetPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZXNldFBhc3N3b3JkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie-main/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Cart/CartPage.cshtml]
+[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Cart/CartPage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydFxDYXJ0UGFnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie-main/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Cart/Checkout.cshtml]
+[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Cart/Checkout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydFxDaGVja291dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie-main/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Cart/OrderSuccess.cshtml]
+[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Cart/OrderSuccess.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydFxPcmRlclN1Y2Nlc3MuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie-main/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Home/Contact.cshtml]
+[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Home/Contact.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDb250YWN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie-main/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Home/Index.cshtml]
+[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie-main/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Product/FilterProduct.cshtml]
+[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Product/FilterProduct.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxGaWx0ZXJQcm9kdWN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie-main/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Product/ProductDetail.cshtml]
+[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Product/ProductDetail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxQcm9kdWN0RGV0YWlsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie-main/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Product/ProductList.cshtml]
+[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Product/ProductList.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxQcm9kdWN0TGlzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie-main/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Product/SearchProduct.cshtml]
+[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Product/SearchProduct.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxTZWFyY2hQcm9kdWN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie-main/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Shared/Error.cshtml]
+[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie-main/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Shared/_CartIcon.cshtml]
+[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Shared/_CartIcon.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9DYXJ0SWNvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie-main/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Shared/_Notification.cshtml]
+[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Shared/_Notification.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Ob3RpZmljYXRpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie-main/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Shared/_ProductItem.cshtml]
+[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Shared/_ProductItem.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Qcm9kdWN0SXRlbS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie-main/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Shared/_SearchInput.cshtml]
+[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Shared/_SearchInput.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TZWFyY2hJbnB1dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie-main/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie-main/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/_ViewImports.cshtml]
+[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie-main/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/_ViewStart.cshtml]
+[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie-main/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Shared/_Layout.cshtml]
+[C:/Users/NguyenDung/OneDrive/Máy tính/Assignment-Ecommerce-Rookie/Ecommerce-Project/ShoesShop.UI/ShoesShop.UI/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-vo1tkxx5ir

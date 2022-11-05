@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jnV7DkyZnWfzUCtxC7vn+oqSvXOzeWZKLlQUseOaG+z7baxQMyByVsC5U15FJzX/kq9Ym8mynN5nEcma/Qpm8g==",
+  "dgSpecHash": "bRDntJYVjuDXsi7Hi8OpQAbeWvB97JsWNyiphCCSH5V0fosGShC36IKpKkMib79oME5ayl8Pj5vkSpHwLnVnxQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie-main\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\ShoesShop.UI.csproj",
+  "projectFilePath": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\ShoesShop.UI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\NguyenDung\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\NguyenDung\\.nuget\\packages\\jetbrains.annotations\\2022.1.0\\jetbrains.annotations.2022.1.0.nupkg.sha512",

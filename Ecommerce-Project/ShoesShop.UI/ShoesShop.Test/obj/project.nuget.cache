@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "c0kUoKPrWbAbOtUlO+eNT7f4VMV+zHPSUbV5x2QQRjsQ934w6M7Iac9kModOKoy23OCosYw+2jJu4necRTaeMw==",
+  "dgSpecHash": "etB5x4h5R3BUBVXAJhq/kvCF8ZPTEXjzo/49kYvgX32XQ0rTEEskYvGQUy2YIPmxeRtabkE9nwh2cM+yLxc6mw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie-main\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.Test\\ShoesShop.Test.csproj",
+  "projectFilePath": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.Test\\ShoesShop.Test.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\NguyenDung\\.nuget\\packages\\castle.core\\5.1.0\\castle.core.5.1.0.nupkg.sha512",
     "C:\\Users\\NguyenDung\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",

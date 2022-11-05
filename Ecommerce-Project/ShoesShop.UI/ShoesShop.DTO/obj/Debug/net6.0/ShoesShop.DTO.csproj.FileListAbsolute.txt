@@ -30,3 +30,5 @@ C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie-main\Ecommer
 C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie-main\Ecommerce-Project\ShoesShop.UI\ShoesShop.DTO\obj\Debug\net6.0\ref\ShoesShop.DTO.dll
 C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie-main\Ecommerce-Project\ShoesShop.UI\ShoesShop.DTO\bin\Debug\net6.0\ShoesShop.Data.dll
 C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie-main\Ecommerce-Project\ShoesShop.UI\ShoesShop.DTO\bin\Debug\net6.0\ShoesShop.Data.pdb
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.DTO\bin\Debug\net6.0\ShoesShop.Data.dll
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.DTO\bin\Debug\net6.0\ShoesShop.Data.pdb

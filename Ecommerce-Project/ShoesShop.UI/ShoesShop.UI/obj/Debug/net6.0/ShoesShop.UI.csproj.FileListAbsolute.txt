@@ -548,3 +548,11 @@ C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie-main\Ecommer
 C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie-main\Ecommerce-Project\ShoesShop.UI\ShoesShop.UI\bin\Debug\net6.0\SlugGenerator.dll
 C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie-main\Ecommerce-Project\ShoesShop.UI\ShoesShop.UI\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie-main\Ecommerce-Project\ShoesShop.UI\ShoesShop.UI\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.UI\bin\Debug\net6.0\JetBrains.Annotations.dll
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.UI\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.UI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.UI\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.UI\bin\Debug\net6.0\SlugGenerator.dll
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.UI\bin\Debug\net6.0\X.PagedList.dll
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.UI\bin\Debug\net6.0\X.PagedList.Mvc.Core.dll
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.UI\obj\Debug\net6.0\ShoesShop.UI.MvcApplicationPartsAssemblyInfo.cs
