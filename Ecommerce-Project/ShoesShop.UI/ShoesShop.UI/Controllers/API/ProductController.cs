@@ -59,6 +59,7 @@ namespace ShoesShop.UI.Controllers.API
             return status ? Ok() : BadRequest();
         }
 
+        [AllowAnonymous]
         [HttpPost("PostImage")]
         public ActionResult PostImage(IFormFile objFile)
         {
@@ -89,6 +90,7 @@ namespace ShoesShop.UI.Controllers.API
             }
         }
 
+        [AllowAnonymous]
         [HttpPost("UpdatePostImage")]
         public ActionResult UpdatePostImage(IFormFile objFile, string imageName)
         {
@@ -124,6 +126,7 @@ namespace ShoesShop.UI.Controllers.API
             }
         }
 
+        [AllowAnonymous]
         [HttpPost("PostImageGallery")]
         public ActionResult PostImageGallery(IFormFile objFile, string imageName, string imageGalleryName)
         {
