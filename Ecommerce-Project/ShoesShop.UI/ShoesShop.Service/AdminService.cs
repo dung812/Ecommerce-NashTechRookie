@@ -17,6 +17,7 @@ namespace ShoesShop.Service
         public List<AdminViewModel> GetAllAdmin();
         public AdminViewModel GetAdminById(int adminId);
         public AdminViewModel AuthenticateAdmin(LoginViewModel loginViewModel);
+        public bool CheckExistUserName(string username);
         public bool CreateAdmin(AdminViewModel adminViewModel);
         public bool UpdateAdmin(int adminId, AdminViewModel adminViewModel);
         public bool DeleteAdmin(int adminId);
@@ -99,9 +100,22 @@ namespace ShoesShop.Service
             return admin;
         }
 
+        public bool CheckExistUserName(string username)
+        {
+            var admin = new Admin();
+            using (var context = new ApplicationDbContext())
+            {
+                admin = context.Admins.FirstOrDefault(m => m.UserName == username);
+            }
+            return admin != null ? true : false;
+        }
+
 
         public bool CreateAdmin(AdminViewModel adminViewModel)
         {
+            if (CheckExistUserName(adminViewModel.UserName))
+                return false;
+
             try
             {
                 Admin admin = new Admin()

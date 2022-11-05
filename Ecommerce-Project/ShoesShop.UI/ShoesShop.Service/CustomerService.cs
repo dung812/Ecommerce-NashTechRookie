@@ -102,12 +102,12 @@ namespace ShoesShop.Service
 
         public bool CheckExistEmailOfCustomer(string email)
         {
-            var isExist = new Customer();
+            var customer = new Customer();
             using (var context = new ApplicationDbContext())
             {
-                isExist = context.Customers.FirstOrDefault(m => m.Email == email);
+                customer = context.Customers.FirstOrDefault(m => m.Email == email);
             }
-            return isExist != null ? true : false;
+            return customer != null ? true : false;
         }
 
         public Customer GetValidCustomerByEmail(string email) 
