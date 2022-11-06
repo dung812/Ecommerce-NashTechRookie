@@ -2,13 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './Header.scss'
 import { Dropdown } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logoutAccount } from 'features/Auth/AuthSlice';
 
 Header.propTypes = {}
 
 function Header(props) {
     const dispatch = useDispatch();
+    let admin = useSelector((state) => state.authAdmin.admin.info);
 
     function Logout() {
         const action = logoutAccount();
@@ -55,9 +56,9 @@ function Header(props) {
 
                     <Dropdown>
                         <Dropdown.Toggle className="d-flex align-items-center gap-1 custom-dropdown">
-                            <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2022/02/avatar-trang-y-nghia.jpeg?fit=512%2C20000&quality=95&ssl=1" className='img-fluid avatar' alt="profileImg" />
+                            <img src={`https://localhost:44324/images/avatars/${admin?.avatar}`} className='img-fluid avatar' alt="profileImg" />
                             <div className="name_job">
-                                <div className="name">Nguyen Dung</div>
+                                <div className="name">{`${admin?.firstName} ${admin?.lastName}`}</div>
                             </div>
                         </Dropdown.Toggle>
 

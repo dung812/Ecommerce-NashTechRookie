@@ -5,7 +5,11 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #f8f9fe;
+    min-height: 100vh;
+    background: url(../../../../assets/images/login-bg.jpg);
+    background-position: bottom;
+    background-size: cover;
+
     & .login-form-wrap {
         position: absolute;
         top: 50%;
