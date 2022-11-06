@@ -285,7 +285,7 @@
     function FilterProduct(selectObject) {
         var value = selectObject.value;
         console.log(value);
-        window.location.replace(window.location.origin + "/Filter-product/?filterType=" + value)
+        window.location.replace(window.location.origin + "/Filter-product/?filterType=" + value + "&cateGender=" + '@ViewBag.CateGender')
     }
 
 </script>

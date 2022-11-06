@@ -20,7 +20,9 @@ namespace ShoesShop.UI.Controllers.API
             this.manufactureService = manufactureService;
         }
 
+
         // GET: api/Manufacture
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult<IEnumerable<ManufactureViewModel>> GetManufactures()
         {

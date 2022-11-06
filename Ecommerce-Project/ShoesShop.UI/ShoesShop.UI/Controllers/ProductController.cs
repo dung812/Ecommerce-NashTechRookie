@@ -108,6 +108,7 @@ namespace ShoesShop.UI.Controllers
             ViewBag.Catalogs = catalogService.GetAllCatalog();
             ViewBag.Manufatures = manufactureService.GetAllManufacture();
             ViewBag.Keyword = keyword;
+            ViewBag.CateGender = "Women";
 
             var pageNumber = page ?? 1;
             var pageSize = 5; //Show 10 rows every time
@@ -123,7 +124,7 @@ namespace ShoesShop.UI.Controllers
         [HttpGet("Product/{slug}-{productId}")]
         public IActionResult ProductDetail(int productId)
         {
-            if (productId == null)
+            if (productId == 0)
             {
                 return RedirectToAction("Error", "Home");
             }
@@ -172,14 +173,14 @@ namespace ShoesShop.UI.Controllers
         {
             System.Threading.Thread.Sleep(2000);
 
-            if (commentProductService.AddCommentOfProduct(productId, customerId, star, content))
+            if (content != null || star > 0)
             {
-                return Json(new { status = 200 });
+                if (commentProductService.AddCommentOfProduct(productId, customerId, star, content))
+                {
+                    return Json(new { status = 200 });
+                }
             }
-            else
-            {
-                return Json(new { status = 500 });
-            }
+            return Json(new { status = 500 });
         }
     }
 }

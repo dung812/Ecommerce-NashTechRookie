@@ -7,6 +7,7 @@ using ShoesShop.Domain;
 using ShoesShop.DTO;
 using ShoesShop.Service;
 using ShoesShop.UI.Models;
+using System.Security.Policy;
 
 namespace ShoesShop.UI.Controllers
 {
@@ -104,7 +105,7 @@ namespace ShoesShop.UI.Controllers
             }
 
             List<CartViewModel> listCart = GetCartSession();
-            CartViewModel item = listCart.FirstOrDefault(model => model.ProductId == productId && model.AttributeId == attributeId);
+            var item = listCart.FirstOrDefault(model => model.ProductId == productId && model.AttributeId == attributeId);
 
             if (item == null)
             {
@@ -130,7 +131,7 @@ namespace ShoesShop.UI.Controllers
         [HttpPost]
         public JsonResult UpdateQuantityItemCart(int cartItemId, int quantity)
         {
-            //System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(1000);
 
             if (quantity <= 0)
             {
@@ -138,7 +139,7 @@ namespace ShoesShop.UI.Controllers
             }
 
             List<CartViewModel> listCart = GetCartSession();
-            CartViewModel item = listCart.FirstOrDefault(model => model.ItemId == cartItemId);
+            var item = listCart.FirstOrDefault(model => model.ItemId == cartItemId);
             if (item != null)
             {
                 item.Quantity = quantity;
@@ -156,11 +157,16 @@ namespace ShoesShop.UI.Controllers
         {
             //System.Threading.Thread.Sleep(2000);
             List<CartViewModel> listCart = GetCartSession();
-            CartViewModel item = listCart.SingleOrDefault(model => model.ItemId == cartItemId);
+            var item = listCart.SingleOrDefault(model => model.ItemId == cartItemId);
 
-            listCart.Remove(item);
-            UpdateCartSession(listCart);
-            return Json(new { status = 200 });
+            if (item != null)
+            {
+                listCart.Remove(item);
+                UpdateCartSession(listCart);
+                return Json(new { status = 200 });
+            }
+
+            return Json(new { status = 500 });
         }
 
         [HttpGet("Cart")]
@@ -188,9 +194,10 @@ namespace ShoesShop.UI.Controllers
 
             if (cusomterSession == null)
             {
+                TempData["error"] = "Authentication session has expired!";
                 return RedirectToAction("Index", "Home");
             }
-            if (customerId == null || customerInfoSession?.CustomerId != customerId || listCart.Count == 0)
+            if (customerInfoSession?.CustomerId != customerId || listCart.Count == 0)
             {
                 return RedirectToAction("Error", "Home");
             }
@@ -222,7 +229,12 @@ namespace ShoesShop.UI.Controllers
             var cusomterSession = HttpContext.Session.GetString("CustomerInfo");
             var customerInfoSession = JsonConvert.DeserializeObject<Customer>(cusomterSession != null ? cusomterSession : "");
 
-            if (customerInfoSession?.CustomerId != customerId || cartList.Count == 0)
+            if (cusomterSession == null)
+            {
+                TempData["error"] = "Authentication session has expired!";
+                return RedirectToAction("Index", "Home");
+            }
+            if (customerInfoSession?.CustomerId != customerId || cartList.Count == 0 || cusomterSession == null)
             {
                 return RedirectToAction("Error", "Home");
             }

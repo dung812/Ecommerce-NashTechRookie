@@ -695,6 +695,12 @@
 
         console.log({ star, commentVal, productId, customerId })
 
+        if(commentVal.length == 0)
+        {
+            alert("Please enter your comment for product!")
+            return;
+        }
+
         $.ajax({
             url: "/Product/AddComment",
             type: "POST",

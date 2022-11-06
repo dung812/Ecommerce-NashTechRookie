@@ -55,24 +55,6 @@ namespace ShoesShop.UI.Controllers
 
             if(checkAccount != null)
             {
-                //if (checkAccount.Status == false)
-                //{
-                //    // Case customer login account was locked;
-                //    TempData["error"] = "Your account has been locked.";
-                //    return RedirectToAction("LoginRegistration");
-                //}
-                //else
-                //{
-                //    // Case valid account
-                //    //HttpContext.Session.Remove("CountNumberError"); // Xóa biến đếm số lần sai
-
-                //    var parseCustomerInfo = JsonConvert.SerializeObject(checkAccount);
-                //    HttpContext.Session.SetString("CustomerInfo", parseCustomerInfo);
-
-
-                //    return RedirectToAction("Index", "Home");
-                //}
-
                 var parseCustomerInfo = JsonConvert.SerializeObject(checkAccount);
                 HttpContext.Session.SetString("CustomerInfo", parseCustomerInfo);
                 return RedirectToAction("Index", "Home");
@@ -209,12 +191,14 @@ namespace ShoesShop.UI.Controllers
 
             if (cusomterSession == null)
             {
+                TempData["error"] = "Authentication session has expired!";
                 return RedirectToAction("Index", "Home");
             }
-            if (customerId == null || customerInfoSession?.CustomerId != customerId)
+            if (customerInfoSession?.CustomerId != customerId)
             {
                 return RedirectToAction("Error", "Home");
             }
+
             var customer = customerService.GetValidCustomerById(customerId);
             var defaultAddress = customerAddressService.GetDefaultAddressOfCustomer(customerId);
 
@@ -248,7 +232,7 @@ namespace ShoesShop.UI.Controllers
             var orderItems = orderService.GetItemOfOderById(orderId);
             var orderDetail = orderService.GetOrderDetailById(orderId);
 
-            if (customerInfoSession.CustomerId != customerId || orderDetail == null)
+            if (customerInfoSession?.CustomerId != customerId || orderDetail == null)
             {
                 return RedirectToAction("Error", "Home");
             }
@@ -297,6 +281,12 @@ namespace ShoesShop.UI.Controllers
                 var cusomterSession = HttpContext.Session.GetString("CustomerInfo");
                 var customerInfoSession = JsonConvert.DeserializeObject<Customer>(cusomterSession != null ? cusomterSession : "");
 
+                if (cusomterSession == null)
+                {
+                    TempData["error"] = "Authentication session has expired!";
+                    return RedirectToAction("Index", "Home");
+                }
+
                 if (customerInfoSession != null)
                 {
                     var customerAfterUpdate = customerService.ChangeAvatarOfCustomer(customerInfoSession.CustomerId, objFile.FileName);
@@ -329,34 +319,6 @@ namespace ShoesShop.UI.Controllers
                 TempData["error"] = "Error change your avatar!";
                 return RedirectToAction("Index", "Home");
             }
-            //if (file != null)
-            //{
-            //    var customerId = Int32.Parse(form["customerId"]);
-
-            //    string ImageName = System.IO.Path.GetFileName(file.FileName);
-            //    string physicalPath = Server.MapPath("~/Content/images/avatars/" + ImageName);
-
-            //    // save image in folder
-            //    file.SaveAs(physicalPath);
-
-            //    //save new record in database
-            //    var customer = db.Customers.Find(customerId);
-            //    customer.Avatar = ImageName;
-            //    db.SaveChanges();
-
-            //    // Lấy thông tin mới của cusomter lưu lại vào session hiển thị
-            //    Session["CustomerInfo"] = customer;
-
-            //    TempData["toastSuccess"] = "Successfully change your avatar!";
-            //    return RedirectToAction("ProfileDetail", new { customerId = customerId });
-            //}
-            //else
-            //{
-
-            //    TempData["toastError"] = "Have error!";
-            //    return RedirectToAction("Index", "Home");
-            //}
-
         }
 
 
@@ -369,9 +331,10 @@ namespace ShoesShop.UI.Controllers
 
             if (cusomterSession == null)
             {
+                TempData["error"] = "Authentication session has expired!";
                 return RedirectToAction("Index", "Home");
             }
-            if (customerId == null || customerInfoSession?.CustomerId != customerId)
+            if (customerInfoSession?.CustomerId != customerId)
             {
                 return RedirectToAction("Error", "Home");
             }
@@ -386,6 +349,15 @@ namespace ShoesShop.UI.Controllers
         [HttpPost]
         public IActionResult ChangePassword(IFormCollection form)
         {
+            // Get customer info data of session
+            var cusomterSession = HttpContext.Session.GetString("CustomerInfo");
+
+            if (cusomterSession == null)
+            {
+                TempData["error"] = "Authentication session has expired!";
+                return RedirectToAction("Index", "Home");
+            }
+
             var customerId = Convert.ToInt32(form["customerId"][0]);
             var currentPassword = Functions.MD5Hash(form["current-password"][0]);
             var newPassword = Functions.MD5Hash(form["password"][0]);
@@ -410,15 +382,18 @@ namespace ShoesShop.UI.Controllers
         [HttpGet("Address/{customerId}")]
         public IActionResult AddressList(int customerId)
         {
+
             // Get customer info data of session
             var cusomterSession = HttpContext.Session.GetString("CustomerInfo");
             var customerInfoSession = JsonConvert.DeserializeObject<Customer>(cusomterSession != null ? cusomterSession : "");
 
             if (cusomterSession == null)
             {
+                TempData["error"] = "Authentication session has expired!";
                 return RedirectToAction("Index", "Home");
             }
-            if (customerId == null || customerInfoSession?.CustomerId != customerId)
+
+            if (customerInfoSession?.CustomerId != customerId)
             {
                 return RedirectToAction("Error", "Home");
             }
@@ -439,6 +414,16 @@ namespace ShoesShop.UI.Controllers
         [HttpPost]
         public IActionResult CreateAddress(IFormCollection form)
         {
+            // Get customer info data of session
+            var cusomterSession = HttpContext.Session.GetString("CustomerInfo");
+
+            if (cusomterSession == null)
+            {
+                TempData["error"] = "Authentication session has expired!";
+                return RedirectToAction("Index", "Home");
+            }
+
+
             int customerId = Int32.Parse(form["id"][0]);
             string firstName = form["firstName"][0];
             string lastName = form["lastName"][0];
@@ -468,6 +453,15 @@ namespace ShoesShop.UI.Controllers
         [HttpPost]
         public IActionResult UpdateAddress(IFormCollection form)
         {
+            // Get customer info data of session
+            var cusomterSession = HttpContext.Session.GetString("CustomerInfo");
+
+            if (cusomterSession == null)
+            {
+                TempData["error"] = "Authentication session has expired!";
+                return RedirectToAction("Index", "Home");
+            }
+
             var customerId = Int32.Parse(form["customerId"][0]);
             var customerAddressId = Int32.Parse(form["customerAddressId"][0]);
             string firstName = form["firstName"][0];
@@ -499,6 +493,15 @@ namespace ShoesShop.UI.Controllers
         //[HttpPost]
         public IActionResult DeleteAddress(int addressId, int customerId)
         {
+            // Get customer info data of session
+            var cusomterSession = HttpContext.Session.GetString("CustomerInfo");
+
+            if (cusomterSession == null)
+            {
+                TempData["error"] = "Authentication session has expired!";
+                return RedirectToAction("Index", "Home");
+            }
+
             if (customerAddressService.DeleteAddressOfCustomer(addressId, customerId))
             {
                 TempData["success"] = "Successfully delete your address!";
