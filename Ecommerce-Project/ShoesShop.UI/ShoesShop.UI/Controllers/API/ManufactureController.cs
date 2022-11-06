@@ -7,6 +7,7 @@ using ShoesShop.Service;
 
 namespace ShoesShop.UI.Controllers.API
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ManufactureController : ControllerBase

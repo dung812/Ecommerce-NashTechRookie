@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -287,39 +288,76 @@ namespace ShoesShop.UI.Controllers
         }
 
 
+        [HttpPost]
+        public ActionResult ChangeAvatar(IFormFile objFile)
+        {
+            try
+            {
+                // Get customer info data of session
+                var cusomterSession = HttpContext.Session.GetString("CustomerInfo");
+                var customerInfoSession = JsonConvert.DeserializeObject<Customer>(cusomterSession != null ? cusomterSession : "");
 
-        //[HttpPost]
-        //public ActionResult ChangeAvatar(HttpPostedFileBase file, FormCollection form)
-        //{
-        //    if (file != null)
-        //    {
-        //        var customerId = Int32.Parse(form["customerId"]);
+                if (customerInfoSession != null)
+                {
+                    var customerAfterUpdate = customerService.ChangeAvatarOfCustomer(customerInfoSession.CustomerId, objFile.FileName);
 
-        //        string ImageName = System.IO.Path.GetFileName(file.FileName);
-        //        string physicalPath = Server.MapPath("~/Content/images/avatars/" + ImageName);
+                    if (objFile.Length > 0 && customerAfterUpdate != null)
+                    {
+                        if (!Directory.Exists(hostEnvironment.WebRootPath + "\\images\\avatars\\"))
+                        {
+                            Directory.CreateDirectory(hostEnvironment.WebRootPath + "\\images\\avatars\\");
+                        }
+                        using (FileStream fileStream = System.IO.File.Create(hostEnvironment.WebRootPath + "\\images\\avatars\\" + objFile.FileName))
+                        {
+                            objFile.CopyTo(fileStream);
+                            fileStream.Flush();
 
-        //        // save image in folder
-        //        file.SaveAs(physicalPath);
+                            // Update customer info session
+                            var parseCustomerInfo = JsonConvert.SerializeObject(customerAfterUpdate);
+                            HttpContext.Session.SetString("CustomerInfo", parseCustomerInfo);
 
-        //        //save new record in database
-        //        var customer = db.Customers.Find(customerId);
-        //        customer.Avatar = ImageName;
-        //        db.SaveChanges();
+                            TempData["success"] = "Successfully change your avatar!";
+                            return RedirectToAction("Index", "Home");
+                        };
+                    }
+                }
+                TempData["error"] = "Error change your avatar!";
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception)
+            {
+                TempData["error"] = "Error change your avatar!";
+                return RedirectToAction("Index", "Home");
+            }
+            //if (file != null)
+            //{
+            //    var customerId = Int32.Parse(form["customerId"]);
 
-        //        // Lấy thông tin mới của cusomter lưu lại vào session hiển thị
-        //        Session["CustomerInfo"] = customer;
+            //    string ImageName = System.IO.Path.GetFileName(file.FileName);
+            //    string physicalPath = Server.MapPath("~/Content/images/avatars/" + ImageName);
 
-        //        TempData["toastSuccess"] = "Successfully change your avatar!";
-        //        return RedirectToAction("ProfileDetail", new { customerId = customerId });
-        //    }
-        //    else
-        //    {
+            //    // save image in folder
+            //    file.SaveAs(physicalPath);
 
-        //        TempData["toastError"] = "Have error!";
-        //        return RedirectToAction("Index", "Home");
-        //    }
+            //    //save new record in database
+            //    var customer = db.Customers.Find(customerId);
+            //    customer.Avatar = ImageName;
+            //    db.SaveChanges();
 
-        //}
+            //    // Lấy thông tin mới của cusomter lưu lại vào session hiển thị
+            //    Session["CustomerInfo"] = customer;
+
+            //    TempData["toastSuccess"] = "Successfully change your avatar!";
+            //    return RedirectToAction("ProfileDetail", new { customerId = customerId });
+            //}
+            //else
+            //{
+
+            //    TempData["toastError"] = "Have error!";
+            //    return RedirectToAction("Index", "Home");
+            //}
+
+        }
 
 
         [HttpGet("Change-password/{customerId}")]

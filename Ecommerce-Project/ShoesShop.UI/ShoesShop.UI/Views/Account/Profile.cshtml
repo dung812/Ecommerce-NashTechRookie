@@ -123,12 +123,12 @@
             <div class="col-md-4 col-12">
                 <h3>Account details</h3>
                 <div>
-                    <form method="post" action="#" id="change-avatar">
+                    <form method="post" action="~/Account/ChangeAvatar" id="change-avatar" enctype="multipart/form-data">
                         <!-- <input type="hidden" value="1" name="customerId"> -->
                         <div class="position-relative">
                             <img id="avatar-img" src="~/images/avatars/@ViewBag.Avatar" class="rounded-circle img-fluid d-block mx-auto" width="35%">
-                            <input type="file" class="form-control w- mx-auto d-none" id="file" name="file">
-                            <label for="file" class="btn-changeAva"><i class="fa-solid fa-camera"></i></label>
+                            <input type="file" class="form-control w- mx-auto d-none" id="objFile" name="objFile" onchange="HandlePreviewAvatar(event)">
+                            <label for="objFile" class="btn-changeAva"><i class="fa-solid fa-camera"></i></label>
                         </div>
                         <div class="text-center mt-2">
                             <button type="submit" class="btn btn-primary">Change avatar</button>
@@ -150,3 +150,23 @@
 
     </div>
 </div>
+
+<script>
+   function HandlePreviewAvatar(event) {
+        const [file] = event.target.files
+        if (file) {
+            document.querySelector("#avatar-img").src = URL.createObjectURL(file)
+        }
+    }
+    var formAvatar = document.querySelector("#change-avatar");
+    formAvatar && formAvatar.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        if (!this.elements["objFile"].value) {
+            alert("Please choose your avatar!")
+        }
+        else {
+            this.submit();
+        }
+    })
+</script>

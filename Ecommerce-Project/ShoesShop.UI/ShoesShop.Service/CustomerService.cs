@@ -29,6 +29,7 @@ namespace ShoesShop.Service
         public ForgotPassword TokenValidate(string token);
         public void ActiveToken(string token);
         public int CountTokenInCurrentDayOfCustomer(int customerId);
+        public Customer ChangeAvatarOfCustomer(int customerId, string newAvatarName);
 
     }
     public class CustomerService : ICustomerService
@@ -218,6 +219,28 @@ namespace ShoesShop.Service
                 count = context.ForgotPasswords.Where(m => m.CreateDate.Date == DateTime.Today && m.CustomerId == customerId).Count();
             }
             return count;
+        }
+
+
+        public Customer ChangeAvatarOfCustomer(int customerId, string newAvatarName)
+        {
+            var customer = new Customer();
+            using (var context = new ApplicationDbContext())
+            {
+                customer = context.Customers.Find(customerId);
+
+                if (customer != null)
+                {
+                    customer.Avatar = newAvatarName;
+
+                    context.Customers.Update(customer);
+                    context.SaveChanges();
+
+                    return customer;
+                }
+            }
+
+            return customer;
         }
 
     }

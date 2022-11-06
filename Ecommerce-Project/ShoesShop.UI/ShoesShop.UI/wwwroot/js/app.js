@@ -355,14 +355,3 @@ inputAvatarImage && inputAvatarImage.addEventListener("change", function (event)
     }
 })
 
-var formAvatar = document.querySelector("#change-avatar");
-formAvatar && formAvatar.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    if (!this.elements["file"].value) {
-        alert("Please choose your avatar!")
-    }
-    else {
-        this.submit();
-    }
-})
