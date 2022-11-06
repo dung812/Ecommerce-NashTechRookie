@@ -5,6 +5,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { productSchema } from 'validateSchema/ProductSchema';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCategories } from 'features/Category/CategorySlice';
 
 ProductForm.propTypes = {}
 
@@ -12,10 +14,21 @@ ProductForm.propTypes = {}
 
 function ProductForm(props) {
     const { initialValues, isAddMode } = props;
-    let navigate = useNavigate(); 
+    let navigate = useNavigate();
 
-    const [catalogs, setCatalog] = useState([]);
+    const dispatch = useDispatch();
+    let catalogs = useSelector((state) => state.categories.categories);
+    let loadingCategory = useSelector((state) => state.categories.loading);
+
     const [manufactures, setManufactures] = useState([]);
+
+    useEffect(() => {
+        const catalogOptions = document.querySelectorAll("select[name='catalogId'] option")
+        catalogOptions.forEach(item => {
+            if (parseInt(item.value) === initialValues.catalogId)
+                item.setAttribute("selected", "selected")
+        })
+    }, [loadingCategory])
 
     useEffect(() => {
         // Preview main product image
@@ -40,17 +53,27 @@ function ProductForm(props) {
             }
         }))
 
-
-        // Render selects and select option base on initial values
-        axios.get('https://localhost:44324/api/Catalog').then(res => {
-            setCatalog([...res.data])
-
-            const catalogOptions = document.querySelectorAll("select[name='catalogId'] option")
-            catalogOptions.forEach(item => {
-                if (parseInt(item.value) === initialValues.catalogId)
-                    item.setAttribute("selected", "selected")
-            })
+        // Fill value in selects
+        const genderOptions = document.querySelectorAll("select[name='genderCategory'] option")
+        genderOptions.forEach(item => {
+            if (item.value === initialValues.gender)
+                item.setAttribute("selected", "selected")
         })
+
+
+        dispatch(fetchCategories());
+
+
+        // // Render selects and select option base on initial values
+        // axios.get('https://localhost:44324/api/Catalog').then(res => {
+        //     setCatalog([...res.data])
+
+        //     const catalogOptions = document.querySelectorAll("select[name='catalogId'] option")
+        //     catalogOptions.forEach(item => {
+        //         if (parseInt(item.value) === initialValues.catalogId)
+        //             item.setAttribute("selected", "selected")
+        //     })
+        // })
 
         axios.get('https://localhost:44324/api/Manufacture').then(res => {
             setManufactures([...res.data])
@@ -60,13 +83,6 @@ function ProductForm(props) {
                 if (parseInt(item.value) === initialValues.manufactureId)
                     item.setAttribute("selected", "selected")
             })
-        })
-
-        // Fill value in selects
-        const genderOptions = document.querySelectorAll("select[name='genderCategory'] option")
-        genderOptions.forEach(item => {
-            if (item.value === initialValues.gender)
-                item.setAttribute("selected", "selected")
         })
 
 
@@ -157,7 +173,7 @@ function ProductForm(props) {
                 </div>
                 <div className="form-group col-md-4">
                     <label htmlFor=''>Image gallery 1 <span className="text-danger">*</span></label>
-                    <img src={!isAddMode? `https://localhost:44324/images/products/ImageList/${initialValues.imageList}/1.jpg`: ""} width="80%" className='img-fluid d-block mx-auto mb-2' id='product-image_gallery1' />
+                    <img src={!isAddMode ? `https://localhost:44324/images/products/ImageList/${initialValues.imageList}/1.jpg` : ""} width="80%" className='img-fluid d-block mx-auto mb-2' id='product-image_gallery1' />
                     <input type="file" className="form-control input-image-gallery" id='input-image-gallery-1' data-gallery="1" />
 
                 </div>

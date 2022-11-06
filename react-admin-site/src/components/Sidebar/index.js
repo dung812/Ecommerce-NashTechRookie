@@ -153,7 +153,7 @@ function Sidebar(props) {
                         <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2022/02/avatar-trang-y-nghia.jpeg?fit=512%2C20000&quality=95&ssl=1" alt="profileImg" />
                         <div className="name_job">
                             <div className="name">Nguyen Dung</div>
-                            <div className="job">Role: Admin</div>
+                            <div className="job">Role: {adminRole?.roleName}</div>
                         </div>
                     </div>
                     <i className='bx bx-log-out' id="log_out" onClick={() => Logout()}></i>

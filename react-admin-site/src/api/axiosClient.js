@@ -13,16 +13,11 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(async (config) => {
 	// Handle token here ...
-	// const currentUser = firebase.auth().currentUser;
     const token = localStorage.getItem('authAdmin')
+    // console.log(token)
     if (token) {
         config.headers.Authorization =  `Bearer ${token}`;
     }
-	// if (currentUser) {
-	// 	const token = await currentUser.getIdToken();
-	// 	config.headers.Authorization =  `Bearer ${token}`;
-	// }
-
 	return config;
 });
 
