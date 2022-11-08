@@ -516,6 +516,7 @@ namespace ShoesShop.UI.Controllers
 
         public IActionResult Logout()
         {
+            // Clear session
             HttpContext.Session.Remove("CustomerInfo");
             return RedirectToAction("Index", "Home");
         }        

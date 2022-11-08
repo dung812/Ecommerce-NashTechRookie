@@ -128,6 +128,7 @@
         GetCartList();
     });
 
+
     // Render cart list
     function GetCartList() {
         $.ajax({
@@ -255,7 +256,6 @@
                     else {
                         event.target.value = `${currentQuantity}`;
                         toastr.error(data.smg);
-
                     }
                 },
                 error: function (err) {

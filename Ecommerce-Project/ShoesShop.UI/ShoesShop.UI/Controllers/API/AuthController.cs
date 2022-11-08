@@ -38,7 +38,7 @@ namespace ShoesShop.UI.Controllers.API
             }
             else
             {
-                return NotFound();
+                return BadRequest(); // bad request
             }
         }
 

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "lMEjIdbZsJoH6Qw4KOIwUGqTITzUfhBxxEUfMdElM0E=",
+  "Hash": "104oJZ+O/3gnYkY7mxCXUkl27vaPs2ZBPw/4ME2VVNs=",
   "Source": "ShoesShop.UI",
   "BasePath": "_content/ShoesShop.UI",
   "Mode": "Default",
@@ -85,12 +85,12 @@
       "OriginalItemSpec": "wwwroot\\css\\jquery-ui.css"
     },
     {
-      "Identity": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\images\\products\\Image\\anhmoi.jpg",
+      "Identity": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\images\\products\\Image\\ailatrieuphu.jpg",
       "SourceId": "ShoesShop.UI",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\",
       "BasePath": "_content/ShoesShop.UI",
-      "RelativePath": "images/products/Image/anhmoi.jpg",
+      "RelativePath": "images/products/Image/ailatrieuphu.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -99,15 +99,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\products\\Image\\anhmoi.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\products\\Image\\ailatrieuphu.jpg"
     },
     {
-      "Identity": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\images\\products\\ImageList\\anhmoi\\1.jpg",
+      "Identity": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\images\\products\\Image\\nashtech.png",
       "SourceId": "ShoesShop.UI",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\",
       "BasePath": "_content/ShoesShop.UI",
-      "RelativePath": "images/products/ImageList/anhmoi/1.jpg",
+      "RelativePath": "images/products/Image/nashtech.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -116,15 +116,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\products\\ImageList\\anhmoi\\1.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\products\\Image\\nashtech.png"
     },
     {
-      "Identity": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\images\\products\\ImageList\\anhmoi\\2.jpg",
+      "Identity": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\images\\products\\ImageList\\ailatrieuphu\\1.jpg",
       "SourceId": "ShoesShop.UI",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\",
       "BasePath": "_content/ShoesShop.UI",
-      "RelativePath": "images/products/ImageList/anhmoi/2.jpg",
+      "RelativePath": "images/products/ImageList/ailatrieuphu/1.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -133,15 +133,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\products\\ImageList\\anhmoi\\2.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\products\\ImageList\\ailatrieuphu\\1.jpg"
     },
     {
-      "Identity": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\images\\products\\ImageList\\anhmoi\\3.jpg",
+      "Identity": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\images\\products\\ImageList\\ailatrieuphu\\2.jpg",
       "SourceId": "ShoesShop.UI",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\",
       "BasePath": "_content/ShoesShop.UI",
-      "RelativePath": "images/products/ImageList/anhmoi/3.jpg",
+      "RelativePath": "images/products/ImageList/ailatrieuphu/2.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -150,7 +150,24 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\products\\ImageList\\anhmoi\\3.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\products\\ImageList\\ailatrieuphu\\2.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\images\\products\\ImageList\\ailatrieuphu\\3.jpg",
+      "SourceId": "ShoesShop.UI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\",
+      "BasePath": "_content/ShoesShop.UI",
+      "RelativePath": "images/products/ImageList/ailatrieuphu/3.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\products\\ImageList\\ailatrieuphu\\3.jpg"
     },
     {
       "Identity": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\js\\jquery\\dist\\jquery.js",

@@ -107,7 +107,7 @@ namespace ShoesShop.Service
             {
                 admin = context.Admins.FirstOrDefault(m => m.UserName == username);
             }
-            return admin != null ? true : false;
+            return admin != null;
         }
 
 
