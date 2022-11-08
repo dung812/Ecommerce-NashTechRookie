@@ -39,6 +39,7 @@ namespace ShoesShop.Service
                         Address = orderViewModel.Address,
                         Phone = orderViewModel.Phone,
                         Note = orderViewModel.Note,
+                        TotalMoney = orderViewModel.TotalMoney,
                         CustomerId = customerId,
                         PaymentId = paymentId
                     };
@@ -58,17 +59,6 @@ namespace ShoesShop.Service
             {
                 using (var context = new ApplicationDbContext())
                 {
-                    //foreach (var item in listCart)
-                    //{
-                    //    OrderDetail orderDetail = new OrderDetail();
-                    //    orderDetail.OrderId = order.OrderId;
-                    //    orderDetail.ProductId = item.ProductId;
-                    //    orderDetail.AttributeValueId = item.AttributeId;
-                    //    orderDetail.Quantity = item.Quantity;
-                    //    orderDetail.UnitPrice = item.UnitPrice;
-                    //    orderDetail.PromotionPercent = item.PromotionPercent;
-                    //    db.OrderDetails.Add(orderDetail);
-                    //}
                     foreach (var item in listCart)
                     {
                         OrderDetail orderDetail = new OrderDetail();
@@ -77,7 +67,11 @@ namespace ShoesShop.Service
                         orderDetail.AttributeValueId = item.AttributeId;
                         orderDetail.Quantity = item.Quantity;
                         orderDetail.UnitPrice = item.UnitPrice;
+                        orderDetail.DiscountedPrice = item.CurrentPriceItem;
                         orderDetail.PromotionPercent = item.PromotionPercent;
+                        orderDetail.TotalDiscounted = item.TotalDiscountedPrice;
+                        orderDetail.TotalMoney = (int)item.TotalPrice;
+                        
                         context.OrderDetails.Add(orderDetail);
                     }
                     context.SaveChanges();
@@ -152,7 +146,7 @@ namespace ShoesShop.Service
                     {
                         OrderId = m.OrderId,
                         ProductName = m.Product.ProductName,
-                        ProductImage = m.Product.Image,
+                        ProductImage = m.Product.ImageFileName,
                         AttributeName = m.AttributeValue.Name,
                         Quantity = m.Quantity,
                         UnitPrice = m.UnitPrice,

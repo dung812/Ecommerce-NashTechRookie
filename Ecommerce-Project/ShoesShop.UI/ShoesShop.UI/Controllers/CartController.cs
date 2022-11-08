@@ -131,7 +131,7 @@ namespace ShoesShop.UI.Controllers
         [HttpPost]
         public JsonResult UpdateQuantityItemCart(int cartItemId, int quantity)
         {
-            System.Threading.Thread.Sleep(1000);
+            //System.Threading.Thread.Sleep(1000);
 
             if (quantity <= 0)
             {
@@ -248,6 +248,7 @@ namespace ShoesShop.UI.Controllers
                 Address = address,
                 Phone = phone,
                 Note = note,
+                TotalMoney = (int)TotalPrice()
             };
 
             // Save order & order detail in Database

@@ -103,11 +103,14 @@ namespace ShoesShop.Data.Migrations
 
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("AdminId");
 
                     b.HasIndex("RoleId");
+
+                    b.HasIndex("UserName")
+                        .IsUnique();
 
                     b.ToTable("Admins");
                 });
@@ -244,7 +247,7 @@ namespace ShoesShop.Data.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -265,6 +268,9 @@ namespace ShoesShop.Data.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("CustomerId");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.ToTable("Customers");
                 });
@@ -396,6 +402,9 @@ namespace ShoesShop.Data.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TotalMoney")
+                        .HasColumnType("int");
+
                     b.HasKey("OrderId");
 
                     b.HasIndex("CustomerId");
@@ -416,10 +425,19 @@ namespace ShoesShop.Data.Migrations
                     b.Property<int>("AttributeValueId")
                         .HasColumnType("int");
 
+                    b.Property<int>("DiscountedPrice")
+                        .HasColumnType("int");
+
                     b.Property<int>("PromotionPercent")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalDiscounted")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalMoney")
                         .HasColumnType("int");
 
                     b.Property<int>("UnitPrice")
@@ -475,11 +493,11 @@ namespace ShoesShop.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Image")
+                    b.Property<string>("ImageFileName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageList")
+                    b.Property<string>("ImageName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -538,6 +556,31 @@ namespace ShoesShop.Data.Migrations
                     b.HasIndex("AttributeValueId");
 
                     b.ToTable("ProductAttributes");
+                });
+
+            modelBuilder.Entity("ShoesShop.Domain.ProductGallery", b =>
+                {
+                    b.Property<int>("ProductGalleryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductGalleryId"), 1L, 1);
+
+                    b.Property<string>("GalleryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("ProductGalleryId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductGallerys");
                 });
 
             modelBuilder.Entity("ShoesShop.Domain.Role", b =>
@@ -720,6 +763,17 @@ namespace ShoesShop.Data.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("ShoesShop.Domain.ProductGallery", b =>
+                {
+                    b.HasOne("ShoesShop.Domain.Product", "Product")
+                        .WithMany("ProductGallery")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("ShoesShop.Domain.Admin", b =>
                 {
                     b.Navigation("Activities");
@@ -777,6 +831,8 @@ namespace ShoesShop.Data.Migrations
                     b.Navigation("OrderDetails");
 
                     b.Navigation("ProductAttributes");
+
+                    b.Navigation("ProductGallery");
                 });
 
             modelBuilder.Entity("ShoesShop.Domain.Role", b =>

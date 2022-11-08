@@ -20,6 +20,8 @@ namespace ShoesShop.Domain
         public string? Address { get; set; }
         public string? Phone { get; set; }
         public string? Note { get; set; }
+        public int TotalMoney { get; set; }
+
         public int CustomerId { get; set; }
         public int PaymentId { get; set; }
 

@@ -21,8 +21,6 @@ namespace ShoesShop.Test
             ProductViewModel productViewModel = new ProductViewModel()
             {
                 ProductName = "test",
-                Image = "test",
-                ImageList = "test",
                 OriginalPrice = 1,
                 PromotionPercent = 1,
                 Description = "test",
@@ -52,8 +50,6 @@ namespace ShoesShop.Test
             ProductViewModel productViewModel = new ProductViewModel()
             {
                 ProductName = "update",
-                Image = "update",
-                ImageList = "update",
                 OriginalPrice = 1,
                 PromotionPercent = 1,
                 Description = "",
@@ -82,8 +78,6 @@ namespace ShoesShop.Test
             ProductViewModel productViewModel = new ProductViewModel()
             {
                 ProductName = "update",
-                Image = "update",
-                ImageList = "update",
                 OriginalPrice = 1,
                 PromotionPercent = 1,
                 Description = "",

@@ -17,6 +17,7 @@ namespace ShoesShop.DTO
         public string? Address { get; set; }
         public string? Phone { get; set; }
         public string? Note { get; set; }
+        public int TotalMoney { get; set; }
         public string PaymentName { get; set; }
     }
 }

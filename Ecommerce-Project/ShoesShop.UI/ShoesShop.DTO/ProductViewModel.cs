@@ -12,8 +12,8 @@ namespace ShoesShop.DTO
         public int ProductId { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập tên sản phẩm")]
         public string ProductName { get; set; }
-        public string Image { get; set; }
-        public string ImageList { get; set; }
+        public string ImageName { get; set; }
+        public string ImageFileName { get; set; }
         public int OriginalPrice { get; set; }
         [Range(1, 100)]
         public int PromotionPercent { get; set; }

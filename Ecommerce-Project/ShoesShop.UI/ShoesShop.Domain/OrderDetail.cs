@@ -15,8 +15,11 @@ namespace ShoesShop.Domain
         public int AttributeValueId { get; set; }
         public int Quantity { get; set; }
         public int UnitPrice { get; set; }
+        public int DiscountedPrice { get; set; }
         [Range(1, 100)]
         public int PromotionPercent { get; set; }
+        public int TotalDiscounted { get; set; }
+        public int TotalMoney { get; set; }
 
         public virtual AttributeValue AttributeValue { get; set; } = null!;
         public virtual Order Order { get; set; } = null!;

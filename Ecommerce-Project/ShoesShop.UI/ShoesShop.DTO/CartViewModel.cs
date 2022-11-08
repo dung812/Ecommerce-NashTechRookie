@@ -37,19 +37,22 @@ namespace ShoesShop.DTO
         public CartViewModel(int idProduct, int quantity, int attributeId)
         {
             var attribute = context.AttributeValues.FirstOrDefault(model => model.AttributeValueId == attributeId);
-            var item = context.Products.FirstOrDefault(model => model.ProductId == idProduct);
+            var product = context.Products.FirstOrDefault(model => model.ProductId == idProduct);
 
-            this.ItemId = 0;
-            this.ProductId = idProduct;
-            this.NameItem = item.ProductName;
-            this.ImageItem = item.Image;
-            this.AttributeId = attribute.AttributeValueId;
-            this.AttributeName = attribute.Name;
-            this.UnitPrice = int.Parse(item.OriginalPrice.ToString());
-            this.PromotionPercent = item.PromotionPercent;
-            this.CurrentPriceItem = int.Parse(item.OriginalPrice.ToString()) - ((int.Parse(item.OriginalPrice.ToString()) * int.Parse(item.PromotionPercent.ToString())) / 100);
-            this.Quantity = quantity;
-            this.TotalDiscountedPrice = (this.UnitPrice - this.CurrentPriceItem) * quantity;
+            if (attribute != null && product != null)
+            {
+                this.ItemId = 0;
+                this.ProductId = idProduct;
+                this.NameItem = product.ProductName;
+                this.ImageItem = product.ImageFileName;
+                this.AttributeId = attribute.AttributeValueId;
+                this.AttributeName = attribute.Name;
+                this.UnitPrice = int.Parse(product.OriginalPrice.ToString());
+                this.PromotionPercent = product.PromotionPercent;
+                this.CurrentPriceItem = int.Parse(product.OriginalPrice.ToString()) - ((int.Parse(product.OriginalPrice.ToString()) * int.Parse(product.PromotionPercent.ToString())) / 100);
+                this.Quantity = quantity;
+                this.TotalDiscountedPrice = (this.UnitPrice - this.CurrentPriceItem) * quantity;
+            }
         }
     }
 }

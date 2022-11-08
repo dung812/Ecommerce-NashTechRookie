@@ -17,6 +17,8 @@ namespace ShoesShop.DTO
         public int Quantity { get; set; }
         public int UnitPrice { get; set; }
         public int PromotionPercent { get; set; }
+        public int TotalDiscounted { get; set; }
+        public int TotalMoney { get; set; }
 
     }
 }

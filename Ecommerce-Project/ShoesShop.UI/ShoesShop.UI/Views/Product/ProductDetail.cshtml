@@ -26,21 +26,21 @@
                         <i class="fa-solid fa-angle-right"></i>
                     </span>
                     <div class="img-wrap" onclick="HandleShowLightbox(event)">
-                        <img src="~/images/products/Image/@Model.Image" alt="main image" />
+                        <img src="~/images/products/Image/@Model.ImageFileName" alt="main image" />
                     </div>
                 </div>
                 <div class="list-img">
                     <div>
-                        <img src="~/images/products/Image/@Model.Image" alt="main image" />
+                        <img src="~/images/products/Image/@Model.ImageFileName" alt="main image" />
                     </div>
                     <div>
-                        <img src="~/images/products/ImageList/@Model.ImageList/1.jpg" alt="image gallery" />
+                        <img src="~/images/products/ImageList/@Model.ImageName/1/1.jpg" alt="image gallery" />
                     </div>
                     <div>
-                        <img src="~/images/products/ImageList/@Model.ImageList/2.jpg" alt="image gallery" />
+                        <img src="~/images/products/ImageList/@Model.ImageName/2/2.jpg" alt="image gallery" />
                     </div>
                     <div>
-                        <img src="~/images/products/ImageList/@Model.ImageList/3.jpg" alt="image gallery" />
+                        <img src="~/images/products/ImageList/@Model.ImageName/3/3.jpg" alt="image gallery" />
                     </div>
 
                 </div>
@@ -318,8 +318,8 @@
                             </div>
                             <div class="product-img">
                                 <a href="~/Product/@SlugGenerator.SlugGenerator.GenerateSlug(i.ProductName)-@i.ProductId">
-                                    <img src="~/images/products/Image/@i.Image" class="primary-img img-fluid" alt="product image">
-                                    <img src="~/images/products/ImageList/@i.ImageList/1.jpg" class="secondary-img img-fluid" alt="product image">
+                                    <img src="~/images/products/Image/@i.ImageFileName" class="primary-img img-fluid" alt="product image">
+                                    <img src="~/images/products/ImageList/@i.ImageName/1.jpg" class="secondary-img img-fluid" alt="product image">
                                 </a>
                             </div>
                             <div class="product-info text-center">

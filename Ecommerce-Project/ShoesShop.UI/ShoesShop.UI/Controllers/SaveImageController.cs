@@ -47,10 +47,8 @@ namespace ShoesShop.UI.Controllers
                 return ex.Message.ToString();
             }
         }
-
-
-        [HttpPost("PostImageProduct")]
-        public ActionResult PostImageProduct(IFormFile objFile)
+        [HttpPost("SaveImageProduct")]
+        public ActionResult SaveImageProduct(IFormFile objFile)
         {
             try
             {
@@ -79,8 +77,8 @@ namespace ShoesShop.UI.Controllers
             }
         }
 
-        [HttpPost("UpdatePostImageProduct")]
-        public ActionResult UpdatePostImageProduct(IFormFile objFile, string imageName)
+        [HttpPost("UpdateImageProduct")]
+        public ActionResult UpdateImageProduct(IFormFile objFile, string imageName)
         {
             string imageNameOld = imageName.Split('.')[0];
             string imageNameNew = objFile.FileName.Split('.')[0];
@@ -114,8 +112,8 @@ namespace ShoesShop.UI.Controllers
             }
         }
 
-        [HttpPost("PostImageProductGallery")]
-        public ActionResult PostImageProductGallery(IFormFile objFile, string imageName, string imageGalleryName)
+        [HttpPost("SaveImageProductGallery")]
+        public ActionResult SaveImageProductGallery(IFormFile objFile, string imageName, string imageGalleryName)
         {
             try
             {

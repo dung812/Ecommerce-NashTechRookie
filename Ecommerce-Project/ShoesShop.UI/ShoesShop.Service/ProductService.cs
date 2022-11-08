@@ -40,8 +40,8 @@ namespace ShoesShop.Service
                                         {
                                             ProductId = m.ProductId,
                                             ProductName = m.ProductName,
-                                            Image = m.Image,
-                                            ImageList = m.ImageList,
+                                            ImageFileName = m.ImageFileName,
+                                            ImageName = m.ImageName,
                                             OriginalPrice = m.OriginalPrice,
                                             PromotionPercent = m.PromotionPercent,
                                             Description = m.Description,
@@ -75,8 +75,8 @@ namespace ShoesShop.Service
                                         {
                                             ProductId = m.ProductId,
                                             ProductName = m.ProductName,
-                                            Image = m.Image,
-                                            ImageList = m.ImageList,
+                                            ImageFileName = m.ImageFileName,
+                                            ImageName = m.ImageName,
                                             OriginalPrice = m.OriginalPrice,
                                             PromotionPercent = m.PromotionPercent,
                                             Description = m.Description,
@@ -103,8 +103,8 @@ namespace ShoesShop.Service
                                             {
                                                 ProductId = m.ProductId,
                                                 ProductName = m.ProductName,
-                                                Image = m.Image,
-                                                ImageList = m.ImageList,
+                                                ImageFileName = m.ImageFileName,
+                                                ImageName = m.ImageName,
                                                 OriginalPrice = m.OriginalPrice,
                                                 PromotionPercent = m.PromotionPercent,
                                                 Description = m.Description,
@@ -129,8 +129,8 @@ namespace ShoesShop.Service
                                             {
                                                 ProductId = m.ProductId,
                                                 ProductName = m.ProductName,
-                                                Image = m.Image,
-                                                ImageList = m.ImageList,
+                                                ImageFileName = m.ImageFileName,
+                                                ImageName = m.ImageName,
                                                 OriginalPrice = m.OriginalPrice,
                                                 PromotionPercent = m.PromotionPercent,
                                                 Description = m.Description,
@@ -159,8 +159,8 @@ namespace ShoesShop.Service
                                         {
                                             ProductId = m.ProductId,
                                             ProductName = m.ProductName,
-                                            Image = m.Image,
-                                            ImageList = m.ImageList,
+                                            ImageFileName = m.ImageFileName,
+                                            ImageName = m.ImageName,
                                             OriginalPrice = m.OriginalPrice,
                                             PromotionPercent = m.PromotionPercent,
                                             Description = m.Description,
@@ -196,8 +196,8 @@ namespace ShoesShop.Service
                                         {
                                             ProductId = m.ProductId,
                                             ProductName = m.ProductName,
-                                            Image = m.Image,
-                                            ImageList = m.ImageList,
+                                            ImageFileName = m.ImageFileName,
+                                            ImageName = m.ImageName,
                                             OriginalPrice = m.OriginalPrice,
                                             PromotionPercent = m.PromotionPercent,
                                             Description = m.Description,
@@ -229,8 +229,8 @@ namespace ShoesShop.Service
                                             {
                                                 ProductId = m.ProductId,
                                                 ProductName = m.ProductName,
-                                                Image = m.Image,
-                                                ImageList = m.ImageList,
+                                                ImageFileName = m.ImageFileName,
+                                                ImageName = m.ImageName,
                                                 OriginalPrice = m.OriginalPrice,
                                                 PromotionPercent = m.PromotionPercent,
                                                 Description = m.Description,
@@ -254,8 +254,8 @@ namespace ShoesShop.Service
                                             {
                                                 ProductId = m.ProductId,
                                                 ProductName = m.ProductName,
-                                                Image = m.Image,
-                                                ImageList = m.ImageList,
+                                                ImageFileName = m.ImageFileName,
+                                                ImageName = m.ImageName,
                                                 OriginalPrice = m.OriginalPrice,
                                                 PromotionPercent = m.PromotionPercent,
                                                 Description = m.Description,
@@ -281,8 +281,8 @@ namespace ShoesShop.Service
                                         {
                                             ProductId = m.ProductId,
                                             ProductName = m.ProductName,
-                                            Image = m.Image,
-                                            ImageList = m.ImageList,
+                                            ImageFileName = m.ImageFileName,
+                                            ImageName = m.ImageName,
                                             OriginalPrice = m.OriginalPrice,
                                             PromotionPercent = m.PromotionPercent,
                                             Description = m.Description,
@@ -305,8 +305,8 @@ namespace ShoesShop.Service
                                             {
                                                 ProductId = m.ProductId,
                                                 ProductName = m.ProductName,
-                                                Image = m.Image,
-                                                ImageList = m.ImageList,
+                                                ImageFileName = m.ImageFileName,
+                                                ImageName = m.ImageName,
                                                 OriginalPrice = m.OriginalPrice,
                                                 PromotionPercent = m.PromotionPercent,
                                                 Description = m.Description,
@@ -338,8 +338,8 @@ namespace ShoesShop.Service
                                            {
                                                ProductId = m.ProductId,
                                                ProductName = m.ProductName,
-                                               Image = m.Image,
-                                               ImageList = m.ImageList,
+                                               ImageFileName = m.ImageFileName,
+                                               ImageName = m.ImageName,
                                                OriginalPrice = m.OriginalPrice,
                                                PromotionPercent = m.PromotionPercent,
                                                Description = m.Description,
@@ -384,8 +384,8 @@ namespace ShoesShop.Service
                 Product product = new Product()
                 {
                     ProductName = productViewModel.ProductName,
-                    Image = productViewModel.Image,
-                    ImageList = productViewModel.ImageList,
+                    ImageFileName = productViewModel.ImageFileName,
+                    ImageName = productViewModel.ImageName,
                     OriginalPrice = productViewModel.OriginalPrice,
                     PromotionPercent = productViewModel.PromotionPercent,
                     Description = productViewModel.Description,
@@ -423,8 +423,8 @@ namespace ShoesShop.Service
                     if (product != null)
                     {
                         product.ProductName = productViewModel.ProductName;
-                        product.Image = productViewModel.Image;
-                        product.ImageList = productViewModel.ImageList;
+                        product.ImageFileName = productViewModel.ImageFileName;
+                        product.ImageName = productViewModel.ImageName;
                         product.OriginalPrice = productViewModel.OriginalPrice;
                         product.PromotionPercent = productViewModel.PromotionPercent;
                         product.Description = productViewModel.Description;

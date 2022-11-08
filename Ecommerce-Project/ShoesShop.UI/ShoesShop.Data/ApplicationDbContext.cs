@@ -27,6 +27,7 @@ namespace ShoesShop.Data
         public virtual DbSet<OrderDetail> OrderDetails { get; set; } = null!;
         public virtual DbSet<Payment> Payments { get; set; } = null!;
         public virtual DbSet<Product> Products { get; set; } = null!;
+        public virtual DbSet<ProductGallery> ProductGallerys { get; set; } = null!;
         public virtual DbSet<ProductAttribute> ProductAttributes { get; set; } = null!;
         public virtual DbSet<Role> Roles { get; set; } = null!;
 
@@ -51,6 +52,10 @@ namespace ShoesShop.Data
             modelBuilder.Entity<ProductAttribute>().HasKey(r => new { r.ProductId, r.AttributeValueId });
             modelBuilder.Entity<CommentProduct>().HasKey(r => new { r.ProductId, r.CustomerId });
             modelBuilder.Entity<OrderDetail>().HasKey(r => new { r.OrderId, r.ProductId, r.AttributeValueId });
+
+            // Set unique for property
+            modelBuilder.Entity<Customer>().HasIndex(u => u.Email).IsUnique();
+            modelBuilder.Entity<Admin>().HasIndex(u => u.UserName).IsUnique();
         }
     }
 }

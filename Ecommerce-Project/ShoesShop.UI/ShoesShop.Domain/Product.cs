@@ -15,8 +15,8 @@ namespace ShoesShop.Domain
         [Key]
         public int ProductId { get; set; }
         public string ProductName { get; set; } = null!;
-        public string Image { get; set; } = null!;
-        public string ImageList { get; set; } = null!;
+        public string ImageFileName { get; set; } = null!;
+        public string ImageName { get; set; } = null!;
         public int OriginalPrice { get; set; }
         [Range(1,100)]
         public int PromotionPercent { get; set; }
@@ -36,5 +36,6 @@ namespace ShoesShop.Domain
         public virtual ICollection<CommentProduct> CommentProducts { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ICollection<ProductAttribute> ProductAttributes { get; set; }
+        public virtual ICollection<ProductGallery> ProductGallery { get; set; }
     }
 }
