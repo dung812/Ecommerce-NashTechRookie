@@ -22,8 +22,8 @@ const AddEditPage = () => {
     const initialValues = isAddMode
         ? {
             productName: "",
-            image: "",
-            imageList: "",
+            imageFileName: "",
+            imageName: "",
             originalPrice: 1,
             promotionPercent: 1,
             description: "",
@@ -35,14 +35,18 @@ const AddEditPage = () => {
         }
         : editedProduct;
 
-
     const onSubmit = data => {
 
         // Get value
         const image = document.getElementById("input-image");
+        const imageGallery1 = document.getElementById("input-image-gallery-1");
+        const imageGallery2 = document.getElementById("input-image-gallery-2");
+        const imageGallery3 = document.getElementById("input-image-gallery-3");
+
         const gender = document.querySelector("select[name='genderCategory']");
         const catalogId = document.querySelector("select[name='catalogId']");
         const manufactureId = document.querySelector("select[name='manufactureId']");
+
 
         if (isAddMode) {
             // Case add
@@ -53,8 +57,8 @@ const AddEditPage = () => {
 
             const newProduct = {
                 ProductName: data.productName,
-                Image: image.files[0].name,
-                ImageList: image.files[0].name.split(".")[0],
+                ImageFileName: image.files[0].name,
+                ImageName: image.files[0].name.split(".")[0],
                 OriginalPrice: data.originalPrice,
                 PromotionPercent: data.promotionPercent,
                 Description: data.description,
@@ -62,20 +66,24 @@ const AddEditPage = () => {
                 Gender: gender.value,
                 AdminId: admin.adminId, // get token infor
                 ManufactureId: parseInt(manufactureId.value),
-                CatalogId: parseInt(catalogId.value)
+                CatalogId: parseInt(catalogId.value),
+                ImageNameGallery1: imageGallery1.files[0].name,
+                ImageNameGallery2: imageGallery2.files[0].name,
+                ImageNameGallery3: imageGallery3.files[0].name,
             }
             axios.all([
                 HandleSaveProductImage(),
-                HandleSaveProductImageGallery("#input-image-gallery-1", image.files[0].name.split(".")[0], "1.jpg"),
-                HandleSaveProductImageGallery("#input-image-gallery-2", image.files[0].name.split(".")[0], "2.jpg"),
-                HandleSaveProductImageGallery("#input-image-gallery-3", image.files[0].name.split(".")[0], "3.jpg"),
+                HandleSaveProductImageGallery("#input-image-gallery-1", image.files[0].name.split(".")[0], "1"),
+                HandleSaveProductImageGallery("#input-image-gallery-2", image.files[0].name.split(".")[0], "2"),
+                HandleSaveProductImageGallery("#input-image-gallery-3", image.files[0].name.split(".")[0], "3"),
                 dispatch(addNewProduct(newProduct))
             ])
-            .then(axios.spread((firstResponse, secondResponse, thirdResponse, fourResponse) => {
+                .then(axios.spread((firstResponse, secondResponse, thirdResponse, fourResponse) => {
 
-                navigate("/product");
-            }))
-            .catch(error => console.log(error));
+                    navigate("/product");
+                }))
+                .catch(error => console.log(error));
+
         }
         else {
             // Handle update image
@@ -83,11 +91,11 @@ const AddEditPage = () => {
             const inputImageGallery1 = document.querySelector("#input-image-gallery-1");
             const inputImageGallery2 = document.querySelector("#input-image-gallery-2");
             const inputImageGallery3 = document.querySelector("#input-image-gallery-3");
- 
+
             const updateInfoProduct = {
                 ProductName: data.productName,
-                Image: inputImage.value.length > 0 ? image.files[0].name : initialValues.image,
-                ImageList: inputImage.value.length > 0 ? image.files[0].name.split(".")[0] : initialValues.imageList,
+                ImageFileName: image.value.length > 0 ? image.files[0].name : initialValues.imageFileName,
+                ImageName: image.value.length > 0 ? image.files[0].name.split(".")[0] : initialValues.imageName,
                 OriginalPrice: data.originalPrice,
                 PromotionPercent: data.promotionPercent,
                 Description: data.description,
@@ -95,21 +103,12 @@ const AddEditPage = () => {
                 Gender: gender.value,
                 AdminId: admin.adminId, // get token infor
                 ManufactureId: parseInt(manufactureId.value),
-                CatalogId: parseInt(catalogId.value)
+                CatalogId: parseInt(catalogId.value),
+                ImageNameGallery1: imageGallery1.value.length > 0 ? imageGallery1.files[0].name : initialValues.imageNameGallery1,
+                ImageNameGallery2: imageGallery2.value.length > 0 ? imageGallery2.files[0].name : initialValues.imageNameGallery2,
+                ImageNameGallery3: imageGallery3.value.length > 0 ? imageGallery3.files[0].name : initialValues.imageNameGallery3,
             }
             updateInfoProduct.ProductId = productId;
-
-
-            const HandleListAPI = [];
-            HandleListAPI.push(dispatch(updateProduct(updateInfoProduct)))
-            if (inputImage.value.length > 0)
-                HandleListAPI.push(HandleUpdateProductImage(initialValues.image))
-            if (inputImageGallery1.value.length > 0)
-                HandleListAPI.push(HandleSaveProductImageGallery("#input-image-gallery-1", initialValues.imageList, "1.jpg"))
-            if (inputImageGallery2.value.length > 0)
-                HandleListAPI.push(HandleSaveProductImageGallery("#input-image-gallery-2", initialValues.imageList, "2.jpg"))
-            if (inputImageGallery3.value.length > 0)
-                HandleListAPI.push(HandleSaveProductImageGallery("#input-image-gallery-3", initialValues.imageList, "3.jpg"))
 
             Swal.fire({
                 title: 'Do you want to save the changes?',
@@ -119,21 +118,28 @@ const AddEditPage = () => {
                 denyButtonText: `Don't save`,
             }).then((result) => {
                 if (result.isConfirmed) {
-                    axios.all(HandleListAPI).then(res => {
+
+                    if (inputImage.value.length > 0)
+                        HandleUpdateProductImage(initialValues.imageFileName, inputImageGallery1, inputImageGallery2, inputImageGallery3, updateInfoProduct);
+                    else {
+                        if (inputImageGallery1.value.length > 0)
+                            HandleUpdateProductImageGallery("#input-image-gallery-1", updateInfoProduct.ImageName, "1", initialValues.imageNameGallery1)
+
+                        if (inputImageGallery2.value.length > 0)
+                            HandleUpdateProductImageGallery("#input-image-gallery-2", updateInfoProduct.ImageName, "2", initialValues.imageNameGallery1)
+
+                        if (inputImageGallery3.value.length > 0)
+                            HandleUpdateProductImageGallery("#input-image-gallery-3", updateInfoProduct.ImageName, "3", initialValues.imageNameGallery1)
+
                         navigate("/product");
-                    })
+                    }
+
+                    dispatch(updateProduct(updateInfoProduct))
+
                 } else if (result.isDenied) {
                     Swal.fire('Changes are not saved', '', 'info')
                 }
             })
-
-
-            // console.log(inputImageGallery1.value.length)    
-
-
-            // dispatch(updateProduct(updateInfoProduct))
-
-            // navigate("/product");
 
         }
     }
@@ -143,36 +149,66 @@ const AddEditPage = () => {
         var imagefile = document.querySelector('#input-image');
         formData.append("objFile", imagefile?.files[0]);
 
-        axios.post('https://localhost:44324/api/Product/PostImage', formData, {
+        axios.post('https://localhost:44324/api/SaveImage/SaveImageProduct', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         })
     }
-    function HandleUpdateProductImage(imageName) {
-        var formData = new FormData();
-        var imagefile = document.querySelector('#input-image');
-        formData.append("objFile", imagefile?.files[0]);
-
-        axios.post(`https://localhost:44324/api/Product/UpdatePostImage?imageName=${imageName}`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        })
-    }
-
-    function HandleSaveProductImageGallery(seletorGallery, imageName, imageGalleryName) {
+    function HandleSaveProductImageGallery(seletorGallery, imageName, indexImageGallery) {
         var formData = new FormData();
         var imagefile = document.querySelector(seletorGallery);
         formData.append("objFile", imagefile?.files[0]);
 
         // Add gallery
-        axios.post(`https://localhost:44324/api/Product/PostImageGallery?imageName=${imageName}&imageGalleryName=${imageGalleryName}`, formData, {
+        axios.post(`https://localhost:44324/api/SaveImage/SaveImageProductGallery?imageName=${imageName}&indexImageGallery=${indexImageGallery}`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         })
     }
+
+
+    function HandleUpdateProductImage(imageFileName, inputImageGallery1, inputImageGallery2, inputImageGallery3, updateInfoProduct) {
+        var formData = new FormData();
+        var imagefile = document.querySelector('#input-image');
+        formData.append("objFile", imagefile?.files[0]);
+
+        axios.post(`https://localhost:44324/api/SaveImage/UpdateImageProduct?imageFileName=${imageFileName}`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+            .then(res => {
+                if (inputImageGallery1.value.length > 0)
+                    HandleUpdateProductImageGallery("#input-image-gallery-1", updateInfoProduct.ImageName, "1", initialValues.imageNameGallery1)
+
+                if (inputImageGallery2.value.length > 0)
+                    HandleUpdateProductImageGallery("#input-image-gallery-2", updateInfoProduct.ImageName, "2", initialValues.imageNameGallery1)
+
+                if (inputImageGallery3.value.length > 0)
+                    HandleUpdateProductImageGallery("#input-image-gallery-3", updateInfoProduct.ImageName, "3", initialValues.imageNameGallery1)
+
+                navigate("/product");
+            })
+    }
+
+    function HandleUpdateProductImageGallery(seletorGallery, imageName, indexImageGallery, oldImageGalleryFileName) {
+        var formDataGallery = new FormData();
+        var imagefile = document.querySelector(seletorGallery);
+
+        formDataGallery.append("objGalleryFile", imagefile?.files[0]);
+
+        // Add gallery
+        axios.post(`https://localhost:44324/api/SaveImage/UpdateImageProductGallery?imageName=${imageName}&indexImageGallery=${indexImageGallery}&oldImageGalleryFileName=${oldImageGalleryFileName}`,
+            formDataGallery,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+    }
+
 
     function HandleRedirect(redirectUrl) {
         navigate(redirectUrl);

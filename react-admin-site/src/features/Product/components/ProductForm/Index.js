@@ -21,6 +21,8 @@ function ProductForm(props) {
     let loadingCategory = useSelector((state) => state.categories.loading);
 
     const [manufactures, setManufactures] = useState([]);
+    const [imageGallerys, setImageGallerys] = useState([]);
+
 
     useEffect(() => {
         const catalogOptions = document.querySelectorAll("select[name='catalogId'] option")
@@ -29,6 +31,9 @@ function ProductForm(props) {
                 item.setAttribute("selected", "selected")
         })
     }, [loadingCategory])
+
+
+
 
     useEffect(() => {
         // Preview main product image
@@ -84,7 +89,6 @@ function ProductForm(props) {
                     item.setAttribute("selected", "selected")
             })
         })
-
 
     }, []);
 
@@ -168,23 +172,23 @@ function ProductForm(props) {
 
                 <div className="form-group col-md-12">
                     <label htmlFor=''>Image <span className="text-danger">*</span></label>
-                    <img src={!isAddMode ? `https://localhost:44324/images/products/Image/${initialValues.image}` : ""} width="30%" className='img-fluid d-block mx-auto mb-2' id='product-image_main' />
+                    <img src={!isAddMode ? `https://localhost:44324/images/products/Image/${initialValues.imageFileName}` : ""} width="30%" className='img-fluid d-block mx-auto mb-2' id='product-image_main' />
                     <input type="file" className="form-control" id='input-image' accept="image/*" name="image" />
                 </div>
                 <div className="form-group col-md-4">
                     <label htmlFor=''>Image gallery 1 <span className="text-danger">*</span></label>
-                    <img src={!isAddMode ? `https://localhost:44324/images/products/ImageList/${initialValues.imageList}/1.jpg` : ""} width="80%" className='img-fluid d-block mx-auto mb-2' id='product-image_gallery1' />
+                    <img src={!isAddMode ? `https://localhost:44324/images/products/ImageList/${initialValues.imageName}/1/${initialValues.imageNameGallery1}` : ""} width="80%" className='img-fluid d-block mx-auto mb-2' id='product-image_gallery1' />
                     <input type="file" className="form-control input-image-gallery" id='input-image-gallery-1' data-gallery="1" />
 
                 </div>
                 <div className="form-group col-md-4">
                     <label htmlFor=''>Image gallery 2 <span className="text-danger">*</span></label>
-                    <img src={!isAddMode ? `https://localhost:44324/images/products/ImageList/${initialValues.imageList}/2.jpg` : ""} width="80%" className='img-fluid d-block mx-auto mb-2' id='product-image_gallery2' />
+                    <img src={!isAddMode ? `https://localhost:44324/images/products/ImageList/${initialValues.imageName}/2/${initialValues.imageNameGallery2}` : ""} width="80%" className='img-fluid d-block mx-auto mb-2' id='product-image_gallery2' />
                     <input type="file" className="form-control input-image-gallery" id='input-image-gallery-2' data-gallery="2" />
                 </div>
                 <div className="form-group col-md-4">
                     <label htmlFor=''>Image gallery 3 <span className="text-danger">*</span></label>
-                    <img src={!isAddMode ? `https://localhost:44324/images/products/ImageList/${initialValues.imageList}/3.jpg` : ""} width="80%" className='img-fluid d-block mx-auto mb-2' id='product-image_gallery3' />
+                    <img src={!isAddMode ? `https://localhost:44324/images/products/ImageList/${initialValues.imageName}/3/${initialValues.imageNameGallery3}` : ""} width="80%" className='img-fluid d-block mx-auto mb-2' id='product-image_gallery3' />
                     <input type="file" className="form-control input-image-gallery" id='input-image-gallery-3' data-gallery="3" />
                 </div>
             </div>

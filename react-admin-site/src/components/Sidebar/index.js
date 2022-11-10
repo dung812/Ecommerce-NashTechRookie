@@ -31,7 +31,7 @@ function Sidebar(props) {
         sidebar.current !== null && sidebar.current.classList.toggle("open");
         menuBtnChange();
 
-        console.log(sidebar.current?.offsetWidth)
+        // console.log(sidebar.current?.offsetWidth)
 
         const header = document.querySelector(".header");
         header.classList.toggle("active");
@@ -150,7 +150,7 @@ function Sidebar(props) {
                 </li>
                 <li className="profile">
                     <div className="profile-details">
-                        <img src={`https://localhost:44324/images/avatars/${admin?.avatar}`} alt="profileImg" />
+                        <img src={`https://localhost:44324/images/avatars/${admin?.avatar ? admin?.avatar : "avatar.jpg"}`} alt="profileImg" />
                         <div className="name_job">
                             <div className="name">{`${admin?.firstName} ${admin?.lastName}`}</div>
                             <div className="job">Role: {admin?.roleName}</div>

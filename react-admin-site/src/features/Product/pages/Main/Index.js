@@ -79,7 +79,7 @@ function MainPage(props) {
         },
         {
             name: "Image",
-            selector: (row) => <img width={100} src={"https://localhost:44324/images/products/Image/" + row.image} />
+            selector: (row) => <img width={100} src={"https://localhost:44324/images/products/Image/" + row.imageFileName} />
         },
         {
             name: "Name",

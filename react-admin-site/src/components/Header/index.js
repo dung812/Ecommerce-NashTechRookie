@@ -56,7 +56,7 @@ function Header(props) {
 
                     <Dropdown>
                         <Dropdown.Toggle className="d-flex align-items-center gap-1 custom-dropdown">
-                            <img src={`https://localhost:44324/images/avatars/${admin?.avatar}`} className='img-fluid avatar' alt="profileImg" />
+                            <img src={`https://localhost:44324/images/avatars/${admin?.avatar ? admin?.avatar : "avatar.jpg"}`} className='img-fluid avatar' alt="profileImg" />
                             <div className="name_job">
                                 <div className="name">{`${admin?.firstName} ${admin?.lastName}`}</div>
                             </div>
