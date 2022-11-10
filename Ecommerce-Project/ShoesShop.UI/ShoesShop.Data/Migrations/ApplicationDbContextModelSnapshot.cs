@@ -580,7 +580,7 @@ namespace ShoesShop.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductGallerys");
+                    b.ToTable("ProductGalleries");
                 });
 
             modelBuilder.Entity("ShoesShop.Domain.Role", b =>
@@ -766,7 +766,7 @@ namespace ShoesShop.Data.Migrations
             modelBuilder.Entity("ShoesShop.Domain.ProductGallery", b =>
                 {
                     b.HasOne("ShoesShop.Domain.Product", "Product")
-                        .WithMany("ProductGallery")
+                        .WithMany("ProductGalleries")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -832,7 +832,7 @@ namespace ShoesShop.Data.Migrations
 
                     b.Navigation("ProductAttributes");
 
-                    b.Navigation("ProductGallery");
+                    b.Navigation("ProductGalleries");
                 });
 
             modelBuilder.Entity("ShoesShop.Domain.Role", b =>

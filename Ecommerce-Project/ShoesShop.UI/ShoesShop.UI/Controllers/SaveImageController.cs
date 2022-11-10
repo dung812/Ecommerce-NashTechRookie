@@ -17,7 +17,7 @@ namespace ShoesShop.UI.Controllers
         }
 
 
-        // POST: api/Manufacture/PostImage
+        // Handle image manufacture
         [HttpPost("SaveImageManufacture")]
         public string SaveImageManufacture(IFormFile objFile)
         {
@@ -47,6 +47,8 @@ namespace ShoesShop.UI.Controllers
                 return ex.Message.ToString();
             }
         }
+
+        // Handle image product
         [HttpPost("SaveImageProduct")]
         public ActionResult SaveImageProduct(IFormFile objFile)
         {
@@ -77,10 +79,45 @@ namespace ShoesShop.UI.Controllers
             }
         }
 
-        [HttpPost("UpdateImageProduct")]
-        public ActionResult UpdateImageProduct(IFormFile objFile, string imageName)
+        [HttpPost("SaveImageProductGallery")]
+        public ActionResult SaveImageProductGallery(IFormFile objFile, string imageName, string indexImageGallery)
         {
-            string imageNameOld = imageName.Split('.')[0];
+            // imageName: nashtech
+            // indexImageGallery: 1
+            // -> images/producs/ImageList/imageName(nashtech)/indexImageGallery(1)/    *file: objFile.FileName*
+
+            try
+            {
+                if (objFile.Length > 0)
+                {
+                    if (!Directory.Exists(webHostEnvironment.WebRootPath + "\\images\\products\\ImageList\\" + imageName + "\\" + indexImageGallery + "\\"))
+                    {
+                        Directory.CreateDirectory(webHostEnvironment.WebRootPath + "\\images\\products\\ImageList\\" + imageName + "\\" + indexImageGallery + "\\");
+                    }
+                    using (FileStream fileStream = System.IO.File.Create(webHostEnvironment.WebRootPath + "\\images\\products\\ImageList\\" + imageName + "\\" + indexImageGallery + "\\" + objFile.FileName))
+                    {
+                        objFile.CopyTo(fileStream);
+                        fileStream.Flush();
+                        return Ok();
+                    };
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
+        }
+
+
+        [HttpPost("UpdateImageProduct")]
+        public ActionResult UpdateImageProduct(IFormFile objFile, string imageFileName)
+        {
+            string imageNameOld = imageFileName.Split('.')[0];
             string imageNameNew = objFile.FileName.Split('.')[0];
             try
             {
@@ -91,12 +128,27 @@ namespace ShoesShop.UI.Controllers
                         Directory.CreateDirectory(webHostEnvironment.WebRootPath + "\\images\\products\\Image\\");
                     }
 
+                    // Remove old image
+                    string oldImagePath = Path.Combine(webHostEnvironment.WebRootPath + "\\images\\products\\Image\\" + imageFileName);
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        // Delete image
+                        System.IO.File.Delete(oldImagePath);
+                    }
+
                     using (FileStream fileStream = System.IO.File.Create(webHostEnvironment.WebRootPath + "\\images\\products\\Image\\" + objFile.FileName))
                     {
                         objFile.CopyTo(fileStream);
                         fileStream.Flush();
 
+                        if (Directory.Exists(webHostEnvironment.WebRootPath + "\\images\\products\\ImageList\\" + imageNameNew + "\\"))
+                        {
+                            Directory.Delete(webHostEnvironment.WebRootPath + "\\images\\products\\ImageList\\" + imageNameNew + "\\");
+                        }
                         Directory.Move(webHostEnvironment.WebRootPath + "\\images\\products\\ImageList\\" + imageNameOld + "\\", webHostEnvironment.WebRootPath + "\\images\\products\\ImageList\\" + imageNameNew + "\\");
+
+
+
                         return Ok();
                     };
                 }
@@ -112,20 +164,36 @@ namespace ShoesShop.UI.Controllers
             }
         }
 
-        [HttpPost("SaveImageProductGallery")]
-        public ActionResult SaveImageProductGallery(IFormFile objFile, string imageName, string imageGalleryName)
+        [HttpPost("UpdateImageProductGallery")]
+        public ActionResult UpdateImageProductGallery(IFormFile objGalleryFile, string imageName, string indexImageGallery, string oldImageGalleryFileName)
         {
+            // imageName: nashtech
+            // indexImageGallery: 1
+            // -> images/producs/ImageList/imageName(nashtech)/indexImageGallery(1)/    *file: objFile.FileName*
+
             try
             {
-                if (objFile.Length > 0)
+                if (objGalleryFile.Length > 0)
                 {
-                    if (!Directory.Exists(webHostEnvironment.WebRootPath + "\\images\\products\\ImageList\\" + imageName + "\\"))
+
+
+                    if (!Directory.Exists(webHostEnvironment.WebRootPath + "\\images\\products\\ImageList\\" + imageName + "\\" + indexImageGallery + "\\"))
                     {
-                        Directory.CreateDirectory(webHostEnvironment.WebRootPath + "\\images\\products\\ImageList\\" + imageName + "\\");
+                        Directory.CreateDirectory(webHostEnvironment.WebRootPath + "\\images\\products\\ImageList\\" + imageName + "\\" + indexImageGallery + "\\");
                     }
-                    using (FileStream fileStream = System.IO.File.Create(webHostEnvironment.WebRootPath + "\\images\\products\\ImageList\\" + imageName + "\\" + imageGalleryName))
+
+
+                    // Remove old image
+                    string oldImagePath = Path.Combine(webHostEnvironment.WebRootPath + "\\images\\products\\ImageList\\" + imageName + "\\" + indexImageGallery + "\\" + oldImageGalleryFileName);
+                    if (System.IO.File.Exists(oldImagePath))
                     {
-                        objFile.CopyTo(fileStream);
+                        System.IO.File.Delete(oldImagePath);
+                    }
+
+                    // Create new image
+                    using (FileStream fileStream = System.IO.File.Create(webHostEnvironment.WebRootPath + "\\images\\products\\ImageList\\" + imageName + "\\" + indexImageGallery + "\\" + objGalleryFile.FileName))
+                    {
+                        objGalleryFile.CopyTo(fileStream);
                         fileStream.Flush();
                         return Ok();
                     };
@@ -141,43 +209,5 @@ namespace ShoesShop.UI.Controllers
                 return BadRequest();
             }
         }
-
-
-
-
-        //[HttpPost("PostImageGalleryNew")]
-        //public ActionResult PostImageGalleryNew(IFormFile objFile, string imageName, string indexImageGallery)
-        //{
-        //    // imageName: nashtech
-        //    // indexImageGallery: 1
-        //    // -> images/producs/ImageList/imageName(nashtech)/indexImageGallery(1)/    *file: objFile.FileName*
-
-        //    try
-        //    {
-        //        if (objFile.Length > 0)
-        //        {
-        //            if (!Directory.Exists(webHostEnvironment.WebRootPath + "\\images\\products\\ImageList\\" + imageName + "\\" + indexImageGallery + "\\"))
-        //            {
-        //                Directory.CreateDirectory(webHostEnvironment.WebRootPath + "\\images\\products\\ImageList\\" + imageName + "\\" + indexImageGallery + "\\");
-        //            }
-        //            using (FileStream fileStream = System.IO.File.Create(webHostEnvironment.WebRootPath + "\\images\\products\\ImageList\\" + imageName + "\\" + indexImageGallery + "\\" + objFile.FileName))
-        //            {
-        //                objFile.CopyTo(fileStream);
-        //                fileStream.Flush();
-        //                return Ok();
-        //            };
-        //        }
-        //        else
-        //        {
-        //            return BadRequest();
-        //        }
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        return BadRequest();
-        //    }
-        //}
-
     }
 }

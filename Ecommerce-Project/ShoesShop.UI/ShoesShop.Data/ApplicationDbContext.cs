@@ -27,7 +27,7 @@ namespace ShoesShop.Data
         public virtual DbSet<OrderDetail> OrderDetails { get; set; } = null!;
         public virtual DbSet<Payment> Payments { get; set; } = null!;
         public virtual DbSet<Product> Products { get; set; } = null!;
-        public virtual DbSet<ProductGallery> ProductGallerys { get; set; } = null!;
+        public virtual DbSet<ProductGallery> ProductGalleries { get; set; } = null!;
         public virtual DbSet<ProductAttribute> ProductAttributes { get; set; } = null!;
         public virtual DbSet<Role> Roles { get; set; } = null!;
 

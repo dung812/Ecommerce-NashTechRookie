@@ -17,6 +17,8 @@ namespace ShoesShop.Service
         public IPagedList<ProductViewModel> SearchProduct(string keyword, int pageNumber, int pageSize);
         public List<string> GetNameProductList(string keyword);
         public List<AttributeViewModel> GetAttributeOfProduct(int productId);
+        public Product GetNewProductAfterSave();
+        public List<ProductGalleryViewModel> GetAllProductGalleryById(int productId);
         public bool CreateProduct(ProductViewModel productViewModel);
         public bool UpdateProduct(int productId, ProductViewModel productViewModel);
         public bool DeleteProduct(int productId);
@@ -53,8 +55,23 @@ namespace ShoesShop.Service
                                             Quantity = m.Quantity,
                                             AdminCreate = m.Admin.UserName,
                                             DateCreate = m.DateCreate,
-                                            Gender = m.ProductGenderCategory == Gender.Men ? "Men": "Women"
+                                            Gender = m.ProductGenderCategory == Gender.Men ? "Men": "Women",
+                                            ImageNameGallery1 = "",
+                                            ImageNameGallery2 = "",
+                                            ImageNameGallery3 = "",
                                         }).ToList();
+                foreach(var product in productList)
+                {
+                    var gallerys = context.ProductGalleries.Where(m => m.ProductId == product.ProductId).ToList();
+
+                    if (gallerys.Count >= 3)
+                    {
+                        product.ImageNameGallery1 = gallerys[0].GalleryName;
+                        product.ImageNameGallery2 = gallerys[1].GalleryName;
+                        product.ImageNameGallery3 = gallerys[2].GalleryName;
+                    }    
+                }
+
             }
             return productList;
         }        
@@ -377,6 +394,28 @@ namespace ShoesShop.Service
             return attributes;
         }
     
+        public Product GetNewProductAfterSave()
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var product = context.Products.OrderByDescending(m => m.DateCreate).FirstOrDefault();
+                return product;
+            }
+        }
+       
+        public List<ProductGalleryViewModel> GetAllProductGalleryById(int productId)
+        {
+            var productGalleries = new List<ProductGalleryViewModel>();
+            using (var context = new ApplicationDbContext())
+            {
+                productGalleries = context.ProductGalleries.Where(m => m.ProductId == productId).Select(m => new ProductGalleryViewModel
+                {
+                    GalleryName = m.GalleryName
+                }).ToList();
+            }
+            return productGalleries;
+        }
+        
         public bool CreateProduct(ProductViewModel productViewModel)
         {
             try
@@ -399,8 +438,40 @@ namespace ShoesShop.Service
                 };
                 using (var context = new ApplicationDbContext())
                 {
+                    // Save product entry
                     context.Products.Add(product);
                     context.SaveChanges();
+
+                    var newProduct = GetNewProductAfterSave();
+
+                    // Save product image gallery entry
+                    ProductGallery productGallery1 = new ProductGallery()
+                    {
+                        ProductId = newProduct.ProductId,
+                        GalleryName = productViewModel.ImageNameGallery1,
+                        Status = true
+                    };
+                    context.ProductGalleries.Add(productGallery1);
+                    context.SaveChanges();
+
+                    ProductGallery productGallery2 = new ProductGallery()
+                    {
+                        ProductId = newProduct.ProductId,
+                        GalleryName = productViewModel.ImageNameGallery2,
+                        Status = true
+                    };             
+                    context.ProductGalleries.Add(productGallery2);
+                    context.SaveChanges();
+
+                    ProductGallery productGallery3 = new ProductGallery()
+                    {
+                        ProductId = newProduct.ProductId,
+                        GalleryName = productViewModel.ImageNameGallery3,
+                        Status = true
+                    };
+                    context.ProductGalleries.Add(productGallery3);
+                    context.SaveChanges();
+
                 }
                 return true;
 
@@ -422,6 +493,7 @@ namespace ShoesShop.Service
 
                     if (product != null)
                     {
+                        // Update product entry
                         product.ProductName = productViewModel.ProductName;
                         product.ImageFileName = productViewModel.ImageFileName;
                         product.ImageName = productViewModel.ImageName;
@@ -436,6 +508,22 @@ namespace ShoesShop.Service
                         product.UpdateDate = DateTime.Now;
 
                         context.Products.Update(product);
+                        context.SaveChanges();
+
+
+                        // Update product gallery entry
+                        var galleryProducts = context.ProductGalleries.Where(m => m.ProductId == productViewModel.ProductId).ToList();
+
+                        galleryProducts[0].GalleryName = productViewModel.ImageNameGallery1;
+                        context.ProductGalleries.Update(galleryProducts[0]);
+                        context.SaveChanges();
+
+                        galleryProducts[1].GalleryName = productViewModel.ImageNameGallery2;
+                        context.ProductGalleries.Update(galleryProducts[1]);
+                        context.SaveChanges();
+
+                        galleryProducts[2].GalleryName = productViewModel.ImageNameGallery3;
+                        context.ProductGalleries.Update(galleryProducts[2]);
                         context.SaveChanges();
 
                         result = true;

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "frbjtBgSDHepUJF+Y5QWmVOhSbG+/ozbAAeR+0By5jM=",
+  "Hash": "O+WQ53YTIFO8IlaSnHjM5DPa0sYA4RxcaXobX/RUT5g=",
   "Source": "ShoesShop.UI",
   "BasePath": "_content/ShoesShop.UI",
   "Mode": "Default",
@@ -491,23 +491,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\products\\Image\\93702_pair_large.jpg"
-    },
-    {
-      "Identity": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\images\\products\\Image\\nashtech.png",
-      "SourceId": "ShoesShop.UI",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\",
-      "BasePath": "_content/ShoesShop.UI",
-      "RelativePath": "images/products/Image/nashtech.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\products\\Image\\nashtech.png"
     },
     {
       "Identity": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\images\\products\\ImageList\\20220731001046344\\1\\1.jpg",

@@ -58,5 +58,15 @@ namespace ShoesShop.API.Controllers
             var status = productService.DeleteProduct(id);
             return status ? Ok() : BadRequest();
         }
+
+
+        // GET: api/Product/ProductImageGallerys/1
+        //[AllowAnonymous]
+        //[HttpGet("ProductImageGallerys/{id}")]
+        //public ActionResult<IEnumerable<ProductGalleryViewModel>> GetProductImageGallerys(int id)
+        //{
+        //    var productGalleries = productService.GetAllProductGalleryById(id);
+        //    return productGalleries != null ? Ok( new { ProductGalleries = productGalleries}) : BadRequest();
+        //}
     }
 }

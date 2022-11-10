@@ -36,6 +36,6 @@ namespace ShoesShop.Domain
         public virtual ICollection<CommentProduct> CommentProducts { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ICollection<ProductAttribute> ProductAttributes { get; set; }
-        public virtual ICollection<ProductGallery> ProductGallery { get; set; }
+        public virtual ICollection<ProductGallery> ProductGalleries { get; set; }
     }
 }
