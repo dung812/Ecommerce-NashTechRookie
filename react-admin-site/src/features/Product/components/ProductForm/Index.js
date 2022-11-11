@@ -18,11 +18,11 @@ function ProductForm(props) {
 
     const dispatch = useDispatch();
     let catalogs = useSelector((state) => state.categories.categories);
+    let manufactures = useSelector((state) => state.manufactures.manufactures);
+
+    let loadingProduct = useSelector((state) => state.products.loading);
     let loadingCategory = useSelector((state) => state.categories.loading);
-
-    const [manufactures, setManufactures] = useState([]);
-    const [imageGallerys, setImageGallerys] = useState([]);
-
+    let loadingManufacture = useSelector((state) => state.manufactures.loading);
 
     useEffect(() => {
         const catalogOptions = document.querySelectorAll("select[name='catalogId'] option")
@@ -32,7 +32,13 @@ function ProductForm(props) {
         })
     }, [loadingCategory])
 
-
+    useEffect(() => {
+        const manufactureOptions = document.querySelectorAll("select[name='manufactureId'] option")
+        manufactureOptions.forEach(item => {
+            if (parseInt(item.value) === initialValues.manufactureId)
+                item.setAttribute("selected", "selected")
+        })
+    }, [loadingManufacture])
 
 
     useEffect(() => {
@@ -58,37 +64,14 @@ function ProductForm(props) {
             }
         }))
 
-        // Fill value in selects
+        // Fill value in selects gender  category
         const genderOptions = document.querySelectorAll("select[name='genderCategory'] option")
         genderOptions.forEach(item => {
             if (item.value === initialValues.gender)
                 item.setAttribute("selected", "selected")
         })
 
-
         dispatch(fetchCategories());
-
-
-        // // Render selects and select option base on initial values
-        // axios.get('https://localhost:44324/api/Catalog').then(res => {
-        //     setCatalog([...res.data])
-
-        //     const catalogOptions = document.querySelectorAll("select[name='catalogId'] option")
-        //     catalogOptions.forEach(item => {
-        //         if (parseInt(item.value) === initialValues.catalogId)
-        //             item.setAttribute("selected", "selected")
-        //     })
-        // })
-
-        axios.get('https://localhost:44324/api/Manufacture').then(res => {
-            setManufactures([...res.data])
-
-            const manufactureOptions = document.querySelectorAll("select[name='manufactureId'] option")
-            manufactureOptions.forEach(item => {
-                if (parseInt(item.value) === initialValues.manufactureId)
-                    item.setAttribute("selected", "selected")
-            })
-        })
 
     }, []);
 
@@ -108,7 +91,6 @@ function ProductForm(props) {
         resolver: yupResolver(productSchema),
     });
 
-    const { isSubmitting } = formState;
 
     function HandleRedirect(redirectUrl) {
         navigate(redirectUrl);
@@ -193,7 +175,7 @@ function ProductForm(props) {
                 </div>
             </div>
             <div className='text-start mt-3'>
-                <button type='submit' className={`btn btn-primary btn-custom-loading me-2 ${isSubmitting ? "is-loading" : ""}`}>
+                <button type='submit' className={`btn btn-primary btn-custom-loading me-2 ${loadingProduct ? "is-loading" : ""}`}>
                     <div className="loader"></div>
                     <span>Submit</span>
                 </button>

@@ -135,6 +135,7 @@ const AddEditPage = () => {
                     }
 
                     dispatch(updateProduct(updateInfoProduct))
+                    
 
                 } else if (result.isDenied) {
                     Swal.fire('Changes are not saved', '', 'info')
@@ -213,6 +214,7 @@ const AddEditPage = () => {
     function HandleRedirect(redirectUrl) {
         navigate(redirectUrl);
     }
+
     return (
         <React.Fragment>
             <Card className='mb-3 border-0'>
@@ -235,7 +237,12 @@ const AddEditPage = () => {
             </Card>
             <Card className='border-0'>
                 <Card.Body>
-                    <h5 className="card-title mb-3">Create a new product</h5>
+                    {
+                        isAddMode ? 
+                        <h5 className="card-title mb-3">Create a new product</h5> :
+                        <h5 className="card-title mb-3">Edit product ID: {initialValues.productId}</h5> 
+                    }
+                    
                     <ProductForm
                         initialValues={initialValues}
                         isAddMode={isAddMode}

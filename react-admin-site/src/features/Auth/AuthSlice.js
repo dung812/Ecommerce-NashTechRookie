@@ -6,6 +6,7 @@ const authAdmin = createSlice({
     initialState: { loading: false, isAuth: false, admin: {} },
     reducers: {
 		logoutAccount: (state, action) => {
+            localStorage.removeItem('authAdmin');
             state.isAuth = false;
             state.admin = {};
 		}

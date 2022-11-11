@@ -20,7 +20,6 @@ const SignIn = () => {
     const { register, handleSubmit, formState: { errors }, formState } = useForm({
         resolver: yupResolver(loginSchema),
     });
-    const { isSubmitting } = formState;
 
     const onSubmit = data => {
         navigate("/");

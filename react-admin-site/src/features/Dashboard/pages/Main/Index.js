@@ -5,8 +5,11 @@ import axios from 'axios';
 
 MainPage.propTypes = {}
 function MainPage(props) {
+
     return (
-        <h1>This is dashboard</h1>
+        <React.Fragment>
+            <h1>This is dashboard</h1>
+        </React.Fragment>
     )
 }
 

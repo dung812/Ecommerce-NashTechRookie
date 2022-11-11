@@ -122,21 +122,28 @@ function Sidebar(props) {
                 </li>
                 <li>
                     <NavLink to="/admin" className='nav-items'>
-                        <i className='bx bx-user-pin'></i>
+                        <i className='bx bx-user-circle'></i>
                         <span className="links_name">Admin</span>
                     </NavLink>
                     <span className="tooltip">Admin</span>
                 </li>
                 <li>
+                    <NavLink to="/activity-admin" className='nav-items'>
+                        <i className='bx bx-street-view'></i>
+                        <span className="links_name">Activities admin</span>
+                    </NavLink>
+                    <span className="tooltip">Activities admin</span>
+                </li>
+                <li>
                     <NavLink to="/order" className='nav-items'>
-                        <i className='bx bx-cart-alt' ></i>
+                        <i className='bx bx-receipt'></i>
                         <span className="links_name">Order</span>
                     </NavLink>
                     <span className="tooltip">Order</span>
                 </li>
                 <li>
                     <NavLink to="/analytics" className='nav-items'>
-                        <i className='bx bx-pie-chart-alt-2' ></i>
+                        <i className='bx bx-line-chart' ></i>
                         <span className="links_name">Analytics</span>
                     </NavLink>
                     <span className="tooltip">Analytics</span>
