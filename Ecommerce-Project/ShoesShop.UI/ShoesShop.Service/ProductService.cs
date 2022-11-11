@@ -18,7 +18,6 @@ namespace ShoesShop.Service
         public List<string> GetNameProductList(string keyword);
         public List<AttributeViewModel> GetAttributeOfProduct(int productId);
         public Product GetNewProductAfterSave();
-        public List<ProductGalleryViewModel> GetAllProductGalleryById(int productId);
         public bool CreateProduct(ProductViewModel productViewModel);
         public bool UpdateProduct(int productId, ProductViewModel productViewModel);
         public bool DeleteProduct(int productId);
@@ -402,20 +401,6 @@ namespace ShoesShop.Service
                 return product;
             }
         }
-       
-        public List<ProductGalleryViewModel> GetAllProductGalleryById(int productId)
-        {
-            var productGalleries = new List<ProductGalleryViewModel>();
-            using (var context = new ApplicationDbContext())
-            {
-                productGalleries = context.ProductGalleries.Where(m => m.ProductId == productId).Select(m => new ProductGalleryViewModel
-                {
-                    GalleryName = m.GalleryName
-                }).ToList();
-            }
-            return productGalleries;
-        }
-        
         public bool CreateProduct(ProductViewModel productViewModel)
         {
             try

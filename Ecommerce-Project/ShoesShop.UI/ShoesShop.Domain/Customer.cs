@@ -19,6 +19,7 @@ namespace ShoesShop.Domain
         public string Email { get; set; } = null!;
         public string Password { get; set; } = null!;
         public DateTime RegisterDate { get; set; } = DateTime.Now;
+        public bool? IsNewRegister { get; set; }
         public bool Status { get; set; }
 
         public virtual ICollection<ForgotPassword> ForgotPasswords { get; set; }

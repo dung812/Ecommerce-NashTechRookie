@@ -2,13 +2,6 @@
 using ShoesShop.DTO;
 using ShoesShop.Domain;
 using ShoesShop.Domain.Enum;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ShoesShop.Domain.Enum;
-using System.Net;
 using Microsoft.EntityFrameworkCore;
 
 namespace ShoesShop.Service
@@ -17,10 +10,16 @@ namespace ShoesShop.Service
     {
         public bool CreateNewOrder(OrderViewModel orderViewModel, int customerId, int paymentId);
         public bool CreateOrderDetail(string orderId, List<CartViewModel> listCart);
+        public List<OrderViewModel> GetOrderListByStatus(OrderStatus status);
         public List<OrderViewModel> GetListOrderByCustomerId(int customerId);
         public OrderViewModel GetOrderDetailById(string orderId);
         public List<OrderDetailViewModel> GetItemOfOderById(string orderId);
-        public bool DeleteOrder(int customerId, string orderId);
+        public bool DeleteOrderByCustomer(int customerId, string orderId);
+
+        public bool CheckedOrder(string orderId);
+        public bool SuccessDeliveryOrder(string orderId);
+        public bool CancellationOrder(string orderId);
+        public bool DeleteOrderByAdmin(string orderId);
     }
     public class OrderService : IOrderService
     {
@@ -81,6 +80,31 @@ namespace ShoesShop.Service
             {
                 return false;
             }
+        }
+
+        public List<OrderViewModel> GetOrderListByStatus(OrderStatus status)
+        {
+            List<OrderViewModel> orders = new List<OrderViewModel>();
+            using (var context = new ApplicationDbContext())
+            {
+                orders = context.Orders
+                    .Where(m => m.OrderStatus == status)
+                    .Include(m => m.Payment)
+                    .OrderByDescending(m => m.OrderDate)
+                    .Select(m => new OrderViewModel
+                    {
+                        OrderId = m.OrderId,
+                        OrderDate = m.OrderDate,
+                        OrderStatus = m.OrderStatus,
+                        DeliveryDate = m.DeliveryDate,
+                        OrderName = m.OrderName,
+                        Address = m.Address,
+                        Phone = m.Phone,
+                        Note = m.Note,
+                        PaymentName = m.Payment.PaymentName
+                    }).ToList();
+            }
+            return orders;
         }
 
         public List<OrderViewModel> GetListOrderByCustomerId(int customerId)
@@ -156,7 +180,7 @@ namespace ShoesShop.Service
             return orderDetail;
         }
 
-        public bool DeleteOrder(int customerId, string orderId)
+        public bool DeleteOrderByCustomer(int customerId, string orderId)
         {
             using (var context = new ApplicationDbContext())
             {
@@ -174,5 +198,111 @@ namespace ShoesShop.Service
             }
             return false;
         }
+
+
+
+        public bool CheckedOrder(string orderId)
+        {
+            bool result;
+            try
+            {
+                using (var context = new ApplicationDbContext())
+                {
+                    var order = context.Orders.Where(m => m.OrderStatus == OrderStatus.UnChecked).FirstOrDefault(m => m.OrderId == orderId);
+
+                    if (order != null)
+                    {
+                        order.OrderStatus = OrderStatus.AwatingShipment;
+
+                        context.Orders.Update(order);
+                        context.SaveChanges();
+                        result = true;
+                    }
+                    else
+                        result = false;
+                }
+            } catch(Exception)
+            {
+                result = false;
+            }
+            return result;
+        }
+        public bool SuccessDeliveryOrder(string orderId)
+        {
+            bool result;
+            try
+            {
+                using (var context = new ApplicationDbContext())
+                {
+                    var order = context.Orders.Where(m => m.OrderStatus == OrderStatus.AwatingShipment).FirstOrDefault(m => m.OrderId == orderId);
+
+                    if (order != null)
+                    {
+                        order.OrderStatus = OrderStatus.Success;
+                        order.DeliveryDate = DateTime.Now;
+
+                        context.Orders.Update(order);
+                        context.SaveChanges();
+                        result = true;
+                    }
+                    else
+                        result = false;
+                }
+            }
+            catch (Exception)
+            {
+                result = false;
+            }
+            return result;
+        }
+        public bool CancellationOrder(string orderId)
+        {
+            bool result;
+            try
+            {
+                using (var context = new ApplicationDbContext())
+                {
+                    var order = context.Orders.Where(m => m.OrderStatus == OrderStatus.AwatingShipment).FirstOrDefault(m => m.OrderId == orderId);
+
+                    if (order != null)
+                    {
+                        order.OrderStatus = OrderStatus.Cancellation;
+                        order.CancellationDate = DateTime.Now;
+
+                        context.Orders.Update(order);
+                        context.SaveChanges();
+                        result = true;
+                    }
+                    else
+                        result = false;
+                }
+            }
+            catch (Exception)
+            {
+                result = false;
+            }
+            return result;
+        }
+
+        public bool DeleteOrderByAdmin(string orderId)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var order = context.Orders.FirstOrDefault(m => m.OrderId == orderId);
+                if (order != null)
+                {
+                    // Delete order detail
+                    context.Database.ExecuteSqlRaw("DELETE FROM OrderDetailS WHERE OrderId = '" + orderId + "'");
+
+                    // Delete order
+                    context.Orders.Remove(order);
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            return false;
+        }
+    
+    
     }
 }

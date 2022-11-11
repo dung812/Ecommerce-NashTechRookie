@@ -11,12 +11,10 @@ namespace ShoesShop.API.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IWebHostEnvironment webHostEnvironment;
         private readonly IProductService productService;
-        public ProductController(IProductService productService, IWebHostEnvironment webHostEnvironment)
+        public ProductController(IProductService productService)
         {
             this.productService = productService;
-            this.webHostEnvironment = webHostEnvironment;
         }
 
         // GET: api/Product
@@ -58,15 +56,5 @@ namespace ShoesShop.API.Controllers
             var status = productService.DeleteProduct(id);
             return status ? Ok() : BadRequest();
         }
-
-
-        // GET: api/Product/ProductImageGallerys/1
-        //[AllowAnonymous]
-        //[HttpGet("ProductImageGallerys/{id}")]
-        //public ActionResult<IEnumerable<ProductGalleryViewModel>> GetProductImageGallerys(int id)
-        //{
-        //    var productGalleries = productService.GetAllProductGalleryById(id);
-        //    return productGalleries != null ? Ok( new { ProductGalleries = productGalleries}) : BadRequest();
-        //}
     }
 }

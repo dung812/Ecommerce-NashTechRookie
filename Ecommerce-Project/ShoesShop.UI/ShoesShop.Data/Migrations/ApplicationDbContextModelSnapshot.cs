@@ -253,6 +253,9 @@ namespace ShoesShop.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool?>("IsNewRegister")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -377,6 +380,9 @@ namespace ShoesShop.Data.Migrations
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CancellationDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");

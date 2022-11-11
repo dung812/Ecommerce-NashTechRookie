@@ -259,7 +259,7 @@ namespace ShoesShop.UI.Controllers
         
         public IActionResult DeleteOrder(string orderId, int customerId)
         {
-            if (orderService.DeleteOrder(customerId, orderId))
+            if (orderService.DeleteOrderByCustomer(customerId, orderId))
             {
                 TempData["success"] = "Successfully delete your order!";
                 return RedirectToAction("Index", "Home");

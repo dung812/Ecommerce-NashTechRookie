@@ -16,6 +16,7 @@ namespace ShoesShop.Domain
         public DateTime OrderDate { get; set; } = DateTime.Now;
         public OrderStatus OrderStatus { get; set; }
         public DateTime? DeliveryDate { get; set; }
+        public DateTime? CancellationDate { get; set; }
         public string? OrderName { get; set; }
         public string? Address { get; set; }
         public string? Phone { get; set; }

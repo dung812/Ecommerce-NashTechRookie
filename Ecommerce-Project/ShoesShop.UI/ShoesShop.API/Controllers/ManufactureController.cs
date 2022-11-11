@@ -11,11 +11,9 @@ namespace ShoesShop.API.Controllers
     [ApiController]
     public class ManufactureController : ControllerBase
     {
-        private readonly IWebHostEnvironment webHostEnvironment;
         private readonly IManufactureService manufactureService;
-        public ManufactureController(IWebHostEnvironment webHostEnvironment, IManufactureService manufactureService)
+        public ManufactureController(IManufactureService manufactureService)
         {
-            this.webHostEnvironment = webHostEnvironment;
             this.manufactureService = manufactureService;
         }
 

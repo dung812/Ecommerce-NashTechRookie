@@ -48,26 +48,26 @@
             </div>
             <div class="user singupBx">
                 <div class="formBx">
-                    <form id="form-valide-registration" action="#" method="post">
+                    <form id="form-valide-registration">
                         <h2>Create an account</h2>
                         <p class="msgError"></p>
                         <div class="form-group">
                             <div>
                                 <input type="text" asp-for="FirstName" placeholder="First name">
-                                <span asp-validation-for="FirstName" class="text-danger msg-error"></span>
+                                @*<span asp-validation-for="FirstName" class="text-danger msg-error"></span>*@
                             </div>
                         </div>
                         <div class="form-group">
                             <div>
                                 <input type="text" asp-for="LastName" placeholder="Last name">
-                                <span asp-validation-for="LastName" class="text-danger msg-error"></span>
+                                @*<span asp-validation-for="LastName" class="text-danger msg-error"></span>*@
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div>
                                 <input type="email" asp-for="Email" placeholder="Email Address">
-                                <span asp-validation-for="Email" class="text-danger msg-error"></span>
+                                @*<span asp-validation-for="Email" class="text-danger msg-error"></span>*@
                             </div>
                         </div>
 
@@ -98,7 +98,7 @@
 
     <script src="~/js/jquery/dist/jquery.min.js"></script>
     <script src="~/js/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/js/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    @*<script src="~/js/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>*@
 
     <script>
         function toggleForm() {
@@ -107,55 +107,94 @@
             container.classList.toggle('active');
             section.classList.toggle('active');
         }
+        jQuery("#form-valide-registration").validate({
+            rules: {
+                "FirstName": {
+                    required: !0,
+                    minlength: 3
+                },
+                "LastName": {
+                    required: !0,
+                    minlength: 3
+                },
+                "Email": {
+                    required: !0,
+                    email: !0
+                },
 
-        const formSubmit = document.querySelector("#form-valide-registration");
-        formSubmit.addEventListener("submit", function(e) {
-            e.preventDefault();
-            var firstName = formSubmit.elements["FirstName"].value;
-            var lastName = formSubmit.elements["LastName"].value;
-            var email = formSubmit.elements["Email"].value;
-            console.log({ firstName, lastName, email })
-            if (firstName != '' || lastName != '' || email != '') 
-            {
+            },
+            messages: {
+                "FirstName": {
+                    required: "Please enter your first name",
+                    minlength: "First name must consist of at least 3 characters"
+                },
+                "LastName": {
+                    required: "Please enter your last name",
+                    minlength: "Last name must consist of at least 3 characters"
+                },
+                "Email": "Please enter a valid email address",
+            },
 
-                $.ajax({
-                    url: "/Account/Registration",
-                    type: "POST",
-                    data: {
-                        firstName: firstName,
-                        lastName: lastName,
-                        email: email,
-                    },
-                    beforeSend: function () {
-                        document.querySelector(".msgError").textContent = "";
+            ignore: [],
+            errorClass: "invalid-feedback animated fadeInUp",
+            errorElement: "div",
+            errorPlacement: function (e, a) {
+                jQuery(a).parents(".form-group > div").append(e)
+            },
+            highlight: function (e) {
+                jQuery(e).closest(".form-group").removeClass("is-invalid").addClass("is-invalid")
+            },
+            success: function (e) {
+                jQuery(e).closest(".form-group").removeClass("is-invalid"), jQuery(e).remove();
+            },
+            submitHandler: function (form, event) {
+                event.preventDefault();
+                const formSubmit = document.querySelector("#form-valide-registration");
+                var firstName = formSubmit.elements["FirstName"].value;
+                var lastName = formSubmit.elements["LastName"].value;
+                var email = formSubmit.elements["Email"].value;
+                console.log({ firstName, lastName, email })
+                if (firstName != '' || lastName != '' || email != '') {
+                    $.ajax({
+                        url: "/Account/Registration",
+                        type: "POST",
+                        data: {
+                            firstName: firstName,
+                            lastName: lastName,
+                            email: email,
+                        },
+                        beforeSend: function () {
+                            document.querySelector(".msgError").textContent = "";
 
-                        const btnSubmit = document.querySelector(".btn-custom-loading");
-                        btnSubmit.classList.add("is-loading");
-                    },
-                    success: function (data) {
-                        const btnSubmit = document.querySelector(".btn-custom-loading");
-                        btnSubmit.classList.remove("is-loading");
+                            const btnSubmit = document.querySelector(".btn-custom-loading");
+                            btnSubmit.classList.add("is-loading");
+                        },
+                        success: function (data) {
+                            const btnSubmit = document.querySelector(".btn-custom-loading");
+                            btnSubmit.classList.remove("is-loading");
 
-                        if (data.status) {
-                            const successRegister = document.querySelector(".signup-success");
-                            successRegister.classList.remove("hide");
+                            if (data.status) {
+                                const successRegister = document.querySelector(".signup-success");
+                                successRegister.classList.remove("hide");
 
-                            formSubmit.classList.add("hide")
+                                formSubmit.classList.add("hide")
 
-                            document.querySelector("#email-register").textContent = data.email;
+                                document.querySelector("#email-register").textContent = data.email;
 
+                            }
+                            else {
+                                document.querySelector(".msgError").textContent = data.msg;
+                            }
+                        },
+                        error: function (err) {
+                            const btnSubmit = document.querySelector(".btn-custom-loading");
+                            btnSubmit.classList.remove("is-loading");
                         }
-                        else {
-                            document.querySelector(".msgError").textContent = data.msg;
-                        }
-                    },
-                    error: function (err) {
-                        const btnSubmit = document.querySelector(".btn-custom-loading");
-                        btnSubmit.classList.remove("is-loading");
-                    }
-                });
+                    });
+                }
+                //form.submit();
             }
-        })
+        });
     </script>
 
 </body>
