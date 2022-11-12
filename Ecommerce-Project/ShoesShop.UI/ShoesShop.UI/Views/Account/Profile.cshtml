@@ -43,7 +43,7 @@
                                 <!-- Add class 'active' to progress -->
                                 <div class="row d-flex justify-content-center" style="z-index: 99;">
                                     <div class="col-12">
-                                        @if (i.OrderStatus == OrderStatus.UnChecked)
+                                        @if (i.OrderStatus == OrderStatus.NewOrder)
                                         {
                                             <ul id="progressbar" class="text-center">
                                                 <li class="active step0"></li>
@@ -61,7 +61,7 @@
                                                 <li class="step0"></li>
                                             </ul>
                                         }
-                                        else if (i.OrderStatus == OrderStatus.Success)
+                                        else if (i.OrderStatus == OrderStatus.Delivered)
                                         {
                                             <ul id="progressbar" class="text-center">
                                                 <li class="active step0"></li>

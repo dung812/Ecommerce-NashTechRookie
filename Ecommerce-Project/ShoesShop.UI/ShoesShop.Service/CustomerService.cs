@@ -81,6 +81,7 @@ namespace ShoesShop.Service
                         LastName = customerViewModel.LastName,
                         Password = customerViewModel.Password,
                         RegisterDate = DateTime.Now,
+                        IsNewRegister = true,
                         Avatar = "avatar.jpg",
                         Status = true
                     };

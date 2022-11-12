@@ -248,7 +248,8 @@ namespace ShoesShop.UI.Controllers
                 Address = address,
                 Phone = phone,
                 Note = note,
-                TotalMoney = (int)TotalPrice()
+                TotalMoney = (int)TotalPrice(),
+                TotalDiscounted = (int)TotalDiscount()
             };
 
             // Save order & order detail in Database

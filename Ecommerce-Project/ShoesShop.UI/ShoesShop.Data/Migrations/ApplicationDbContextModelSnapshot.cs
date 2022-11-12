@@ -408,6 +408,9 @@ namespace ShoesShop.Data.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TotalDiscounted")
+                        .HasColumnType("int");
+
                     b.Property<int>("TotalMoney")
                         .HasColumnType("int");
 

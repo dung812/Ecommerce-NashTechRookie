@@ -2,9 +2,9 @@
 {
     public enum OrderStatus
     {
-        UnChecked = 1,
+        NewOrder = 1,
         AwatingShipment = 2,
-        Success = 3,
-        Cancellation = 4
+        Delivered = 3,
+        Cancelled = 4
     }
 }

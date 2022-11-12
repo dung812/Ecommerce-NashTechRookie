@@ -33,12 +33,13 @@ namespace ShoesShop.Service
                     {
                         OrderId = orderViewModel.OrderId,
                         OrderDate = orderViewModel.OrderDate,
-                        OrderStatus = OrderStatus.UnChecked,
+                        OrderStatus = OrderStatus.NewOrder,
                         OrderName = orderViewModel.OrderName,
                         Address = orderViewModel.Address,
                         Phone = orderViewModel.Phone,
                         Note = orderViewModel.Note,
                         TotalMoney = orderViewModel.TotalMoney,
+                        TotalDiscounted = orderViewModel.TotalDiscounted,
                         CustomerId = customerId,
                         PaymentId = paymentId
                     };
@@ -101,7 +102,9 @@ namespace ShoesShop.Service
                         Address = m.Address,
                         Phone = m.Phone,
                         Note = m.Note,
-                        PaymentName = m.Payment.PaymentName
+                        PaymentName = m.Payment.PaymentName,
+                        TotalMoney = m.TotalMoney,
+                        TotalDiscounted = m.TotalDiscounted
                     }).ToList();
             }
             return orders;
@@ -173,8 +176,12 @@ namespace ShoesShop.Service
                         ProductImage = m.Product.ImageFileName,
                         AttributeName = m.AttributeValue.Name,
                         Quantity = m.Quantity,
+
+                        PromotionPercent = m.PromotionPercent,
                         UnitPrice = m.UnitPrice,
-                        PromotionPercent = m.PromotionPercent
+                        DiscountedPrice = m.DiscountedPrice,
+                        TotalDiscounted = m.TotalDiscounted,
+                        TotalMoney = m.TotalMoney,
                     }).ToList();
             }
             return orderDetail;
@@ -199,8 +206,6 @@ namespace ShoesShop.Service
             return false;
         }
 
-
-
         public bool CheckedOrder(string orderId)
         {
             bool result;
@@ -208,7 +213,7 @@ namespace ShoesShop.Service
             {
                 using (var context = new ApplicationDbContext())
                 {
-                    var order = context.Orders.Where(m => m.OrderStatus == OrderStatus.UnChecked).FirstOrDefault(m => m.OrderId == orderId);
+                    var order = context.Orders.Where(m => m.OrderStatus == OrderStatus.NewOrder).FirstOrDefault(m => m.OrderId == orderId);
 
                     if (order != null)
                     {
@@ -238,7 +243,7 @@ namespace ShoesShop.Service
 
                     if (order != null)
                     {
-                        order.OrderStatus = OrderStatus.Success;
+                        order.OrderStatus = OrderStatus.Delivered;
                         order.DeliveryDate = DateTime.Now;
 
                         context.Orders.Update(order);
@@ -266,7 +271,7 @@ namespace ShoesShop.Service
 
                     if (order != null)
                     {
-                        order.OrderStatus = OrderStatus.Cancellation;
+                        order.OrderStatus = OrderStatus.Cancelled;
                         order.CancellationDate = DateTime.Now;
 
                         context.Orders.Update(order);
@@ -283,7 +288,6 @@ namespace ShoesShop.Service
             }
             return result;
         }
-
         public bool DeleteOrderByAdmin(string orderId)
         {
             using (var context = new ApplicationDbContext())

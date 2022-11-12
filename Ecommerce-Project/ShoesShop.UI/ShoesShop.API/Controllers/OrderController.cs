@@ -24,7 +24,16 @@ namespace ShoesShop.API.Controllers
         {
             List<OrderViewModel> orders = orderService.GetOrderListByStatus(status);
             return orders;
+        }        
+        
+        [HttpGet("GetProductListOfOrder/{orderId}")]
+        public ActionResult<IEnumerable<OrderDetailViewModel>> GetProductListOfOrder(string orderId)
+        {
+            List<OrderDetailViewModel> products = orderService.GetItemOfOderById(orderId);
+            return products;
         }
+
+
 
         [HttpGet("CheckedOrder/{orderId}")]
         public ActionResult CheckedOrder(string orderId)
