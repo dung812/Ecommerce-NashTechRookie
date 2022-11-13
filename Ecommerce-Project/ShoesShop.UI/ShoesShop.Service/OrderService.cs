@@ -20,6 +20,8 @@ namespace ShoesShop.Service
         public bool SuccessDeliveryOrder(string orderId);
         public bool CancellationOrder(string orderId);
         public bool DeleteOrderByAdmin(string orderId);
+        public List<OrderViewModel> GetRecentOrders();
+        public List<OrderStatisticViewModel> GetStatisticOrder();
     }
     public class OrderService : IOrderService
     {
@@ -308,5 +310,69 @@ namespace ShoesShop.Service
         }
     
     
+        public List<OrderViewModel> GetRecentOrders()
+        {
+            List<OrderViewModel> orders = new List<OrderViewModel>();
+            using (var context = new ApplicationDbContext())
+            {
+                //DateTime today = DateTime.Today;
+                orders = context.Orders
+                    .Where( m => m.OrderStatus == OrderStatus.NewOrder && 
+                            m.OrderDate.Date == DateTime.Today)
+                    .Include(m => m.Payment)
+                    .OrderByDescending(m => m.OrderDate)
+                    .Select(m => new OrderViewModel
+                    {
+                        OrderId = m.OrderId,
+                        OrderDate = m.OrderDate,
+                        OrderStatus = m.OrderStatus,
+                        DeliveryDate = m.DeliveryDate,
+                        OrderName = m.OrderName,
+                        Address = m.Address,
+                        Phone = m.Phone,
+                        Note = m.Note,
+                        PaymentName = m.Payment.PaymentName,
+                        TotalMoney = m.TotalMoney,
+                        TotalDiscounted = m.TotalDiscounted
+                    }).ToList();
+            }
+            return orders;
+        }        
+
+        public List<OrderStatisticViewModel> GetStatisticOrder()
+        {
+            var list = new List<OrderStatisticViewModel>();
+            using (var context = new ApplicationDbContext())
+            {
+                var newOrder = new OrderStatisticViewModel()
+                {
+                    OrderType = "New Order",
+                    QuantityOrder = context.Orders.Where(m => m.OrderStatus == OrderStatus.NewOrder).Count()
+                };
+                list.Add(newOrder);
+
+                var awatingShipment = new OrderStatisticViewModel()
+                {
+                    OrderType = "Awating Shipment",
+                    QuantityOrder = context.Orders.Where(m => m.OrderStatus == OrderStatus.AwatingShipment).Count()
+                };
+                list.Add(awatingShipment);  
+                
+                var delivered = new OrderStatisticViewModel()
+                {
+                    OrderType = "Delivered",
+                    QuantityOrder = context.Orders.Where(m => m.OrderStatus == OrderStatus.Delivered).Count()
+                };
+                list.Add(delivered);                
+                
+                var cancelled = new OrderStatisticViewModel()
+                {
+                    OrderType = "Cancelled",
+                    QuantityOrder = context.Orders.Where(m => m.OrderStatus == OrderStatus.Cancelled).Count()
+                };
+                list.Add(cancelled);
+            }
+            return list;
+        }
     }
 }

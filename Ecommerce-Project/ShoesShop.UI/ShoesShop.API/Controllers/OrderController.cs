@@ -33,8 +33,6 @@ namespace ShoesShop.API.Controllers
             return products;
         }
 
-
-
         [HttpGet("CheckedOrder/{orderId}")]
         public ActionResult CheckedOrder(string orderId)
         {
@@ -62,6 +60,21 @@ namespace ShoesShop.API.Controllers
         {
             var status = orderService.DeleteOrderByAdmin(orderId);
             return status ? Ok() : BadRequest();
+        }
+
+
+        [HttpGet("GetRecentOrders")]
+        public ActionResult<IEnumerable<OrderViewModel>> GetRecentOrders()
+        {
+            List<OrderViewModel> orders = orderService.GetRecentOrders();
+            return orders;
+        }        
+
+        [HttpGet("GetStatisticOrder")]
+        public ActionResult<IEnumerable<OrderStatisticViewModel>> GetStatisticOrder()
+        {
+            List<OrderStatisticViewModel> list = orderService.GetStatisticOrder();
+            return list;
         }
     }
 }
