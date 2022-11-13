@@ -1,10 +1,10 @@
 import React from 'react';
 import './OrderDetail.scss'
 
-const OrderDetail = (props) => {
+const OrderDetail = React.forwardRef((props, ref) => {
     const { order, productOfOrder } = props;
     return (
-        <div className='mt-2'>
+        <div className='mt-2'  ref={ref}>
             <h4 className="mb-3 text-dark text-uppercase">Information Shipping</h4>
             <hr />
             <table className="table">
@@ -91,7 +91,6 @@ const OrderDetail = (props) => {
                         <th scope="col" className="text-center">Shipping</th>
                         <th scope="col" className="text-center">Total money discounted</th>
                         <th scope="col" className="text-center">Total payment</th>
-                        <th scope="col" className="text-center">Print order</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -100,13 +99,13 @@ const OrderDetail = (props) => {
                         <td className="text-center">$0</td>
                         <td className="text-center">-${order.totalDiscounted}</td>
                         <td className="text-center">${order.totalMoney}</td>
-                        <td className="text-center text-primary cursor-pointer btn-printOrder"><u>Print order</u></td>
                     </tr>
                 </tbody>
             </table>
         </div>
     );
-};
+});
+
 
 
 

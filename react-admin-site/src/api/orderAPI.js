@@ -21,6 +21,11 @@ const orderApi = {
     const url = `/Order/${orderId}`;
     return axiosClient.delete(url); 
   },
-  // edit, remove, ...
+
+  getRecentOrders: () => {
+    const url = `/Order/GetRecentOrders`;
+    return axiosClient.get(url); 
+  },
+
 }
 export default orderApi;

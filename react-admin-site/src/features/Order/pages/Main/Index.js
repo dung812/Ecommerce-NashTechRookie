@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
+import { useReactToPrint } from 'react-to-print';
 import { useDispatch, useSelector } from 'react-redux';
 import DataTable from 'react-data-table-component';
 import { Card, Modal } from 'react-bootstrap';
@@ -16,7 +17,7 @@ function MainPage(props) {
     const dispatch = useDispatch();
     const [search, setSearch] = useState("");
     const [searchList, setSearchList] = useState([]);
-    
+
     const [orderDetail, setOrderDetail] = useState({});
     const [productOfOrder, setProductOfOrder] = useState([]);
 
@@ -24,6 +25,7 @@ function MainPage(props) {
 
     let orderList = useSelector((state) => state.orders.orders);
     let loading = useSelector((state) => state.orders.loading);
+
 
 
 
@@ -56,7 +58,7 @@ function MainPage(props) {
         setOrderDetail(myOrder)
 
         axios.get(`${process.env.REACT_APP_API_URL}/Order/GetProductListOfOrder/${orderId}`)
-        .then(res => setProductOfOrder(res.data))
+            .then(res => setProductOfOrder(res.data))
 
         HandleShowModel()
     }
@@ -194,9 +196,9 @@ function MainPage(props) {
             cell: (row) => (
                 <div>
                     {row.orderStatus === 1 ? <span className="badge bg-info">{FormatStatusOrder(row.orderStatus)}</span> : ""}
-                    {row.orderStatus === 2 ? <span className="badge bg-primary">{FormatStatusOrder(row.orderStatus)}</span> : ""}
-                    {row.orderStatus === 3 ? <span className="badge bg-success">{FormatStatusOrder(row.orderStatus)}</span> : ""}
-                    {row.orderStatus === 4 ? <span className="badge bg-danger">{FormatStatusOrder(row.orderStatus)}</span> : ""}
+                    {row.orderStatus === 2 ? <span className="badge bg-warning"><i className='bx bx-time-five'></i> {FormatStatusOrder(row.orderStatus)}</span> : ""}
+                    {row.orderStatus === 3 ? <span className="badge bg-success"><i className='bx bx-money'></i> {FormatStatusOrder(row.orderStatus)}</span> : ""}
+                    {row.orderStatus === 4 ? <span className="badge bg-danger"><i className='bx bx-x'></i> {FormatStatusOrder(row.orderStatus)}</span> : ""}
                 </div>
             )
         },
@@ -277,6 +279,11 @@ function MainPage(props) {
         }
     ]
 
+    const componentRef = useRef();
+    const handlePrint = useReactToPrint({
+      content: () => componentRef.current,
+    });
+
     return (
         <React.Fragment>
             <Card>
@@ -332,13 +339,16 @@ function MainPage(props) {
                     <Modal.Title>Order detail: #{orderDetail.orderId}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-
                     <OrderDetail
                         order={orderDetail}
                         productOfOrder={productOfOrder}
+                        ref={componentRef}
                     />
 
                 </Modal.Body>
+                <Modal.Footer>
+                    <button className='btn btn-primary' onClick={handlePrint}><i className='bx bx-printer'></i> Print</button>
+                </Modal.Footer>
             </Modal>
         </React.Fragment>
     )
