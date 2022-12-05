@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ghZvzUllRANOJtMFExlwE/xFEK2GKxTInLcbEeg1rTM=",
+  "Hash": "MgXy2dpeGB37wEaAd9ctBtyw5mtG0ePR2lP6mZgb2xM=",
   "Source": "ShoesShop.UI",
   "BasePath": "_content/ShoesShop.UI",
   "Mode": "Default",
@@ -66,6 +66,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\error-page.css"
+    },
+    {
+      "Identity": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\css\\FirstLogin.css",
+      "SourceId": "ShoesShop.UI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\",
+      "BasePath": "_content/ShoesShop.UI",
+      "RelativePath": "css/FirstLogin.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\FirstLogin.css"
     },
     {
       "Identity": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\css\\jquery-ui.css",
@@ -1783,6 +1800,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\products\\ImageList\\anhmoi\\3\\313295470_1353247462097341_7453576175892685928_n.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\js\\FirstLogin.js",
+      "SourceId": "ShoesShop.UI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\",
+      "BasePath": "_content/ShoesShop.UI",
+      "RelativePath": "js/FirstLogin.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\FirstLogin.js"
     },
     {
       "Identity": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\js\\jquery\\dist\\jquery.js",

@@ -90,6 +90,12 @@ namespace ShoesShop.UI.Controllers
             return View(new ErrorViewModel { RequestId = System.Diagnostics.Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        [HttpGet("[action]")]
+        public IActionResult FirstLogin()
+        {
+            return View();
+        }
+
 
         // Test httpclient
         //public async Task<ActionResult> MyIndex()
