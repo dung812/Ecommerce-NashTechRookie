@@ -19,12 +19,17 @@ namespace ShoesShop.UI.Controllers
         private readonly IProductService productService;
         private readonly ICommentProductService commentProductService;
         private readonly IContactService contactService;
-        public HomeController(IProductService productService, ICommentProductService commentProductService, IContactService contactService)
+        private readonly ICustomerService customerService;
+        private IWebHostEnvironment hostEnvironment;
+
+        public HomeController(IProductService productService, ICommentProductService commentProductService, IContactService contactService, ICustomerService customerService, IWebHostEnvironment environment)
         {
+            this.hostEnvironment = environment;
             this.productService = productService;
             this.commentProductService = commentProductService;
             this.contactService = contactService;
-            HttpClient client = new HttpClient();
+            this.customerService = customerService;
+            //HttpClient client = new HttpClient();
         }
 
         public ProductViewModel HandleAvgRatingProduct(ProductViewModel productViewModel)
@@ -46,6 +51,18 @@ namespace ShoesShop.UI.Controllers
 
         public IActionResult Index()
         {
+            // Get customer info data of session
+            var cusomterSession = HttpContext.Session.GetString("CustomerInfo");
+            var customerInfoSession = JsonConvert.DeserializeObject<Customer>(cusomterSession != null ? cusomterSession : "");
+
+            if (cusomterSession != null)
+            {
+                if (customerService.CheckIsFirstLogin(customerInfoSession.CustomerId))
+                {
+                    return RedirectToAction("FirstLogin", "Home");
+                }
+            }
+
             List<ProductViewModel> productViewModels = new List<ProductViewModel>();
 
             productViewModels = productService.GetAllProduct();
@@ -93,7 +110,89 @@ namespace ShoesShop.UI.Controllers
         [HttpGet("[action]")]
         public IActionResult FirstLogin()
         {
+            // Get customer info data of session
+            var cusomterSession = HttpContext.Session.GetString("CustomerInfo");
+            var customerInfoSession = JsonConvert.DeserializeObject<Customer>(cusomterSession != null ? cusomterSession : "");
+
+            if (cusomterSession == null)
+            {
+                TempData["error"] = "Authentication session has expired!";
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (customerInfoSession.IsNewRegister == false)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var customer = customerService.GetValidCustomerById(customerInfoSession.CustomerId);
+            ViewBag.FirstName = customer.FirstName;
+            ViewBag.LastName = customer.LastName;
+            ViewBag.Email = customer.Email;
+            ViewBag.Avatar = customer.Avatar;
             return View();
+        }        
+        [HttpPost("[action]")]
+        public IActionResult FirstLogin(FirstChangePasswordViewModel firstChangePasswordViewModel)
+        {
+            // Get customer info data of session
+            var cusomterSession = HttpContext.Session.GetString("CustomerInfo");
+            var customerInfoSession = JsonConvert.DeserializeObject<Customer>(cusomterSession != null ? cusomterSession : "");
+
+            firstChangePasswordViewModel.NewPassword = Functions.MD5Hash(firstChangePasswordViewModel.NewPassword);
+
+            var customer = customerService.ChangeInformationFirstLogin(customerInfoSession.CustomerId, firstChangePasswordViewModel);
+
+            if (customer != null)
+            {
+                // Update customer info session
+                var parseCustomerInfo = JsonConvert.SerializeObject(customer);
+                HttpContext.Session.SetString("CustomerInfo", parseCustomerInfo);
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            TempData["error"] = "Something were wrong!";
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult ChangeAvatar(IFormFile objFile)
+        {
+            try
+            {
+                // Get customer info data of session
+                var cusomterSession = HttpContext.Session.GetString("CustomerInfo");
+                var customerInfoSession = JsonConvert.DeserializeObject<Customer>(cusomterSession != null ? cusomterSession : "");
+
+                if (customerInfoSession != null)
+                {
+                    var customerAfterUpdate = customerService.ChangeAvatarOfCustomer(customerInfoSession.CustomerId, objFile.FileName);
+
+                    if (objFile.Length > 0 && customerAfterUpdate != null)
+                    {
+                        if (!Directory.Exists(hostEnvironment.WebRootPath + "\\images\\avatars\\"))
+                        {
+                            Directory.CreateDirectory(hostEnvironment.WebRootPath + "\\images\\avatars\\");
+                        }
+                        using (FileStream fileStream = System.IO.File.Create(hostEnvironment.WebRootPath + "\\images\\avatars\\" + objFile.FileName))
+                        {
+                            objFile.CopyTo(fileStream);
+                            fileStream.Flush();
+
+                            // Update customer info session
+                            //var parseCustomerInfo = JsonConvert.SerializeObject(customerAfterUpdate);
+                            //HttpContext.Session.SetString("CustomerInfo", parseCustomerInfo);
+
+                            return Json(new { status = true, msg = "Successs" });
+                        };
+                    }
+                }
+                return Json(new { status = false, msg = "False" });
+            }
+            catch (Exception)
+            {
+                return Json(new { status = false, msg = "False" });
+            }
         }
 
 

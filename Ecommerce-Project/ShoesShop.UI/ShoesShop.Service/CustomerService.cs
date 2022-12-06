@@ -31,7 +31,7 @@ namespace ShoesShop.Service
         public int CountTokenInCurrentDayOfCustomer(int customerId);
         public Customer ChangeAvatarOfCustomer(int customerId, string newAvatarName);
         public bool CheckIsFirstLogin(int customerId);
-        public void ChangePasswordFirstLogin(int customerId, string newPassword);
+        public Customer ChangeInformationFirstLogin(int customerId, FirstChangePasswordViewModel firstChangePasswordViewModel);
 
     }
     public class CustomerService : ICustomerService
@@ -259,19 +259,22 @@ namespace ShoesShop.Service
             return result;
         }
 
-        public void ChangePasswordFirstLogin(int customerId, string newPassword)
+        public Customer ChangeInformationFirstLogin(int customerId, FirstChangePasswordViewModel firstChangePasswordViewModel)
         {
+            var customer = new Customer();
             using (var context = new ApplicationDbContext())
             {
-                var customer = context.Customers.FirstOrDefault(m => m.CustomerId == customerId);
+                customer = context.Customers.Find(customerId);
                 if (customer != null)
                 {
-                    customer.Password = newPassword;
+                    customer.Password = firstChangePasswordViewModel.NewPassword;
+                    customer.FirstName = firstChangePasswordViewModel.FirstName;
+                    customer.LastName = firstChangePasswordViewModel.LastName;
                     customer.IsNewRegister = false;
                     context.SaveChanges();
                 }
             }
-
+            return customer;
         }
     }
 }

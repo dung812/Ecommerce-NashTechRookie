@@ -1,41 +1,146 @@
-﻿.card {
-    background-color: white;
-    border: 1px solid #333;
-    border-radius: .5rem;
-    padding: .5rem;
-    max-width: 300px;
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;800&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.rounded-circle {
+    border-radius: 50% !important;
+}
+
+.mx-auto {
+    margin-right: auto !important;
+    margin-left: auto !important;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.d-block {
+    display: block !important;
+}
+
+.d-none {
+    display: none !important;
+}
+
+.m-0 {
+    margin: 0 !important;
+}
+
+.p-0 {
+    padding: 0 !important;
+}
+
+.mt-1 {
+    margin-top: .5rem;
+}
+
+.mt-2 {
+    margin-top: 2rem;
+}
+
+.mt-4 {
+    margin-top: 3.5rem;
+}
+
+
+.container {
+    max-width: 580px;
     margin: 0 auto;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.6rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+}
+
+p,
+label {
+    font-size: 1rem;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.step-title {
+    display: flex;
+    justify-content: space-between;
+    gap: 10%;
+    padding: 0;
+    padding-left: 5%;
+}
+
+.step-title .step-items {
+    font-weight: 500;
+}
+
+.step-title .step-items.active {
+    color: #d50032;
+}
+
+.progress {
+    width: 100%;
+    height: 4px;
+    background-color: #d50032;
+    width: 0;
+    transition: all 0.2s linear;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 5px;
     animation: fade 250ms ease-in-out forwards;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: .5rem;
+    margin-bottom: 1rem;
     gap: .25em;
 }
 
-    .form-group:last-child {
-        margin: 0;
-    }
-
-    .form-group > label {
-        font-weight: bold;
-        font-size: .8em;
-        color: #333;
-    }
-
-    .form-group > input {
-        border: 1px solid #333;
-        border-radius: .25em;
-        font-size: 1rem;
-        padding: .25em;
-    }
-
-.step-title {
+.form-group:last-child {
     margin: 0;
-    margin-bottom: 1rem;
-    text-align: center;
+}
+
+.form-group>label {
+    font-weight: bold;
+    font-size: .9rem;
+    color: #333;
+}
+
+.form-group>input {
+    border: 1px solid #333;
+    border-radius: .25em;
+    font-size: 1rem;
+    padding: 0.55em;
+}
+
+.title {
+    color: #484747;
+    margin-bottom: 10px !important;
 }
 
 .card.active {
@@ -77,5 +182,225 @@
     100% {
         opacity: 0;
         transform: scale(0);
+    }
+}
+
+
+
+button {
+    margin-top: 10px;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    vertical-align: middle;
+    text-decoration: none;
+    background: transparent;
+    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
+}
+
+button.btn-next {
+    width: 12rem;
+    height: auto;
+}
+
+button.btn-next .circle {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: relative;
+    display: block;
+    margin: 0;
+    width: 3rem;
+    height: 3rem;
+    background: #282936;
+    border-radius: 1.625rem;
+}
+
+button.btn-next .circle .icon {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: #fff;
+}
+
+button.btn-next .circle .icon.arrow {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    left: 0.625rem;
+    width: 1.125rem;
+    height: 0.125rem;
+    background: none;
+}
+
+button.btn-next .circle .icon.arrow::before {
+    position: absolute;
+    content: "";
+    top: -0.29rem;
+    right: 0.0625rem;
+    width: 0.625rem;
+    height: 0.625rem;
+    border-top: 0.125rem solid #fff;
+    border-right: 0.125rem solid #fff;
+    transform: rotate(45deg);
+}
+
+button.btn-next .button-text {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.75rem 0;
+    margin: 0 0 0 1.85rem;
+    color: #282936;
+    font-weight: 700;
+    line-height: 1.6;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+button:hover .circle {
+    width: 100%;
+}
+
+button:hover .circle .icon.arrow {
+    background: #fff;
+    transform: translate(1rem, 0);
+}
+
+button:hover .button-text {
+    color: #fff;
+}
+
+
+
+/* btn submit */
+.btn-submit {
+    margin-top: 10px;
+    display: inline-block;
+    padding: 12px 24px;
+    border: 1px solid #4f4f4f;
+    border-radius: 4px;
+    transition: all 0.2s ease-in;
+    position: relative;
+    overflow: hidden;
+    font-size: 19px;
+    color: black;
+    z-index: 1;
+}
+
+.btn-submit:before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) scaleY(1) scaleX(1.25);
+    top: 100%;
+    width: 140%;
+    height: 180%;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 50%;
+    display: block;
+    transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+    z-index: -1;
+}
+
+.btn-submit:after {
+    content: "";
+    position: absolute;
+    left: 55%;
+    transform: translateX(-50%) scaleY(1) scaleX(1.45);
+    top: 180%;
+    width: 160%;
+    height: 190%;
+    background-color: #d50032;
+    border-radius: 50%;
+    display: block;
+    transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+    z-index: -1;
+}
+
+.btn-submit:hover {
+    color: #ffffff;
+    border: 1px solid #d50032;
+}
+
+.btn-submit:hover:before {
+    top: -35%;
+    background-color: #d50032;
+    transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+
+.btn-submit:hover:after {
+    top: -45%;
+    background-color: #d50032;
+    transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+
+
+.btn-changeAva {
+    position: absolute;
+    bottom: 6%;
+    right: 35%;
+    z-index: 99;
+    width: 35px;
+    height: 35px;
+    background-color: #d9d5d5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.btn-changeAva i {
+    font-size: 21px;
+}
+
+
+/* Loading for button */
+.btn-custom-loading {
+    position: relative;
+    transition: all 0.3s;
+}
+
+.btn-custom-loading .loader {
+    width: 20px;
+    height: 20px;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    border-left: 3px solid transparent;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: spin 1s infinite linear forwards;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.btn-custom-loading.is-loading {
+    pointer-events: none;
+    opacity: 0.8;
+    background: #aba8a8;
+    outline: none;
+    border: none;
+}
+
+.btn-custom-loading.is-loading .loader {
+    opacity: 1;
+    visibility: visible;
+}
+
+.btn-custom-loading.is-loading span {
+    visibility: hidden;
+}
+
+@keyframes spin {
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
     }
 }

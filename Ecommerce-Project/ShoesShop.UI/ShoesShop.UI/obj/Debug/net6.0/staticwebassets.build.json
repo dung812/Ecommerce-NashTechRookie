@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "MgXy2dpeGB37wEaAd9ctBtyw5mtG0ePR2lP6mZgb2xM=",
+  "Hash": "IqrXTfGngsGzOHcZzozQQOnY0zLiHcSxBMlqSVxSZhM=",
   "Source": "ShoesShop.UI",
   "BasePath": "_content/ShoesShop.UI",
   "Mode": "Default",
@@ -100,6 +100,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\jquery-ui.css"
+    },
+    {
+      "Identity": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\images\\avatars\\ailatrieuphu.jpg",
+      "SourceId": "ShoesShop.UI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\",
+      "BasePath": "_content/ShoesShop.UI",
+      "RelativePath": "images/avatars/ailatrieuphu.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\avatars\\ailatrieuphu.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\images\\avatars\\nashtech.png",
+      "SourceId": "ShoesShop.UI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\",
+      "BasePath": "_content/ShoesShop.UI",
+      "RelativePath": "images/avatars/nashtech.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\avatars\\nashtech.png"
     },
     {
       "Identity": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.UI\\wwwroot\\images\\products\\Image\\20220731001046344.jpg",
