@@ -48,69 +48,49 @@ namespace ShoesShop.Service
 
         public bool CreateCatalog(CatalogViewModel catalogViewModel)
         {
-            try
+            Catalog catalog = new Catalog()
             {
-                Catalog catalog = new Catalog()
-                {
-                    Name = catalogViewModel.Name,
-                    Status = true
-                };
-                _context.Catalogs.Add(catalog);
-                _context.SaveChanges();
-                return true;
-            } catch (Exception)
-            {
-                return false;
-            }
+                Name = catalogViewModel.Name,
+                Status = true
+            };
+            _context.Catalogs.Add(catalog);
+            return true;
         }
 
         public bool UpdateCatalog(int catalogId, CatalogViewModel catalogViewModel)
         {
-            try
+            bool result;
+            var catalog = _context.Catalogs.Find(catalogId);
+            if (catalog != null)
             {
-                bool result;
-                var catalog = _context.Catalogs.Find(catalogId);
-                if (catalog != null)
-                {
-                    catalog.Name = catalogViewModel.Name;
+                catalog.Name = catalogViewModel.Name;
 
-                    _context.Catalogs.Update(catalog);
-                    _context.SaveChanges();
+                _context.Catalogs.Update(catalog);
+                _context.SaveChanges();
 
-                    result = true;
-                }
-                else
-                    result = false;
-                return result;
-            } catch(Exception)
-            {
-                return false;
+                result = true;
             }
+            else
+                result = false;
+            return result;
         }
 
         public bool DeleteCatalog(int catalogId)
         {
-            try
+            bool result;
+            var catalog = _context.Catalogs.Find(catalogId);
+            if (catalog != null)
             {
-                bool result;
-                var catalog = _context.Catalogs.Find(catalogId);
-                if (catalog != null)
-                {
-                    catalog.Status = false;
+                catalog.Status = false;
 
-                    _context.Catalogs.Update(catalog);
-                    _context.SaveChanges();
+                _context.Catalogs.Update(catalog);
+                _context.SaveChanges();
 
-                    result = true;
-                }
-                else
-                    result = false;
-                return result;
+                result = true;
             }
-            catch (Exception)
-            {
-                return false;
-            }
+            else
+                result = false;
+            return result;
         }
 
     }

@@ -3,6 +3,7 @@ using ShoesShop.DTO;
 using ShoesShop.Domain;
 using ShoesShop.Domain.Enum;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace ShoesShop.Service
 {
@@ -25,9 +26,11 @@ namespace ShoesShop.Service
     }
     public class OrderService : IOrderService
     {
+        private readonly IMapper _mapper;
         private readonly ApplicationDbContext _context;
-        public OrderService(ApplicationDbContext context)
+        public OrderService(IMapper mapper, ApplicationDbContext context)
         {
+            _mapper = mapper;
             _context = context;
         }
         public bool CreateNewOrder(OrderViewModel orderViewModel, int customerId, int paymentId)
@@ -86,26 +89,14 @@ namespace ShoesShop.Service
 
         public List<OrderViewModel> GetOrderListByStatus(OrderStatus status)
         {
-            List<OrderViewModel> orders = new List<OrderViewModel>();
-            orders = _context.Orders
+            var orders = _context.Orders
                 .Where(m => m.OrderStatus == status)
                 .Include(m => m.Payment)
                 .OrderByDescending(m => m.OrderDate)
-                .Select(m => new OrderViewModel
-                {
-                    OrderId = m.OrderId,
-                    OrderDate = m.OrderDate,
-                    OrderStatus = m.OrderStatus,
-                    DeliveryDate = m.DeliveryDate,
-                    OrderName = m.OrderName,
-                    Address = m.Address,
-                    Phone = m.Phone,
-                    Note = m.Note,
-                    PaymentName = m.Payment.PaymentName,
-                    TotalMoney = m.TotalMoney,
-                    TotalDiscounted = m.TotalDiscounted
-                }).ToList();
-            return orders;
+                .ToList();
+
+            var ordersDTO = _mapper.Map<List<OrderViewModel>>(orders);
+            return ordersDTO;
         }
 
         public List<OrderViewModel> GetListOrderByCustomerId(int customerId)

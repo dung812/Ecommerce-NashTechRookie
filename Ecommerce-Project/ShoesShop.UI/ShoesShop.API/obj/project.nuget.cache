@@ -1,12 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "kIHbNtasLhenNZLxg2uidrxhOZznCePqdItSIp6UVDOk195cH2k3UgJFsIOOU3/9pH9MaPGmi3PovT031sDcmQ==",
+  "dgSpecHash": "+4yGoolkShbkltLIVINOdGcYgioOTdK+pdmWKCK/ob/b9wC+gOYBx5WGP8NSNnLSgfrC4+RiblySHj+xGRD0ug==",
   "success": true,
   "projectFilePath": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.API\\ShoesShop.API.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\NguyenDung\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
+    "C:\\Users\\NguyenDung\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
     "C:\\Users\\NguyenDung\\.nuget\\packages\\jetbrains.annotations\\2022.1.0\\jetbrains.annotations.2022.1.0.nupkg.sha512",
     "C:\\Users\\NguyenDung\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.10\\microsoft.aspnetcore.authentication.jwtbearer.6.0.10.nupkg.sha512",
-    "C:\\Users\\NguyenDung\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\NguyenDung\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\NguyenDung\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "C:\\Users\\NguyenDung\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.1.1\\microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",
     "C:\\Users\\NguyenDung\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.10\\microsoft.entityframeworkcore.6.0.10.nupkg.sha512",

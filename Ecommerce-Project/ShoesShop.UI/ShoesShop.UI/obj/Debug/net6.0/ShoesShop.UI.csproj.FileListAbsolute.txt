@@ -556,3 +556,5 @@ C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Pr
 C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.UI\bin\Debug\net6.0\X.PagedList.dll
 C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.UI\bin\Debug\net6.0\X.PagedList.Mvc.Core.dll
 C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.UI\obj\Debug\net6.0\ShoesShop.UI.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.UI\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.UI\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

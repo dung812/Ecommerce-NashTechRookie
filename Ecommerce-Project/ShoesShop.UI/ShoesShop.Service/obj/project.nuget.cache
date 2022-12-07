@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "/6Lo3p4buC+DzwbqP67IPoTmXddJFJmkHS2F9Mh7v+GO73t8wFlfYy9Dmbxir9yz3vGuYFGbB8fKPt2tmFXy5g==",
+  "dgSpecHash": "PutoPbfOEeQKz+kt1zc1o7akAAmfGMCG90pZDD1CUGrhh8APBvc0wScl8j8KQCb+ODiRIvm8lLu3EVKoANg5Cw==",
   "success": true,
   "projectFilePath": "C:\\Users\\NguyenDung\\OneDrive\\Máy tính\\Assignment-Ecommerce-Rookie\\Ecommerce-Project\\ShoesShop.UI\\ShoesShop.Service\\ShoesShop.Service.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\NguyenDung\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
+    "C:\\Users\\NguyenDung\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
     "C:\\Users\\NguyenDung\\.nuget\\packages\\jetbrains.annotations\\2022.1.0\\jetbrains.annotations.2022.1.0.nupkg.sha512",
-    "C:\\Users\\NguyenDung\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\NguyenDung\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\NguyenDung\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "C:\\Users\\NguyenDung\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.1.1\\microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",
     "C:\\Users\\NguyenDung\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.10\\microsoft.entityframeworkcore.6.0.10.nupkg.sha512",

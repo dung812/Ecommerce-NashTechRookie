@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="8.4.3" />
   </ItemGroup>
 
@@ -14,6 +15,10 @@
     <ProjectReference Include="..\ShoesShop.Data\ShoesShop.Data.csproj" />
     <ProjectReference Include="..\ShoesShop.Domain\ShoesShop.Domain.csproj" />
     <ProjectReference Include="..\ShoesShop.DTO\ShoesShop.DTO.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="NewService\" />
   </ItemGroup>
 
 </Project>
