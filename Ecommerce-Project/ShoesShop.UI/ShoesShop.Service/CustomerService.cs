@@ -22,6 +22,7 @@ namespace ShoesShop.Service
 
         public Customer ValidateCustomerAccount(string email, string password);
         public void ChangePassword(int customerId, string newPassword);
+        public void ResetPassword(int customerId, string newPassword);
 
         // Token
         public List<ForgotPassword> GetListTokenCustomerByEmail(string email);
@@ -154,7 +155,20 @@ namespace ShoesShop.Service
                     context.SaveChanges();
                 }
             }
-                
+        }        
+        public void ResetPassword(int customerId, string newPassword)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var customer = context.Customers.FirstOrDefault(m => m.CustomerId == customerId);
+                if (customer != null)
+                {
+                    customer.Password = newPassword;
+                    customer.IsNewRegister = false;
+                    customer.IsLockedFirstLogin = false;
+                    context.SaveChanges();
+                }
+            }
         }
 
 
@@ -252,7 +266,11 @@ namespace ShoesShop.Service
             {
                 var customer = context.Customers.Find(customerId);
                 if (customer?.IsNewRegister == true)
+                {
+                    customer.IsLockedFirstLogin = true;
+                    context.SaveChanges();
                     result = true;
+                }    
                 else
                     result = false;
             }
@@ -271,6 +289,8 @@ namespace ShoesShop.Service
                     customer.FirstName = firstChangePasswordViewModel.FirstName;
                     customer.LastName = firstChangePasswordViewModel.LastName;
                     customer.IsNewRegister = false;
+
+                    customer.IsLockedFirstLogin = false;
                     context.SaveChanges();
                 }
             }

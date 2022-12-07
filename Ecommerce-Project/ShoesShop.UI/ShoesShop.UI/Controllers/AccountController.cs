@@ -55,6 +55,16 @@ namespace ShoesShop.UI.Controllers
 
             if(checkAccount != null)
             {
+                if (checkAccount.IsLockedFirstLogin == true)
+                {
+                    TempData["error"] = "Your account was locked because you didn't change password in the first login. Use forgot password to unlock!";
+                    return RedirectToAction("LoginRegistration");
+                }                
+                if (checkAccount.Status == false)
+                {
+                    TempData["error"] = "Your account was locked!";
+                    return RedirectToAction("LoginRegistration");
+                }
                 var parseCustomerInfo = JsonConvert.SerializeObject(checkAccount);
                 HttpContext.Session.SetString("CustomerInfo", parseCustomerInfo);
                 return RedirectToAction("Index", "Home");
@@ -170,7 +180,7 @@ namespace ShoesShop.UI.Controllers
 
             if (checkToken != null)
             {
-                customerService.ChangePassword(customerId, newPassword);
+                customerService.ResetPassword(customerId, newPassword);
 
                 // Set token false to unactive token
                 customerService.ActiveToken(token);

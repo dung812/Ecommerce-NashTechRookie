@@ -179,10 +179,6 @@ namespace ShoesShop.UI.Controllers
                             objFile.CopyTo(fileStream);
                             fileStream.Flush();
 
-                            // Update customer info session
-                            //var parseCustomerInfo = JsonConvert.SerializeObject(customerAfterUpdate);
-                            //HttpContext.Session.SetString("CustomerInfo", parseCustomerInfo);
-
                             return Json(new { status = true, msg = "Successs" });
                         };
                     }
