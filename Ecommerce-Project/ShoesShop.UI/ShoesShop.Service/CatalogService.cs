@@ -19,30 +19,29 @@ namespace ShoesShop.Service
     }
     public class CatalogService : ICatalogService
     {
+        private readonly ApplicationDbContext _context;
+        public CatalogService(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         public List<CatalogViewModel> GetAllCatalog()
         {
             List<CatalogViewModel> catalogs = new List<CatalogViewModel>();
-            using (var context = new ApplicationDbContext())
+            catalogs = _context.Catalogs.Where(m => m.Status).Select(m => new CatalogViewModel
             {
-                catalogs = context.Catalogs.Where(m => m.Status).Select(m => new CatalogViewModel
-                {
-                    CatalogId = m.CatalogId,
-                    Name = m.Name,
-                }).ToList();
-            }
+                CatalogId = m.CatalogId,
+                Name = m.Name,
+            }).ToList();
             return catalogs;
         }
         public CatalogViewModel GetCatalogById(int catalogId)
         {
             CatalogViewModel catalogViewModel = new CatalogViewModel();
-            using (var context = new ApplicationDbContext())
+            var catalog = _context.Catalogs.FirstOrDefault(m => m.CatalogId == catalogId && m.Status);
+            if (catalog != null)
             {
-                var catalog = context.Catalogs.FirstOrDefault(m => m.CatalogId == catalogId && m.Status);
-                if (catalog != null)
-                {
-                    catalogViewModel.CatalogId = catalog.CatalogId;
-                    catalogViewModel.Name = catalog.Name;
-                }
+                catalogViewModel.CatalogId = catalog.CatalogId;
+                catalogViewModel.Name = catalog.Name;
             }
             return catalogViewModel;
         }
@@ -56,11 +55,8 @@ namespace ShoesShop.Service
                     Name = catalogViewModel.Name,
                     Status = true
                 };
-                using (var context = new ApplicationDbContext())
-                {
-                    context.Catalogs.Add(catalog);
-                    context.SaveChanges();
-                }
+                _context.Catalogs.Add(catalog);
+                _context.SaveChanges();
                 return true;
             } catch (Exception)
             {
@@ -73,21 +69,18 @@ namespace ShoesShop.Service
             try
             {
                 bool result;
-                using (var context = new ApplicationDbContext())
+                var catalog = _context.Catalogs.Find(catalogId);
+                if (catalog != null)
                 {
-                    var catalog = context.Catalogs.Find(catalogId);
-                    if (catalog != null)
-                    {
-                        catalog.Name = catalogViewModel.Name;
+                    catalog.Name = catalogViewModel.Name;
 
-                        context.Catalogs.Update(catalog);
-                        context.SaveChanges();
+                    _context.Catalogs.Update(catalog);
+                    _context.SaveChanges();
 
-                        result = true;
-                    }
-                    else
-                        result = false;
+                    result = true;
                 }
+                else
+                    result = false;
                 return result;
             } catch(Exception)
             {
@@ -100,21 +93,18 @@ namespace ShoesShop.Service
             try
             {
                 bool result;
-                using (var context = new ApplicationDbContext())
+                var catalog = _context.Catalogs.Find(catalogId);
+                if (catalog != null)
                 {
-                    var catalog = context.Catalogs.Find(catalogId);
-                    if (catalog != null)
-                    {
-                        catalog.Status = false;
+                    catalog.Status = false;
 
-                        context.Catalogs.Update(catalog);
-                        context.SaveChanges();
+                    _context.Catalogs.Update(catalog);
+                    _context.SaveChanges();
 
-                        result = true;
-                    }
-                    else
-                        result = false;
+                    result = true;
                 }
+                else
+                    result = false;
                 return result;
             }
             catch (Exception)

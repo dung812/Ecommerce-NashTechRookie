@@ -24,53 +24,51 @@ namespace ShoesShop.Service
     }
     public class AdminService : IAdminService
     {
+        private readonly ApplicationDbContext _context;
+        public AdminService(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         public List<AdminViewModel> GetAllAdmin()
         {
             var Admins = new List<AdminViewModel>();
-            using (var context = new ApplicationDbContext())
-            {
-                Admins = context.Admins
-                    .Where(m => m.Status)
-                    .Include(m => m.Role)
-                    .Select(m => new AdminViewModel
-                    {
-                        AdminId = m.AdminId,
-                        UserName = m.UserName,
-                        Avatar = m.Avatar,
-                        FirstName = m.FirstName,
-                        LastName = m.LastName,
-                        Email = m.Email,
-                        Phone = m.Phone,
-                        Birthday = m.Birthday,
-                        Gender = m.Gender == Gender.Men ? "Men" : "Women",
-                        RegisteredDate = m.RegisteredDate,
-                        RoleName = m.Role.RoleName
-                    }).ToList();
-            }
+            Admins = _context.Admins
+                .Where(m => m.Status)
+                .Include(m => m.Role)
+                .Select(m => new AdminViewModel
+                {
+                    AdminId = m.AdminId,
+                    UserName = m.UserName,
+                    Avatar = m.Avatar,
+                    FirstName = m.FirstName,
+                    LastName = m.LastName,
+                    Email = m.Email,
+                    Phone = m.Phone,
+                    Birthday = m.Birthday,
+                    Gender = m.Gender == Gender.Men ? "Men" : "Women",
+                    RegisteredDate = m.RegisteredDate,
+                    RoleName = m.Role.RoleName
+                }).ToList();
             return Admins;
         }
 
         public AdminViewModel GetAdminById(int adminId)
         {
             AdminViewModel adminViewModel = new AdminViewModel();
-            using (var context = new ApplicationDbContext())
+            var admin = _context.Admins.Find(adminId);
+            if (admin != null)
             {
-                var admin = context.Admins.Find(adminId);
-                if (admin!= null)
-                {
-                    adminViewModel.AdminId = admin.AdminId;
-                    adminViewModel.UserName = admin.UserName;
-                    adminViewModel.Avatar = admin.Avatar;
-                    adminViewModel.FirstName = admin.FirstName;
-                    adminViewModel.LastName = admin.LastName;
-                    adminViewModel.Email = admin.Email;
-                    adminViewModel.Phone = admin.Phone;
-                    adminViewModel.Birthday = admin.Birthday;
-                    adminViewModel.Gender = admin.Gender == Gender.Men ? "Men" : "Women";
-                    adminViewModel.RegisteredDate = admin.RegisteredDate;
-                    adminViewModel.RoleId = admin.RoleId;
-                }    
-
+                adminViewModel.AdminId = admin.AdminId;
+                adminViewModel.UserName = admin.UserName;
+                adminViewModel.Avatar = admin.Avatar;
+                adminViewModel.FirstName = admin.FirstName;
+                adminViewModel.LastName = admin.LastName;
+                adminViewModel.Email = admin.Email;
+                adminViewModel.Phone = admin.Phone;
+                adminViewModel.Birthday = admin.Birthday;
+                adminViewModel.Gender = admin.Gender == Gender.Men ? "Men" : "Women";
+                adminViewModel.RegisteredDate = admin.RegisteredDate;
+                adminViewModel.RoleId = admin.RoleId;
             }
             return adminViewModel;
         }
@@ -78,35 +76,29 @@ namespace ShoesShop.Service
         public AdminViewModel AuthenticateAdmin(LoginViewModel loginViewModel)
         {
             var admin = new AdminViewModel();
-            using (var context = new ApplicationDbContext())
-            {
-                admin = context.Admins
-                    .Where(m => m.UserName == loginViewModel.UserName && m.Password == loginViewModel.Password)
-                    .Include(m => m.Role)
-                    .Select(m => new AdminViewModel
-                    {
-                        AdminId = m.AdminId,
-                        UserName = m.UserName,
-                        Avatar = m.Avatar,
-                        FirstName = m.FirstName,
-                        LastName = m.LastName,
-                        Email = m.Email,
-                        Phone = m.Phone,
-                        Birthday = m.Birthday,
-                        Gender = m.Gender == Gender.Men ? "Men" : "Women",
-                        RoleName = m.Role.RoleName
-                    }).FirstOrDefault();
-            }
+            admin = _context.Admins
+                .Where(m => m.UserName == loginViewModel.UserName && m.Password == loginViewModel.Password)
+                .Include(m => m.Role)
+                .Select(m => new AdminViewModel
+                {
+                    AdminId = m.AdminId,
+                    UserName = m.UserName,
+                    Avatar = m.Avatar,
+                    FirstName = m.FirstName,
+                    LastName = m.LastName,
+                    Email = m.Email,
+                    Phone = m.Phone,
+                    Birthday = m.Birthday,
+                    Gender = m.Gender == Gender.Men ? "Men" : "Women",
+                    RoleName = m.Role.RoleName
+                }).FirstOrDefault();
             return admin;
         }
 
         public bool CheckExistUserName(string username)
         {
             var admin = new Admin();
-            using (var context = new ApplicationDbContext())
-            {
-                admin = context.Admins.FirstOrDefault(m => m.UserName == username);
-            }
+            admin = _context.Admins.FirstOrDefault(m => m.UserName == username);
             return admin != null;
         }
 
@@ -133,11 +125,8 @@ namespace ShoesShop.Service
                     Status = true,
                     RoleId = adminViewModel.RoleId
                 };
-                using (var context = new ApplicationDbContext())
-                {
-                    context.Admins.Add(admin);
-                    context.SaveChanges();
-                }
+                _context.Admins.Add(admin);
+                _context.SaveChanges();
                 return true;
             }
             catch (Exception)
@@ -151,28 +140,25 @@ namespace ShoesShop.Service
             try
             {
                 bool result;
-                using (var context = new ApplicationDbContext())
+                var admin = _context.Admins.Find(adminId);
+                if (admin != null)
                 {
-                    var admin = context.Admins.Find(adminId);
-                    if (admin != null)
-                    {
-                        admin.FirstName = adminViewModel.FirstName;
-                        admin.LastName = adminViewModel.LastName;
-                        admin.Email = adminViewModel.Email;
-                        admin.Phone = adminViewModel.Phone;
-                        admin.Birthday = adminViewModel.Birthday;
-                        admin.Gender = adminViewModel.Gender == "Men" ? Gender.Men : Gender.Women;
-                        admin.Avatar = adminViewModel.Avatar;
-                        admin.RoleId = adminViewModel.RoleId;
+                    admin.FirstName = adminViewModel.FirstName;
+                    admin.LastName = adminViewModel.LastName;
+                    admin.Email = adminViewModel.Email;
+                    admin.Phone = adminViewModel.Phone;
+                    admin.Birthday = adminViewModel.Birthday;
+                    admin.Gender = adminViewModel.Gender == "Men" ? Gender.Men : Gender.Women;
+                    admin.Avatar = adminViewModel.Avatar;
+                    admin.RoleId = adminViewModel.RoleId;
 
-                        context.Admins.Update(admin);
-                        context.SaveChanges();
+                    _context.Admins.Update(admin);
+                    _context.SaveChanges();
 
-                        result = true;
-                    }
-                    else
-                        result = false;
+                    result = true;
                 }
+                else
+                    result = false;
                 return result;
             }
             catch (Exception)
@@ -186,21 +172,18 @@ namespace ShoesShop.Service
             try
             {
                 bool result;
-                using (var context = new ApplicationDbContext())
+                var admin = _context.Admins.Find(adminId);
+                if (admin != null)
                 {
-                    var admin = context.Admins.Find(adminId);
-                    if (admin != null)
-                    {
-                        admin.Status = false;
+                    admin.Status = false;
 
-                        context.Admins.Update(admin);
-                        context.SaveChanges();
+                    _context.Admins.Update(admin);
+                    _context.SaveChanges();
 
-                        result = true;
-                    }
-                    else
-                        result = false;
+                    result = true;
                 }
+                else
+                    result = false;
                 return result;
             }
             catch (Exception)

@@ -10,6 +10,11 @@ namespace ShoesShop.Service
     }
     public class ContactService : IContactService
     {
+        private readonly ApplicationDbContext _context;
+        public ContactService(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         public void Create(ContactViewModel contactViewModel)
         {
             Contact contact = new Contact()
@@ -21,11 +26,8 @@ namespace ShoesShop.Service
                 DateContact = DateTime.Now,
             };
 
-            using (var context = new ApplicationDbContext())
-            {
-                context.Contacts.Add(contact);
-                context.SaveChanges();
-            }
+            _context.Contacts.Add(contact);
+            _context.SaveChanges();
         }
     }
 }

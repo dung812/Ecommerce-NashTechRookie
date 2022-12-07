@@ -25,6 +25,7 @@ namespace ShoesShop.DTO
         public string? CatalogName { get; set; }
         public string? AdminCreate { get; set; }
         public DateTime DateCreate { get; set; }
+        public DateTime? UpdateDate { get; set; }
         public int Income { get; set; } //  Tổng doanh thu sản phẩm
         public int AvgStar { get; set; } // Trung bình số sao đánh giá
         public int TotalComment { get; set; } // Tổng số lượt đánh giá

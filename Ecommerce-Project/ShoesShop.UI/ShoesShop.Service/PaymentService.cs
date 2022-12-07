@@ -16,17 +16,19 @@ namespace ShoesShop.Service
     }
     public class PaymentService : IPaymentService
     {
+        private readonly ApplicationDbContext _context;
+        public PaymentService(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         public List<PaymentViewModel> GetAllPayment()
         {
             List<PaymentViewModel> list = new List<PaymentViewModel>();
-            using (var context = new ApplicationDbContext())
+            list = _context.Payments.Where(m => m.Status).Select(m => new PaymentViewModel
             {
-                list = context.Payments.Where(m => m.Status).Select(m => new PaymentViewModel
-                {
-                    PaymentId = m.PaymentId,
-                    PaymentName = m.PaymentName,
-                }).ToList();
-            }
+                PaymentId = m.PaymentId,
+                PaymentName = m.PaymentName,
+            }).ToList();
             return list;
         }
     }

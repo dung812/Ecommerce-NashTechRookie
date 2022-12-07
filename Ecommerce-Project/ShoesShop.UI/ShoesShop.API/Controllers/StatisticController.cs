@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Domain.Enum;
 using ShoesShop.DTO;
-using ShoesShop.Service;
+using ShoesShop.Service.NewService;
 
 namespace ShoesShop.API.Controllers
 {

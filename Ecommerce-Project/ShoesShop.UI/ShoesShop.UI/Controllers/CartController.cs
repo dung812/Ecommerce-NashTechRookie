@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using NuGet.Common;
+using ShoesShop.Data;
 using ShoesShop.Domain;
 using ShoesShop.DTO;
 using ShoesShop.Service;
@@ -17,12 +18,17 @@ namespace ShoesShop.UI.Controllers
         private readonly ICustomerAddressService customerAddressService;
         private readonly IPaymentService paymentService;
         private readonly IOrderService orderService;
-        public CartController(IWebHostEnvironment hostEnvironment, ICustomerAddressService customerAddressService, IPaymentService paymentService, IOrderService orderService)
+        private readonly IProductService productService;
+
+        private readonly ApplicationDbContext applicationDbContext;
+        public CartController(IWebHostEnvironment hostEnvironment, ICustomerAddressService customerAddressService, IPaymentService paymentService, IOrderService orderService, IProductService productService, ApplicationDbContext applicationDbContext)
         {
             this.hostEnvironment = hostEnvironment;
             this.customerAddressService = customerAddressService;
             this.paymentService = paymentService;
             this.orderService = orderService;
+            this.productService = productService;
+            this.applicationDbContext = applicationDbContext;
         }
 
         public List<CartViewModel> GetCartSession() // Create list cart and save in session 
@@ -109,7 +115,10 @@ namespace ShoesShop.UI.Controllers
 
             if (item == null)
             {
-                item = new CartViewModel(productId, quantity, attributeId);
+                var product = productService.GetProductById(productId);
+                var attribute = productService.GetAttributeById(attributeId);
+
+                item = new CartViewModel(product, attribute, quantity);
                 if (listCart.Count() == 0)
                     item.ItemId = 1;
                 else

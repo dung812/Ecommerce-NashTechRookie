@@ -15,32 +15,31 @@ namespace ShoesShop.Service
     }
     public class ManufactureService : IManufactureService
     {
+        private readonly ApplicationDbContext _context;
+        public ManufactureService(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         public List<ManufactureViewModel> GetAllManufacture()
         {
             List<ManufactureViewModel> manufactures = new List<ManufactureViewModel>();
-            using (var context = new ApplicationDbContext())
+            manufactures = _context.Manufactures.Where(m => m.Status).Select(m => new ManufactureViewModel
             {
-                manufactures = context.Manufactures.Where(m => m.Status).Select(m => new ManufactureViewModel
-                {
-                    ManufactureId = m.ManufactureId,
-                    Name = m.Name,
-                    Logo = m.Logo, 
-                }).ToList();
-            }
+                ManufactureId = m.ManufactureId,
+                Name = m.Name,
+                Logo = m.Logo,
+            }).ToList();
             return manufactures;
         }
         public ManufactureViewModel GetManufactureById(int manufactureId)
         {
             ManufactureViewModel manufactureViewModel = new ManufactureViewModel();
-            using (var context = new ApplicationDbContext())
+            var manufacture = _context.Manufactures.FirstOrDefault(m => m.ManufactureId == manufactureId && m.Status);
+            if (manufacture != null)
             {
-                var manufacture = context.Manufactures.FirstOrDefault(m => m.ManufactureId == manufactureId && m.Status);
-                if (manufacture != null)
-                {
-                    manufactureViewModel.ManufactureId = manufacture.ManufactureId;
-                    manufactureViewModel.Name = manufacture.Name;
-                    manufactureViewModel.Logo = manufacture.Logo;
-                }
+                manufactureViewModel.ManufactureId = manufacture.ManufactureId;
+                manufactureViewModel.Name = manufacture.Name;
+                manufactureViewModel.Logo = manufacture.Logo;
             }
             return manufactureViewModel;
         }
@@ -56,11 +55,8 @@ namespace ShoesShop.Service
                     Logo = manufactureViewModel.Logo,
                     Status = true
                 };
-                using (var context = new ApplicationDbContext())
-                {
-                    context.Manufactures.Add(manufacture);
-                    context.SaveChanges();
-                }
+                _context.Manufactures.Add(manufacture);
+                _context.SaveChanges();
                 return true;
             }
             catch (Exception)
@@ -73,22 +69,19 @@ namespace ShoesShop.Service
             try
             {
                 bool result;
-                using (var context = new ApplicationDbContext())
+                var manufacture = _context.Manufactures.Find(manufactureId);
+                if (manufacture != null)
                 {
-                    var manufacture = context.Manufactures.Find(manufactureId);
-                    if (manufacture != null)
-                    {
-                        manufacture.Name = manufactureViewModel.Name;
-                        manufacture.Logo = manufactureViewModel.Logo;
+                    manufacture.Name = manufactureViewModel.Name;
+                    manufacture.Logo = manufactureViewModel.Logo;
 
-                        context.Manufactures.Update(manufacture);
-                        context.SaveChanges();
+                    _context.Manufactures.Update(manufacture);
+                    _context.SaveChanges();
 
-                        result = true;
-                    }
-                    else
-                        result = false;
+                    result = true;
                 }
+                else
+                    result = false;
                 return result;
             }
             catch (Exception)
@@ -101,21 +94,18 @@ namespace ShoesShop.Service
             try
             {
                 bool result;
-                using (var context = new ApplicationDbContext())
+                var manufacture = _context.Manufactures.Find(manufactureId);
+                if (manufacture != null)
                 {
-                    var manufacture = context.Manufactures.Find(manufactureId);
-                    if (manufacture != null)
-                    {
-                        manufacture.Status = false;
+                    manufacture.Status = false;
 
-                        context.Manufactures.Update(manufacture);
-                        context.SaveChanges();
+                    _context.Manufactures.Update(manufacture);
+                    _context.SaveChanges();
 
-                        result = true;
-                    }
-                    else
-                        result = false;
+                    result = true;
                 }
+                else
+                    result = false;
                 return result;
             }
             catch (Exception)

@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using ShoesShop.Data;
 using ShoesShop.Service;
 using System.Text;
 
@@ -41,11 +43,10 @@ builder.Services.AddCors(options =>
                           policy.AllowAnyHeader();
                       });
 });
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy("CorsPolicy", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials().Build());
-//});
 
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
+    builder.Configuration.GetConnectionString("DefaultConnection")
+ ));
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

@@ -17,36 +17,35 @@ namespace ShoesShop.Service
     }
     public class CommentProductService : ICommentProductService
     {
+        private readonly ApplicationDbContext _context;
+        public CommentProductService(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         public List<CommentProductViewModel> GetListCommentOfProductById(int productId)
         {
             List<CommentProductViewModel> comments = new List<CommentProductViewModel>();
-            using (var context = new ApplicationDbContext())
-            {
-                comments = context.CommentProducts
-                    .Where(p => p.ProductId == productId)
-                    .Include(m => m.Customer)
-                    .Select(m => new CommentProductViewModel
-                    {
-                        FirstName = m.Customer.FirstName,
-                        LastName = m.Customer.LastName,
-                        Avatar = m.Customer.Avatar,
-                        Star = m.Star,
-                        Content = m.Content,
-                        Date = m.Date
-                    }).ToList();
-            }
+            comments = _context.CommentProducts
+                .Where(p => p.ProductId == productId)
+                .Include(m => m.Customer)
+                .Select(m => new CommentProductViewModel
+                {
+                    FirstName = m.Customer.FirstName,
+                    LastName = m.Customer.LastName,
+                    Avatar = m.Customer.Avatar,
+                    Star = m.Star,
+                    Content = m.Content,
+                    Date = m.Date
+                }).ToList();
             return comments;
         }
 
         public bool CheckCustomerCommentYet(int productId, int customerId)
         {
             var result = false;
-            using (var context = new ApplicationDbContext())
-            {
-                var countCommentOfCustomer = context.CommentProducts.Where(m => m.ProductId == productId && m.CustomerId == customerId).Count();
-                if (countCommentOfCustomer >= 1)
-                    result = true;
-            }
+            var countCommentOfCustomer = _context.CommentProducts.Where(m => m.ProductId == productId && m.CustomerId == customerId).Count();
+            if (countCommentOfCustomer >= 1)
+                result = true;
             return result;
         }
 
@@ -54,19 +53,16 @@ namespace ShoesShop.Service
         {
             try
             {
-                using (var context = new ApplicationDbContext())
-                {
-                    CommentProduct commentProduct = new CommentProduct();
-                    commentProduct.ProductId = productId;
-                    commentProduct.CustomerId = customerId;
-                    commentProduct.Star = star;
-                    commentProduct.Content = content;
-                    commentProduct.Date = DateTime.Now;
-                    commentProduct.Status = true;
+                CommentProduct commentProduct = new CommentProduct();
+                commentProduct.ProductId = productId;
+                commentProduct.CustomerId = customerId;
+                commentProduct.Star = star;
+                commentProduct.Content = content;
+                commentProduct.Date = DateTime.Now;
+                commentProduct.Status = true;
 
-                    context.CommentProducts.Add(commentProduct);
-                    context.SaveChanges();
-                }
+                _context.CommentProducts.Add(commentProduct);
+                _context.SaveChanges();
 
                 return true;
             } catch(Exception)

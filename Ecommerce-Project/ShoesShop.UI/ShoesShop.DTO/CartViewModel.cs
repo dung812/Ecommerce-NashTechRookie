@@ -10,7 +10,8 @@ namespace ShoesShop.DTO
 {
     public class CartViewModel
     {
-        ApplicationDbContext context = new ApplicationDbContext();
+        private readonly ApplicationDbContext _context;
+
         public int ItemId { get; set; }
         public int ProductId { get; set; }
         public string NameItem { get; set; }
@@ -34,15 +35,13 @@ namespace ShoesShop.DTO
         {
 
         }
-        public CartViewModel(int idProduct, int quantity, int attributeId)
-        {
-            var attribute = context.AttributeValues.FirstOrDefault(model => model.AttributeValueId == attributeId);
-            var product = context.Products.FirstOrDefault(model => model.ProductId == idProduct);
 
+        public CartViewModel(ProductViewModel product, AttributeValue attribute, int quantity)
+        {
             if (attribute != null && product != null)
             {
                 this.ItemId = 0;
-                this.ProductId = idProduct;
+                this.ProductId = product.ProductId;
                 this.NameItem = product.ProductName;
                 this.ImageItem = product.ImageFileName;
                 this.AttributeId = attribute.AttributeValueId;

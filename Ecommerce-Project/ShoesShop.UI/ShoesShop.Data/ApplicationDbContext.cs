@@ -12,6 +12,10 @@ namespace ShoesShop.Data
 {
     public class ApplicationDbContext : DbContext
     {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options)
+        {
+        }        
         public virtual DbSet<Activity> Activities { get; set; } = null!;
         public virtual DbSet<Admin> Admins { get; set; } = null!;
         public DbSet<ShoesShop.Domain.Attribute> Attributes { get; set; } = null!;
@@ -33,17 +37,6 @@ namespace ShoesShop.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=LAPTOP-76M9FLCU\\NTDUNG;Database=ShoesShopAssignment;Trusted_Connection=True;");
-                //.LogTo(Console.WriteLine, new[]
-                //{
-                //    DbLoggerCategory.Model.Name,
-                //    DbLoggerCategory.Database.Command.Name,
-                //    DbLoggerCategory.Database.Transaction.Name,
-                //    DbLoggerCategory.Query.Name,
-                //    DbLoggerCategory.ChangeTracking.Name,
-                //},
-                //    LogLevel.Information)
-                //.EnableSensitiveDataLogging();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
