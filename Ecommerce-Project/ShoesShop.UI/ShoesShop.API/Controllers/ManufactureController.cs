@@ -19,25 +19,24 @@ namespace ShoesShop.API.Controllers
 
 
         // GET: api/Manufacture
-        [AllowAnonymous]
         [HttpGet]
-        public ActionResult<IEnumerable<ManufactureViewModel>> GetManufactures()
+        public IActionResult GetManufactures()
         {
             List<ManufactureViewModel> manufactures = manufactureService.GetAllManufacture();
-            return manufactures;
+            return Ok(manufactures);
         }
 
         // GET: api/Manufacture/1
         [HttpGet("{id}")]
-        public ActionResult<ManufactureViewModel> GetManufacture(int id)
+        public IActionResult GetManufacture(int id)
         {
             ManufactureViewModel manufacture = manufactureService.GetManufactureById(id);
-            return manufacture;
+            return Ok(manufacture);
         }
 
         // POST: api/Manufacture
         [HttpPost]
-        public ActionResult CreateManufacture(ManufactureViewModel manufactureViewModel)
+        public IActionResult CreateManufacture(ManufactureViewModel manufactureViewModel)
         {
             var status = manufactureService.CreateManufacture(manufactureViewModel);
             return status ? Ok() : BadRequest();
@@ -45,7 +44,7 @@ namespace ShoesShop.API.Controllers
 
         // PUT: api/Manufacture/1
         [HttpPut("{id}")]
-        public ActionResult UpdateManufacture(int id, ManufactureViewModel manufactureViewModel)
+        public IActionResult UpdateManufacture(int id, ManufactureViewModel manufactureViewModel)
         {
             var status = manufactureService.UpdateManufacture(id, manufactureViewModel);
             return status ? Ok() : BadRequest();
@@ -53,7 +52,7 @@ namespace ShoesShop.API.Controllers
 
         // DELETE: api/Manufacture/1
         [HttpDelete("{id}")]
-        public ActionResult DeleteManufacture(int id)
+        public IActionResult DeleteManufacture(int id)
         {
             var status = manufactureService.DeleteManufacture(id);
             return status ? Ok() : BadRequest();

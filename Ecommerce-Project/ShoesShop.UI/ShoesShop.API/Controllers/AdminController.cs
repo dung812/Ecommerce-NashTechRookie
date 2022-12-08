@@ -18,23 +18,23 @@ namespace ShoesShop.API.Controllers
 
         // GET: api/Admin
         [HttpGet]
-        public ActionResult<IEnumerable<AdminViewModel>> GetAdmins()
+        public IActionResult GetAdmins()
         {
-            List<AdminViewModel> admins = adminService.GetAllAdmin();
-            return admins;
+            var admins = adminService.GetAllAdmin();
+            return Ok(admins);
         }
 
         // GET: api/Admin/1
         [HttpGet("{id}")]
-        public ActionResult<AdminViewModel> GetAdmin(int id)
+        public IActionResult GetAdmin(int id)
         {
             AdminViewModel admin = adminService.GetAdminById(id);
-            return admin;
+            return Ok(admin);
         }
 
         // POST: api/Admin
         [HttpPost]
-        public ActionResult CreateAdmin(AdminViewModel adminViewModel)
+        public IActionResult CreateAdmin(AdminViewModel adminViewModel)
         {
             var status = adminService.CreateAdmin(adminViewModel);
             return status ? Ok() : BadRequest();
@@ -42,7 +42,7 @@ namespace ShoesShop.API.Controllers
 
         // PUT: api/Admin/1
         [HttpPut("{id}")]
-        public ActionResult UpdateAdmin(int id, AdminViewModel adminViewModel)
+        public IActionResult UpdateAdmin(int id, AdminViewModel adminViewModel)
         {
             var status = adminService.UpdateAdmin(id, adminViewModel);
             return status ? Ok() : BadRequest();
@@ -50,7 +50,7 @@ namespace ShoesShop.API.Controllers
 
         // DELETE: api/Admin/1
         [HttpDelete("{id}")]
-        public ActionResult DeleteAdmin(int id)
+        public IActionResult DeleteAdmin(int id)
         {
             var status = adminService.DeleteAdmin(id);
             return status ? Ok() : BadRequest();

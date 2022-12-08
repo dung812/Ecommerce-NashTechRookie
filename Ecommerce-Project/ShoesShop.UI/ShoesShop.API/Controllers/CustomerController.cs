@@ -17,10 +17,10 @@ namespace ShoesShop.API.Controllers
 
         // GET: api/Customer
         [HttpGet]
-        public ActionResult<IEnumerable<CustomerViewModel>> GetCustomers()
+        public IActionResult GetCustomers()
         {
             List<CustomerViewModel> customers = customerService.GetAllCustomer();
-            return customers;
+            return Ok(customers);
         }
     }
 }

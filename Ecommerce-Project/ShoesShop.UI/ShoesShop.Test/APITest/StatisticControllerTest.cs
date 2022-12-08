@@ -14,6 +14,7 @@ using AutoMapper;
 using ShoesShop.API.Mapper;
 using ShoesShop.DTO;
 using ShoesShop.API.Controllers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ShoesShop.Test.APITest
 {
@@ -48,9 +49,11 @@ namespace ShoesShop.Test.APITest
             var result = controller.GetStatisticCardNumber();
 
             // Assert
-            Assert.IsType<List<StatisticNumberViewModel>>(result.Value);
-            Assert.Equal(listStatisticCard.Count, result?.Value?.Count);
-        }        
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var returnValue = Assert.IsType<List<StatisticNumberViewModel>>(okResult.Value);
+            Assert.Equal(listStatisticCard.Count, returnValue?.Count);
+        }
+
         [Fact]
         public void GetRecentOrdersAPI_ShouldReturnListOrderDTOHaveDateOrderIsToday()
         {
@@ -65,8 +68,10 @@ namespace ShoesShop.Test.APITest
             var result = controller.GetRecentOrder();
 
             // Assert
-            Assert.IsType<List<OrderViewModel>>(result.Value);
-            Assert.Equal(listOrder.Count, result?.Value?.Count); // Check total item in list compare fake list
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var returnValue = Assert.IsType<List<OrderViewModel>>(okResult.Value);
+            Assert.Equal(listOrder.Count, returnValue?.Count); // Check total item in list compare fake list
+            Assert.Equal(DateTime.Today, returnValue?.FirstOrDefault().OrderDate.Date); // Check date of item
         }
     }
 }

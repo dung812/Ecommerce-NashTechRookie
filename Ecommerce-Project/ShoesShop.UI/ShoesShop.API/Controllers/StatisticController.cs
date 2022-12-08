@@ -16,16 +16,16 @@ namespace ShoesShop.API.Controllers
         }
 
         [HttpGet("GetStatisticCardNumber")]
-        public ActionResult<List<StatisticNumberViewModel>> GetStatisticCardNumber()
+        public IActionResult GetStatisticCardNumber()
         {
             var list = statisticService.GetStatisticNumber();
-            return list;
+            return Ok(list);
         }        
         [HttpGet("GetRecentOrder")]
-        public ActionResult<List<OrderViewModel>> GetRecentOrder()
+        public IActionResult GetRecentOrder()
         {
             var list = statisticService.GetRecentOrders();
-            return list;
+            return Ok(list);
         }
     }
 }

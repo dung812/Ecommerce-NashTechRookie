@@ -20,23 +20,23 @@ namespace ShoesShop.API.Controllers
 
         // GET: api/Catalog
         [HttpGet]
-        public ActionResult<IEnumerable<CatalogViewModel>> GetCatalogs()
+        public IActionResult GetCatalogs()
         {
             List<CatalogViewModel> catalogs = catalogService.GetAllCatalog();
-            return catalogs;
+            return Ok(catalogs);
         }
 
         // GET: api/Catalog/1
         [HttpGet("{id}")]
-        public ActionResult<CatalogViewModel> GetCatalog(int id)
+        public IActionResult GetCatalog(int id)
         {
             CatalogViewModel catalog = catalogService.GetCatalogById(id);
-            return catalog;
+            return Ok(catalog);
         }
 
         // POST: api/Catalog
         [HttpPost]
-        public ActionResult CreateCatalog(CatalogViewModel catalogViewModel)
+        public IActionResult CreateCatalog(CatalogViewModel catalogViewModel)
         {
             var status = catalogService.CreateCatalog(catalogViewModel);
             return status ? Ok() : BadRequest();
@@ -44,7 +44,7 @@ namespace ShoesShop.API.Controllers
 
         // PUT: api/Catalog/1
         [HttpPut("{id}")]
-        public ActionResult UpdateCatalog(int id, CatalogViewModel catalogViewModel)
+        public IActionResult UpdateCatalog(int id, CatalogViewModel catalogViewModel)
         {
             var status = catalogService.UpdateCatalog(id, catalogViewModel);
             return status ? Ok() : BadRequest();
@@ -52,7 +52,7 @@ namespace ShoesShop.API.Controllers
 
         // DELETE: api/Catalog/1
         [HttpDelete("{id}")]
-        public ActionResult DeleteCatalog(int id)
+        public IActionResult DeleteCatalog(int id)
         {
             var status = catalogService.DeleteCatalog(id);
             return status ? Ok() : BadRequest();

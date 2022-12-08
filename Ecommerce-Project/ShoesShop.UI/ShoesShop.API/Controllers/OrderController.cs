@@ -18,30 +18,29 @@ namespace ShoesShop.API.Controllers
         }
 
         // GET: api/Order/1
-        //[AllowAnonymous]
         [HttpGet("{status}")]
-        public ActionResult<IEnumerable<OrderViewModel>> GetOrders(OrderStatus status)
+        public IActionResult GetOrders(OrderStatus status)
         {
             List<OrderViewModel> orders = orderService.GetOrderListByStatus(status);
-            return orders;
+            return Ok(orders);
         }        
         
         [HttpGet("GetProductListOfOrder/{orderId}")]
-        public ActionResult<IEnumerable<OrderDetailViewModel>> GetProductListOfOrder(string orderId)
+        public IActionResult GetProductListOfOrder(string orderId)
         {
             List<OrderDetailViewModel> products = orderService.GetItemOfOderById(orderId);
-            return products;
+            return Ok(products);
         }
 
         [HttpGet("CheckedOrder/{orderId}")]
-        public ActionResult CheckedOrder(string orderId)
+        public IActionResult CheckedOrder(string orderId)
         {
             var status = orderService.CheckedOrder(orderId);
             return status ? Ok() : BadRequest();
         }       
         
         [HttpGet("SuccessDeliveryOrder/{orderId}")]
-        public ActionResult SuccessDeliveryOrder(string orderId)
+        public IActionResult SuccessDeliveryOrder(string orderId)
         {
             var status = orderService.SuccessDeliveryOrder(orderId);
             return status ? Ok() : BadRequest();
@@ -49,14 +48,14 @@ namespace ShoesShop.API.Controllers
         }
 
         [HttpGet("CancellationOrder/{orderId}")]
-        public ActionResult CancellationOrder(string orderId)
+        public IActionResult CancellationOrder(string orderId)
         {
             var status = orderService.CancellationOrder(orderId);
             return status ? Ok() : BadRequest();
         }
 
         [HttpDelete("{orderId}")]
-        public ActionResult DeleteOrder(string orderId)
+        public IActionResult DeleteOrder(string orderId)
         {
             var status = orderService.DeleteOrderByAdmin(orderId);
             return status ? Ok() : BadRequest();
@@ -64,17 +63,17 @@ namespace ShoesShop.API.Controllers
 
 
         [HttpGet("GetRecentOrders")]
-        public ActionResult<IEnumerable<OrderViewModel>> GetRecentOrders()
+        public IActionResult GetRecentOrders()
         {
             List<OrderViewModel> orders = orderService.GetRecentOrders();
-            return orders;
+            return Ok(orders);
         }        
 
         [HttpGet("GetStatisticOrder")]
-        public ActionResult<IEnumerable<OrderStatisticViewModel>> GetStatisticOrder()
+        public IActionResult GetStatisticOrder()
         {
             List<OrderStatisticViewModel> list = orderService.GetStatisticOrder();
-            return list;
+            return Ok(list);
         }
     }
 }
