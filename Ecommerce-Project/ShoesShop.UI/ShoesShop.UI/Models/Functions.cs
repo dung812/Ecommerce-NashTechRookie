@@ -77,7 +77,6 @@ namespace ShoesShop.UI.Models
             key = key + t;
             return key;
         }
-
         public static void SendMail(string toEmailAddress, string subject, string content)
         {
             var fromEmailAddress = "menfashion500@gmail.com";
@@ -102,7 +101,6 @@ namespace ShoesShop.UI.Models
             client.Port = !string.IsNullOrEmpty(smtpPort) ? Convert.ToInt32(smtpPort) : 0;
             client.Send(message);
         }
-
         public static string MD5Hash(string text)
         {
             using (var md5 = MD5.Create())
@@ -112,7 +110,6 @@ namespace ShoesShop.UI.Models
                 return strResult.Replace("-", "");
             }
         }
-
         public static string RandomString()
         {
             var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -127,12 +124,10 @@ namespace ShoesShop.UI.Models
             var finalString = new String(stringChars); // Chuyển mảng thành string
             return finalString;
         }
-
         public static int DiscountedPriceCalulator(int OriginalPrice, int PromotionPercent)
         {
             return OriginalPrice - ((OriginalPrice * PromotionPercent) / 100);
         }
-
         public static int AverageRatingCalculator(List<CommentProductViewModel> comments)
         {
             var totalComment = comments.Count();

@@ -229,6 +229,9 @@
     <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.24.0" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.24.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
+    <PackageReference Include="PayPal" Version="1.9.1" />
+    <PackageReference Include="PayPal.NET" Version="6.0.0" />
+    <PackageReference Include="PayPalCheckoutSdk" Version="1.0.4" />
     <PackageReference Include="SlugGenerator" Version="2.0.2" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.24.0" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="8.4.3" />

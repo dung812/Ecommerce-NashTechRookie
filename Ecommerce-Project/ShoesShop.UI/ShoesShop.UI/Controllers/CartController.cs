@@ -9,6 +9,10 @@ using ShoesShop.DTO;
 using ShoesShop.Service;
 using ShoesShop.UI.Models;
 using System.Security.Policy;
+using PayPal.Api;
+using PayPalCheckoutSdk.Orders;
+using Item = PayPal.Api.Item;
+using System.Numerics;
 
 namespace ShoesShop.UI.Controllers
 {
@@ -220,7 +224,7 @@ namespace ShoesShop.UI.Controllers
         }
         
         [HttpPost]
-        public IActionResult Checkout(IFormCollection form)
+        public IActionResult CashOnDeliveryPayment(IFormCollection form)
         {
             // Get value in form submit
             var customerId = Int32.Parse(form["customerId"][0]);
@@ -248,42 +252,19 @@ namespace ShoesShop.UI.Controllers
                 return RedirectToAction("Error", "Home");
             }
 
-            // Handle save order
-            OrderViewModel orderViewModel = new OrderViewModel()
+            CreateOrderViewModel infoOrder = new CreateOrderViewModel()
             {
-                OrderId = Functions.CreateKey("HD"),
-                OrderName = firstName + " " + lastName,
-                OrderDate = DateTime.Now,
-                Address = address,
-                Phone = phone,
-                Note = note,
-                TotalMoney = (int)TotalPrice(),
-                TotalDiscounted = (int)TotalDiscount()
+                customerId = customerId,
+                paymentId = paymentId,
+                firstName = firstName,
+                lastName = lastName,
+                address = address,
+                phone = phone,
+                note = note,
             };
-
-            // Save order & order detail in Database
-            bool saveOderStatus = orderService.CreateNewOrder(orderViewModel, customerId, paymentId);
-            bool saveOderDetailStatus = orderService.CreateOrderDetail(orderViewModel.OrderId, cartList);
-
-            if (saveOderStatus && saveOderDetailStatus) // Save successfull
+           
+            if (HandleSaveOrder(customerInfoSession, infoOrder))
             {
-                // Create url watch quickly order detail
-                string url = String.Concat(this.Request.Scheme, "://", this.Request.Host, "/Order-detail/", orderViewModel.OrderId, "-", customerId);
-
-                // Send email new order to customer
-                string content = System.IO.File.ReadAllText(Path.Combine(hostEnvironment.WebRootPath, "template\\NewOrder.html"));
-
-                content = content.Replace("{{url}}", url);
-
-                content = content.Replace("{{OrderId}}", orderViewModel.OrderId);
-                content = content.Replace("{{OrderDate}}", orderViewModel.OrderDate.ToString("g"));
-                content = content.Replace("{{TotalMoney}}", TotalPrice().ToString());
-                content = content.Replace("{{CustomerName}}", firstName.Trim() + " " + lastName.Trim());
-                content = content.Replace("{{Phone}}", phone);
-                content = content.Replace("{{Address}}", address);
-
-                Functions.SendMail(email, "[Shoes shop] New Order At Footwear", content);
-
                 // Clear cart session
                 HttpContext.Session.Remove("Cart");
                 return RedirectToAction("OrderSuccess");
@@ -319,6 +300,209 @@ namespace ShoesShop.UI.Controllers
         public IActionResult OrderSuccess()
         {
             return View();
+        }
+
+
+        // Paypal
+        private PayPal.Api.Payment payment;
+        private PayPal.Api.Payment CreatePayment(APIContext apiContext, string redirectUrl)
+        {
+            var listItems = new ItemList() { items = new List<Item>() };
+            List<CartViewModel> listCart = GetCartSession();
+            foreach (var cart in listCart)
+            {
+                listItems.items.Add(new Item()
+                {
+                    name = cart.NameItem,
+                    currency = "USD",
+                    price = cart.CurrentPriceItem.ToString(),
+                    quantity = cart.Quantity.ToString(),
+                    sku = "sku"
+                });
+            }
+
+            var payer = new PayPal.Api.Payer() { payment_method = "paypal" };
+
+            var redirUrls = new RedirectUrls()
+            {
+                cancel_url = redirectUrl,
+                return_url = redirectUrl
+            };
+
+            var details = new Details()
+            {
+                tax = "0",
+                shipping = "0",
+                subtotal = listCart.Sum(model => model.Quantity * model.CurrentPriceItem).ToString()
+            };
+
+            var amount = new Amount()
+            {
+                currency = "USD",
+                total = (Convert.ToDouble(details.tax) + Convert.ToDouble(details.shipping) + Convert.ToDouble(details.subtotal)).ToString(), // tax + shipping + subtotal
+                details = details
+            };
+
+            var transactionList = new List<Transaction>();
+            transactionList.Add(new Transaction()
+            {
+                description = "Shoes shop transaction description",
+                invoice_number = Convert.ToString((new Random()).Next(100000)),
+                amount = amount,
+                item_list = listItems
+            });
+
+            payment = new PayPal.Api.Payment()
+            {
+                intent = "sale",
+                payer = payer,
+                transactions = transactionList,
+                redirect_urls = redirUrls
+            };
+
+            return payment.Create(apiContext);
+        }
+        private PayPal.Api.Payment ExecutePayment(APIContext apiContext, string payerId, string paymentId)
+        {
+            var paymentExecution = new PaymentExecution()
+            {
+                payer_id = payerId
+            };
+            payment = new PayPal.Api.Payment() { id = paymentId };
+            return payment.Execute(apiContext, paymentExecution);
+        }
+
+        public ActionResult PaymentWithPaypal()
+        {
+            // Paypal
+            APIContext apiContext = PaypalConfiguration.GetAPIContext();
+
+            try
+            {
+                string payerId = HttpContext.Request.Query["PayerID"];
+                if (string.IsNullOrEmpty(payerId))
+                {
+                    string baseURL = this.Request.Scheme + "://" + this.Request.Host + "/Cart/PaymentWithPaypal?";
+                    var guid = Convert.ToString((new Random()).Next(100000));
+                    var createdPayment = CreatePayment(apiContext, baseURL + "guid=" + guid);
+
+                    var links = createdPayment.links.GetEnumerator();
+                    string paypalRedirectUrl = string.Empty;
+
+                    while (links.MoveNext())
+                    {
+                        Links link = links.Current;
+                        if (link.rel.ToLower().Trim().Equals("approval_url"))
+                        {
+                            paypalRedirectUrl = link.href;
+                        }
+                    }
+
+                    HttpContext.Session.SetString("guid", createdPayment.id);
+                    var temp = HttpContext.Session.GetString("guid");
+                    return Redirect(paypalRedirectUrl);
+                }
+                else
+                {
+                    var guid = HttpContext.Request.Query["guid"];
+                    var paymentId = HttpContext.Request.Query["paymentId"];
+                    var executedPayment = ExecutePayment(apiContext, payerId, paymentId);
+                    if (executedPayment.state.ToLower() != "approved")
+                    {
+                        //Session.Remove("Cart");
+                        return RedirectToAction("Error", "Home");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                PaypalLogger.Log("Error: " + ex.Message);
+                //Session.Remove("Cart");
+                return RedirectToAction("Error", "Home");
+            }
+
+            // Clear cart session
+            HttpContext.Session.Remove("Cart");
+            return RedirectToAction("OrderSuccess");
+        }
+
+        [HttpPost]
+        public JsonResult SaveOrderPaypal(int paymentId, string firstName, string lastName, string address, string phone, string note)
+        {
+            // Get customer info data of session
+            var cusomterSession = HttpContext.Session.GetString("CustomerInfo");
+            var customerInfoSession = JsonConvert.DeserializeObject<Customer>(cusomterSession != null ? cusomterSession : "");
+
+            if (customerInfoSession != null)
+            {
+                CreateOrderViewModel infoOrder = new CreateOrderViewModel()
+                {
+                    customerId = customerInfoSession.CustomerId,
+                    paymentId = paymentId,
+                    firstName = firstName,
+                    lastName = lastName,
+                    address = address,
+                    phone = phone,
+                    note = note,
+                };
+
+                if (HandleSaveOrder(customerInfoSession, infoOrder)) 
+                    return Json(new { status = true });
+                else
+                    return Json(new { status = false });
+            }
+                
+            else
+                return Json(new { status = false });
+        }
+
+        public bool HandleSaveOrder(Customer customerLogin, CreateOrderViewModel infoOrderViewModel)
+        {
+            // Get cart list value
+            List<CartViewModel> cartList = GetCartSession();
+
+            // Handle save order
+            OrderViewModel order = new OrderViewModel()
+            {
+                OrderId = Functions.CreateKey("HD"),
+                OrderName = infoOrderViewModel.firstName + " " + infoOrderViewModel.lastName,
+                OrderDate = DateTime.Now,
+                Address = infoOrderViewModel.address,
+                Phone = infoOrderViewModel.phone,
+                Note = infoOrderViewModel.note,
+                TotalMoney = (int)TotalPrice(),
+                TotalDiscounted = (int)TotalDiscount()
+            };
+
+            // Save order & order detail in Database
+            bool saveOderStatus = orderService.CreateNewOrder(order, infoOrderViewModel.customerId, infoOrderViewModel.paymentId);
+            bool saveOderDetailStatus = orderService.CreateOrderDetail(order.OrderId, cartList);
+
+            if (saveOderStatus && saveOderDetailStatus) // Save successfull
+            {
+                // Create url watch quickly order detail
+                string url = String.Concat(this.Request.Scheme, "://", this.Request.Host, "/Order-detail/", order.OrderId, "-", customerLogin.CustomerId);
+
+                // Send email new order to customer
+                string content = System.IO.File.ReadAllText(Path.Combine(hostEnvironment.WebRootPath, "template\\NewOrder.html"));
+
+                content = content.Replace("{{url}}", url);
+
+                content = content.Replace("{{OrderId}}", order.OrderId);
+                content = content.Replace("{{OrderDate}}", order.OrderDate.ToString("g"));
+                content = content.Replace("{{TotalMoney}}", TotalPrice().ToString());
+                content = content.Replace("{{CustomerName}}", infoOrderViewModel.firstName.Trim() + " " + infoOrderViewModel.lastName.Trim());
+                content = content.Replace("{{Phone}}", infoOrderViewModel.phone);
+                content = content.Replace("{{Address}}", infoOrderViewModel.address);
+
+                Functions.SendMail(customerLogin.Email, "[Shoes shop] New Order At Footwear", content);
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

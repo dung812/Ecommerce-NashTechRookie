@@ -533,6 +533,18 @@
               "target": "Package",
               "version": "[6.0.10, )"
             },
+            "PayPal": {
+              "target": "Package",
+              "version": "[1.9.1, )"
+            },
+            "PayPal.NET": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "PayPalCheckoutSdk": {
+              "target": "Package",
+              "version": "[1.0.4, )"
+            },
             "SlugGenerator": {
               "target": "Package",
               "version": "[2.0.2, )"
