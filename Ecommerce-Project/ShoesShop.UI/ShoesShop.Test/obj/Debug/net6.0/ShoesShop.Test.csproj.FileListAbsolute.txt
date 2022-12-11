@@ -731,3 +731,7 @@ C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Pr
 C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.Test\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.Test\bin\Debug\net6.0\ShoesShop.API.dll
 C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.Test\bin\Debug\net6.0\ShoesShop.API.pdb
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.Test\bin\Debug\net6.0\PayPal.dll
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.Test\bin\Debug\net6.0\PayPal.NET.dll
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.Test\bin\Debug\net6.0\PayPalCheckoutSdk.dll
+C:\Users\NguyenDung\OneDrive\Máy tính\Assignment-Ecommerce-Rookie\Ecommerce-Project\ShoesShop.UI\ShoesShop.Test\bin\Debug\net6.0\PayPalHttp-Dotnet.dll

@@ -9,6 +9,7 @@ using System.Security.Claims;
 using System.Text;
 using ShoesShop.API.Models;
 using Microsoft.AspNetCore.Cors;
+using ShoesShop.DTO.Admin;
 
 namespace ShoesShop.API.Controllers
 {

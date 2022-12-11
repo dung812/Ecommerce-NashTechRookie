@@ -19,6 +19,9 @@ import Manufacture from 'features/Manufacture/Index';
 import Admin from 'features/Admin/Index';
 import SignIn from 'features/Auth/pages/SignIn/Index';
 import ProtectedRoutes from 'ProtectedRoutes';
+import Activity from 'features/Activity';
+import Restore from 'features/Restore';
+import Analytic from 'features/Analytic';
 
 const useAuth = () => {
     const user = { loggedIn: false }
@@ -39,7 +42,7 @@ function App() {
             <Router>
                 <Sidebar />
                 <Header />
-                <div className="content-body py-5 px-4">
+                <div className="content-body py-5 px-4 active">
                     <Routes>
                         {
                             isAuth ? <Route path="/" element={<Dashboard />} /> : <Route path="/" element={<SignIn />} />
@@ -51,6 +54,9 @@ function App() {
                             <Route path="/order/*" element={<Order />} />
                             <Route path="/manufacture/*" element={<Manufacture />} />
                             <Route path="/admin/*" element={<Admin />} />
+                            <Route path="/activity/*" element={<Activity />} />
+                            <Route path="/restore/*" element={<Restore />} />
+                            <Route path="/analytic/*" element={<Analytic />} />
                             <Route path="*" element={<NotFound />} />
                         </Route>
                     </Routes>

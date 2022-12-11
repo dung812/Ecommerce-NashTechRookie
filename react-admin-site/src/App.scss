@@ -78,3 +78,34 @@
     }
 }
 
+table tbody tr {
+    transition: background-color .18s ease-in-out;
+    &:hover {
+        background-color: #d7d5d5;
+        cursor: pointer;
+    }
+}
+
+.unabled-hover:hover {
+    background-color: initial!important;
+}
+
+.wrap-loading {
+    width: 100%;
+    min-height: 200px;
+}
+
+.empty-loading, .loading {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.empty-loading {
+    top: 35%;
+    border: none;
+}
+
+.table-loading {
+    pointer-events: none;
+    opacity: .4;
+}

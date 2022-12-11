@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ShoesShop.DTO;
+using ShoesShop.DTO.Admin;
 using ShoesShop.Service;
 
 namespace ShoesShop.API.Controllers
@@ -21,6 +21,13 @@ namespace ShoesShop.API.Controllers
         public IActionResult GetAdmins()
         {
             var admins = adminService.GetAllAdmin();
+            return Ok(admins);
+        }
+
+        [HttpGet("[action]")]
+        public ActionResult<AdminPagingViewModel> GetAdminsPaging(string? filterByRole, DateTime? filterByDate, string? searchString, string? fieldName, string? sortType, int page, int limit)
+        {
+            var admins = adminService.GetAllAdminPaging(filterByRole, filterByDate, fieldName, searchString, sortType, page, limit);
             return Ok(admins);
         }
 

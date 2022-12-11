@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShoesShop.DTO
+namespace ShoesShop.DTO.Admin
 {
     public class AdminViewModel
     {
@@ -18,7 +18,7 @@ namespace ShoesShop.DTO
         public string Phone { get; set; } = null!;
         public DateTime Birthday { get; set; }
         public string Gender { get; set; } = null!;
-        public DateTime RegisteredDate { get; set; } = DateTime.Now;
+        public DateTime RegisteredDate { get; set; }
         public string Avatar { get; set; } = null!;
         public int RoleId { get; set; }
         public string RoleName { get; set; } = null!;

@@ -1056,6 +1056,14 @@
           }
         }
       },
+      "Microsoft.Extensions.Http/6.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0",
+          "Microsoft.Extensions.Logging": "7.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "7.0.0",
+          "Microsoft.Extensions.Options": "7.0.0"
+        }
+      },
       "Microsoft.Extensions.Logging/7.0.0": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "7.0.0",
@@ -1790,6 +1798,48 @@
           "lib/netstandard2.0/NuGet.Versioning.dll": {
             "assemblyVersion": "6.2.1.2",
             "fileVersion": "6.2.1.2"
+          }
+        }
+      },
+      "PayPal/1.9.1": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "runtime": {
+          "lib/net451/PayPal.dll": {
+            "assemblyVersion": "1.9.1.0",
+            "fileVersion": "1.9.1.0"
+          }
+        }
+      },
+      "PayPal.NET/6.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Http": "6.0.0",
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "runtime": {
+          "lib/net6.0/PayPal.NET.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.0.0"
+          }
+        }
+      },
+      "PayPalCheckoutSdk/1.0.4": {
+        "dependencies": {
+          "PayPalHttp": "1.0.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/PayPalCheckoutSdk.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "PayPalHttp/1.0.1": {
+        "runtime": {
+          "lib/netstandard2.0/PayPalHttp-Dotnet.dll": {
+            "assemblyVersion": "1.0.1.0",
+            "fileVersion": "1.0.1.0"
           }
         }
       },
@@ -2802,6 +2852,9 @@
           "Microsoft.IdentityModel.JsonWebTokens": "6.25.0",
           "Microsoft.IdentityModel.Tokens": "6.25.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.10",
+          "PayPal": "1.9.1",
+          "PayPal.NET": "6.0.0",
+          "PayPalCheckoutSdk": "1.0.4",
           "ShoesShop.DTO": "1.0.0",
           "ShoesShop.Service": "1.0.0",
           "SlugGenerator": "2.0.2",
@@ -3149,6 +3202,13 @@
       "path": "microsoft.extensions.dependencyinjection.abstractions/7.0.0",
       "hashPath": "microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512"
     },
+    "Microsoft.Extensions.Http/6.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-15+pa2G0bAMHbHewaQIdr/y6ag2H3yh4rd9hTXavtWDzQBkvpe2RMqFg8BxDpcQWssmjmBApGPcw93QRz6YcMg==",
+      "path": "microsoft.extensions.http/6.0.0",
+      "hashPath": "microsoft.extensions.http.6.0.0.nupkg.sha512"
+    },
     "Microsoft.Extensions.Logging/7.0.0": {
       "type": "package",
       "serviceable": true,
@@ -3442,6 +3502,34 @@
       "sha512": "sha512-+o507LXjsN1YVAgmpqKCQZ70cLsXDoVmR8H0Wgy0muiFnOhkXN2+a6PGFBAIuA7qJch/umTYu1hp7Dlh1Qcrgg==",
       "path": "nuget.versioning/6.2.1",
       "hashPath": "nuget.versioning.6.2.1.nupkg.sha512"
+    },
+    "PayPal/1.9.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-b3vq6Lc9CwSooCX2tsZ02zb7E/K/cA6EILCoMynue+ZeVuitJNqt0YwxPnp7uN0Pccob02oDlpAjRLH+GRCRxA==",
+      "path": "paypal/1.9.1",
+      "hashPath": "paypal.1.9.1.nupkg.sha512"
+    },
+    "PayPal.NET/6.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3AnNikoXBgzwQaP0jYHmhKPlzp7zffVVv98/YfsgOARIxH61hl4oV2kG2ukPPKG3fv2gcK8QkU8i+PNQpjkVbA==",
+      "path": "paypal.net/6.0.0",
+      "hashPath": "paypal.net.6.0.0.nupkg.sha512"
+    },
+    "PayPalCheckoutSdk/1.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4fsOPj6SOJurbVf5ANg7NQ5TNvSYmtngf3dpJN11xEk6BP+5Rn6OcaaTbUx+bVnnYmgaoe5LbRZe52QpAjuwqg==",
+      "path": "paypalcheckoutsdk/1.0.4",
+      "hashPath": "paypalcheckoutsdk.1.0.4.nupkg.sha512"
+    },
+    "PayPalHttp/1.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Jlg8e9Egwxk+sfkIoGIkjQS+uxGNIOnY6NbUkWXKJiEGGqryeV9bIRNtSfjSgs/g02JcIQbKRFQW+8amtSo3ig==",
+      "path": "paypalhttp/1.0.1",
+      "hashPath": "paypalhttp.1.0.1.nupkg.sha512"
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
       "type": "package",

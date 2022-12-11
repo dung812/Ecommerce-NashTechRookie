@@ -10,11 +10,15 @@ import withReactContent from 'sweetalert2-react-content'
 
 import CustomLoader from 'components/CustomLoader/Index';
 import { deleteProduct, fetchProducts, searchProduct } from 'features/Product/ProductSlice';
+import ModalDetail from 'features/Product/components/ModalDetail';
 
 function MainPage(props) {
 
     const dispatch = useDispatch();
     const [search, setSearch] = useState("");
+
+    const [showModalDetail, setShowModalDetail] = useState(false);
+    const [productInfo, setProductInfo] = useState();
 
     let productList = useSelector((state) => state.products.products);
     let loading = useSelector((state) => state.products.loading);
@@ -37,8 +41,6 @@ function MainPage(props) {
         });
         dispatch(searchProduct(result))
     }, [search])
-
-
 
     const navigate = useNavigate();
     function HandleCreate() {
@@ -71,10 +73,20 @@ function MainPage(props) {
         })
     }
 
+    const HandleCloseModalDetail = (event) => {
+        setShowModalDetail(false);
+    };
+
+    const HandleWatchDetail = (productId) => {
+        var product = productList.find(item => item.productId === productId);
+        setProductInfo(product)
+        setShowModalDetail(true);
+    };
+
     const columns = [
         {
             name: "Product Id",
-            selector: (row) => row.productId,
+            selector: (row) => <div className='cursor-pointer' onClick={() => HandleWatchDetail(row.productId)}>{row.productId}</div>,
             sortable: true,
         },
         {
@@ -83,22 +95,22 @@ function MainPage(props) {
         },
         {
             name: "Name",
-            selector: (row) => row.productName,
+            selector: (row) => <div className='cursor-pointer' onClick={() => HandleWatchDetail(row.productId)}>{row.productName}</div>,
             sortable: true,
         },
         {
             name: "Gender",
-            selector: (row) => row.gender,
+            selector: (row) => <div className='cursor-pointer' onClick={() => HandleWatchDetail(row.productId)}>{row.gender}</div>,
             sortable: true,
         },
         {
             name: "Manufacture",
-            selector: (row) => row.manufactureName,
+            selector: (row) => <div className='cursor-pointer' onClick={() => HandleWatchDetail(row.productId)}>{row.manufactureName}</div>,
             sortable: true,
         },
         {
             name: "Catalog",
-            selector: (row) => row.catalogName,
+            selector: (row) => <div className='cursor-pointer' onClick={() => HandleWatchDetail(row.productId)}>{row.catalogName}</div>,
             sortable: true,
         },
         {
@@ -112,7 +124,7 @@ function MainPage(props) {
         }
     ]
     return (
-        <div>
+        <React.Fragment>
             <Card>
                 <Card.Body>
                     <DataTable
@@ -140,7 +152,13 @@ function MainPage(props) {
                     />
                 </Card.Body>
             </Card>
-        </div>
+
+            <ModalDetail
+             IsShow={showModalDetail}
+             OnclickCloseModalDetail={HandleCloseModalDetail}
+             Data={productInfo}
+            />
+        </React.Fragment>
     )
 }
 

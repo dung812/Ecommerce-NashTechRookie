@@ -17,7 +17,7 @@ function Header(props) {
     }
 
     return (
-        <div className='header px-4 py-3'>
+        <div className='header px-4 py-3 active'>
             <div className="d-flex justify-content-between align-items-center">
                 <div>
                     <form action="" className='d-flex align-items-center position-relative' id='my-form-search'>

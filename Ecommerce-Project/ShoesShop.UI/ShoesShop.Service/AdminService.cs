@@ -1,14 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using ShoesShop.Data;
 using ShoesShop.Domain;
 using ShoesShop.Domain.Enum;
 using ShoesShop.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
+using ShoesShop.DTO.Admin;
 
 namespace ShoesShop.Service
 {
@@ -21,36 +17,138 @@ namespace ShoesShop.Service
         public bool CreateAdmin(AdminViewModel adminViewModel);
         public bool UpdateAdmin(int adminId, AdminViewModel adminViewModel);
         public bool DeleteAdmin(int adminId);
+        public AdminPagingViewModel GetAllAdminPaging(string? filterByRole, DateTime? filterByDate, string? fieldName, string? searchString, string? sortType, int page, int limit);
     }
     public class AdminService : IAdminService
     {
+        private readonly IMapper _mapper;
         private readonly ApplicationDbContext _context;
-        public AdminService(ApplicationDbContext context)
+        public AdminService(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
+
         public List<AdminViewModel> GetAllAdmin()
         {
-            var Admins = new List<AdminViewModel>();
-            Admins = _context.Admins
+            var admins = _context.Admins
                 .Where(m => m.Status)
                 .Include(m => m.Role)
-                .Select(m => new AdminViewModel
-                {
-                    AdminId = m.AdminId,
-                    UserName = m.UserName,
-                    Avatar = m.Avatar,
-                    FirstName = m.FirstName,
-                    LastName = m.LastName,
-                    Email = m.Email,
-                    Phone = m.Phone,
-                    Birthday = m.Birthday,
-                    Gender = m.Gender == Gender.Men ? "Men" : "Women",
-                    RegisteredDate = m.RegisteredDate,
-                    RoleName = m.Role.RoleName
-                }).ToList();
-            return Admins;
+                .ToList();
+
+            var adminDTO = _mapper.Map<List<AdminViewModel>>(admins);
+            return adminDTO;
         }
+
+        public AdminPagingViewModel GetAllAdminPaging(string? filterByRole, DateTime? filterByDate, string? fieldName, string? searchString, string? sortType, int page, int limit)
+        {
+            // Query data
+            var query = _context.Admins
+                        .Include(m => m.Role)
+                        .Where(m => m.Status && m.Status);
+
+            // search
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                // username, lastname
+                query = query.Where(m =>
+                    (m.UserName.Replace(" ", "").ToUpper().Contains(searchString.Replace(" ", "").ToUpper())) ||
+                    (m.LastName.Replace(" ", "").ToUpper().Contains(searchString.Replace(" ", "").ToUpper()))
+                );
+            }
+
+            // Filter by role
+            if (!string.IsNullOrEmpty(filterByRole))
+            {
+                if (filterByRole != "All")
+                {
+                    switch (filterByRole)
+                    {
+                        case "Admin":
+                            query = query.Where(m => m.RoleId == 1);
+                            break;
+                        case "Employee":
+                            query = query.Where(m => m.RoleId == 2);
+                            break;
+                    }
+
+                }
+            }
+
+            // Filter by date
+            if (filterByDate!= null)
+            {
+                query = query.Where(m => m.RegisteredDate.Date == filterByDate.Value.Date);
+            }
+
+            // Sort
+            if (!string.IsNullOrEmpty(fieldName))
+            {
+                if (sortType == "asc")
+                {
+                    switch (fieldName)
+                    {
+                        case "id":
+                            query = query.OrderBy(m => m.AdminId);
+                            break;
+                        case "userName":
+                            query = query.OrderBy(m => m.UserName);
+                            break;
+                        case "lastName":
+                            query = query.OrderBy(m => m.LastName);
+                            break;
+                        case "registerDate":
+                            query = query.OrderBy(m => m.RegisteredDate);
+                            break;
+                        case "role":
+                            query = query.OrderBy(m => m.Role.RoleName);
+                            break;
+                    }
+                }                
+                else if (sortType == "desc")
+                {
+                    switch (fieldName)
+                    {
+                        case "id":
+                            query = query.OrderByDescending(m => m.AdminId);
+                            break;
+                        case "userName":
+                            query = query.OrderByDescending(m => m.UserName);
+                            break;
+                        case "lastName":
+                            query = query.OrderByDescending(m => m.LastName);
+                            break;
+                        case "registerDate":
+                            query = query.OrderByDescending(m => m.RegisteredDate);
+                            break;
+                        case "role":
+                            query = query.OrderByDescending(m => m.Role.RoleName);
+                            break;
+                    }
+                }
+            }
+
+            int total = query.Count();
+
+            query = query.Skip((page - 1) * limit).Take(limit);
+
+            var adminDTO = _mapper.Map<List<AdminViewModel>>(query.ToList());
+
+            return new AdminPagingViewModel
+            {
+                Admins = adminDTO,
+                TotalItem = total,
+                Page = page,
+                LastPage = (int)Math.Ceiling(Decimal.Divide(total, limit))
+            };
+        }
+
+        //string[] listRole = filterByRole.Trim().Split(' ');
+
+        //foreach (var role in listRole)
+        //{
+        //    query = query.Where(m => listRole.Contains(m.Role.RoleName));
+        //}
 
         public AdminViewModel GetAdminById(int adminId)
         {

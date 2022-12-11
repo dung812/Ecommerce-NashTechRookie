@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 import './Sidebar.scss';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,7 +23,7 @@ function Sidebar(props) {
 
         navItems.forEach(item => item.addEventListener('click', () => {
             navItems.forEach(item => item.classList.remove('active'));
-            // item.classList.add('active');
+            item.classList.add('active');
         }))
     }, [])
 
@@ -63,11 +63,11 @@ function Sidebar(props) {
 
 
     return (
-        <div className="sidebar" ref={sidebar}>
+        <div className="sidebar open" ref={sidebar}>
             <div className="logo-details">
                 <i className='bx bxl-c-plus-plus icon'></i>
                 <div className="logo_name">NguyenDung</div>
-                <i className='bx bx-menu' id="btn" onClick={HandleClickMenuSidebar}></i>
+                <i className='bx bx-menu-alt-right' id="btn" onClick={HandleClickMenuSidebar}></i>
             </div>
             <ul className="nav-list">
                 <li>
@@ -76,19 +76,26 @@ function Sidebar(props) {
                     <span className="tooltip">Search</span>
                 </li>
                 <li>
-                    <NavLink to="/" className='nav-items'>
+                    <Link to="/" className='nav-items'>
                         <i className='bx bx-bar-chart-square'></i>
                         <span className="links_name">Dashboard</span>
-                    </NavLink>
+                    </Link>
                     <span className="tooltip">Dashboard</span>
+                </li>
+                <li>
+                    <Link to="/admin" className='nav-items'>
+                        <i className='bx bx-user-circle'></i>
+                        <span className="links_name">Admin</span>
+                    </Link>
+                    <span className="tooltip">Admin</span>
                 </li>
                 {
                     admin?.roleName === "Admin" &&
                     <li>
-                        <NavLink to="/product" className='nav-items'>
+                        <Link to="/product" className='nav-items'>
                             <i className='bx bx-store-alt'></i>
                             <span className="links_name">Product</span>
-                        </NavLink>
+                        </Link>
                         <span className="tooltip">Product</span>
                     </li>
                 }
@@ -100,59 +107,59 @@ function Sidebar(props) {
                     <span className="tooltip">Product</span>
                 </li> */}
                 <li>
-                    <NavLink to="/category" className='nav-items'>
+                    <Link to="/category" className='nav-items'>
                         <i className='bx bx-category'></i>
                         <span className="links_name">Category</span>
-                    </NavLink>
+                    </Link>
                     <span className="tooltip">Category</span>
                 </li>
                 <li>
-                    <NavLink to="/manufacture" className='nav-items'>
+                    <Link to="/manufacture" className='nav-items'>
                         <i className='bx bx-library'></i>
                         <span className="links_name">Manufacture</span>
-                    </NavLink>
+                    </Link>
                     <span className="tooltip">Manufacture</span>
                 </li>
                 <li>
-                    <NavLink to="/customer" className='nav-items'>
+                    <Link to="/customer" className='nav-items'>
                         <i className='bx bx-user'></i>
                         <span className="links_name">Customer</span>
-                    </NavLink>
+                    </Link>
                     <span className="tooltip">Customer</span>
                 </li>
                 <li>
-                    <NavLink to="/admin" className='nav-items'>
+                    <Link to="/admin" className='nav-items'>
                         <i className='bx bx-user-circle'></i>
                         <span className="links_name">Admin</span>
-                    </NavLink>
+                    </Link>
                     <span className="tooltip">Admin</span>
                 </li>
                 <li>
-                    <NavLink to="/activity-admin" className='nav-items'>
+                    <Link to="/activity" className='nav-items'>
                         <i className='bx bx-street-view'></i>
                         <span className="links_name">Activities admin</span>
-                    </NavLink>
+                    </Link>
                     <span className="tooltip">Activities admin</span>
                 </li>
                 <li>
-                    <NavLink to="/order" className='nav-items'>
+                    <Link to="/order" className='nav-items'>
                         <i className='bx bx-receipt'></i>
                         <span className="links_name">Order</span>
-                    </NavLink>
+                    </Link>
                     <span className="tooltip">Order</span>
                 </li>
                 <li>
-                    <NavLink to="/analytics" className='nav-items'>
+                    <Link to="/analytic" className='nav-items'>
                         <i className='bx bx-line-chart' ></i>
                         <span className="links_name">Analytics</span>
-                    </NavLink>
+                    </Link>
                     <span className="tooltip">Analytics</span>
                 </li>
                 <li>
-                    <NavLink to="/restore" className='nav-items'>
+                    <Link to="/restore" className='nav-items'>
                         <i className='bx bx-minus-back'></i>
                         <span className="links_name">Restore</span>
-                    </NavLink>
+                    </Link>
                     <span className="tooltip">Restore</span>
                 </li>
                 <li className="profile">
