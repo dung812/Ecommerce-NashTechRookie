@@ -22,6 +22,7 @@ import ProtectedRoutes from 'ProtectedRoutes';
 import Activity from 'features/Activity';
 import Restore from 'features/Restore';
 import Analytic from 'features/Analytic';
+import { ToastContainer } from 'react-toastify';
 
 const useAuth = () => {
     const user = { loggedIn: false }
@@ -63,6 +64,21 @@ function App() {
                 </div>
 
             </Router>
+
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+            {/* Same as */}
+            <ToastContainer />
         </div>
     );
 }

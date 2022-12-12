@@ -13,6 +13,18 @@ const adminApi = {
         const url = '/Admin/GetAdminsPaging';
         return axiosClient.get(url, { params });
     },
+    addAdmin: (data) => {
+        const url = `/Admin`;
+        return axiosClient.post(url, data);
+    },
+    deleteAdmin: (id) => {
+        const url = `/Admin/${id}`;
+        return axiosClient.delete(url);
+    },
+    updateAdmin: (id, data) => {
+        const url = `/Admin/${id}`;
+        return axiosClient.put(url, data);
+    },
     // edit, remove, ...
 }
 export default adminApi;

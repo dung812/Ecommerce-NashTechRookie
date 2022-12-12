@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ShoesShop.DTO\ShoesShop.DTO.csproj" />
     <ProjectReference Include="..\ShoesShop.Service\ShoesShop.Service.csproj" />
+    <ProjectReference Include="..\ShoesShop.UI\ShoesShop.UI.csproj" />
   </ItemGroup>
 
 </Project>

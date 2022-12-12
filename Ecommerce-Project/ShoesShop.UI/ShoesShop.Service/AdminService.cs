@@ -14,9 +14,9 @@ namespace ShoesShop.Service
         public AdminViewModel GetAdminById(int adminId);
         public AdminViewModel AuthenticateAdmin(LoginViewModel loginViewModel);
         public bool CheckExistUserName(string username);
-        public bool CreateAdmin(AdminViewModel adminViewModel);
-        public bool UpdateAdmin(int adminId, AdminViewModel adminViewModel);
-        public bool DeleteAdmin(int adminId);
+        public AdminViewModel CreateAdmin(AdminViewModel adminViewModel);
+        public AdminViewModel UpdateAdmin(int adminId, AdminViewModel adminViewModel);
+        public AdminViewModel DeleteAdmin(int adminId);
         public AdminPagingViewModel GetAllAdminPaging(string? filterByRole, DateTime? filterByDate, string? fieldName, string? searchString, string? sortType, int page, int limit);
     }
     public class AdminService : IAdminService
@@ -45,7 +45,7 @@ namespace ShoesShop.Service
             // Query data
             var query = _context.Admins
                         .Include(m => m.Role)
-                        .Where(m => m.Status && m.Status);
+                        .Where(m => m.Status);
 
             // search
             if (!string.IsNullOrEmpty(searchString))
@@ -201,93 +201,76 @@ namespace ShoesShop.Service
         }
 
 
-        public bool CreateAdmin(AdminViewModel adminViewModel)
+        public AdminViewModel CreateAdmin(AdminViewModel adminViewModel)
         {
+            var adminDTO = new AdminViewModel();
             if (CheckExistUserName(adminViewModel.UserName))
-                return false;
-
-            try
             {
-                Admin admin = new Admin()
-                {
-                    UserName = adminViewModel.UserName,
-                    Password = adminViewModel.Password,
-                    FirstName = adminViewModel.FirstName,
-                    LastName = adminViewModel.LastName,
-                    Email = adminViewModel.Email,
-                    Phone = adminViewModel.Phone,
-                    Birthday = adminViewModel.Birthday,
-                    Gender = adminViewModel.Gender == "Men" ? Gender.Men : Gender.Women,
-                    Avatar = adminViewModel.Avatar,
-                    RegisteredDate = DateTime.Now,
-                    Status = true,
-                    RoleId = adminViewModel.RoleId
-                };
-                _context.Admins.Add(admin);
+                adminDTO.IsExistedUsername = true;
+                return adminDTO;
+            }
+                
+            Admin admin = new Admin()
+            {
+                UserName = adminViewModel.UserName,
+                Password = adminViewModel.Password,
+                FirstName = adminViewModel.FirstName,
+                LastName = adminViewModel.LastName,
+                Email = adminViewModel.Email,
+                Phone = adminViewModel.Phone,
+                Birthday = adminViewModel.Birthday,
+                RegisteredDate = adminViewModel.RegisteredDate,
+                Gender = adminViewModel.Gender == "Men" ? Gender.Men : Gender.Women,
+                Avatar = "avatar.jpg",
+                Status = true,
+                RoleId = adminViewModel.RoleName == "Admin" ? 1 : 2
+            };
+            _context.Admins.Add(admin);
+            _context.SaveChanges();
+            adminDTO = _mapper.Map<AdminViewModel>(admin);
+            adminDTO.RoleName = admin.RoleId == 1 ? "Admin" : "Employee";
+
+            return adminDTO;
+        }
+
+        public AdminViewModel UpdateAdmin(int adminId, AdminViewModel adminViewModel)
+        {
+            var admin = _context.Admins.Find(adminId);
+            if (admin != null)
+            {
+                admin.FirstName = adminViewModel.FirstName;
+                admin.LastName = adminViewModel.LastName;
+                admin.Email = adminViewModel.Email;
+                admin.Phone = adminViewModel.Phone;
+                admin.Birthday = adminViewModel.Birthday;
+                admin.RegisteredDate = adminViewModel.RegisteredDate;
+                admin.Gender = adminViewModel.Gender == "Men" ? Gender.Men : Gender.Women;
+                admin.RoleId = adminViewModel.RoleName == "Admin" ? 1 : 2;
+
+                _context.Admins.Update(admin);
                 _context.SaveChanges();
-                return true;
+
+                var adminDTO = _mapper.Map<AdminViewModel>(admin);
+                adminDTO.RoleName = admin.RoleId == 1 ? "Admin" : "Employee";
+                return adminDTO;
             }
-            catch (Exception)
-            {
-                return false;
-            }
+            return null;
         }
 
-        public bool UpdateAdmin(int adminId, AdminViewModel adminViewModel)
+        public AdminViewModel DeleteAdmin(int adminId)
         {
-            try
+            var admin = _context.Admins.Find(adminId);
+            if (admin != null)
             {
-                bool result;
-                var admin = _context.Admins.Find(adminId);
-                if (admin != null)
-                {
-                    admin.FirstName = adminViewModel.FirstName;
-                    admin.LastName = adminViewModel.LastName;
-                    admin.Email = adminViewModel.Email;
-                    admin.Phone = adminViewModel.Phone;
-                    admin.Birthday = adminViewModel.Birthday;
-                    admin.Gender = adminViewModel.Gender == "Men" ? Gender.Men : Gender.Women;
-                    admin.Avatar = adminViewModel.Avatar;
-                    admin.RoleId = adminViewModel.RoleId;
+                admin.Status = false;
 
-                    _context.Admins.Update(admin);
-                    _context.SaveChanges();
+                _context.Admins.Update(admin);
+                _context.SaveChanges();
 
-                    result = true;
-                }
-                else
-                    result = false;
-                return result;
+                var adminDTO = _mapper.Map<AdminViewModel>(admin);
+                return adminDTO;
             }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
-        public bool DeleteAdmin(int adminId)
-        {
-            try
-            {
-                bool result;
-                var admin = _context.Admins.Find(adminId);
-                if (admin != null)
-                {
-                    admin.Status = false;
-
-                    _context.Admins.Update(admin);
-                    _context.SaveChanges();
-
-                    result = true;
-                }
-                else
-                    result = false;
-                return result;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            return null;
         }
     }
 }

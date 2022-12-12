@@ -6,13 +6,17 @@ import ReactPaginate from 'react-paginate';
 import './Main.scss'
 import ModalDetail from 'features/Admin/components/ModalDetail';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAdmins, fetchAdminsOnclick, filterAdmins, getAdmin } from 'features/Admin/AdminSlice';
+import { fetchAdmins, fetchAdminsOnclick, filterAdmins, getAdmin, handleDeleteAdmin } from 'features/Admin/AdminSlice';
 import CustomLoader from 'components/CustomLoader/Index';
 import { formatDate, FormatDateTime, UTCWithoutHour } from 'utils';
+import Autocomplete from 'react-autocomplete';
+import { Link, useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 
 function MainPage(props) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [showModalDetail, setShowModalDetail] = useState(false);
     const [selected, setSelected] = useState([]);
     const [joinDate, setJoinDate] = useState(null);
@@ -51,7 +55,9 @@ function MainPage(props) {
     let page = useSelector((state) => state.admins.page);
     let lastPage = useSelector((state) => state.admins.lastPage);
 
-    let pageSize = useRef(2);
+    let currentUser = useSelector((state) => state.authAdmin.admin.info);
+
+    let pageSize = useRef(5);
     let [fieldNameSorting, setFieldNameSorting] = useState();
     let [typeSorting, setTypeSorting] = useState();
     let search = useRef();
@@ -186,21 +192,42 @@ function MainPage(props) {
         dispatch(getAdmin(adminId))
         setShowModalDetail(true);
     };
-
-    const HandleCreate = () => {
+    const handleDelete = (adminId) => {
+        if (parseInt(adminId) === currentUser.adminId) {
+            Swal.fire({
+                icon: 'error',
+                title: "Oops...",
+                text: "Can't delete yourself!",
+            })
+        }
+        else {
+            Swal.fire({
+                title: 'Are you sure to delete this admin?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    dispatch(handleDeleteAdmin(parseInt(adminId)))
+                }
+            })
+        }
     };
 
 
     return (
         <React.Fragment>
-            <Card>
+            <Card className='border-0'>
                 <Card.Body className='p-4'>
                     <h3 className='mb-4'>Admin data</h3>
 
                     <div className="row">
                         <div className="col-12 text-end mb-3">
                             <button
-                                onClick={() => HandleCreate()}
+                                onClick={() => navigate('/admin/add')}
                                 className='btn btn-success'
                             >
                                 <i className='bx bx-plus-circle'></i>
@@ -234,24 +261,6 @@ function MainPage(props) {
                         <div className="col-3"></div>
                         <div className={`col-3 ${loading ? ' table-loading' : ''}`}>
                             <div className="input-group">
-
-                                {/* <Autocomplete
-                                    getItemValue={(item) => item.label}
-                                    items={[
-                                        { label: 'apple' },
-                                        { label: 'banana' },
-                                        { label: 'pear' }
-                                    ]}
-                                    renderItem={(item, isHighlighted) =>
-                                        <div style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
-                                            {item.label}
-                                        </div>
-                                    }
-                                    value={value}
-                                    onChange={(e) => value = e.target.value}
-                                    onSelect={(val) => value = val}
-                                /> */}
-
                                 <input
                                     type="search"
                                     className="form-control"
@@ -316,13 +325,13 @@ function MainPage(props) {
                                                 :
                                                 adminList?.map((item, index) => {
                                                     return (
-                                                        <tr key={index} onClick={() => handleWatchDetail(item.adminId)}>
-                                                            <td>
+                                                        <tr key={index}>
+                                                            <td onClick={() => handleWatchDetail(item.adminId)}>
                                                                 <div>
                                                                     {item.adminId}
                                                                 </div>
                                                             </td>
-                                                            <td>
+                                                            <td onClick={() => handleWatchDetail(item.adminId)}>
                                                                 <div>
                                                                     <div className='d-flex align-items-center gap-1'>
                                                                         <img
@@ -338,26 +347,31 @@ function MainPage(props) {
                                                                     </div>
                                                                 </div>
                                                             </td>
-                                                            <td>
+                                                            <td onClick={() => handleWatchDetail(item.adminId)}>
                                                                 <div>
                                                                     {item.firstName} {item.lastName}
                                                                 </div>
                                                             </td>
-                                                            <td>
+                                                            <td onClick={() => handleWatchDetail(item.adminId)}>
                                                                 <div>
                                                                     {FormatDateTime(item.registeredDate)}
                                                                 </div>
                                                             </td>
-                                                            <td>
+                                                            <td onClick={() => handleWatchDetail(item.adminId)}>
                                                                 <div>
                                                                     {item.roleName}
                                                                 </div>
                                                             </td>
                                                             <td className="p-0 px-3 mx-5 border-0">
-                                                                <button className='btn btn-primary me-2'>
+                                                                <button
+                                                                    className='btn btn-primary me-2'
+                                                                    onClick={() => navigate(`/admin/${item.adminId}`)}
+                                                                >
                                                                     <i className='bx bx-edit'></i>
                                                                 </button>
-                                                                <button className='btn btn-danger'>
+                                                                <button className='btn btn-danger'
+                                                                    onClick={() => handleDelete(item.adminId)}
+                                                                >
                                                                     <i className='bx bx-trash'></i>
                                                                 </button>
                                                             </td>

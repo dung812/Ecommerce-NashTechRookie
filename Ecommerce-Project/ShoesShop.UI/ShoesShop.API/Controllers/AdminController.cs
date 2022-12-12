@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.DTO.Admin;
 using ShoesShop.Service;
+using ShoesShop.UI.Models;
 
 namespace ShoesShop.API.Controllers
 {
@@ -43,24 +44,35 @@ namespace ShoesShop.API.Controllers
         [HttpPost]
         public IActionResult CreateAdmin(AdminViewModel adminViewModel)
         {
-            var status = adminService.CreateAdmin(adminViewModel);
-            return status ? Ok() : BadRequest();
+            adminViewModel.Password = Functions.MD5Hash(adminViewModel.Password);
+            var admin = adminService.CreateAdmin(adminViewModel);
+            if (admin.IsExistedUsername == true)
+            {
+                return BadRequest("Existed Username");
+            }
+            return Ok(admin); 
         }
 
         // PUT: api/Admin/1
         [HttpPut("{id}")]
-        public IActionResult UpdateAdmin(int id, AdminViewModel adminViewModel)
+        public ActionResult<AdminViewModel> UpdateAdmin(int id, AdminViewModel adminViewModel)
         {
-            var status = adminService.UpdateAdmin(id, adminViewModel);
-            return status ? Ok() : BadRequest();
+            var admin = adminService.UpdateAdmin(id, adminViewModel);
+            if (admin != null)
+                return Ok(admin);
+            else
+                return BadRequest();
         }
 
         // DELETE: api/Admin/1
         [HttpDelete("{id}")]
         public IActionResult DeleteAdmin(int id)
         {
-            var status = adminService.DeleteAdmin(id);
-            return status ? Ok() : BadRequest();
+            var admin = adminService.DeleteAdmin(id);
+            if (admin != null)
+                return NoContent();
+            else
+                return BadRequest();
         }
     }
 }
