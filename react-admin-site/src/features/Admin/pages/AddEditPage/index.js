@@ -4,6 +4,7 @@ import React from 'react'
 import { Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from 'react-toastify';
 import { UTCWithoutHour } from 'utils';
 import './AddEditPage.scss'
 
@@ -45,11 +46,13 @@ function AddEditPage(props) {
                 Gender: data.gender,
                 RoleName: data.role,
             }
+            // const handleSubmit = async () => {
+            //     await dispatch(addNewAdmin(newAdmin));
+            //     navigate('/admin');
+            // };
+            // handleSubmit()
             dispatch(addNewAdmin(newAdmin));
-            if(!loadingSubmit){
-                navigate('/admin')
-            }
-
+            navigate('/admin');
         }
         else {
             // Case edit
@@ -63,10 +66,13 @@ function AddEditPage(props) {
                 Gender: data.gender,
                 RoleName: data.role,
             }
-            dispatch(handleEditAdmin({id:parseInt(adminId), newInfo}));
-            if(!loadingSubmit){
-                navigate('/admin')
-            }
+            // const handleSubmit = async () => {
+            //     await dispatch(handleEditAdmin({ id: parseInt(adminId), newInfo }))
+            //     navigate('/admin');
+            // };
+            // handleSubmit()
+            dispatch(handleEditAdmin({ id: parseInt(adminId), newInfo }))
+            navigate('/admin');
         }
     }
 
@@ -74,9 +80,6 @@ function AddEditPage(props) {
     const HandleRedirect = (url) => {
         navigate(url)
     }
-
-
-
 
     return (
         <React.Fragment>

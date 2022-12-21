@@ -82,13 +82,6 @@ function Sidebar(props) {
                     </Link>
                     <span className="tooltip">Dashboard</span>
                 </li>
-                <li>
-                    <Link to="/admin" className='nav-items'>
-                        <i className='bx bx-user-circle'></i>
-                        <span className="links_name">Admin</span>
-                    </Link>
-                    <span className="tooltip">Admin</span>
-                </li>
                 {
                     admin?.roleName === "Admin" &&
                     <li>
@@ -154,6 +147,13 @@ function Sidebar(props) {
                         <span className="links_name">Analytics</span>
                     </Link>
                     <span className="tooltip">Analytics</span>
+                </li>
+                <li>
+                    <Link to="/report" className='nav-items'>
+                        <i className='bx bx-line-chart' ></i>
+                        <span className="links_name">Report</span>
+                    </Link>
+                    <span className="tooltip">Report</span>
                 </li>
                 <li>
                     <Link to="/restore" className='nav-items'>

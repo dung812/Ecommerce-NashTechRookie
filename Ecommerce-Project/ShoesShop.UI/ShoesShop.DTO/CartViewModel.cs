@@ -47,7 +47,7 @@ namespace ShoesShop.DTO
                 this.AttributeId = attribute.AttributeValueId;
                 this.AttributeName = attribute.Name;
                 this.UnitPrice = int.Parse(product.OriginalPrice.ToString());
-                this.PromotionPercent = product.PromotionPercent;
+                this.PromotionPercent = (int)product.PromotionPercent;
                 this.CurrentPriceItem = int.Parse(product.OriginalPrice.ToString()) - ((int.Parse(product.OriginalPrice.ToString()) * int.Parse(product.PromotionPercent.ToString())) / 100);
                 this.Quantity = quantity;
                 this.TotalDiscountedPrice = (this.UnitPrice - this.CurrentPriceItem) * quantity;

@@ -23,6 +23,7 @@ import Activity from 'features/Activity';
 import Restore from 'features/Restore';
 import Analytic from 'features/Analytic';
 import { ToastContainer } from 'react-toastify';
+import Report from 'features/Report';
 
 const useAuth = () => {
     const user = { loggedIn: false }
@@ -58,6 +59,7 @@ function App() {
                             <Route path="/activity/*" element={<Activity />} />
                             <Route path="/restore/*" element={<Restore />} />
                             <Route path="/analytic/*" element={<Analytic />} />
+                            <Route path="/report/*" element={<Report />} />
                             <Route path="*" element={<NotFound />} />
                         </Route>
                     </Routes>

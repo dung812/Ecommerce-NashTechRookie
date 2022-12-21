@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import productApi from "api/productAPI";
+import { toast } from "react-toastify";
 
 const product = createSlice({
     name: "products",
@@ -29,6 +30,17 @@ const product = createSlice({
             .addCase(addNewProduct.fulfilled, (state, action) => {
                 state.loading = false;
                 state.products.push(action.payload)
+
+                toast.success('Successfully add new product', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
             })
 
             .addCase(updateProduct.pending, (state, action) => {
@@ -37,6 +49,17 @@ const product = createSlice({
             .addCase(updateProduct.fulfilled, (state, action) => {
                 state.loading = false;
                 state.products = action.payload;
+
+                toast.success('Successfully edit product', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
             })
 
 

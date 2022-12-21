@@ -5,6 +5,8 @@ using ShoesShop.Domain;
 using Microsoft.EntityFrameworkCore;
 using X.PagedList;
 using System;
+using System.Net.WebSockets;
+using System.Collections.Generic;
 
 namespace ShoesShop.Service
 {
@@ -19,7 +21,7 @@ namespace ShoesShop.Service
         public List<string> GetNameProductList(string keyword);
         public List<AttributeViewModel> GetAttributeOfProduct(int productId);
         public Product GetNewProductAfterSave();
-        public bool CreateProduct(ProductViewModel productViewModel);
+        public bool CreateProduct(CreateProductViewModel productViewModel);
         public bool UpdateProduct(int productId, ProductViewModel productViewModel);
         public bool DeleteProduct(int productId);
         public AttributeValue GetAttributeById(int attributeId);
@@ -59,6 +61,7 @@ namespace ShoesShop.Service
                                         Quantity = m.Quantity,
                                         AdminCreate = m.Admin.UserName,
                                         DateCreate = m.DateCreate,
+                                        UpdateDate = m.UpdateDate,
                                         Gender = m.ProductGenderCategory == Gender.Men ? "Men" : "Women",
                                         ImageNameGallery1 = "",
                                         ImageNameGallery2 = "",
@@ -74,6 +77,9 @@ namespace ShoesShop.Service
                     product.ImageNameGallery2 = gallerys[1].GalleryName;
                     product.ImageNameGallery3 = gallerys[2].GalleryName;
                 }
+
+                product.Income = _context.OrderDetails.Where(m => m.ProductId == product.ProductId).Sum(m => m.TotalMoney);
+
             }
             return productList;
         }
@@ -105,6 +111,9 @@ namespace ShoesShop.Service
                                         ManufactureId = m.ManufactureId,
                                         AdminCreate = m.Admin.UserName,
                                         DateCreate = m.DateCreate,
+                                        ImageNameGallery1 = "",
+                                        ImageNameGallery2 = "",
+                                        ImageNameGallery3 = "",
                                     }).ToPagedList(pageNumber, pageSize);
             if (manufactureId != null)
             {
@@ -130,6 +139,9 @@ namespace ShoesShop.Service
                                             CatalogName = m.Catalog.Name,
                                             AdminCreate = m.Admin.UserName,
                                             DateCreate = m.DateCreate,
+                                            ImageNameGallery1 = "",
+                                            ImageNameGallery2 = "",
+                                            ImageNameGallery3 = "",
                                         }).ToPagedList(pageNumber, pageSize);
             }
             if (catalogId != null)
@@ -156,7 +168,25 @@ namespace ShoesShop.Service
                                             CatalogName = m.Catalog.Name,
                                             AdminCreate = m.Admin.UserName,
                                             DateCreate = m.DateCreate,
+                                            ImageNameGallery1 = "",
+                                            ImageNameGallery2 = "",
+                                            ImageNameGallery3 = "",
                                         }).ToPagedList(pageNumber, pageSize);
+            }
+
+            foreach (var product in productList)
+            {
+                var gallerys = _context.ProductGalleries.Where(m => m.ProductId == product.ProductId).ToList();
+
+                if (gallerys.Count >= 3)
+                {
+                    product.ImageNameGallery1 = gallerys[0].GalleryName;
+                    product.ImageNameGallery2 = gallerys[1].GalleryName;
+                    product.ImageNameGallery3 = gallerys[2].GalleryName;
+                }
+
+                product.Income = _context.OrderDetails.Where(m => m.ProductId == product.ProductId).Sum(m => m.TotalMoney);
+
             }
             return productList;
         }
@@ -187,7 +217,18 @@ namespace ShoesShop.Service
                                         AdminCreate = m.Admin.UserName,
                                         DateCreate = m.DateCreate,
                                         UpdateDate = m.UpdateDate,
+                                        ImageNameGallery1 = "",
+                                        ImageNameGallery2 = "",
+                                        ImageNameGallery3 = "",
                                     }).SingleOrDefault(m => m.ProductId == productId);
+            var gallerys = _context.ProductGalleries.Where(m => m.ProductId == product.ProductId).ToList();
+
+            if (gallerys.Count >= 3)
+            {
+                product.ImageNameGallery1 = gallerys[0].GalleryName;
+                product.ImageNameGallery2 = gallerys[1].GalleryName;
+                product.ImageNameGallery3 = gallerys[2].GalleryName;
+            }
             return product ?? new ProductViewModel();
         }
 
@@ -380,7 +421,7 @@ namespace ShoesShop.Service
             var product = _context.Products.OrderByDescending(m => m.DateCreate).FirstOrDefault();
             return product;
         }
-        public bool CreateProduct(ProductViewModel productViewModel)
+        public bool CreateProduct(CreateProductViewModel productViewModel)
         {
             try
             {
@@ -405,6 +446,18 @@ namespace ShoesShop.Service
                 _context.SaveChanges();
 
                 var newProduct = GetNewProductAfterSave();
+
+                // Save product attribute entry
+                for (int i = 1; i <= 4; i++)
+                {
+                    ProductAttribute proAttr = new ProductAttribute();
+                    proAttr.ProductId = newProduct.ProductId;
+                    proAttr.AttributeValueId = i;
+                    proAttr.Status = true;
+                    _context.ProductAttributes.Add(proAttr);
+                    _context.SaveChanges();
+                }
+                
 
                 // Save product image gallery entry
                 ProductGallery productGallery1 = new ProductGallery()
@@ -435,7 +488,8 @@ namespace ShoesShop.Service
                 _context.SaveChanges();
                 return true;
 
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 return false;
             }
@@ -525,7 +579,7 @@ namespace ShoesShop.Service
 
         }
 
-        public AttributeValue GetAttributeById(int attributeId) 
+        public AttributeValue GetAttributeById(int attributeId)
         {
             var attribute = _context.AttributeValues.FirstOrDefault(model => model.AttributeValueId == attributeId);
             return attribute;

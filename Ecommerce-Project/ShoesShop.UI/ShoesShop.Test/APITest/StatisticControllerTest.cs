@@ -22,16 +22,16 @@ namespace ShoesShop.Test.APITest
     {
         private readonly DbContextOptions<ApplicationDbContext> _options;
         private readonly ApplicationDbContext _context;
-        private readonly List<Order> _orders;
+        private readonly List<Admin> _admins;
         private readonly IMapper _mapper;
         public StatisticControllerTest()
         {
-            _options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("StatisticTestDB").Options;
+            _options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("AdminTestDB").Options;
             _context = new ApplicationDbContext(_options);
             _mapper = new MapperConfiguration(cfg => cfg.AddProfile(new OrderMapper())).CreateMapper();
-            _orders = OrderTestData.GetOrders();
+            _admins = AdminTestData.GetAdmins();
             _context.Database.EnsureDeleted();
-            _context.Orders.AddRange(_orders);
+            _context.Admins.AddRange(_admins);
             _context.SaveChanges();
         }
 

@@ -211,7 +211,12 @@ function MainPage(props) {
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    dispatch(handleDeleteAdmin(parseInt(adminId)))
+                    const handleSubmit = async () => {
+                        await dispatch(handleDeleteAdmin(parseInt(adminId)))
+                    };
+                    handleSubmit()
+                    
+                    resetPaging()
                 }
             })
         }

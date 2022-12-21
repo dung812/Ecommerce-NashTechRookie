@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ShoesShop.Domain;
 using ShoesShop.DTO;
 using ShoesShop.Service;
 
@@ -35,7 +36,7 @@ namespace ShoesShop.API.Controllers
 
         // POST: api/Product
         [HttpPost]
-        public ActionResult CreateProduct(ProductViewModel productViewModel)
+        public ActionResult CreateProduct(CreateProductViewModel productViewModel)
         {
             var status = productService.CreateProduct(productViewModel);
             return status ? Ok() : BadRequest();

@@ -20,11 +20,17 @@ namespace ShoesShop.API.Controllers
         {
             var list = statisticService.GetStatisticNumber();
             return Ok(list);
-        }        
+        }
         [HttpGet("GetRecentOrder")]
         public IActionResult GetRecentOrder()
         {
             var list = statisticService.GetRecentOrders();
+            return Ok(list);
+        }
+        [HttpGet("ReportCustomer")]
+        public IActionResult ReportCustomer()
+        {
+            var list = statisticService.ReportCustomer();
             return Ok(list);
         }
     }

@@ -28,7 +28,7 @@ namespace ShoesShop.API.Controllers
         [HttpGet("[action]")]
         public ActionResult<AdminPagingViewModel> GetAdminsPaging(string? filterByRole, DateTime? filterByDate, string? searchString, string? fieldName, string? sortType, int page, int limit)
         {
-            var admins = adminService.GetAllAdminPaging(filterByRole, filterByDate, fieldName, searchString, sortType, page, limit);
+            var admins = adminService.GetAllAdminPaging(filterByRole, filterByDate, searchString, fieldName, sortType, page, limit);
             return Ok(admins);
         }
 
@@ -37,7 +37,10 @@ namespace ShoesShop.API.Controllers
         public IActionResult GetAdmin(int id)
         {
             AdminViewModel admin = adminService.GetAdminById(id);
-            return Ok(admin);
+            if (admin != null)
+                return Ok(admin);
+            else
+                return BadRequest();
         }
 
         // POST: api/Admin
@@ -50,7 +53,7 @@ namespace ShoesShop.API.Controllers
             {
                 return BadRequest("Existed Username");
             }
-            return Ok(admin); 
+            return Ok(admin);
         }
 
         // PUT: api/Admin/1
@@ -68,7 +71,7 @@ namespace ShoesShop.API.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteAdmin(int id)
         {
-            var admin = adminService.DeleteAdmin(id);
+            var admin = adminService.DisabledAdmin(id);
             if (admin != null)
                 return NoContent();
             else

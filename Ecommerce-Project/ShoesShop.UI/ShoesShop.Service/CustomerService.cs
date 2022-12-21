@@ -46,20 +46,21 @@ namespace ShoesShop.Service
         {
             List<CustomerViewModel> customers = new List<CustomerViewModel>();
             customers = _context.Customers
-                                    .TagWith("Get list customer")
-                                    .OrderByDescending(m => m.RegisterDate)
-                                    .Select(m => new CustomerViewModel
-                                    {
-                                        CustomerId = m.CustomerId,
-                                        FirstName = m.FirstName,
-                                        LastName = m.LastName,
-                                        Avatar = m.Avatar,
-                                        Email = m.Email,
-                                        RegisterDate = m.RegisterDate,
-                                        TotalMoneyPuschased = 0,
-                                        TotalOrderSuccess = 0,
-                                        TotalOrderCancel = 0,
-                                    }).ToList();
+                                .Include(m => m.Orders)
+                                .TagWith("Get list customer")
+                                .OrderByDescending(m => m.RegisterDate)
+                                .Select(m => new CustomerViewModel
+                                {
+                                    CustomerId = m.CustomerId,
+                                    FirstName = m.FirstName,
+                                    LastName = m.LastName,
+                                    Avatar = m.Avatar,
+                                    Email = m.Email,
+                                    RegisterDate = m.RegisterDate,
+                                    TotalMoneyPuschased = m.Orders.Sum(m => m.TotalMoney),
+                                    TotalOrderSuccess = 0,
+                                    TotalOrderCancel = 0,
+                                }).ToList();
 
 
             // Handle money puschased
@@ -95,7 +96,7 @@ namespace ShoesShop.Service
                 }
                 else
                     return false;
-                
+
             }
             catch (Exception)
             {
@@ -110,13 +111,13 @@ namespace ShoesShop.Service
             return customer != null ? true : false;
         }
 
-        public Customer GetValidCustomerByEmail(string email) 
+        public Customer GetValidCustomerByEmail(string email)
         {
             Customer customer = new Customer();
             customer = _context.Customers.Where(m => m.Status == true).FirstOrDefault(m => m.Email == email);
             return customer;
-        }        
-        public Customer GetValidCustomerById(int customerId) 
+        }
+        public Customer GetValidCustomerById(int customerId)
         {
             var customer = new Customer();
             customer = _context.Customers.FirstOrDefault(m => m.CustomerId == customerId && m.Status);
@@ -138,7 +139,7 @@ namespace ShoesShop.Service
                 customer.Password = newPassword;
                 _context.SaveChanges();
             }
-        }        
+        }
         public void ResetPassword(int customerId, string newPassword)
         {
             var customer = _context.Customers.FirstOrDefault(m => m.CustomerId == customerId);

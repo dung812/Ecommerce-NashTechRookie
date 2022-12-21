@@ -23,5 +23,6 @@ namespace ShoesShop.DTO.Admin
         public int? RoleId { get; set; }
         public string RoleName { get; set; } = null!;
         public bool? IsExistedUsername { get; set; }
+        public bool? Status { get; set; }
     }
 }

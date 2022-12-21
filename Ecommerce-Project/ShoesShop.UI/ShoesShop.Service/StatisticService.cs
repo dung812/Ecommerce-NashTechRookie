@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using JetBrains.Annotations;
 
 namespace ShoesShop.Service
 {
@@ -16,6 +17,7 @@ namespace ShoesShop.Service
     {
         public List<StatisticNumberViewModel> GetStatisticNumber();
         public List<OrderViewModel> GetRecentOrders();
+        public List<CustomerReportViewModel> ReportCustomer();
     }
     public class StatisticService : IStatisticService
     {
@@ -88,6 +90,20 @@ namespace ShoesShop.Service
             var ordersDTO = _mapper.Map<List<OrderViewModel>>(orders);
             return ordersDTO;
         }
+        public List<CustomerReportViewModel> ReportCustomer()
+        {
+            var customers = _context.Customers.Include(m => m.Orders)
+                            .Select(m => new CustomerReportViewModel
+                            {
+                                FullName = m.FirstName + " " + m.LastName,
+                                TotalOrderSuccess = m.Orders.Count(m => m.OrderStatus == OrderStatus.Delivered),
+                                TotalOrderCancelled = m.Orders.Count(m => m.OrderStatus == OrderStatus.Cancelled),
+                                TotalOrderWaiting = m.Orders.Count(m => m.OrderStatus == OrderStatus.AwatingShipment),
+                                TotalMoneyPurchased = m.Orders.Sum(m => m.TotalMoney),
+                            }).OrderByDescending(m => m.TotalMoneyPurchased).Take(10).ToList();
+            return customers;
+        }
+
 
     }
 }

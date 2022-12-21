@@ -7,10 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from 'features/Category/CategorySlice';
+import { fetchManufactures } from 'features/Manufacture/ManufactureSlice';
 
 ProductForm.propTypes = {}
-
-
 
 function ProductForm(props) {
     const { initialValues, isAddMode } = props;
@@ -23,6 +22,11 @@ function ProductForm(props) {
     let loadingProduct = useSelector((state) => state.products.loading);
     let loadingCategory = useSelector((state) => state.categories.loading);
     let loadingManufacture = useSelector((state) => state.manufactures.loading);
+
+    useEffect(() => {
+        dispatch(fetchCategories());
+        dispatch(fetchManufactures());
+    }, [])
 
     useEffect(() => {
         const catalogOptions = document.querySelectorAll("select[name='catalogId'] option")

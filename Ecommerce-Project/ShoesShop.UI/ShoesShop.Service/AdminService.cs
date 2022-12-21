@@ -16,8 +16,8 @@ namespace ShoesShop.Service
         public bool CheckExistUserName(string username);
         public AdminViewModel CreateAdmin(AdminViewModel adminViewModel);
         public AdminViewModel UpdateAdmin(int adminId, AdminViewModel adminViewModel);
-        public AdminViewModel DeleteAdmin(int adminId);
-        public AdminPagingViewModel GetAllAdminPaging(string? filterByRole, DateTime? filterByDate, string? fieldName, string? searchString, string? sortType, int page, int limit);
+        public AdminViewModel DisabledAdmin(int adminId);
+        public AdminPagingViewModel GetAllAdminPaging(string? filterByRole, DateTime? filterByDate, string? searchString, string? fieldName, string? sortType, int page, int limit);
     }
     public class AdminService : IAdminService
     {
@@ -40,7 +40,7 @@ namespace ShoesShop.Service
             return adminDTO;
         }
 
-        public AdminPagingViewModel GetAllAdminPaging(string? filterByRole, DateTime? filterByDate, string? fieldName, string? searchString, string? sortType, int page, int limit)
+        public AdminPagingViewModel GetAllAdminPaging(string? filterByRole, DateTime? filterByDate, string? searchString, string? fieldName, string? sortType, int page, int limit)
         {
             // Query data
             var query = _context.Admins
@@ -76,7 +76,7 @@ namespace ShoesShop.Service
             }
 
             // Filter by date
-            if (filterByDate!= null)
+            if (filterByDate != null)
             {
                 query = query.Where(m => m.RegisteredDate.Date == filterByDate.Value.Date);
             }
@@ -104,7 +104,7 @@ namespace ShoesShop.Service
                             query = query.OrderBy(m => m.Role.RoleName);
                             break;
                     }
-                }                
+                }
                 else if (sortType == "desc")
                 {
                     switch (fieldName)
@@ -143,13 +143,6 @@ namespace ShoesShop.Service
             };
         }
 
-        //string[] listRole = filterByRole.Trim().Split(' ');
-
-        //foreach (var role in listRole)
-        //{
-        //    query = query.Where(m => listRole.Contains(m.Role.RoleName));
-        //}
-
         public AdminViewModel GetAdminById(int adminId)
         {
             AdminViewModel adminViewModel = new AdminViewModel();
@@ -167,8 +160,9 @@ namespace ShoesShop.Service
                 adminViewModel.Gender = admin.Gender == Gender.Men ? "Men" : "Women";
                 adminViewModel.RegisteredDate = admin.RegisteredDate;
                 adminViewModel.RoleId = admin.RoleId;
+                return adminViewModel;
             }
-            return adminViewModel;
+            return null;
         }
 
         public AdminViewModel AuthenticateAdmin(LoginViewModel loginViewModel)
@@ -209,7 +203,7 @@ namespace ShoesShop.Service
                 adminDTO.IsExistedUsername = true;
                 return adminDTO;
             }
-                
+
             Admin admin = new Admin()
             {
                 UserName = adminViewModel.UserName,
@@ -257,7 +251,7 @@ namespace ShoesShop.Service
             return null;
         }
 
-        public AdminViewModel DeleteAdmin(int adminId)
+        public AdminViewModel DisabledAdmin(int adminId)
         {
             var admin = _context.Admins.Find(adminId);
             if (admin != null)
