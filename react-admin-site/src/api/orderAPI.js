@@ -1,9 +1,9 @@
 import axiosClient from "./axiosClient";
 
 const orderApi = {
-  getAll: (status) => {
-    const url = `/Order/${status}`;
-    return axiosClient.get(url); 
+  getAll: (params) => {
+    const url = `/Order/GetOrdersFilter`;
+    return axiosClient.get(url, { params }); 
   },
   checkedOrder: (orderId) => {
     const url = `/Order/CheckedOrder/${orderId}`;

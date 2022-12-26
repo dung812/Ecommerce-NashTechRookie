@@ -80,8 +80,8 @@ export const { searchOrder } = actions;
 export default reducer;
 
 
-export const fetchOrders = createAsyncThunk('orders/fetchOrders', async (status) => {
-    const res = await orderApi.getAll(status);
+export const fetchOrders = createAsyncThunk('orders/fetchOrders', async (params) => {
+    const res = await orderApi.getAll(params);
     return res
 })
 

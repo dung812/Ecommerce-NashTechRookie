@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { useReactToPrint } from 'react-to-print';
+import DatePicker from 'react-datepicker';
 import { useDispatch, useSelector } from 'react-redux';
 import DataTable from 'react-data-table-component';
 import { Card, Modal } from 'react-bootstrap';
@@ -7,10 +8,13 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import CustomLoader from 'components/CustomLoader/Index';
 import Swal from 'sweetalert2'
+import './Main.scss'
 
 import { cancelledOrder, checkedOrder, deleteOrder, fetchOrders, searchOrder, successOrder } from 'features/Order/OrderSlice';
 import OrderDetail from 'features/Order/components/OrderDetail';
 import axios from 'axios';
+import { UTCWithoutHour } from 'utils';
+import { toast } from 'react-toastify';
 
 
 function MainPage(props) {
@@ -22,13 +26,13 @@ function MainPage(props) {
     const [productOfOrder, setProductOfOrder] = useState([]);
 
     const [status, setStatus] = useState(1)
+    const [fromDate, setFromDate] = useState(null);
+    const [toDate, setToDate] = useState(null);
+
+
 
     let orderList = useSelector((state) => state.orders.orders);
     let loading = useSelector((state) => state.orders.loading);
-
-
-
-
 
     const [showModal, setShowModal] = useState(false);
 
@@ -36,8 +40,25 @@ function MainPage(props) {
     const HandleShowModel = () => setShowModal(true);
 
 
+
     useEffect(() => {
-        dispatch(fetchOrders(status));
+        let  params = {};
+        if (fromDate == null || toDate == null) {
+            params = {
+                status: status,
+                FromDate: null,
+                ToDate: null
+            };
+        }
+        else {
+            params = {
+                status: status,
+                FromDate: UTCWithoutHour(fromDate),
+                ToDate: UTCWithoutHour(toDate)
+            };
+        }
+
+        dispatch(fetchOrders(params));
     }, [status])
 
     useEffect(() => {
@@ -179,6 +200,46 @@ function MainPage(props) {
         return result;
     }
 
+    function HandleFilterDate() {
+        if (fromDate == null || toDate == null) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Date null!',
+            })
+            setFromDate(null)
+            setToDate(null)
+            return;
+        }
+        const convertFormDate = UTCWithoutHour(fromDate);
+        const convertToDate = UTCWithoutHour(toDate);
+        console.log({convertFormDate, convertToDate})
+        try {
+            const params = {
+                status: status,
+                FromDate: UTCWithoutHour(fromDate),
+                ToDate: UTCWithoutHour(toDate)
+            };
+            dispatch(fetchOrders(params));
+        } catch (error) {
+            console.log('Failed to fetch order list: ', error);
+        }
+    }
+
+    function ResetFilterDate() {
+        setFromDate(null)
+        setToDate(null)
+        try {
+            const params = {
+                status: status,
+                FromDate: null,
+                ToDate: null
+            };
+            dispatch(fetchOrders(params));
+        } catch (error) {
+            console.log('Failed to fetch order list: ', error);
+        }
+    }
 
     const columns = [
         {
@@ -281,7 +342,7 @@ function MainPage(props) {
 
     const componentRef = useRef();
     const handlePrint = useReactToPrint({
-      content: () => componentRef.current,
+        content: () => componentRef.current,
     });
 
     return (
@@ -301,20 +362,72 @@ function MainPage(props) {
                         subHeaderAlign='left'
                         subHeaderWrap
                         subHeaderComponent={
-                            <div>
-                                <div className="d-flex align-items-center gap-3 mb-3">
-                                    <span>Status: </span>
-                                    <select id="" className="form-select" onChange={(e) => setStatus(e.target.value)} defaultValue={1}>
-                                        <option value="1">New Order</option>
-                                        <option value="2">Waiting delivery</option>
-                                        <option value="3">Delivered</option>
-                                        <option value="4">Cancelled</option>
-                                    </select>
+                            <React.Fragment>
+                                <div className='row w-100 mb-3'>
+                                    <div className="col-8">
+                                        <div className="row">
+                                            <div className="col-6">
+                                                <div className="d-flex align-items-center gap-3">
+                                                    <span>Status: </span>
+                                                    <select id="" className="form-select" onChange={(e) => setStatus(e.target.value)} defaultValue={1}>
+                                                        <option value="1">New Order</option>
+                                                        <option value="2">Waiting delivery</option>
+                                                        <option value="3">Delivered</option>
+                                                        <option value="4">Cancelled</option>
+                                                        <option value="5">All</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div className="col-6">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-4">
+                                        <div className="d-flex align-items-center gap-3">
+                                            <span>Search:</span> <input type="text" className="form-control" placeholder="Enter order ID" value={search} onChange={(e) => setSearch(e.target.value)} />
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="d-flex align-items-center gap-3">
-                                    <span>Search:</span> <input type="text" className="form-control" placeholder="Enter order ID" value={search} onChange={(e) => setSearch(e.target.value)} />
+                                <div className="row w-100">
+                                    <div className="w-100 d-flex align-items-center">
+                                        <div className="col-3">
+                                            <span>Filter by order date: </span>
+                                        </div>
+                                        <div className="col-9 p-0">
+                                            <div className="d-flex gap-2">
+                                                <DatePicker
+                                                    autoComplete="on"
+                                                    dateFormat="dd/MM/yyyy"
+                                                    showMonthDropdown
+                                                    showYearDropdown
+                                                    dropdownMode="select"
+                                                    placeholderText="From Date"
+                                                    selected={fromDate}
+                                                    onChange={(date) => setFromDate(date)}
+                                                    className="form-control"
+                                                />
+                                                <DatePicker
+                                                    autoComplete="on"
+                                                    dateFormat="dd/MM/yyyy"
+                                                    showMonthDropdown
+                                                    showYearDropdown
+                                                    dropdownMode="select"
+                                                    placeholderText="To Date"
+                                                    selected={toDate}
+                                                    onChange={(date) => setToDate(date)}
+                                                    className="form-control"
+                                                />
+                                                <button className='btn btn-primary' onClick={HandleFilterDate}><i className='bx bx-filter-alt'></i></button>
+                                                <button className='btn btn-outline-dark' onClick={ResetFilterDate}><i className='bx bx-x'></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                                <div className="w-100 text-end">
+
+                                </div>
+                            </React.Fragment>
+
                         }
                         progressPending={loading}
                         progressComponent={
