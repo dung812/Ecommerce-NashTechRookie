@@ -5,6 +5,7 @@ using ShoesShop.Domain;
 using ShoesShop.Domain.Enum;
 using ShoesShop.DTO;
 using ShoesShop.DTO.Admin;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ShoesShop.Service
 {
@@ -18,6 +19,8 @@ namespace ShoesShop.Service
         public AdminViewModel UpdateAdmin(int adminId, AdminViewModel adminViewModel);
         public AdminViewModel DisabledAdmin(int adminId);
         public AdminPagingViewModel GetAllAdminPaging(string? filterByRole, DateTime? filterByDate, string? searchString, string? fieldName, string? sortType, int page, int limit);
+        public Activity SaveActivity(int? adminId, string action, string objectType, string objectName);
+        public List<Activity> GetActivitiesOfAdmin(int? adminId, string? objectType, DateTime? time);
     }
     public class AdminService : IAdminService
     {
@@ -39,7 +42,6 @@ namespace ShoesShop.Service
             var adminDTO = _mapper.Map<List<AdminViewModel>>(admins);
             return adminDTO;
         }
-
         public AdminPagingViewModel GetAllAdminPaging(string? filterByRole, DateTime? filterByDate, string? searchString, string? fieldName, string? sortType, int page, int limit)
         {
             // Query data
@@ -141,6 +143,31 @@ namespace ShoesShop.Service
                 Page = page,
                 LastPage = (int)Math.Ceiling(Decimal.Divide(total, limit))
             };
+        }
+
+    
+        public List<Activity> GetActivitiesOfAdmin(int? adminId, string? objectType, DateTime? time)
+        {
+            var activities = _context.Activities.Where(m => m.AdminId != null);
+
+            // Filter
+            if (adminId != null)
+            {
+                activities = activities.Where(m => m.AdminId == adminId);
+            }            
+            if (!string.IsNullOrEmpty(objectType))
+            {
+                string[] listObjectType = objectType.Trim().Split(',');
+                activities = activities.Where(m => listObjectType.Contains(m.ObjectType));
+            }
+
+            // Filter by date
+            if (time != null)
+            {
+                activities = activities.Where(m => m.Time.Date == time.Value.Date);
+            }
+
+            return activities.ToList();
         }
 
         public AdminViewModel GetAdminById(int adminId)
@@ -265,6 +292,21 @@ namespace ShoesShop.Service
                 return adminDTO;
             }
             return null;
+        }
+
+
+        public Activity SaveActivity(int? adminId, string action, string objectType, string objectName)
+        {
+            Activity activity = new Activity();
+            activity.AdminId = adminId;
+            activity.ActivityType = action;
+            activity.ObjectType = objectType;
+            activity.ObjectName = objectName;
+            activity.Time = DateTime.Now;
+            _context.Activities.Add(activity);
+
+            _context.SaveChanges();
+            return activity;
         }
     }
 }

@@ -50,6 +50,7 @@ namespace ShoesShop.API.Controllers
 
             var claims = new[]
             {
+                new Claim("id", admin.AdminId.ToString()),
                 new Claim(ClaimTypes.Name, admin.UserName),
                 new Claim(ClaimTypes.Role, admin.RoleName),
 

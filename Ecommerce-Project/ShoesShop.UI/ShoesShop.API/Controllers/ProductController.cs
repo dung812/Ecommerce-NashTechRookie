@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Domain;
 using ShoesShop.DTO;
+using ShoesShop.DTO.Admin;
 using ShoesShop.Service;
 
 namespace ShoesShop.API.Controllers
@@ -13,9 +14,11 @@ namespace ShoesShop.API.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService productService;
-        public ProductController(IProductService productService)
+        private readonly IAdminService adminService;
+        public ProductController(IProductService productService, IAdminService adminService)
         {
             this.productService = productService;
+            this.adminService = adminService;
         }
 
         // GET: api/Product
@@ -39,15 +42,30 @@ namespace ShoesShop.API.Controllers
         public ActionResult CreateProduct(CreateProductViewModel productViewModel)
         {
             var status = productService.CreateProduct(productViewModel);
-            return status ? Ok() : BadRequest();
+
+            if (status)
+            {
+                var adminId = Convert.ToInt32(User.Claims.FirstOrDefault(m => m.Type == "id").Value);
+                adminService.SaveActivity(adminId, "Create", "Product", productViewModel.ProductName);
+                return Ok();
+            }
+            else return BadRequest();
         }
 
         // PUT: api/Product/1
         [HttpPut("{id}")]
         public ActionResult UpdateProduct(int id, ProductViewModel productViewModel)
         {
+            string oldProductName = productService.GetProductById(id).ProductName;
             var status = productService.UpdateProduct(id, productViewModel);
-            return status ? Ok() : BadRequest();
+
+            if (status)
+            {
+                var adminId = Convert.ToInt32(User.Claims.FirstOrDefault(m => m.Type == "id").Value);
+                adminService.SaveActivity(adminId, "Update", "Product", oldProductName);
+                return Ok();
+            }
+            else return BadRequest();
         }
 
         // DELETE: api/Product/1
@@ -55,7 +73,14 @@ namespace ShoesShop.API.Controllers
         public ActionResult DeleteProduct(int id)
         {
             var status = productService.DeleteProduct(id);
-            return status ? Ok() : BadRequest();
+
+            if (status)
+            {
+                var adminId = Convert.ToInt32(User.Claims.FirstOrDefault(m => m.Type == "id").Value);
+                adminService.SaveActivity(adminId, "Soft delete", "Product", "");
+                return Ok();
+            }
+            else return BadRequest();
         }
     }
 }

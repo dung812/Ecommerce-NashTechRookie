@@ -12,9 +12,11 @@ namespace ShoesShop.API.Controllers
     public class ManufactureController : ControllerBase
     {
         private readonly IManufactureService manufactureService;
-        public ManufactureController(IManufactureService manufactureService)
+        private readonly IAdminService adminService;
+        public ManufactureController(IManufactureService manufactureService, IAdminService adminService)
         {
             this.manufactureService = manufactureService;
+            this.adminService = adminService;
         }
 
 
@@ -39,15 +41,30 @@ namespace ShoesShop.API.Controllers
         public IActionResult CreateManufacture(ManufactureViewModel manufactureViewModel)
         {
             var status = manufactureService.CreateManufacture(manufactureViewModel);
-            return status ? Ok() : BadRequest();
+
+            if (status)
+            {
+                var adminId = Convert.ToInt32(User.Claims.FirstOrDefault(m => m.Type == "id").Value);
+                adminService.SaveActivity(adminId, "Create", "Manufacture", manufactureViewModel.Name);
+                return Ok();
+            }
+            else return BadRequest();
         }
 
         // PUT: api/Manufacture/1
         [HttpPut("{id}")]
         public IActionResult UpdateManufacture(int id, ManufactureViewModel manufactureViewModel)
         {
+            string oldManufactureName = manufactureService.GetManufactureById(id).Name;
             var status = manufactureService.UpdateManufacture(id, manufactureViewModel);
-            return status ? Ok() : BadRequest();
+
+            if (status)
+            {
+                var adminId = Convert.ToInt32(User.Claims.FirstOrDefault(m => m.Type == "id").Value);
+                adminService.SaveActivity(adminId, "Update", "Manufacture", oldManufactureName);
+                return Ok();
+            }
+            else return BadRequest();
         }
 
         // DELETE: api/Manufacture/1
@@ -55,7 +72,14 @@ namespace ShoesShop.API.Controllers
         public IActionResult DeleteManufacture(int id)
         {
             var status = manufactureService.DeleteManufacture(id);
-            return status ? Ok() : BadRequest();
+
+            if (status)
+            {
+                var adminId = Convert.ToInt32(User.Claims.FirstOrDefault(m => m.Type == "id").Value);
+                adminService.SaveActivity(adminId, "Soft delete", "Manufacture", manufactureService.GetManufactureById(id).Name);
+                return Ok();
+            }
+            else return BadRequest();
         }
     }
 }

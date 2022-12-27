@@ -7,14 +7,17 @@ using ShoesShop.Domain.Enum;
 
 namespace ShoesShop.API.Controllers
 {
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class OrderController : ControllerBase
     {
         private readonly IOrderService orderService;
-        public OrderController(IOrderService orderService)
+        private readonly IAdminService adminService;
+        public OrderController(IOrderService orderService, IAdminService adminService)
         {
             this.orderService = orderService;
+            this.adminService = adminService;
         }
 
         // GET: api/Order/1
@@ -22,6 +25,13 @@ namespace ShoesShop.API.Controllers
         public IActionResult GetOrders(OrderStatus status)
         {
             List<OrderViewModel> orders = orderService.GetOrderListByStatus(status);
+            return Ok(orders);
+        }          
+        
+        [HttpGet("GetOrdersFilter")]
+        public IActionResult GetOrdersFilter(OrderStatus status, DateTime? FromDate, DateTime? ToDate)
+        {
+            List<OrderViewModel> orders = orderService.GetOrderListByStatusFilter(status, FromDate, ToDate);
             return Ok(orders);
         }        
         
@@ -36,14 +46,28 @@ namespace ShoesShop.API.Controllers
         public IActionResult CheckedOrder(string orderId)
         {
             var status = orderService.CheckedOrder(orderId);
-            return status ? Ok() : BadRequest();
+
+            if (status)
+            {
+                var adminId = Convert.ToInt32(User.Claims.FirstOrDefault(m => m.Type == "id").Value);
+                adminService.SaveActivity(adminId, "Checked order", "Order", orderId);
+                return Ok();
+            }
+            else return BadRequest();
         }       
         
         [HttpGet("SuccessDeliveryOrder/{orderId}")]
         public IActionResult SuccessDeliveryOrder(string orderId)
         {
             var status = orderService.SuccessDeliveryOrder(orderId);
-            return status ? Ok() : BadRequest();
+
+            if (status)
+            {
+                var adminId = Convert.ToInt32(User.Claims.FirstOrDefault(m => m.Type == "id").Value);
+                adminService.SaveActivity(adminId, "Success order", "Order", orderId);
+                return Ok();
+            }
+            else return BadRequest();
 
         }
 
@@ -51,14 +75,28 @@ namespace ShoesShop.API.Controllers
         public IActionResult CancellationOrder(string orderId)
         {
             var status = orderService.CancellationOrder(orderId);
-            return status ? Ok() : BadRequest();
+
+            if (status)
+            {
+                var adminId = Convert.ToInt32(User.Claims.FirstOrDefault(m => m.Type == "id").Value);
+                adminService.SaveActivity(adminId, "Cancel order", "Order", orderId);
+                return Ok();
+            }
+            else return BadRequest();
         }
 
         [HttpDelete("{orderId}")]
         public IActionResult DeleteOrder(string orderId)
         {
             var status = orderService.DeleteOrderByAdmin(orderId);
-            return status ? Ok() : BadRequest();
+
+            if (status)
+            {
+                var adminId = Convert.ToInt32(User.Claims.FirstOrDefault(m => m.Type == "id").Value);
+                adminService.SaveActivity(adminId, "Delete order", "Order", orderId);
+                return Ok();
+            }
+            else return BadRequest();
         }
 
 

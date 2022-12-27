@@ -55,7 +55,7 @@ namespace ShoesShop.UI.Controllers
             ViewBag.CatalogId = catalogId;
 
             var pageNumber = page ?? 1;
-            var pageSize = 5; //Show 10 rows every time
+            var pageSize = 8; //Show 10 rows every time
 
             Gender gender = Gender.Women;
             if (cateGender == "Men")

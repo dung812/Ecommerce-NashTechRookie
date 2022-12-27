@@ -3,212 +3,173 @@ import { Card } from 'react-bootstrap';
 import { MultiSelect } from "react-multi-select-component";
 import DatePicker from 'react-datepicker';
 import ReactPaginate from 'react-paginate';
-import ModalDetail from 'features/Admin/components/ModalDetail';
-
+import DataTable from 'react-data-table-component';
+import { FormatDateTime, UTCWithoutHour } from 'utils';
+import { useDispatch, useSelector } from 'react-redux';
+import CustomLoader from 'components/CustomLoader/Index';
+import { fetchActivities, searchActivity } from 'features/Activity/ActivitySlice';
+import './Main.scss'
 
 function MainPage(props) {
-    const [showModalDetail, setShowModalDetail] = useState(false);
+    const dispatch = useDispatch();
     const [selected, setSelected] = useState([]);
-    const [joinDate, setJoinDate] = useState(null);
-    const [searchKeyword, setSearchKeyword] = useState('');
+    const [date, setDate] = useState(null);
+    const [search, setSearch] = useState('');
+    const [searchList, setSearchList] = useState([]);
+
+
+    let adminActivityId = useSelector((state) => state.activity.adminActivityId);
+    let activityList = useSelector((state) => state.activity.activities);
+    let loading = useSelector((state) => state.activity.loading);
+
     useEffect(() => {
-        console.log(searchKeyword)
-    }, [searchKeyword])
+        // Initialized data on table
+        try {
+            const params = {
+                adminId: null,
+                objectType: null,
+                time: null
+            };
+            dispatch(fetchActivities(params));
+        } catch (error) {
+            console.log('Failed to fetch activity list: ', error);
+        }
+    }, [dispatch])
+
+    useEffect(() => {
+        setSearchList([...activityList])
+    }, [loading])
+
+    useEffect(() => {
+        activityList = [...searchList]
+        const result = activityList.filter((item) => {
+            return item.objectName.toLowerCase().includes(search.toLowerCase());
+        });
+        dispatch(searchActivity(result))
+    }, [search])
 
     const options = [
-        { label: "Grapes 🍇", value: "grapes" },
-        { label: "Mango 🥭", value: "mango" },
-        // { label: "Strawberry 🍓", value: "strawberry", disabled: true },
+        { label: "Product", value: "Product" },
+        { label: "Catalog", value: "Catalog" },
+        { label: "Manufacture", value: "Manufacture" },
+        { label: "Admin", value: "Admin" },
+        { label: "Customer", value: "Customer" },
+        { label: "Order", value: "Order" },
     ];
 
-    const HandlePageClick = (data) => {
-        let currentPage = data.selected + 1;
-    }
-    const HandleSortingClick = (event, sortType) => {
 
-    }
-    const handleSubmitFilters = () => {
+    useEffect(() => {
+        const params = {
+            adminId: adminActivityId,
+            objectType: selected.map(item => item.value).toString(),
+            time: date,
+        }
+        dispatch(fetchActivities(params));
+    }, [selected])
 
-    }
+    useEffect(() => {
+        if (date) {
+            const params = {
+                adminId: adminActivityId,
+                objectType: selected.map(item => item.value).toString(),
+                time: UTCWithoutHour(date),
+            }
+            dispatch(fetchActivities(params));
+        }
+    }, [date])
 
-    const handleChangeKeyword = (event) => setSearchKeyword(event.target.value);
-
-    const HandleCloseModalDetail = (event) => {
-        setShowModalDetail(false);
-    };
-
-    const HandleWatchDetail = (productId) => {
-        setShowModalDetail(true);
-    };
+    const columns = [
+        {
+            name: "Admin ID",
+            selector: (row) => row.adminId,
+            sortable: true,
+        },
+        {
+            name: "Time",
+            selector: (row) => FormatDateTime(row.time),
+            sortable: true,
+        },
+        {
+            name: "Activity type",
+            selector: (row) => row.activityType,
+            sortable: true,
+        },
+        {
+            name: "Object type",
+            selector: (row) => row.objectType,
+            sortable: true,
+        },
+        {
+            name: "Object name",
+            selector: (row) => row.objectName,
+            sortable: true,
+        },
+    ]
 
     return (
         <React.Fragment>
             <Card>
                 <Card.Body className='p-4'>
-                    <h3 className='mb-4'>Admin data</h3>
-
-                    <div className="row mb-2">
-                        <div className="col-3">
-                            <MultiSelect
-                                placeholder="Select columns"
-                                options={options}
-                                value={selected}
-                                onChange={setSelected}
-                                labelledBy="Test"
-                            />
-                        </div>
-                        <div className="col-3">
-                            <DatePicker
-                                autoComplete="on"
-                                dateFormat="dd/MM/yyyy"
-                                showMonthDropdown
-                                showYearDropdown
-                                dropdownMode="select"
-                                placeholderText="Assigned Date"
-                                selected={joinDate}
-                                onChange={(date) => setJoinDate(date)}
-                                className="form-control"
-                            ></DatePicker>
-                        </div>
-                        <div className="col-3"></div>
-                        <div className="col-3">
-                            <div className="input-group">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    name="search"
-                                    value={searchKeyword}
-                                    onChange={(event) => handleChangeKeyword(event)}
-                                />
-                                <button
-                                    className="btn btn-outline-secondary"
-                                    type="button"
-                                    onClick={handleSubmitFilters}
-                                    style={{ border: "#c7c5c5 1px solid" }}
-                                >
-                                    <i className="bi bi-search"></i>
-                                </button>
+                    <DataTable
+                        title='Activity of admin'
+                        columns={columns}
+                        data={activityList}
+                        pagination
+                        fixedHeader
+                        selectableRows
+                        selectableRowsHighlight
+                        highlightOnHover
+                        subHeader
+                        subHeaderAlign='left'
+                        subHeaderWrap
+                        subHeaderComponent={
+                            <div className='row w-100 mb-3'>
+                                <div className="col-8 p-0">
+                                    <div className="row">
+                                        <div className="col-6">
+                                            <MultiSelect
+                                                placeholder="Select columns"
+                                                options={options}
+                                                value={selected}
+                                                onChange={setSelected}
+                                                labelledBy="Test"
+                                            />
+                                        </div>
+                                        <div className="col-6">
+                                            <DatePicker
+                                                autoComplete="on"
+                                                dateFormat="dd/MM/yyyy"
+                                                showMonthDropdown
+                                                showYearDropdown
+                                                dropdownMode="select"
+                                                placeholderText="Assigned Date"
+                                                selected={date}
+                                                onChange={(date) => setDate(date)}
+                                                className="form-control"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-4">
+                                    <div className="d-flex align-items-center gap-3">
+                                        <span>Search:</span> <input type="text" className="form-control" placeholder="Enter object name" value={search} onChange={(e) => setSearch(e.target.value)} />
+                                    </div>
+                                </div>
                             </div>
-
-                        </div>
-
-
-                    </div>
-
-                    <div className="table-responsive">
-                        <table className='table table-spacing'>
-                            <thead>
-                                <tr>
-                                    <th className="cursor-pointer">
-                                        <div className="sort-title my-2 desc" onClick={(event) => HandleSortingClick(event, "adminId")}>
-                                            ID
-                                            <i className="uil uil-sort ms-1"></i>
-                                        </div>
-                                    </th>
-                                    <th className="cursor-pointer"  width="30%">
-                                        <div className="sort-title my-2 desc" onClick={(event) => HandleSortingClick(event, "userName")}>
-                                            Account
-                                            <i className="uil uil-sort ms-1"></i>
-                                        </div>
-                                    </th>
-                                    <th className="cursor-pointer">
-                                        <div className="sort-title my-2 desc" onClick={(event) => HandleSortingClick(event, "lastName")}>
-                                            Full name
-                                            <i className="uil uil-sort ms-1"></i>
-                                        </div>
-                                    </th>
-                                    <th className="cursor-pointer">
-                                        <div className="sort-title my-2 desc" onClick={(event) => HandleSortingClick(event, "gender")}>
-                                            Gender
-                                            <i className="uil uil-sort ms-1"></i>
-                                        </div>
-                                    </th>
-                                    <th className="cursor-pointer">
-                                        <div className="sort-title my-2 desc" onClick={(event) => HandleSortingClick(event, "role")}>
-                                            Role
-                                            <i className="uil uil-sort ms-1"></i>
-                                        </div>
-                                    </th>
-                                    <th className='border-0' width="15%"></th>
-                                </tr>
-                            </thead>
-                            <tbody className="wrap-loading">
-                                <tr>
-                                    <td>
-                                        <div>
-                                            tesst
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <div className='d-flex align-items-center gap-1'>
-                                                <img
-                                                    src={`https://localhost:44324/images/avatars/avatar.jpg`}
-                                                    alt=""
-                                                    className='img-fluid rounded-circle'
-                                                    width="18%"
-                                                />
-                                                <div>
-                                                    <p className='m-0 fw-bold'>Nguyen Dung</p>
-                                                    <p className='m-0'>dung@gmail.com</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            tesst
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            test
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            tesst
-                                        </div>
-                                    </td>
-                                    <td className="p-0 px-3 mx-5 border-0">
-                                        <button className='btn btn-primary me-2'>
-                                            <i className='bx bx-edit'></i>
-                                        </button>
-                                        <button className='btn btn-danger'>
-                                            <i className='bx bx-trash'></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-
-                        </table>
-
-                        <ReactPaginate
-                            previousLabel={'Previous'}
-                            breakLabel={'...'}
-                            nextLabelLabel={'Next'}
-                            pageCount={10}
-                            marginPagesDisplayed={3}
-                            pageRangeDisplayed={6}
-                            onPageChange={HandlePageClick}
-                            containerClassName="pagination justify-content-end"
-                            pageClassName={'page-item'}
-                            pageLinkClassName={'page-link'}
-                            previousClassName={'page-item'}
-                            previousLinkClassName={'page-link'}
-                            nextClassName="page-item"
-                            nextLinkClassName={'page-link'}
-                            breakClassName={'page-link'}
-                            activeClassName={'active'}
-                        />
-                    </div>
+                        }
+                        progressPending={loading}
+                        progressComponent={
+                            <div>
+                                {Array(10)
+                                    .fill("")
+                                    .map((e, i) => (
+                                        <CustomLoader key={i} style={{ opacity: Number(2 / i).toFixed(1) }} />
+                                    ))}
+                            </div>
+                        }
+                    />
                 </Card.Body>
             </Card>
-            <ModalDetail
-                IsShow={showModalDetail}
-                OnclickCloseModalDetail={HandleCloseModalDetail}
-            // Data={productInfo}
-            />
         </React.Fragment>
     )
 }

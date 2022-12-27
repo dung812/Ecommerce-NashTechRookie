@@ -4,6 +4,7 @@ using ShoesShop.Domain;
 using ShoesShop.Domain.Enum;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ShoesShop.Service
 {
@@ -23,6 +24,7 @@ namespace ShoesShop.Service
         public bool DeleteOrderByAdmin(string orderId);
         public List<OrderViewModel> GetRecentOrders();
         public List<OrderStatisticViewModel> GetStatisticOrder();
+        public List<OrderViewModel> GetOrderListByStatusFilter(OrderStatus status, DateTime? FromDate, DateTime? ToDate);
     }
     public class OrderService : IOrderService
     {
@@ -96,6 +98,27 @@ namespace ShoesShop.Service
                 .ToList();
 
             var ordersDTO = _mapper.Map<List<OrderViewModel>>(orders);
+            return ordersDTO;
+        }        
+        
+        public List<OrderViewModel> GetOrderListByStatusFilter(OrderStatus status, DateTime? FromDate, DateTime? ToDate)
+        {
+            var orders = _context.Orders
+                        .Include(m => m.Payment)
+                        .Where(m => m.OrderId != null);
+            if (status != OrderStatus.All)
+            {
+                orders = orders.Where(m => m.OrderStatus == status);
+            }
+
+            if (FromDate != null && ToDate != null)
+            {
+                DateTime fromdate = (DateTime)FromDate;
+                DateTime todate = (DateTime)ToDate;
+                todate = todate.AddDays(1);
+                orders = orders.Where(c => c.OrderDate > fromdate && c.OrderDate < todate).OrderBy(c => c.OrderDate);
+            }
+            var ordersDTO = _mapper.Map<List<OrderViewModel>>(orders.ToList());
             return ordersDTO;
         }
 
@@ -271,8 +294,6 @@ namespace ShoesShop.Service
             }
             return false;
         }
-    
-    
         public List<OrderViewModel> GetRecentOrders()
         {
             List<OrderViewModel> orders = new List<OrderViewModel>();

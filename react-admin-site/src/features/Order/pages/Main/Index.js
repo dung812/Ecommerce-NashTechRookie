@@ -14,7 +14,6 @@ import { cancelledOrder, checkedOrder, deleteOrder, fetchOrders, searchOrder, su
 import OrderDetail from 'features/Order/components/OrderDetail';
 import axios from 'axios';
 import { UTCWithoutHour } from 'utils';
-import { toast } from 'react-toastify';
 
 
 function MainPage(props) {
@@ -29,8 +28,6 @@ function MainPage(props) {
     const [fromDate, setFromDate] = useState(null);
     const [toDate, setToDate] = useState(null);
 
-
-
     let orderList = useSelector((state) => state.orders.orders);
     let loading = useSelector((state) => state.orders.loading);
 
@@ -38,8 +35,6 @@ function MainPage(props) {
 
     const HandleCloseModel = () => setShowModal(false);
     const HandleShowModel = () => setShowModal(true);
-
-
 
     useEffect(() => {
         let  params = {};

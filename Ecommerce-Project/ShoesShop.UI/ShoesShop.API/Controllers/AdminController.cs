@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ShoesShop.DTO.Admin;
 using ShoesShop.Service;
 using ShoesShop.UI.Models;
+using System.Security.Claims;
 
 namespace ShoesShop.API.Controllers
 {
@@ -53,6 +54,8 @@ namespace ShoesShop.API.Controllers
             {
                 return BadRequest("Existed Username");
             }
+            var adminId = Convert.ToInt32(User.Claims.FirstOrDefault(m => m.Type == "id").Value);
+            adminService.SaveActivity(adminId, "Create", "Admin", adminViewModel.UserName);
             return Ok(admin);
         }
 
@@ -62,7 +65,11 @@ namespace ShoesShop.API.Controllers
         {
             var admin = adminService.UpdateAdmin(id, adminViewModel);
             if (admin != null)
+            {
+                var adminId = Convert.ToInt32(User.Claims.FirstOrDefault(m => m.Type == "id").Value);
+                adminService.SaveActivity(adminId, "Update", "Admin", adminService.GetAdminById(id).UserName);
                 return Ok(admin);
+            }
             else
                 return BadRequest();
         }
@@ -73,9 +80,21 @@ namespace ShoesShop.API.Controllers
         {
             var admin = adminService.DisabledAdmin(id);
             if (admin != null)
+            {
+                var adminId = Convert.ToInt32(User.Claims.FirstOrDefault(m => m.Type == "id").Value);
+
+                adminService.SaveActivity(adminId, "Soft Delete", "Admin", adminService.GetAdminById(id).UserName);
                 return NoContent();
+            }    
             else
                 return BadRequest();
+        }
+
+        [HttpGet("[action]")]
+        public IActionResult GetActivitiesOfAdmin(int? adminId, string? objectType, DateTime? time)
+        {
+            var activities = adminService.GetActivitiesOfAdmin(adminId, objectType, time);
+            return Ok(activities);
         }
     }
 }

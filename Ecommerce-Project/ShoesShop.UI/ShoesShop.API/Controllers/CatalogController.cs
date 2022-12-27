@@ -12,10 +12,12 @@ namespace ShoesShop.API.Controllers
     public class CatalogController : ControllerBase
     {
         private readonly ICatalogService catalogService;
+        private readonly IAdminService adminService;
 
-        public CatalogController(ICatalogService catalogService)
+        public CatalogController(ICatalogService catalogService, IAdminService adminService)
         {
             this.catalogService = catalogService;
+            this.adminService = adminService;
         }
 
         // GET: api/Catalog
@@ -39,15 +41,30 @@ namespace ShoesShop.API.Controllers
         public IActionResult CreateCatalog(CatalogViewModel catalogViewModel)
         {
             var status = catalogService.CreateCatalog(catalogViewModel);
-            return status ? Ok() : BadRequest();
+
+            if (status)
+            {
+                var adminId = Convert.ToInt32(User.Claims.FirstOrDefault(m => m.Type == "id").Value);
+                adminService.SaveActivity(adminId, "Create", "Catalog", catalogViewModel.Name);
+                return Ok();
+            }
+            else return BadRequest();
         }
 
         // PUT: api/Catalog/1
         [HttpPut("{id}")]
         public IActionResult UpdateCatalog(int id, CatalogViewModel catalogViewModel)
         {
+            string oldCatalogName = catalogService.GetCatalogById(id).Name;
             var status = catalogService.UpdateCatalog(id, catalogViewModel);
-            return status ? Ok() : BadRequest();
+
+            if (status)
+            {
+                var adminId = Convert.ToInt32(User.Claims.FirstOrDefault(m => m.Type == "id").Value);
+                adminService.SaveActivity(adminId, "Update", "Catalog", oldCatalogName);
+                return Ok();
+            }
+            else return BadRequest();
         }
 
         // DELETE: api/Catalog/1
@@ -55,7 +72,14 @@ namespace ShoesShop.API.Controllers
         public IActionResult DeleteCatalog(int id)
         {
             var status = catalogService.DeleteCatalog(id);
-            return status ? Ok() : BadRequest();
+
+            if (status)
+            {
+                var adminId = Convert.ToInt32(User.Claims.FirstOrDefault(m => m.Type == "id").Value);
+                adminService.SaveActivity(adminId, "Soft delete", "Catalog", catalogService.GetCatalogById(id).Name);
+                return Ok();
+            }
+            else return BadRequest();
         }
     }
 }
