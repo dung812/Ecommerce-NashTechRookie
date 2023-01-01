@@ -1,0 +1,8 @@
+.link-item-rating {
+    color: rgb(187, 186, 186);
+    cursor: pointer;
+}
+
+.link-item-rating:hover {
+    text-decoration: underline;
+}

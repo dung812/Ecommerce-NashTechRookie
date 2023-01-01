@@ -22,6 +22,18 @@ const customer = createSlice({
             state.loading = false;
             state.customers = [];
         })
+
+        .addCase(handleDeleteCustomer.pending, (state, action) => {
+            state.loading = true;
+        })
+        .addCase(handleDeleteCustomer.fulfilled, (state, action) => {
+            state.loading = false;
+            state.customers = action.payload;
+        })
+        .addCase(handleDeleteCustomer.rejected, (state, action) => {
+            state.loading = false;
+            state.customers = [];
+        })
     }
 })
 
@@ -30,6 +42,13 @@ export const { searchCustomer } = actions;
 export default reducer;
 
 export const fetchCustomers = createAsyncThunk('customers/fetchProducts', async () => {
+    const res = await customerApi.getAll();
+    return res
+})
+
+export const handleDeleteCustomer = createAsyncThunk('customers/handleDeleteCustomer', async (id) => {
+    await customerApi.deleteCustomer(id);
+
     const res = await customerApi.getAll();
     return res
 })

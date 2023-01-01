@@ -27,16 +27,23 @@ namespace ShoesShop.Test.ServiceTest
         private readonly ApplicationDbContext _context;
         private readonly List<Admin> _admins;
         private readonly List<Role> _roles;
+        private readonly List<Activity> _activities;
         private readonly IMapper _mapper;
         public AdminServiceTest()
         {
             _options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("AdminTestDB").Options;
             _context = new ApplicationDbContext(_options);
             _mapper = new MapperConfiguration(cfg => cfg.AddProfile(new AdminMapper())).CreateMapper();
+
             _admins = AdminTestData.GetAdmins();
             _context.Admins.AddRange(_admins);
+
             _roles = RoleTestData.GetRoles();
             _context.Roles.AddRange(_roles);
+
+            _activities = ActivityTestData.GetActivities();
+            _context.Activities.AddRange(_activities);
+
             _context.Database.EnsureDeleted();
             _context.SaveChanges();
         }
@@ -300,6 +307,53 @@ namespace ShoesShop.Test.ServiceTest
             Assert.NotNull(result);
             Assert.IsType<AdminPagingViewModel>(result);
             Assert.True(result.TotalItem > 0);
+        }
+
+        [Fact]
+        public void SaveActivity_ShouldReturnActivity()
+        {
+            //Arrange
+            Activity activity = new Activity()
+            {
+                AdminId = 1,
+                ActivityType = "Checked order",
+                ObjectType = "Order",
+                ObjectName = "HD123",
+                Time = new DateTime(2000, 01, 01)
+            };
+            AdminService adminService = new AdminService(_context, _mapper);
+
+            // Act
+            var result = adminService.SaveActivity(activity.AdminId, activity.ActivityType,activity.ObjectType, activity.ObjectName);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<Activity>(result);
+        }
+
+        [Theory]
+        [InlineData(1, null, null)]
+        [InlineData(1, "Product", null)]
+        [InlineData(1, "Product,Order", null)]
+        [InlineData(1, "Product,Order", "2000-01-01")]
+        public void GetActivitiesOfAdmin_ShouldReturnActivityList(int adminId, string objectType, string time)
+        {
+            //Arrange
+            DateTime dateformat = new DateTime();
+            if (time != null)
+            {
+                dateformat = DateTime.ParseExact(time, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+            }
+
+            AdminService adminService = new AdminService(_context, _mapper);
+
+            // Act
+            var result = adminService.GetActivitiesOfAdmin(adminId, objectType, time != null ? dateformat : null);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<List<Activity>>(result);
+            Assert.True(result.Count > 0);
         }
     }
 }

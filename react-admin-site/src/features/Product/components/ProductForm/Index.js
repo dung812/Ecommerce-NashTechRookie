@@ -8,6 +8,9 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from 'features/Category/CategorySlice';
 import { fetchManufactures } from 'features/Manufacture/ManufactureSlice';
+import ReactQuill from 'react-quill';
+import { setDescription } from 'features/Product/ProductSlice';
+
 
 ProductForm.propTypes = {}
 
@@ -22,6 +25,13 @@ function ProductForm(props) {
     let loadingProduct = useSelector((state) => state.products.loading);
     let loadingCategory = useSelector((state) => state.categories.loading);
     let loadingManufacture = useSelector((state) => state.manufactures.loading);
+
+    const [valueEditor, setValueEditor] = useState(initialValues.description);
+
+    useEffect(() => {
+        dispatch(setDescription(valueEditor))
+    }, [valueEditor])
+
 
     useEffect(() => {
         dispatch(fetchCategories());
@@ -150,12 +160,15 @@ function ProductForm(props) {
                         }
                     </select>
                 </div>
-                <div className="form-group col-md-12">
+                {/* <div className="form-group col-md-12">
                     <label htmlFor=''>Description <span className="text-danger">*</span></label>
                     <textarea className="form-control" rows={5} {...register("description")} defaultValue={initialValues.description}></textarea>
                     <small className='text-danger'>{errors.description?.message}</small>
+                </div> */}
+                <div className="form-group col-md-12">
+                    <label htmlFor=''>Description <span className="text-danger">*</span></label>
+                    <ReactQuill theme="snow" value={valueEditor} {...register("description")}  onChange={setValueEditor} />
                 </div>
-
                 <div className="form-group col-md-12">
                     <label htmlFor=''>Image <span className="text-danger">*</span></label>
                     <img src={!isAddMode ? `https://localhost:44324/images/products/Image/${initialValues.imageFileName}` : ""} width="30%" className='img-fluid d-block mx-auto mb-2' id='product-image_main' />

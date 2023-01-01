@@ -37,6 +37,15 @@ function MainPage(props) {
     const HandleShowModel = () => setShowModal(true);
 
     useEffect(() => {
+        const navItems = document.querySelectorAll('.nav-items');
+        navItems.forEach(item =>  item.classList.remove('active'))
+        navItems.forEach(item => {
+            if (item.innerText === 'Order') 
+                item.classList.add('active')
+        })
+    }, [])
+
+    useEffect(() => {
         let  params = {};
         if (fromDate == null || toDate == null) {
             params = {
@@ -239,7 +248,7 @@ function MainPage(props) {
     const columns = [
         {
             name: "Order ID",
-            selector: (row) => row.orderId,
+            selector: (row) => <div className='cursor-pointer' onClick={() => HandleDetailOrder(row.orderId)}>{row.orderId}</div>,
             sortable: true,
         },
         {
@@ -272,7 +281,6 @@ function MainPage(props) {
             name: "Action",
             cell: (row) => (
                 <div>
-                    <button onClick={() => HandleDetailOrder(row.orderId)} className='btn btn-warning me-1'><i className='bx bx-search-alt-2 fs-6'></i></button>
                     {
                         row.orderStatus === 1 ?
                             <OverlayTrigger
@@ -298,7 +306,7 @@ function MainPage(props) {
                                     </Tooltip>
                                 }
                             >
-                                <button onClick={() => HandleSuccessOrder(row.orderId)} className='btn btn-success me-1'><i className='bx bx-check-circle fs-6'></i></button>
+                                <button onClick={() => HandleSuccessOrder(row.orderId)} className='btn btn-success me-1'><i className='bx bx-task'></i></button>
                             </OverlayTrigger> : ""
                     }
                     {
@@ -312,7 +320,7 @@ function MainPage(props) {
                                     </Tooltip>
                                 }
                             >
-                                <button onClick={() => HandleCancelOrder(row.orderId)} className='btn btn-danger me-1'><i className='bx bx-x fs-6'></i></button>
+                                <button onClick={() => HandleCancelOrder(row.orderId)} className='btn btn-warning me-1'><i className='bx bx-task-x'></i></button>
                             </OverlayTrigger> : ""
                     }
                     {

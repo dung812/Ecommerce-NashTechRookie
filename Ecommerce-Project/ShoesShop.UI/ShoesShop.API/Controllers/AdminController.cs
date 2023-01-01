@@ -12,7 +12,6 @@ namespace ShoesShop.API.Controllers
     public class AdminController : ControllerBase
     {
         private readonly IAdminService adminService;
-
         public AdminController(IAdminService adminService)
         {
             this.adminService = adminService;

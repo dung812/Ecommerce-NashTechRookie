@@ -145,7 +145,7 @@ namespace ShoesShop.Service
             };
         }
 
-    
+       
         public List<Activity> GetActivitiesOfAdmin(int? adminId, string? objectType, DateTime? time)
         {
             var activities = _context.Activities.Where(m => m.AdminId != null);
@@ -167,7 +167,7 @@ namespace ShoesShop.Service
                 activities = activities.Where(m => m.Time.Date == time.Value.Date);
             }
 
-            return activities.ToList();
+            return activities.OrderBy(m => m.Time).ToList();
         }
 
         public AdminViewModel GetAdminById(int adminId)

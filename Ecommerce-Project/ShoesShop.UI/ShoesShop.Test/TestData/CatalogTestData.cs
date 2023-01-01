@@ -18,7 +18,7 @@ namespace ShoesShop.Test.TestData
                    Name = "Boots",
                    Status = true
                 },               
-                new () {
+                new Catalog() {
                    CatalogId = 2,
                    Name = "Clogs and Mules",
                    Status = true

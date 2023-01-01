@@ -20,5 +20,6 @@ namespace ShoesShop.DTO
         public int TotalMoney { get; set; }
         public int TotalDiscounted { get; set; }
         public string PaymentName { get; set; }
+        public string CustomerName { get; set; }
     }
 }

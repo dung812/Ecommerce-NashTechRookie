@@ -4,10 +4,13 @@ import { toast } from "react-toastify";
 
 const product = createSlice({
     name: "products",
-    initialState: { loading: false, products: [] },
+    initialState: { loading: false, products: [], description: '' },
     reducers: {
         searchProduct: (state, action) => {
             state.products = action.payload
+        },
+        setDescription: (state, action) => {
+            state.description = action.payload
         }
     },
     extraReducers: builder => {
@@ -74,7 +77,7 @@ const product = createSlice({
 })
 
 const { reducer, actions } = product;
-export const { searchProduct } = actions;
+export const { searchProduct, setDescription } = actions;
 export default reducer;
 
 // 

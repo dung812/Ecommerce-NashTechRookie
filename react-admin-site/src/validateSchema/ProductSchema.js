@@ -15,7 +15,6 @@ export const productSchema = yup.object().shape({
         .typeError('Quantity field should be required please').required("Please provide plan cost.")
         .min(0, "Too little")
         .max(5000, 'Very costly!'),
-    description:  yup.string().required("Description field should be required please"),
     
     // image: yup.mixed().required('A file is required')
     // .test('fileFormat', 'PDF only', (value) => {

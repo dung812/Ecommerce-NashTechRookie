@@ -3,10 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import DataTable from 'react-data-table-component';
 import { Card } from 'react-bootstrap';
 import CustomLoader from 'components/CustomLoader/Index';
-import { fetchManufactures, searchManufacture } from 'features/Manufacture/ManufactureSlice';
+import { deleteManufacture, fetchManufactures, searchManufacture } from 'features/Manufacture/ManufactureSlice';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 function MainPage(props) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [search, setSearch] = useState("");
     const [searchList, setSearchList] = useState([]);
 
@@ -29,31 +32,50 @@ function MainPage(props) {
         dispatch(searchManufacture(result))
     }, [search])
     
-    function HandleRemove(customerId) {
-        console.log(customerId)
+
+    function HandleRemove(manufactureId) {
+        console.log(manufactureId)
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(deleteManufacture(parseInt(manufactureId)))
+                !loading && Swal.fire(
+                    'Deleted!',
+                    'Manufacture has been deleted.',
+                    'success'
+                )
+            }
+        })
     }
+
 
     const columns = [
         {
             name: "ID",
-            selector: (row) => row.manufactureId,
+            selector: (row) => <div className='cursor-pointer' onClick={() => navigate(`/manufacture/${row.manufactureId}`)}>{row.manufactureId}</div>,
             sortable: true,
         },
         {
             name: "Logo",
-            selector: (row) => <img width={100} src={"https://localhost:44324/images/brand/" + row.logo} />
+            selector: (row) => <img className='cursor-pointer' onClick={() => navigate(`/manufacture/${row.manufactureId}`)} width={100} src={"https://localhost:44324/images/brand/" + row.logo} />
         },
         {
             name: "Name",
-            selector: (row) => row.name,
+            selector: (row) => <div className='cursor-pointer' onClick={() => navigate(`/manufacture/${row.manufactureId}`)}>{row.name}</div>,
             sortable: true,
         },
         {
             name: "Action",
             cell: (row) => (
                 <div>
-                    <button onClick={() => HandleRemove(row.customerId)} className='btn btn-warning me-1'><i className='bx bx-detail'></i></button>
-                    <button onClick={() => HandleRemove(row.customerId)} className='btn btn-danger'><i className='bx bx-block'></i></button>
+                    <button onClick={() => HandleRemove(row.manufactureId)} className='btn btn-danger'><i className='bx bx-trash'></i></button>
                 </div>
             )
         }
@@ -72,6 +94,7 @@ function MainPage(props) {
                         selectableRows
                         selectableRowsHighlight
                         highlightOnHover
+                        actions={<button onClick={() => navigate('/manufacture/add')} className='btn btn-success'><i className='bx bx-plus-circle'></i> Add new manufacture</button>}
                         subHeader
                         subHeaderComponent={<span>Search: <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} /></span>}
                         progressPending={loading}

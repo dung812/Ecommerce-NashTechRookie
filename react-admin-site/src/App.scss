@@ -8,6 +8,10 @@
     font-family: "Poppins", sans-serif;
 }
 
+.w-70 {
+    width: 70%;
+}
+
 .cursor-pointer {
     cursor: pointer;
 }
@@ -44,6 +48,7 @@
 .btn-custom-loading {
     position: relative;
     transition: all .3s;
+
     & .loader {
         width: 20px;
         height: 20px;
@@ -58,17 +63,20 @@
         opacity: 0;
         visibility: hidden;
     }
+
     &.is-loading {
         pointer-events: none;
         opacity: .8;
+
         & .loader {
             opacity: 1;
             visibility: visible;
         }
+
         & span {
             visibility: hidden;
         }
-        
+
     }
 }
 
@@ -80,6 +88,7 @@
 
 table tbody tr {
     transition: background-color .18s ease-in-out;
+
     &:hover {
         background-color: #d7d5d5;
         cursor: pointer;
@@ -87,7 +96,7 @@ table tbody tr {
 }
 
 .unabled-hover:hover {
-    background-color: initial!important;
+    background-color: initial !important;
 }
 
 .wrap-loading {
@@ -95,11 +104,13 @@ table tbody tr {
     min-height: 200px;
 }
 
-.empty-loading, .loading {
+.empty-loading,
+.loading {
     position: absolute;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
 }
+
 .empty-loading {
     top: 35%;
     border: none;
@@ -108,4 +119,8 @@ table tbody tr {
 .table-loading {
     pointer-events: none;
     opacity: .4;
+}
+
+.modal-body {
+    word-break: break-all;
 }

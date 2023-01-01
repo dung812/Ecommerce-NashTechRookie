@@ -23,6 +23,7 @@ namespace ShoesShop.Test.TestData
                    Phone = "123456",
                    TotalMoney = 100,
                    TotalDiscounted = 100,
+                   CustomerId = 1,
                 },
                 new Order() {
                    OrderId = "HD456",
@@ -33,6 +34,7 @@ namespace ShoesShop.Test.TestData
                    Phone = "123456",
                    TotalMoney = 100,
                    TotalDiscounted = 100,
+                   CustomerId = 1,
                 },                
                 new Order() {
                    OrderId = "HD121212",
@@ -43,6 +45,18 @@ namespace ShoesShop.Test.TestData
                    Phone = "123456",
                    TotalMoney = 100,
                    TotalDiscounted = 100,
+                   CustomerId = 1,
+                },                
+                new Order() {
+                   OrderId = "HD0706",
+                   OrderDate = new DateTime(2000, 01, 01),
+                   OrderStatus = OrderStatus.AwatingShipment,
+                   OrderName = "Thanh Duy",
+                   Address = "Test Address",
+                   Phone = "123456",
+                   TotalMoney = 100,
+                   TotalDiscounted = 100,
+                   CustomerId = 1,
                 },
             };
         }

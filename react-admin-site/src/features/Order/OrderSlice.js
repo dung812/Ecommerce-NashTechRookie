@@ -71,6 +71,18 @@ const order = createSlice({
             state.orders = [];
         })
 
+        .addCase(fetchOrdersOfCustomer.pending, (state, action) => {
+            state.loading = true;
+        })
+        .addCase(fetchOrdersOfCustomer.fulfilled, (state, action) => {
+            state.loading = false;
+            state.orders = action.payload;
+        })
+        .addCase(fetchOrdersOfCustomer.rejected, (state, action) => {
+            state.loading = false;
+            state.orders = [];
+        })
+
     }
 })
 
@@ -82,6 +94,10 @@ export default reducer;
 
 export const fetchOrders = createAsyncThunk('orders/fetchOrders', async (params) => {
     const res = await orderApi.getAll(params);
+    return res
+})
+export const fetchOrdersOfCustomer = createAsyncThunk('orders/fetchOrdersOfCustomer', async (params) => {
+    const res = await orderApi.getOrderOfCustomer(params);
     return res
 })
 

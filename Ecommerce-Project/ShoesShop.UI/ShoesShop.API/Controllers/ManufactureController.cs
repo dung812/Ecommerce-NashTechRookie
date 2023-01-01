@@ -76,7 +76,7 @@ namespace ShoesShop.API.Controllers
             if (status)
             {
                 var adminId = Convert.ToInt32(User.Claims.FirstOrDefault(m => m.Type == "id").Value);
-                adminService.SaveActivity(adminId, "Soft delete", "Manufacture", manufactureService.GetManufactureById(id).Name);
+                adminService.SaveActivity(adminId, "Soft delete", "Manufacture", manufactureService.GetManufactureById(id).Name != null ? manufactureService.GetManufactureById(id).Name : "");
                 return Ok();
             }
             else return BadRequest();

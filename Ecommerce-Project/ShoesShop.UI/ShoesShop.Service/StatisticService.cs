@@ -103,7 +103,5 @@ namespace ShoesShop.Service
                             }).OrderByDescending(m => m.TotalMoneyPurchased).Take(10).ToList();
             return customers;
         }
-
-
     }
 }

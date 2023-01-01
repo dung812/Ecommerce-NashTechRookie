@@ -23,7 +23,7 @@ const ModalDetail = (props) => {
                 </Modal.Header>
                 <Modal.Body className="modal__body px-5">
                     <div className="row mb-2">
-                        <div className="col-12 d-flex justify-content-center"> 
+                        <div className="col-12 d-flex justify-content-center">
                             <img width="30%" className="img-fluid" src={`https://localhost:44324/images/avatars/${Data?.avatar}`} />
                         </div>
                     </div>
@@ -81,10 +81,30 @@ const ModalDetail = (props) => {
                             {Data?.roleName}
                         </div>
                     </div>
-
-                </Modal.Body>
-            </Modal>
-        </React.Fragment>
+                    <div className="row mt-3">
+                        <div className="col-4">
+                            <div className="radio">
+                                <label><input type="radio" className="list_role" value="1" /> Admin</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" className="list_role" value="2" /> Employee</label>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <button className='btn btn-primary btn-custom-loading'><div class="loader"></div><span>Change Role</span></button> 
+                        </div>
+                    </div>
+            </Modal.Body>
+            <Modal.Footer>
+                <div className="row mb-2">
+                    <div className="col-12">
+                        {/* <u className='cursor-pointer' onClick={() => navigate(`/order/${Data?.customerId}`)}>Watch order list of {Data?.firstName} {Data?.lastName}</u> */}
+                        <u className='cursor-pointer'>Watch activities of {Data?.firstName} {Data?.lastName}</u>
+                    </div>
+                </div>
+            </Modal.Footer>
+        </Modal>
+        </React.Fragment >
     );
 };
 

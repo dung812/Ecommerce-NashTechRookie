@@ -5,7 +5,7 @@ import { utils, writeFile } from 'xlsx';
 const ReportProduct = (props) => {
 
     const HandleOnExport = () => {
-        let Heading = [['Category', 'Total', 'Assigned']];
+        let Heading = [['ID', 'Name', 'Total money']];
         //Had to create a new workbook and then add the header
         const wb = utils.book_new();
         const ws = utils.json_to_sheet([]);

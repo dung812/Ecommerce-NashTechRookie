@@ -33,6 +33,13 @@ namespace ShoesShop.API.Controllers
         {
             List<OrderViewModel> orders = orderService.GetOrderListByStatusFilter(status, FromDate, ToDate);
             return Ok(orders);
+        }           
+        
+        [HttpGet("GetOrdersOfCustomer")]
+        public IActionResult GetOrdersOfCustomer(int customerId, OrderStatus status)
+        {
+            List<OrderViewModel> orders = orderService.GetOrderListOfCustomerId(customerId, status);
+            return Ok(orders);
         }        
         
         [HttpGet("GetProductListOfOrder/{orderId}")]

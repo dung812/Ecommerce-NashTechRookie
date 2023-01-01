@@ -25,6 +25,7 @@ namespace ShoesShop.Service
         public List<OrderViewModel> GetRecentOrders();
         public List<OrderStatisticViewModel> GetStatisticOrder();
         public List<OrderViewModel> GetOrderListByStatusFilter(OrderStatus status, DateTime? FromDate, DateTime? ToDate);
+        public List<OrderViewModel> GetOrderListOfCustomerId(int customerId, OrderStatus status);
     }
     public class OrderService : IOrderService
     {
@@ -37,30 +38,23 @@ namespace ShoesShop.Service
         }
         public bool CreateNewOrder(OrderViewModel orderViewModel, int customerId, int paymentId)
         {
-            try
+            Order order = new Order()
             {
-                Order order = new Order()
-                {
-                    OrderId = orderViewModel.OrderId,
-                    OrderDate = orderViewModel.OrderDate,
-                    OrderStatus = OrderStatus.NewOrder,
-                    OrderName = orderViewModel.OrderName,
-                    Address = orderViewModel.Address,
-                    Phone = orderViewModel.Phone,
-                    Note = orderViewModel.Note,
-                    TotalMoney = orderViewModel.TotalMoney,
-                    TotalDiscounted = orderViewModel.TotalDiscounted,
-                    CustomerId = customerId,
-                    PaymentId = paymentId
-                };
-                _context.Orders.Add(order);
-                _context.SaveChanges();
-                return true;
-            } catch (Exception)
-            {
-                return false;
-            }
-
+                OrderId = orderViewModel.OrderId,
+                OrderDate = orderViewModel.OrderDate,
+                OrderStatus = OrderStatus.NewOrder,
+                OrderName = orderViewModel.OrderName,
+                Address = orderViewModel.Address,
+                Phone = orderViewModel.Phone,
+                Note = orderViewModel.Note,
+                TotalMoney = orderViewModel.TotalMoney,
+                TotalDiscounted = orderViewModel.TotalDiscounted,
+                CustomerId = customerId,
+                PaymentId = paymentId
+            };
+            _context.Orders.Add(order);
+            _context.SaveChanges();
+            return true;
         }
         public bool CreateOrderDetail(string orderId, List<CartViewModel> listCart)
         {
@@ -104,6 +98,7 @@ namespace ShoesShop.Service
         public List<OrderViewModel> GetOrderListByStatusFilter(OrderStatus status, DateTime? FromDate, DateTime? ToDate)
         {
             var orders = _context.Orders
+                         .Include(m => m.Customer)
                         .Include(m => m.Payment)
                         .Where(m => m.OrderId != null);
             if (status != OrderStatus.All)
@@ -117,6 +112,20 @@ namespace ShoesShop.Service
                 DateTime todate = (DateTime)ToDate;
                 todate = todate.AddDays(1);
                 orders = orders.Where(c => c.OrderDate > fromdate && c.OrderDate < todate).OrderBy(c => c.OrderDate);
+            }
+            var ordersDTO = _mapper.Map<List<OrderViewModel>>(orders.ToList());
+            return ordersDTO;
+        }        
+        
+        public List<OrderViewModel> GetOrderListOfCustomerId(int customerId, OrderStatus status)
+        {
+            var orders = _context.Orders
+                        .Include(m => m.Customer)
+                        .Include(m => m.Payment)
+                        .Where(m => m.CustomerId == customerId);
+            if (status != OrderStatus.All)
+            {
+                orders = orders.Where(m => m.OrderStatus == status);
             }
             var ordersDTO = _mapper.Map<List<OrderViewModel>>(orders.ToList());
             return ordersDTO;
@@ -209,74 +218,54 @@ namespace ShoesShop.Service
         public bool CheckedOrder(string orderId)
         {
             bool result;
-            try
-            {
-                var order = _context.Orders.Where(m => m.OrderStatus == OrderStatus.NewOrder).FirstOrDefault(m => m.OrderId == orderId);
+            var order = _context.Orders.Where(m => m.OrderStatus == OrderStatus.NewOrder).FirstOrDefault(m => m.OrderId == orderId);
 
-                if (order != null)
-                {
-                    order.OrderStatus = OrderStatus.AwatingShipment;
-
-                    _context.Orders.Update(order);
-                    _context.SaveChanges();
-                    result = true;
-                }
-                else
-                    result = false;
-            } catch(Exception)
+            if (order != null)
             {
-                result = false;
+                order.OrderStatus = OrderStatus.AwatingShipment;
+
+                _context.Orders.Update(order);
+                _context.SaveChanges();
+                result = true;
             }
+            else
+                result = false;
             return result;
         }
         public bool SuccessDeliveryOrder(string orderId)
         {
             bool result;
-            try
+            var order = _context.Orders.Where(m => m.OrderStatus == OrderStatus.AwatingShipment).FirstOrDefault(m => m.OrderId == orderId);
+
+            if (order != null)
             {
-                var order = _context.Orders.Where(m => m.OrderStatus == OrderStatus.AwatingShipment).FirstOrDefault(m => m.OrderId == orderId);
+                order.OrderStatus = OrderStatus.Delivered;
+                order.DeliveryDate = DateTime.Now;
 
-                if (order != null)
-                {
-                    order.OrderStatus = OrderStatus.Delivered;
-                    order.DeliveryDate = DateTime.Now;
-
-                    _context.Orders.Update(order);
-                    _context.SaveChanges();
-                    result = true;
-                }
-                else
-                    result = false;
+                _context.Orders.Update(order);
+                _context.SaveChanges();
+                result = true;
             }
-            catch (Exception)
-            {
+            else
                 result = false;
-            }
             return result;
         }
         public bool CancellationOrder(string orderId)
         {
             bool result;
-            try
+            var order = _context.Orders.Where(m => m.OrderStatus == OrderStatus.AwatingShipment).FirstOrDefault(m => m.OrderId == orderId);
+
+            if (order != null)
             {
-                var order = _context.Orders.Where(m => m.OrderStatus == OrderStatus.AwatingShipment).FirstOrDefault(m => m.OrderId == orderId);
+                order.OrderStatus = OrderStatus.Cancelled;
+                order.CancellationDate = DateTime.Now;
 
-                if (order != null)
-                {
-                    order.OrderStatus = OrderStatus.Cancelled;
-                    order.CancellationDate = DateTime.Now;
-
-                    _context.Orders.Update(order);
-                    _context.SaveChanges();
-                    result = true;
-                }
-                else
-                    result = false;
+                _context.Orders.Update(order);
+                _context.SaveChanges();
+                result = true;
             }
-            catch (Exception)
-            {
+            else
                 result = false;
-            }
             return result;
         }
         public bool DeleteOrderByAdmin(string orderId)

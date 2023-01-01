@@ -9,8 +9,6 @@ namespace ShoesShop.Service
 {
     public interface ICommentProductService
     {
-        //List<ProductViewModel> GetAllProduct();
-        //ProductViewModel GetSingleProduct(int productId);
         public List<CommentProductViewModel> GetListCommentOfProductById(int productId);
         public bool CheckCustomerCommentYet(int productId, int customerId);
         public bool AddCommentOfProduct(int productId, int customerId, int star, string content);
@@ -26,17 +24,17 @@ namespace ShoesShop.Service
         {
             List<CommentProductViewModel> comments = new List<CommentProductViewModel>();
             comments = _context.CommentProducts
-                .Where(p => p.ProductId == productId)
-                .Include(m => m.Customer)
-                .Select(m => new CommentProductViewModel
-                {
-                    FirstName = m.Customer.FirstName,
-                    LastName = m.Customer.LastName,
-                    Avatar = m.Customer.Avatar,
-                    Star = m.Star,
-                    Content = m.Content,
-                    Date = m.Date
-                }).ToList();
+                    .Where(p => p.ProductId == productId)
+                    .Include(m => m.Customer)
+                    .Select(m => new CommentProductViewModel
+                    {
+                        FirstName = m.Customer.FirstName,
+                        LastName = m.Customer.LastName,
+                        Avatar = m.Customer.Avatar,
+                        Star = m.Star,
+                        Content = m.Content,
+                        Date = m.Date
+                    }).ToList();
             return comments;
         }
 
@@ -51,24 +49,18 @@ namespace ShoesShop.Service
 
         public bool AddCommentOfProduct(int productId, int customerId, int star, string content)
         {
-            try
-            {
-                CommentProduct commentProduct = new CommentProduct();
-                commentProduct.ProductId = productId;
-                commentProduct.CustomerId = customerId;
-                commentProduct.Star = star;
-                commentProduct.Content = content;
-                commentProduct.Date = DateTime.Now;
-                commentProduct.Status = true;
+            CommentProduct commentProduct = new CommentProduct();
+            commentProduct.ProductId = productId;
+            commentProduct.CustomerId = customerId;
+            commentProduct.Star = star;
+            commentProduct.Content = content;
+            commentProduct.Date = DateTime.Now;
+            commentProduct.Status = true;
 
-                _context.CommentProducts.Add(commentProduct);
-                _context.SaveChanges();
+            _context.CommentProducts.Add(commentProduct);
+            _context.SaveChanges();
 
-                return true;
-            } catch(Exception)
-            {
-                return false;
-            }
+            return true;
         }
     }
 }

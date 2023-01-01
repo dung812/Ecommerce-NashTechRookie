@@ -67,3 +67,17 @@ export const GetDate = (dateString) => {
 
     return `${year}-${month}-${day}`;
 }
+
+export const FormatStatusOrder = (orderStatus) => {
+    let result;
+    if (orderStatus === 1)
+        result = `New Order`
+    else if (orderStatus === 2)
+        result = `Waiting Delivery`
+    else if (orderStatus === 3)
+        result = `Delivered`
+    else if (orderStatus === 4)
+        result = `Cancelled`
+
+    return result;
+}

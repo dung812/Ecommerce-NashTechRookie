@@ -59,7 +59,7 @@ const MainPage = () => {
             sortable: true,
         },
         {
-            name: "Total Orde rSuccess",
+            name: "Total Order Success",
             selector: (row) => row.totalOrderSuccess,
             sortable: true,
         },
@@ -108,7 +108,8 @@ const MainPage = () => {
                             {/* <ReportIncome
                                 
                             /> */}
-                            tesst
+                            <h1 className='text-center'>Income</h1>
+                            <p className='text-center'>Total money earned in the last 30 days: <span className='text-danger'>$800.000</span></p>
                         </Tab>
 
                     </Tabs>

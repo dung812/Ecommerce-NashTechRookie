@@ -89,11 +89,6 @@ function MainPage(props) {
 
     }
 
-    function HandleDetail(categoryId) {
-        console.log(categoryId)
-
-    }
-
     function HandleCreate() {
         setShowModal(true)
         setInitialValues({
@@ -147,7 +142,6 @@ function MainPage(props) {
             name: "Action",
             cell: (row) => (
                 <React.Fragment>
-                    <button onClick={() => HandleDetail(row.catalogId)} className='btn btn-warning me-2'><i className='bx bx-detail'></i></button>
                     <button onClick={() => HandleUpdate(row.catalogId)} className='btn btn-primary me-2'><i className='bx bx-edit'></i></button>
                     <button onClick={() => HandleRemove(row.catalogId)} className='btn btn-danger'><i className='bx bx-trash'></i></button>
                 </React.Fragment>

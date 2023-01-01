@@ -18,6 +18,7 @@ const AddEditPage = () => {
     let admin = useSelector((state) => state.authAdmin.admin.info); // Get admin if to Admin info state
 
     let editedProduct = useSelector((state) => state.products.products.find(product => product.productId === parseInt(productId)));
+    let description = useSelector((state) => state.products.description);
     const isAddMode = !productId;
     const initialValues = isAddMode
         ? {
@@ -61,7 +62,7 @@ const AddEditPage = () => {
                 ImageName: image.files[0].name.split(".")[0],
                 OriginalPrice: data.originalPrice,
                 PromotionPercent: data.promotionPercent,
-                Description: data.description,
+                Description: description,
                 Quantity: data.quantity,
                 Gender: gender.value,
                 AdminId: admin.adminId, // get token infor
@@ -78,11 +79,10 @@ const AddEditPage = () => {
                 HandleSaveProductImageGallery("#input-image-gallery-3", image.files[0].name.split(".")[0], "3"),
                 dispatch(addNewProduct(newProduct))
             ])
-                .then(axios.spread((firstResponse, secondResponse, thirdResponse, fourResponse) => {
-
-                    navigate("/product");
-                }))
-                .catch(error => console.log(error));
+            .then(axios.spread((firstResponse, secondResponse, thirdResponse, fourResponse) => {
+                navigate("/product");
+            }))
+            .catch(error => console.log(error));
 
         }
         else {
@@ -98,7 +98,7 @@ const AddEditPage = () => {
                 ImageName: image.value.length > 0 ? image.files[0].name.split(".")[0] : initialValues.imageName,
                 OriginalPrice: data.originalPrice,
                 PromotionPercent: data.promotionPercent,
-                Description: data.description,
+                Description: description,
                 Quantity: data.quantity,
                 Gender: gender.value,
                 AdminId: admin.adminId, // get token infor

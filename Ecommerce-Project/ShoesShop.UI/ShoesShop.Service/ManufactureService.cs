@@ -34,7 +34,7 @@ namespace ShoesShop.Service
         public ManufactureViewModel GetManufactureById(int manufactureId)
         {
             ManufactureViewModel manufactureViewModel = new ManufactureViewModel();
-            var manufacture = _context.Manufactures.FirstOrDefault(m => m.ManufactureId == manufactureId && m.Status);
+            var manufacture = _context.Manufactures.FirstOrDefault(m => m.ManufactureId == manufactureId);
             if (manufacture != null)
             {
                 manufactureViewModel.ManufactureId = manufacture.ManufactureId;
@@ -47,71 +47,50 @@ namespace ShoesShop.Service
 
         public bool CreateManufacture(ManufactureViewModel manufactureViewModel)
         {
-            try
+            Manufacture manufacture = new Manufacture()
             {
-                Manufacture manufacture = new Manufacture()
-                {
-                    Name = manufactureViewModel.Name,
-                    Logo = manufactureViewModel.Logo,
-                    Status = true
-                };
-                _context.Manufactures.Add(manufacture);
-                _context.SaveChanges();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+                Name = manufactureViewModel.Name,
+                Logo = manufactureViewModel.Logo,
+                Status = true
+            };
+            _context.Manufactures.Add(manufacture);
+            _context.SaveChanges();
+            return true;
         }
         public bool UpdateManufacture(int manufactureId, ManufactureViewModel manufactureViewModel)
         {
-            try
+            bool result;
+            var manufacture = _context.Manufactures.Find(manufactureId);
+            if (manufacture != null)
             {
-                bool result;
-                var manufacture = _context.Manufactures.Find(manufactureId);
-                if (manufacture != null)
-                {
-                    manufacture.Name = manufactureViewModel.Name;
-                    manufacture.Logo = manufactureViewModel.Logo;
+                manufacture.Name = manufactureViewModel.Name;
+                manufacture.Logo = manufactureViewModel.Logo;
 
-                    _context.Manufactures.Update(manufacture);
-                    _context.SaveChanges();
+                _context.Manufactures.Update(manufacture);
+                _context.SaveChanges();
 
-                    result = true;
-                }
-                else
-                    result = false;
-                return result;
+                result = true;
             }
-            catch (Exception)
-            {
-                return false;
-            }
+            else
+                result = false;
+            return result;
         }
         public bool DeleteManufacture(int manufactureId)
         {
-            try
+            bool result;
+            var manufacture = _context.Manufactures.Find(manufactureId);
+            if (manufacture != null)
             {
-                bool result;
-                var manufacture = _context.Manufactures.Find(manufactureId);
-                if (manufacture != null)
-                {
-                    manufacture.Status = false;
+                manufacture.Status = false;
 
-                    _context.Manufactures.Update(manufacture);
-                    _context.SaveChanges();
+                _context.Manufactures.Update(manufacture);
+                _context.SaveChanges();
 
-                    result = true;
-                }
-                else
-                    result = false;
-                return result;
+                result = true;
             }
-            catch (Exception)
-            {
-                return false;
-            }
+            else
+                result = false;
+            return result;
         }
     }
 }

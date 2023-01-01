@@ -5,6 +5,10 @@ const orderApi = {
     const url = `/Order/GetOrdersFilter`;
     return axiosClient.get(url, { params }); 
   },
+  getOrderOfCustomer: (params) => {
+    const url = `/Order/GetOrdersOfCustomer`;
+    return axiosClient.get(url, { params }); 
+  },
   checkedOrder: (orderId) => {
     const url = `/Order/CheckedOrder/${orderId}`;
     return axiosClient.get(url); 

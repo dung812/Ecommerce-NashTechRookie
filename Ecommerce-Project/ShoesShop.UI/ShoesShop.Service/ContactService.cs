@@ -1,12 +1,14 @@
-﻿using ShoesShop.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using ShoesShop.Data;
 using ShoesShop.Domain;
 using ShoesShop.DTO;
+using ShoesShop.DTO.Admin;
 
 namespace ShoesShop.Service
 {
     public interface IContactService
     {
-        public void Create(ContactViewModel contactViewModel);
+        public bool Create(ContactViewModel contactViewModel);
     }
     public class ContactService : IContactService
     {
@@ -15,7 +17,7 @@ namespace ShoesShop.Service
         {
             _context = context;
         }
-        public void Create(ContactViewModel contactViewModel)
+        public bool Create(ContactViewModel contactViewModel)
         {
             Contact contact = new Contact()
             {
@@ -28,6 +30,7 @@ namespace ShoesShop.Service
 
             _context.Contacts.Add(contact);
             _context.SaveChanges();
+            return true;
         }
     }
 }

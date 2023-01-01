@@ -423,160 +423,135 @@ namespace ShoesShop.Service
         }
         public bool CreateProduct(CreateProductViewModel productViewModel)
         {
-            try
+            Product product = new Product()
             {
-                Product product = new Product()
-                {
-                    ProductName = productViewModel.ProductName,
-                    ImageFileName = productViewModel.ImageFileName,
-                    ImageName = productViewModel.ImageName,
-                    OriginalPrice = productViewModel.OriginalPrice,
-                    PromotionPercent = productViewModel.PromotionPercent,
-                    Description = productViewModel.Description,
-                    Quantity = productViewModel.Quantity,
-                    Status = true,
-                    ProductGenderCategory = productViewModel.Gender == "Women" ? Gender.Women : Gender.Men,
-                    DateCreate = DateTime.Now,
-                    AdminId = productViewModel.AdminId,
-                    ManufactureId = productViewModel.ManufactureId,
-                    CatalogId = productViewModel.CatalogId
-                };
-                // Save product entry
-                _context.Products.Add(product);
-                _context.SaveChanges();
+                ProductName = productViewModel.ProductName,
+                ImageFileName = productViewModel.ImageFileName,
+                ImageName = productViewModel.ImageName,
+                OriginalPrice = productViewModel.OriginalPrice,
+                PromotionPercent = productViewModel.PromotionPercent,
+                Description = productViewModel.Description,
+                Quantity = productViewModel.Quantity,
+                Status = true,
+                ProductGenderCategory = productViewModel.Gender == "Women" ? Gender.Women : Gender.Men,
+                DateCreate = DateTime.Now,
+                AdminId = productViewModel.AdminId,
+                ManufactureId = productViewModel.ManufactureId,
+                CatalogId = productViewModel.CatalogId
+            };
+            // Save product entry
+            _context.Products.Add(product);
+            _context.SaveChanges();
 
-                var newProduct = GetNewProductAfterSave();
+            var newProduct = GetNewProductAfterSave();
 
-                // Save product attribute entry
-                for (int i = 1; i <= 4; i++)
-                {
-                    ProductAttribute proAttr = new ProductAttribute();
-                    proAttr.ProductId = newProduct.ProductId;
-                    proAttr.AttributeValueId = i;
-                    proAttr.Status = true;
-                    _context.ProductAttributes.Add(proAttr);
-                    _context.SaveChanges();
-                }
-                
-
-                // Save product image gallery entry
-                ProductGallery productGallery1 = new ProductGallery()
-                {
-                    ProductId = newProduct.ProductId,
-                    GalleryName = productViewModel.ImageNameGallery1,
-                    Status = true
-                };
-                _context.ProductGalleries.Add(productGallery1);
-                _context.SaveChanges();
-
-                ProductGallery productGallery2 = new ProductGallery()
-                {
-                    ProductId = newProduct.ProductId,
-                    GalleryName = productViewModel.ImageNameGallery2,
-                    Status = true
-                };
-                _context.ProductGalleries.Add(productGallery2);
-                _context.SaveChanges();
-
-                ProductGallery productGallery3 = new ProductGallery()
-                {
-                    ProductId = newProduct.ProductId,
-                    GalleryName = productViewModel.ImageNameGallery3,
-                    Status = true
-                };
-                _context.ProductGalleries.Add(productGallery3);
-                _context.SaveChanges();
-                return true;
-
-            }
-            catch (Exception)
+            // Save product attribute entry
+            for (int i = 1; i <= 4; i++)
             {
-                return false;
+                ProductAttribute proAttr = new ProductAttribute();
+                proAttr.ProductId = newProduct.ProductId;
+                proAttr.AttributeValueId = i;
+                proAttr.Status = true;
+                _context.ProductAttributes.Add(proAttr);
+                _context.SaveChanges();
             }
 
+
+            // Save product image gallery entry
+            ProductGallery productGallery1 = new ProductGallery()
+            {
+                ProductId = newProduct.ProductId,
+                GalleryName = productViewModel.ImageNameGallery1,
+                Status = true
+            };
+            _context.ProductGalleries.Add(productGallery1);
+            _context.SaveChanges();
+
+            ProductGallery productGallery2 = new ProductGallery()
+            {
+                ProductId = newProduct.ProductId,
+                GalleryName = productViewModel.ImageNameGallery2,
+                Status = true
+            };
+            _context.ProductGalleries.Add(productGallery2);
+            _context.SaveChanges();
+
+            ProductGallery productGallery3 = new ProductGallery()
+            {
+                ProductId = newProduct.ProductId,
+                GalleryName = productViewModel.ImageNameGallery3,
+                Status = true
+            };
+            _context.ProductGalleries.Add(productGallery3);
+            _context.SaveChanges();
+            return true;
         }
         public bool UpdateProduct(int productId, ProductViewModel productViewModel)
         {
-            try
+            bool result;
+
+            var product = _context.Products.Find(productId);
+
+            if (product != null)
             {
-                bool result;
+                // Update product entry
+                product.ProductName = productViewModel.ProductName;
+                product.ImageFileName = productViewModel.ImageFileName;
+                product.ImageName = productViewModel.ImageName;
+                product.OriginalPrice = productViewModel.OriginalPrice;
+                product.PromotionPercent = productViewModel.PromotionPercent;
+                product.Description = productViewModel.Description;
+                product.Quantity = productViewModel.Quantity;
+                product.ProductGenderCategory = productViewModel.Gender == "Women" ? Gender.Women : Gender.Men;
+                product.AdminId = productViewModel.AdminId;
+                product.ManufactureId = productViewModel.ManufactureId;
+                product.CatalogId = productViewModel.CatalogId;
+                product.UpdateDate = DateTime.Now;
 
-                var product = _context.Products.Find(productId);
-
-                if (product != null)
-                {
-                    // Update product entry
-                    product.ProductName = productViewModel.ProductName;
-                    product.ImageFileName = productViewModel.ImageFileName;
-                    product.ImageName = productViewModel.ImageName;
-                    product.OriginalPrice = productViewModel.OriginalPrice;
-                    product.PromotionPercent = productViewModel.PromotionPercent;
-                    product.Description = productViewModel.Description;
-                    product.Quantity = productViewModel.Quantity;
-                    product.ProductGenderCategory = productViewModel.Gender == "Women" ? Gender.Women : Gender.Men;
-                    product.AdminId = productViewModel.AdminId;
-                    product.ManufactureId = productViewModel.ManufactureId;
-                    product.CatalogId = productViewModel.CatalogId;
-                    product.UpdateDate = DateTime.Now;
-
-                    _context.Products.Update(product);
-                    _context.SaveChanges();
+                _context.Products.Update(product);
+                _context.SaveChanges();
 
 
-                    // Update product gallery entry
-                    var galleryProducts = _context.ProductGalleries.Where(m => m.ProductId == productViewModel.ProductId).ToList();
+                // Update product gallery entry
+                var galleryProducts = _context.ProductGalleries.Where(m => m.ProductId == productViewModel.ProductId).ToList();
 
-                    galleryProducts[0].GalleryName = productViewModel.ImageNameGallery1;
-                    _context.ProductGalleries.Update(galleryProducts[0]);
-                    _context.SaveChanges();
+                galleryProducts[0].GalleryName = productViewModel.ImageNameGallery1;
+                _context.ProductGalleries.Update(galleryProducts[0]);
+                _context.SaveChanges();
 
-                    galleryProducts[1].GalleryName = productViewModel.ImageNameGallery2;
-                    _context.ProductGalleries.Update(galleryProducts[1]);
-                    _context.SaveChanges();
+                galleryProducts[1].GalleryName = productViewModel.ImageNameGallery2;
+                _context.ProductGalleries.Update(galleryProducts[1]);
+                _context.SaveChanges();
 
-                    galleryProducts[2].GalleryName = productViewModel.ImageNameGallery3;
-                    _context.ProductGalleries.Update(galleryProducts[2]);
-                    _context.SaveChanges();
+                galleryProducts[2].GalleryName = productViewModel.ImageNameGallery3;
+                _context.ProductGalleries.Update(galleryProducts[2]);
+                _context.SaveChanges();
 
-                    result = true;
-                }
-                else
-                    result = false;
-                return result;
+                result = true;
             }
-            catch (Exception)
-            {
-                return false;
-            }
-
+            else
+                result = false;
+            return result;
         }
         public bool DeleteProduct(int productId)
         {
-            try
+            bool result;
+            var product = _context.Products.Find(productId);
+            if (product != null)
             {
-                bool result;
-                var product = _context.Products.Find(productId);
-                if (product != null)
-                {
 
-                    product.Status = false;
+                product.Status = false;
 
-                    _context.Products.Update(product);
-                    _context.SaveChanges();
+                _context.Products.Update(product);
+                _context.SaveChanges();
 
-                    result = true;
-                }
-                else
-                {
-                    result = false;
-                }
-                return result;
+                result = true;
             }
-            catch (Exception)
+            else
             {
-                return false;
+                result = false;
             }
-
+            return result;
         }
 
         public AttributeValue GetAttributeById(int attributeId)

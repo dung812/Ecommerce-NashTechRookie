@@ -142,7 +142,7 @@ function MainPage(props) {
                                                 showMonthDropdown
                                                 showYearDropdown
                                                 dropdownMode="select"
-                                                placeholderText="Assigned Date"
+                                                placeholderText="Time"
                                                 selected={date}
                                                 onChange={(date) => setDate(date)}
                                                 className="form-control"

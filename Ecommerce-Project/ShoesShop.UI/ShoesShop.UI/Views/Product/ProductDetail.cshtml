@@ -94,14 +94,22 @@
                         <div class="quantity-right-plus btn-quantity rounded ms-1" onclick="IncreaseQuanlity(event)">
                             <i class="uil uil-plus" style="pointer-events: none;"></i>
                         </div>
-
                     </div>
                 </div>
             </div>
 
             <div class="row my-3">
                 <div class="col-sm-12">
-                    <div class="btn btn-primary btn-custom-loading btn-addtocart"><div class="loader"></div><span>Add to Cart</span></div>
+                @{
+                    if(@Model.Quantity <= 0) 
+                    {
+                            <h3 style="color:red">Out of stock</h3>
+                    }
+                    else 
+                    {
+                        <div class="btn btn-primary btn-custom-loading btn-addtocart"><div class="loader"></div><span>Add to Cart</span></div>
+                    }
+                }
                 </div>
             </div>
 

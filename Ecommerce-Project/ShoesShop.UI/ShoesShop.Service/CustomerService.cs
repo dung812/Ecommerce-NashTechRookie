@@ -33,7 +33,7 @@ namespace ShoesShop.Service
         public Customer ChangeAvatarOfCustomer(int customerId, string newAvatarName);
         public bool CheckIsFirstLogin(int customerId);
         public Customer ChangeInformationFirstLogin(int customerId, FirstChangePasswordViewModel firstChangePasswordViewModel);
-
+        public bool DisabledCustomer(int customerId);
     }
     public class CustomerService : ICustomerService
     {
@@ -47,6 +47,7 @@ namespace ShoesShop.Service
             List<CustomerViewModel> customers = new List<CustomerViewModel>();
             customers = _context.Customers
                                 .Include(m => m.Orders)
+                                .Where(m => m.Status)
                                 .TagWith("Get list customer")
                                 .OrderByDescending(m => m.RegisterDate)
                                 .Select(m => new CustomerViewModel
@@ -74,34 +75,26 @@ namespace ShoesShop.Service
 
         public bool CreateCustomer(CustomerViewModel customerViewModel)
         {
-            try
+            var checkExistEmail = CheckExistEmailOfCustomer(customerViewModel.Email);
+            if (!checkExistEmail)
             {
-                var checkExistEmail = CheckExistEmailOfCustomer(customerViewModel.Email);
-                if (!checkExistEmail)
+                Customer customer = new Customer
                 {
-                    Customer customer = new Customer
-                    {
-                        Email = customerViewModel.Email,
-                        FirstName = customerViewModel.FirstName,
-                        LastName = customerViewModel.LastName,
-                        Password = customerViewModel.Password,
-                        RegisterDate = DateTime.Now,
-                        IsNewRegister = true,
-                        Avatar = "avatar.jpg",
-                        Status = true
-                    };
-                    _context.Customers.Add(customer);
-                    _context.SaveChanges();
-                    return true;
-                }
-                else
-                    return false;
-
+                    Email = customerViewModel.Email,
+                    FirstName = customerViewModel.FirstName,
+                    LastName = customerViewModel.LastName,
+                    Password = customerViewModel.Password,
+                    RegisterDate = DateTime.Now,
+                    IsNewRegister = true,
+                    Avatar = "avatar.jpg",
+                    Status = true
+                };
+                _context.Customers.Add(customer);
+                _context.SaveChanges();
+                return true;
             }
-            catch (Exception)
-            {
+            else
                 return false;
-            }
         }
 
         public bool CheckExistEmailOfCustomer(string email)
@@ -252,6 +245,20 @@ namespace ShoesShop.Service
                 _context.SaveChanges();
             }
             return customer;
+        }
+
+        public bool DisabledCustomer(int customerId)
+        {
+            var customer = _context.Customers.Find(customerId);
+            if (customer != null)
+            {
+                customer.Status = false;
+                _context.SaveChanges();
+                return true;
+            }
+            else
+                return false;
+
         }
     }
 }
