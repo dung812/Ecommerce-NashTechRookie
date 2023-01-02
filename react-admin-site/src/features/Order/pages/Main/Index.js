@@ -101,7 +101,13 @@ function MainPage(props) {
             confirmButtonText: 'Yes, check this order!'
         }).then((result) => {
             if (result.isConfirmed) {
-                dispatch(checkedOrder({ statusOrder, orderId }))
+                const params = {
+                    status: statusOrder,
+                    FromDate: fromDate ? UTCWithoutHour(fromDate) : null,
+                    ToDate: toDate ? UTCWithoutHour(toDate) : null
+                };
+
+                dispatch(checkedOrder({ orderId, params }))
 
                 !loading && Swal.fire(
                     'Checked!',
@@ -125,7 +131,12 @@ function MainPage(props) {
             confirmButtonText: 'Yes!'
         }).then((result) => {
             if (result.isConfirmed) {
-                dispatch(successOrder({ statusOrder, orderId }))
+                const params = {
+                    status: statusOrder,
+                    FromDate: fromDate ? UTCWithoutHour(fromDate) : null,
+                    ToDate: toDate ? UTCWithoutHour(toDate) : null
+                };
+                dispatch(successOrder({ orderId, params }))
 
                 !loading && Swal.fire(
                     'Success!',
@@ -149,7 +160,12 @@ function MainPage(props) {
             confirmButtonText: 'Yes!'
         }).then((result) => {
             if (result.isConfirmed) {
-                dispatch(cancelledOrder({ statusOrder, orderId }))
+                const params = {
+                    status: statusOrder,
+                    FromDate: fromDate ? UTCWithoutHour(fromDate) : null,
+                    ToDate: toDate ? UTCWithoutHour(toDate) : null
+                };
+                dispatch(cancelledOrder({ orderId, params }))
 
                 !loading && Swal.fire(
                     'Success!',
@@ -173,7 +189,12 @@ function MainPage(props) {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                dispatch(deleteOrder({ statusOrder, orderId }))
+                const params = {
+                    status: statusOrder,
+                    FromDate: fromDate ? UTCWithoutHour(fromDate) : null,
+                    ToDate: toDate ? UTCWithoutHour(toDate) : null
+                };
+                dispatch(deleteOrder({ orderId, params }))
 
                 Swal.fire(
                     'Deleted!',

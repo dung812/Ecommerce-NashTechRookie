@@ -101,30 +101,30 @@ export const fetchOrdersOfCustomer = createAsyncThunk('orders/fetchOrdersOfCusto
     return res
 })
 
-export const checkedOrder = createAsyncThunk('orders/checkedOrder', async ({statusOrder, orderId}) => {
+export const checkedOrder = createAsyncThunk('orders/checkedOrder', async ({orderId, params}) => {
     await orderApi.checkedOrder(orderId);
 
-    const res = await orderApi.getAll(statusOrder);
+    const res = await orderApi.getAll(params);
     return res
 })
 
-export const successOrder = createAsyncThunk('orders/successOrder', async ({statusOrder, orderId}) => {
+export const successOrder = createAsyncThunk('orders/successOrder', async ({orderId, params}) => {
     await orderApi.successOrder(orderId);
 
-    const res = await orderApi.getAll(statusOrder);
+    const res = await orderApi.getAll(params);
     return res
 })
 
-export const cancelledOrder = createAsyncThunk('orders/cancelledOrder', async ({statusOrder, orderId}) => {
+export const cancelledOrder = createAsyncThunk('orders/cancelledOrder', async ({orderId, params}) => {
     await orderApi.cancelledOrder(orderId);
 
-    const res = await orderApi.getAll(statusOrder);
+    const res = await orderApi.getAll(params);
     return res
 })
 
-export const deleteOrder = createAsyncThunk('orders/deleteOrder', async ({statusOrder, orderId}) => {
+export const deleteOrder = createAsyncThunk('orders/deleteOrder', async ({orderId, params}) => {
     await orderApi.deleteOrder(orderId);
 
-    const res = await orderApi.getAll(statusOrder);
+    const res = await orderApi.getAll(params);
     return res
 })
