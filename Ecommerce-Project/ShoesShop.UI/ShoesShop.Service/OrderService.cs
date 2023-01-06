@@ -5,6 +5,7 @@ using ShoesShop.Domain.Enum;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using System.Linq;
 
 namespace ShoesShop.Service
 {
@@ -26,6 +27,7 @@ namespace ShoesShop.Service
         public List<OrderStatisticViewModel> GetStatisticOrder();
         public List<OrderViewModel> GetOrderListByStatusFilter(OrderStatus status, DateTime? FromDate, DateTime? ToDate);
         public List<OrderViewModel> GetOrderListOfCustomerId(int customerId, OrderStatus status);
+        public List<OutOfStockOrder> CheckOrderCanChecked(string orderId);
     }
     public class OrderService : IOrderService
     {
@@ -215,6 +217,35 @@ namespace ShoesShop.Service
             return false;
         }
 
+
+        public List<OutOfStockOrder> CheckOrderCanChecked(string orderId)
+        {
+            List<OutOfStockOrder> lists = new List<OutOfStockOrder>();
+            var listOrderProduct = _context.OrderDetails
+                                    .Where(m => m.OrderId == orderId)
+                                    .Include(m => m.Product)
+                                    .Include(m => m.AttributeValue).ToList();
+            if (listOrderProduct.Count > 0)
+            {
+                foreach (var itemInOrder in listOrderProduct)
+                {
+                    var getProduct = _context.Products.FirstOrDefault(m => m.ProductId == itemInOrder.ProductId);
+                    if (getProduct.Quantity < itemInOrder.Quantity)
+                    {
+                        var newItem = new OutOfStockOrder()
+                        {
+                            ProductId = itemInOrder.ProductId,
+                            QuantityOfOrder = itemInOrder.Quantity,
+                            QuantityOfStock = getProduct.Quantity
+                        };
+                        if (!lists.Contains(newItem))
+                            lists.Add(newItem);
+                    }    
+                }
+            }
+
+            return lists;
+        }
         public bool CheckedOrder(string orderId)
         {
             bool result;
@@ -232,6 +263,8 @@ namespace ShoesShop.Service
                 result = false;
             return result;
         }
+
+
         public bool SuccessDeliveryOrder(string orderId)
         {
             bool result;

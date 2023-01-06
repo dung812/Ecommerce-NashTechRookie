@@ -167,7 +167,7 @@ namespace ShoesShop.Service
                 activities = activities.Where(m => m.Time.Date == time.Value.Date);
             }
 
-            return activities.OrderBy(m => m.Time).ToList();
+            return activities.OrderByDescending(m => m.Time).ToList();
         }
 
         public AdminViewModel GetAdminById(int adminId)

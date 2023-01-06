@@ -41,8 +41,8 @@ const OrderDetail = React.forwardRef((props, ref) => {
                 <thead className="thead-light">
                     <tr>
                         <th scope="col" className="text-center" width="5%">STT</th>
-                        <th scope="col" className="text-center" width="40%">Product</th>
-                        <th scope="col" className="text-center" width="5%">Quality</th>
+                        <th scope="col" className="text-center" width="35%">Product</th>
+                        <th scope="col" className="text-center" width="10%">Quality</th>
                         <th scope="col" className="text-center" width="10%">Unit price</th>
                         <th scope="col" className="text-center" width="10%">Discount</th>
                         <th scope="col" className="text-center" width="15%">Total Discounted</th>

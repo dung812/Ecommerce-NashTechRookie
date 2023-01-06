@@ -49,6 +49,14 @@ namespace ShoesShop.API.Controllers
             return Ok(products);
         }
 
+        // GET: api/Order/CheckOrderCanChecked/1
+        [HttpGet("[action]/{orderId}")]
+        public IActionResult CheckOrderCanChecked(string orderId)
+        {
+            var lists = orderService.CheckOrderCanChecked(orderId);
+            return Ok(lists);
+        }
+
         [HttpGet("CheckedOrder/{orderId}")]
         public IActionResult CheckedOrder(string orderId)
         {

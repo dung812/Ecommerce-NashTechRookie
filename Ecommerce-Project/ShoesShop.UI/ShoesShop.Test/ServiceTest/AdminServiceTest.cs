@@ -1,23 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Moq;
 using ShoesShop.Data;
 using ShoesShop.Domain;
-using ShoesShop.API;
 using ShoesShop.Service;
 using ShoesShop.Test.TestData;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using ShoesShop.API.Mapper;
 using ShoesShop.DTO;
-using ShoesShop.API.Controllers;
-using Microsoft.AspNetCore.Mvc;
 using ShoesShop.DTO.Admin;
-using ShoesShop.Domain.Enum;
-using Microsoft.VisualBasic;
 
 namespace ShoesShop.Test.ServiceTest
 {
@@ -34,16 +23,12 @@ namespace ShoesShop.Test.ServiceTest
             _options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("AdminTestDB").Options;
             _context = new ApplicationDbContext(_options);
             _mapper = new MapperConfiguration(cfg => cfg.AddProfile(new AdminMapper())).CreateMapper();
-
             _admins = AdminTestData.GetAdmins();
             _context.Admins.AddRange(_admins);
-
             _roles = RoleTestData.GetRoles();
             _context.Roles.AddRange(_roles);
-
             _activities = ActivityTestData.GetActivities();
             _context.Activities.AddRange(_activities);
-
             _context.Database.EnsureDeleted();
             _context.SaveChanges();
         }
@@ -266,29 +251,23 @@ namespace ShoesShop.Test.ServiceTest
 
         [Theory]
         [InlineData(null, null, null, null, null, 1, 2)]
-
         [InlineData(null, null, null, "id", "asc", 1, 2)]
         [InlineData(null, null, null, "userName", "asc", 1, 2)]
         [InlineData(null, null, null, "lastName", "asc", 1, 2)]
         [InlineData(null, null, null, "registerDate", "asc", 1, 2)]
         [InlineData(null, null, null, "role", "asc", 1, 2)]
-
         [InlineData(null, null, null, "id", "desc", 1, 2)]
         [InlineData(null, null, null, "userName", "desc", 1, 2)]
         [InlineData(null, null, null, "lastName", "desc", 1, 2)]
         [InlineData(null, null, null, "registerDate", "desc", 1, 2)]
         [InlineData(null, null, null, "role", "desc", 1, 2)]
-
         [InlineData(null, null, "UserA", "id", "desc", 1, 2)]
         [InlineData(null, null, "UserA", "userName", "desc", 1, 2)]
         [InlineData(null, null, "UserA", "lastName", "desc", 1, 2)]
         [InlineData(null, null, "UserA", "registerDate", "desc", 1, 2)]
         [InlineData(null, null, "UserA", "role", "desc", 1, 2)]
-
         [InlineData(null, "2000-01-01", "UserA", "id", "desc", 1, 2)]
-
         [InlineData("Admin", null, "UserA", "id", "desc", 1, 2)]
-
         public void GetAllAdminPaging_TotalItemShouldBeMoreThanZero(string? filterByRole, string? filterByDate, string? searchString, string? fieldName, string? sortType, int page, int limit)
         {
             //Arrange

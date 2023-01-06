@@ -7,7 +7,8 @@ import orderReducer from '../features/Order/OrderSlice'
 import authReducer from '../features/Auth/AuthSlice'
 import adminReducer from '../features/Admin/AdminSlice'
 import activityReducer from '../features/Activity/ActivitySlice'
-
+import restoreReducer from '../features/Restore/RestoreSlice'
+import modalReducer from '../components/CustomModal/CustomModalSlice'
 
 const rootReducer = {
 	products: productReducer,
@@ -17,7 +18,9 @@ const rootReducer = {
     orders: orderReducer,
     authAdmin: authReducer,
     admins: adminReducer,
-    activity: activityReducer
+    activity: activityReducer,
+    restore: restoreReducer,
+    modal: modalReducer
 	// user: userReducer
 }
 

@@ -24,6 +24,7 @@ import Restore from 'features/Restore';
 import Analytic from 'features/Analytic';
 import { ToastContainer } from 'react-toastify';
 import Report from 'features/Report';
+import CustomModal from 'components/CustomModal';
 
 const useAuth = () => {
     const user = { loggedIn: false }
@@ -45,6 +46,7 @@ function App() {
                 <Sidebar />
                 <Header />
                 <div className="content-body py-5 px-4 active">
+                    <CustomModal/>
                     <Routes>
                         {
                             isAuth ? <Route path="/" element={<Dashboard />} /> : <Route path="/" element={<SignIn />} />

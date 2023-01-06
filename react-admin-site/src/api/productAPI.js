@@ -22,6 +22,19 @@ const productApi = {
     const url = `/Product/${id}`;
     return axiosClient.put(url, data);
   },
+
+  getAllDisabled: () => {
+    const url = "/Product/GetProductsDisabled";
+    return axiosClient.get(url); 
+  },
+  restoreProduct: (id) => {
+    const url = `/Product/RestoreProduct/${id}`;
+    return axiosClient.get(url);
+  },
+  hardDeleteProduct: (id) => {
+    const url = `/Product/DeleteProduct/${id}`;
+    return axiosClient.delete(url);
+  },
   // edit, remove, ...
 }
 export default productApi;

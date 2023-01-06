@@ -6,14 +6,16 @@ import { fetchProducts } from 'features/Product/ProductSlice';
 import CustomLoader from 'components/CustomLoader/Index';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import Swal from 'sweetalert2';
+import { deleteDisabledProduct, fetchDisabledProducts, restoreDisabledProduct } from 'features/Restore/RestoreSlice';
+import axios from 'axios';
 
 function Product(props) {
     const dispatch = useDispatch();
-    let productList = useSelector((state) => state.products.products);
-    let loading = useSelector((state) => state.products.loading);
+    let disabledProductList = useSelector((state) => state.restore.disabledProducts);
+    let loading = useSelector((state) => state.restore.loading);
 
     useEffect(() => {
-        dispatch(fetchProducts());
+        dispatch(fetchDisabledProducts());
     }, [])
 
     function HandleRestore(productId) {
@@ -28,13 +30,12 @@ function Product(props) {
         })
         .then((result) => {
             if (result.isConfirmed) {
-                console.log('ok');
-                // dispatch(deleteProduct(parseInt(productId)))
-                // !loading && Swal.fire(
-                //     'Deleted!',
-                //     'Product has been deleted.',
-                //     'success'
-                // )
+                dispatch(restoreDisabledProduct(parseInt(productId)))
+                !loading && Swal.fire(
+                    'Restore!',
+                    'Product has been restored.',
+                    'success'
+                )
             }
         })
     }
@@ -51,13 +52,23 @@ function Product(props) {
         })
         .then((result) => {
             if (result.isConfirmed) {
-                console.log('ok');
-                // dispatch(deleteProduct(parseInt(productId)))
-                // !loading && Swal.fire(
-                //     'Deleted!',
-                //     'Product has been deleted.',
-                //     'success'
-                // )
+                axios.get(process.env.REACT_APP_API_URL + `/Product/CheckProductCanDelete/${parseInt(productId)}`)
+                .then((res) => {
+                    dispatch(deleteDisabledProduct(parseInt(productId)))
+                    !loading && Swal.fire(
+                        'Deleted!',
+                        'Product has been deleted.',
+                        'success'
+                    )
+                })
+                .catch((err) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: "Can't delete this product because existed another order has this product!",
+                    })
+                })
+
             }
         })
     }
@@ -108,7 +119,7 @@ function Product(props) {
                     </OverlayTrigger>
 
                     <OverlayTrigger
-                        key={'success-order'}
+                        key={'delete-order'}
                         placement={'bottom'}
                         overlay={
                             <Tooltip id={`success-order`}>
@@ -128,7 +139,7 @@ function Product(props) {
             <DataTable
                 title='Product Data'
                 columns={columns}
-                data={productList}
+                data={disabledProductList}
                 pagination
                 selectableRowsHighlight
                 highlightOnHover

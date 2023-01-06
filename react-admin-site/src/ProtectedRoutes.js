@@ -7,6 +7,4 @@ const ProtectedRoutes = props => {
     return props.isAuth ? <Outlet /> : <SignIn /> 
 }
 
-
-
 export default ProtectedRoutes

@@ -25,6 +25,10 @@ namespace ShoesShop.Service
         public bool UpdateProduct(int productId, ProductViewModel productViewModel);
         public bool DeleteProduct(int productId);
         public AttributeValue GetAttributeById(int attributeId);
+        public List<ProductViewModel> GetAllProductDisabled();
+        public bool RestoreProduct(int productId);
+        public bool HardDeleteProduct(int productId);
+        public bool CheckExistedOrder(int productId);
     }
 
     public class ProductService : IProductService
@@ -558,6 +562,84 @@ namespace ShoesShop.Service
         {
             var attribute = _context.AttributeValues.FirstOrDefault(model => model.AttributeValueId == attributeId);
             return attribute;
+        }
+
+        public List<ProductViewModel> GetAllProductDisabled()
+        {
+            List<ProductViewModel> productList = new List<ProductViewModel>();
+            productList = _context.Products
+                                    .TagWith("Get list product")
+                                    .Where(m => m.Status == false)
+                                    .Include(m => m.Catalog)
+                                    .Include(m => m.Manufacture)
+                                    .Include(m => m.Admin)
+                                    .OrderByDescending(m => m.DateCreate)
+                                    .Select(m => new ProductViewModel
+                                    {
+                                        ProductId = m.ProductId,
+                                        ProductName = m.ProductName,
+                                        ImageFileName = m.ImageFileName,
+                                        ImageName = m.ImageName,
+                                        OriginalPrice = m.OriginalPrice,
+                                        PromotionPercent = m.PromotionPercent,
+                                        Description = m.Description,
+                                        ProductGenderCategory = m.ProductGenderCategory,
+                                        ManufactureName = m.Manufacture.Name,
+                                        CatalogName = m.Catalog.Name,
+                                        CatalogId = m.CatalogId,
+                                        ManufactureId = m.ManufactureId,
+                                        Quantity = m.Quantity,
+                                        AdminCreate = m.Admin.UserName,
+                                        DateCreate = m.DateCreate,
+                                        UpdateDate = m.UpdateDate,
+                                        Gender = m.ProductGenderCategory == Gender.Men ? "Men" : "Women",
+                                        ImageNameGallery1 = "",
+                                        ImageNameGallery2 = "",
+                                        ImageNameGallery3 = "",
+                                    }).ToList();
+            return productList;
+        }
+        public bool RestoreProduct(int productId)
+        {
+            bool result;
+            var product = _context.Products.Find(productId);
+            if (product != null)
+            {
+                product.Status = true;
+
+                _context.Products.Update(product);
+                _context.SaveChanges();
+
+                result = true;
+            }
+            else
+            {
+                result = false;
+            }
+            return result;
+        }
+
+        public bool CheckExistedOrder(int productId)
+        {
+            int total = _context.OrderDetails.Where(m => m.ProductId == productId).Count();
+            return total > 0 ? true : false;
+        }
+        public bool HardDeleteProduct(int productId)
+        {
+            bool result;
+            var product = _context.Products.Find(productId);
+            if (product != null)
+            {
+                _context.Products.Remove(product);
+                _context.SaveChanges();
+
+                result = true;
+            }
+            else
+            {
+                result = false;
+            }
+            return result;
         }
     }
 }

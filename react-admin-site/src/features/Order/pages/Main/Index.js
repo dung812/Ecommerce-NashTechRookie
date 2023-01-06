@@ -14,6 +14,7 @@ import { cancelledOrder, checkedOrder, deleteOrder, fetchOrders, searchOrder, su
 import OrderDetail from 'features/Order/components/OrderDetail';
 import axios from 'axios';
 import { UTCWithoutHour } from 'utils';
+import { openModal } from 'components/CustomModal/CustomModalSlice';
 
 
 function MainPage(props) {
@@ -38,15 +39,15 @@ function MainPage(props) {
 
     useEffect(() => {
         const navItems = document.querySelectorAll('.nav-items');
-        navItems.forEach(item =>  item.classList.remove('active'))
+        navItems.forEach(item => item.classList.remove('active'))
         navItems.forEach(item => {
-            if (item.innerText === 'Order') 
+            if (item.innerText === 'Order')
                 item.classList.add('active')
         })
     }, [])
 
     useEffect(() => {
-        let  params = {};
+        let params = {};
         if (fromDate == null || toDate == null) {
             params = {
                 status: status,
@@ -101,19 +102,36 @@ function MainPage(props) {
             confirmButtonText: 'Yes, check this order!'
         }).then((result) => {
             if (result.isConfirmed) {
-                const params = {
-                    status: statusOrder,
-                    FromDate: fromDate ? UTCWithoutHour(fromDate) : null,
-                    ToDate: toDate ? UTCWithoutHour(toDate) : null
-                };
+                axios.get(process.env.REACT_APP_API_URL + `/Order/CheckOrderCanChecked/${orderId}`)
+                    .then(res => {
+                        // show pop-up
+                        if (res.data.length > 0) {
+                            // show pop-up
+                            const dataModal = {
+                                isShowModal: true,
+                                title: "The number of products in stock is not enough!",
+                                content: `Cannot check this order have quantity smaller than the quantity in stock. <br/>Please update quantity for product`,
+                                orderList: res.data
+                            };
+                            dispatch(openModal(dataModal))
+                        }
+                        else {
+                            const params = {
+                                status: statusOrder,
+                                FromDate: fromDate ? UTCWithoutHour(fromDate) : null,
+                                ToDate: toDate ? UTCWithoutHour(toDate) : null
+                            };
 
-                dispatch(checkedOrder({ orderId, params }))
+                            dispatch(checkedOrder({ orderId, params }))
 
-                !loading && Swal.fire(
-                    'Checked!',
-                    'Your order has been checked.',
-                    'success'
-                )
+                            !loading && Swal.fire(
+                                'Checked!',
+                                'Your order has been checked.',
+                                'success'
+                            )
+
+                        }
+                    })
             }
         })
     }
@@ -238,7 +256,7 @@ function MainPage(props) {
         }
         const convertFormDate = UTCWithoutHour(fromDate);
         const convertToDate = UTCWithoutHour(toDate);
-        console.log({convertFormDate, convertToDate})
+        console.log({ convertFormDate, convertToDate })
         try {
             const params = {
                 status: status,
