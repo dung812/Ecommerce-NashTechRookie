@@ -30,18 +30,18 @@ const ModalDetail = (props) => {
                 <Modal.Body className="modal__body px-5">
                     <div className="row mb-2">
                         <div className="col-12 d-flex justify-content-center">
-                            <img width="25%" className="img-fluid" src={"https://localhost:44324/images/products/Image/" + Data?.imageFileName} />
+                            <img width="25%" className="img-fluid" src={"http://ntdung812-001-site1.btempurl.com/images/products/Image/" + Data?.imageFileName} />
                         </div>
                     </div>
                     <div className="row mb-4 text-center">
                         <div className="col-4">
-                            <img className="img-fluid w-70" src={`https://localhost:44324/images/products/ImageList/${Data?.imageName}/1/${Data?.imageNameGallery1}`} />
+                            <img className="img-fluid w-70" src={`http://ntdung812-001-site1.btempurl.com/images/products/ImageList/${Data?.imageName}/1/${Data?.imageNameGallery1}`} />
                         </div>
                         <div className="col-4">
-                            <img className="img-fluid w-70" src={`https://localhost:44324/images/products/ImageList/${Data?.imageName}/2/${Data?.imageNameGallery2}`} />
+                            <img className="img-fluid w-70" src={`http://ntdung812-001-site1.btempurl.com/images/products/ImageList/${Data?.imageName}/2/${Data?.imageNameGallery2}`} />
                         </div>
                         <div className="col-4">
-                            <img className="img-fluid w-70" src={`https://localhost:44324/images/products/ImageList/${Data?.imageName}/3/${Data?.imageNameGallery3}`} />
+                            <img className="img-fluid w-70" src={`http://ntdung812-001-site1.btempurl.com/images/products/ImageList/${Data?.imageName}/3/${Data?.imageNameGallery3}`} />
                         </div>
                     </div>
                     <div className="row mb-2">

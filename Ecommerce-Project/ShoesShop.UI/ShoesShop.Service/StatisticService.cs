@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using JetBrains.Annotations;
+using ShoesShop.Domain;
 
 namespace ShoesShop.Service
 {
@@ -18,6 +19,7 @@ namespace ShoesShop.Service
         public List<StatisticNumberViewModel> GetStatisticNumber();
         public List<OrderViewModel> GetRecentOrders();
         public List<CustomerReportViewModel> ReportCustomer();
+        public List<CustomerReportViewModel> ReportCustomerCurrentDate();
     }
     public class StatisticService : IStatisticService
     {
@@ -95,12 +97,32 @@ namespace ShoesShop.Service
             var customers = _context.Customers.Include(m => m.Orders)
                             .Select(m => new CustomerReportViewModel
                             {
+                                Email = m.Email,
                                 FullName = m.FirstName + " " + m.LastName,
                                 TotalOrderSuccess = m.Orders.Count(m => m.OrderStatus == OrderStatus.Delivered),
                                 TotalOrderCancelled = m.Orders.Count(m => m.OrderStatus == OrderStatus.Cancelled),
                                 TotalOrderWaiting = m.Orders.Count(m => m.OrderStatus == OrderStatus.AwatingShipment),
                                 TotalMoneyPurchased = m.Orders.Sum(m => m.TotalMoney),
                             }).OrderByDescending(m => m.TotalMoneyPurchased).Take(10).ToList();
+            return customers;
+        }        
+        public List<CustomerReportViewModel> ReportCustomerCurrentDate()
+        {
+            DateTime today = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"));
+            var customers = _context.Orders
+                            .Include(m => m.Customer)
+                            .Where(m => m.OrderDate.Date == today.Date && m.Customer.Status)
+                            .GroupBy(m => new { m.Customer.CustomerId, m.Customer.Email, m.Customer.FirstName, m.Customer.LastName })
+                            .Select(g => new CustomerReportViewModel
+                            {
+                                Key = g.Key.CustomerId,
+                                Email = g.Key.Email,
+                                FullName = g.Key.FirstName + " " + g.Key.LastName,
+                                TotalNewOrder = g.Count(m => m.OrderStatus == OrderStatus.NewOrder),
+                                TotalOrderWaiting = g.Count(m => m.OrderStatus == OrderStatus.AwatingShipment),
+                                TotalOrderSuccess = g.Count(m => m.OrderStatus == OrderStatus.Delivered),
+                                TotalOrderCancelled = g.Count(m => m.OrderStatus == OrderStatus.Cancelled)
+                            }).ToList();
             return customers;
         }
     }

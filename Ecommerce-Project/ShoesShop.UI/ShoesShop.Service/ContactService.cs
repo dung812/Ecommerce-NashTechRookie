@@ -25,7 +25,7 @@ namespace ShoesShop.Service
                 Subject = contactViewModel.Subject,
                 Message = contactViewModel.Message,
                 Email = contactViewModel.Email,
-                DateContact = DateTime.Now,
+                DateContact = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time")),
             };
 
             _context.Contacts.Add(contact);

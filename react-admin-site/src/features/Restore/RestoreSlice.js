@@ -1,16 +1,22 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import customerApi from "api/customerAPI";
 import productApi from "api/productAPI";
 
 const restore = createSlice({
     name: "restore",
-    initialState: { loading: false, disabledProducts: [] },
+    initialState: { loading: false, disabledProducts: [], disabledCustomers: [] },
     extraReducers: builder => {
         builder
+            .addCase(fetchDisabledProducts.pending, (state, action) => {
+                state.loading = true;
+            })
             .addCase(fetchDisabledProducts.fulfilled, (state, action) => {
                 state.disabledProducts = action.payload;
+                state.loading = false;
             })
             .addCase(fetchDisabledProducts.rejected, (state, action) => {
                 state.disabledProducts = [];
+                state.loading = false;
             })
 
             .addCase(restoreDisabledProduct.pending, (state, action) => {
@@ -36,6 +42,30 @@ const restore = createSlice({
                 state.loading = false;
                 state.disabledProducts = [];
             })
+
+
+            .addCase(fetchDisabledCustomers.pending, (state, action) => {
+                state.loading = true;
+            })
+            .addCase(fetchDisabledCustomers.fulfilled, (state, action) => {
+                state.disabledCustomers = action.payload;
+                state.loading = false;
+            })
+            .addCase(fetchDisabledCustomers.rejected, (state, action) => {
+                state.disabledCustomers = [];
+                state.loading = false;
+            })
+            .addCase(restoreDisabledCustomer.pending, (state, action) => {
+                state.loading = true;
+            })
+            .addCase(restoreDisabledCustomer.fulfilled, (state, action) => {
+                state.loading = false;
+                state.disabledCustomers = action.payload;
+            })
+            .addCase(restoreDisabledCustomer.rejected, (state, action) => {
+                state.loading = false;
+                state.disabledCustomers = [];
+            })
     }
 })
 
@@ -58,4 +88,17 @@ export const deleteDisabledProduct = createAsyncThunk('restore/deleteDisabledPro
 
     const products = await productApi.getAllDisabled();
     return products
+})
+
+//Customer
+export const fetchDisabledCustomers = createAsyncThunk('restore/fetchDisabledCustomers', async () => {
+    const customers = await customerApi.getAllDisabled();
+    return customers
+})
+
+export const restoreDisabledCustomer = createAsyncThunk('restore/restoreDisabledCustomer', async (customerId) => {
+    await customerApi.restoreCustomer(customerId);
+
+    const customers = await customerApi.getAllDisabled();
+    return customers
 })

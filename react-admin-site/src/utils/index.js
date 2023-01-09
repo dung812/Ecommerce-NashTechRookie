@@ -26,6 +26,15 @@ export const FormatDateTime = (datetime) => {
     return "";
 } 
 
+export const FormatDate = (datetime) => {
+    if (datetime != null) {
+    let date = `${datetime.split("T")[0].split("-")[2]}-${datetime.split("T")[0].split("-")[1]}-${datetime.split("T")[0].split("-")[0]}`;
+    let time = `${datetime.split("T")[1].split(":")[0]}:${datetime.split("T")[1].split(":")[1]}`;
+    return `${date}`;
+    }
+    return "";
+} 
+
 export const formatDate = (date) => {
     var d = new Date(date),
         month = '' + (d.getMonth() + 1),

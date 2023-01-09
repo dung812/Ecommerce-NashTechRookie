@@ -46,13 +46,14 @@ namespace ShoesShop.UI.Controllers
         }
 
         [HttpGet("Product")]
-        public IActionResult ProductList(int? page, string cateGender, int? manufactureId, int? catalogId)
+        public IActionResult ProductList(int? page, string cateGender, int? manufactureId, int? catalogId, string? price)
         {
             ViewBag.Catalogs = catalogService.GetAllCatalog();
             ViewBag.Manufatures = manufactureService.GetAllManufacture();
             ViewBag.CateGender = cateGender;
             ViewBag.ManufactureId = manufactureId;
             ViewBag.CatalogId = catalogId;
+            ViewBag.Price = price;
 
             var pageNumber = page ?? 1;
             var pageSize = 8; //Show 10 rows every time
@@ -63,7 +64,7 @@ namespace ShoesShop.UI.Controllers
                 gender = Gender.Men;
             }           
 
-            IPagedList<ProductViewModel> products = productService.GetAllProductPage(gender, manufactureId, catalogId, pageNumber, pageSize);
+            IPagedList<ProductViewModel> products = productService.GetAllProductPage(gender, manufactureId, catalogId, price, pageNumber, pageSize);
 
             foreach(var i in products)
                 HandleAvgRatingProduct(i);
@@ -80,7 +81,7 @@ namespace ShoesShop.UI.Controllers
             ViewBag.FilterType = filterType;
 
             var pageNumber = page ?? 1;
-            var pageSize = 5; //Show 10 rows every time
+            var pageSize = 8; //Show 10 rows every time
 
             Gender gender = Gender.Women;
             if (cateGender == "Men")
@@ -111,7 +112,7 @@ namespace ShoesShop.UI.Controllers
             ViewBag.CateGender = "Women";
 
             var pageNumber = page ?? 1;
-            var pageSize = 5; //Show 10 rows every time
+            var pageSize = 8; //Show 10 rows every time
 
 
             var products = productService.SearchProduct(keyword, pageNumber, pageSize);

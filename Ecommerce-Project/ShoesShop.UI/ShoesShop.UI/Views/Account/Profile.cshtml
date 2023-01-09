@@ -36,8 +36,11 @@
                                         <h5>ORDER <a asp-controller="Account" asp-action="OrderDetail" asp-route-orderId="@i.OrderId" asp-route-customerId="@ViewBag.CustomerId"><span class="order-id fw-bold">#@i.OrderId</span></a></h5>
                                     </div>
                                     <div class="col-12 col-md-6 text-md-end mt-2 mt-md-0">
+                                        @if (i.OrderStatus == OrderStatus.Cancelled)
+                                        {
+                                            <p class="mb-0 fw-bold text-danger">Cancellation</p>
+                                        }
                                         <p class="mb-0">Order date <span class="fw-bold">@i.OrderDate</span></p>
-                                        <p class="mb-0">USPS <span class="fw-bold">234094567242423422898</span></p>
                                     </div>
                                 </div>
                                 <!-- Add class 'active' to progress -->
@@ -69,7 +72,16 @@
                                                 <li class="active step0"></li>
                                                 <li class="active step0"></li>
                                             </ul>
-                                        }                                        
+                                        }
+                                        else if (i.OrderStatus == OrderStatus.Cancelled)
+                                        {
+                                            <ul id="progressbar" class="text-center">
+                                                <li class="step0"></li>
+                                                <li class="step0"></li>
+                                                <li class="step0"></li>
+                                                <li class="step0"></li>
+                                            </ul>
+                                        }
                                         else 
                                         {
                                             <ul id="progressbar" class="text-center">
@@ -105,7 +117,13 @@
                                             <h5 class="mb-0"><a asp-controller="Account" asp-action="OrderDetail" asp-route-orderId="@i.OrderId" asp-route-customerId="@ViewBag.CustomerId">Track</a></h5>
                                         </div>
                                         <div class="col my-auto border-line">
-                                            <h5 class="mb-0"><a asp-controller="Account" asp-action="DeleteOrder" asp-route-orderId="@i.OrderId" asp-route-customerId="@ViewBag.CustomerId" onclick="return confirm('Are you sure you want to delete this order?')">Delete</a></h5>
+                                            @if (i.OrderStatus == OrderStatus.NewOrder)
+                                            {
+                                                <h5 class="mb-0"><a asp-controller="Account" asp-action="DeleteOrder" asp-route-orderId="@i.OrderId" asp-route-customerId="@ViewBag.CustomerId" onclick="return confirm('Are you sure you want to cancellation this order?')">Cancel</a></h5>
+                                            }
+                                            else {
+                                                <h5 class="mb-0"><a href="#" class="disabled">Cancel</a></h5>
+                                            }
                                         </div>
                                         <div class="col my-auto border-line">
                                             <h5 class="mb-0"><a href="#">Pre-pay</a></h5>

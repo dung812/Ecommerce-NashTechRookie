@@ -144,13 +144,14 @@ const AddEditPage = () => {
 
         }
     }
+    
 
     function HandleSaveProductImage() {
         var formData = new FormData();
         var imagefile = document.querySelector('#input-image');
         formData.append("objFile", imagefile?.files[0]);
 
-        axios.post('https://localhost:44324/api/SaveImage/SaveImageProduct', formData, {
+        axios.post(`http://ntdung812-001-site1.btempurl.com/api/SaveImage/SaveImageProduct`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -162,7 +163,7 @@ const AddEditPage = () => {
         formData.append("objFile", imagefile?.files[0]);
 
         // Add gallery
-        axios.post(`https://localhost:44324/api/SaveImage/SaveImageProductGallery?imageName=${imageName}&indexImageGallery=${indexImageGallery}`, formData, {
+        axios.post(`http://ntdung812-001-site1.btempurl.com/api/SaveImage/SaveImageProductGallery?imageName=${imageName}&indexImageGallery=${indexImageGallery}`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -175,7 +176,7 @@ const AddEditPage = () => {
         var imagefile = document.querySelector('#input-image');
         formData.append("objFile", imagefile?.files[0]);
 
-        axios.post(`https://localhost:44324/api/SaveImage/UpdateImageProduct?imageFileName=${imageFileName}`, formData, {
+        axios.post(`http://ntdung812-001-site1.btempurl.com/api/SaveImage/UpdateImageProduct?imageFileName=${imageFileName}`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -201,7 +202,7 @@ const AddEditPage = () => {
         formDataGallery.append("objGalleryFile", imagefile?.files[0]);
 
         // Add gallery
-        axios.post(`https://localhost:44324/api/SaveImage/UpdateImageProductGallery?imageName=${imageName}&indexImageGallery=${indexImageGallery}&oldImageGalleryFileName=${oldImageGalleryFileName}`,
+        axios.post(`http://ntdung812-001-site1.btempurl.com/api/SaveImage/UpdateImageProductGallery?imageName=${imageName}&indexImageGallery=${indexImageGallery}&oldImageGalleryFileName=${oldImageGalleryFileName}`,
             formDataGallery,
             {
                 headers: {

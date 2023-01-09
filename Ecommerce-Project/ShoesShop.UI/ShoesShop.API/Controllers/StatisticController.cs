@@ -32,6 +32,12 @@ namespace ShoesShop.API.Controllers
         {
             var list = statisticService.ReportCustomer();
             return Ok(list);
+        }        
+        [HttpGet("ReportCustomerCurrentDate")]
+        public IActionResult ReportCustomerCurrentDate()
+        {
+            var list = statisticService.ReportCustomerCurrentDate();
+            return Ok(list);
         }
     }
 }

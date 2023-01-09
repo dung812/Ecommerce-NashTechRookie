@@ -9,6 +9,9 @@ const order = createSlice({
 		searchActivity: (state, action) => {
             state.activities = action.payload 
 		},
+		setAdminActivity: (state, action) => {
+            state.adminActivityId = action.payload 
+		},
 	},
     extraReducers: builder => {
         builder
@@ -27,11 +30,10 @@ const order = createSlice({
 })
 
 const { reducer, actions } = order;
-export const { searchActivity } = actions;
+export const { searchActivity, setAdminActivity } = actions;
 export default reducer;
 
 export const fetchActivities = createAsyncThunk('activities/fetchActivities', async (params) => {
     const res = await activityApi.getActivityOfAdmin(params);
     return res
 })
-

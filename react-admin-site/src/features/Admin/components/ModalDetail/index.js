@@ -1,11 +1,19 @@
+import { setAdminActivity } from 'features/Activity/ActivitySlice';
 import React from 'react';
 import { Modal } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-import { FormatDateTime } from 'utils';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { FormatDate, FormatDateTime } from 'utils';
 
 const ModalDetail = (props) => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { IsShow, OnclickCloseModalDetail } = props;
     const Data = useSelector((state) => state.admins.admin);
+
+    function handleWatchActivity(adminId) {
+        navigate(`/activity`)
+    }
 
     return (
         <React.Fragment>
@@ -24,7 +32,7 @@ const ModalDetail = (props) => {
                 <Modal.Body className="modal__body px-5">
                     <div className="row mb-2">
                         <div className="col-12 d-flex justify-content-center">
-                            <img width="30%" className="img-fluid" src={`https://localhost:44324/images/avatars/${Data?.avatar}`} />
+                            <img width="30%" className="img-fluid" src={`http://ntdung812-001-site1.btempurl.com/images/avatars/${Data?.avatar}`} />
                         </div>
                     </div>
                     <div className="row mb-2">
@@ -66,13 +74,13 @@ const ModalDetail = (props) => {
                     <div className="row mb-2">
                         <div className="col-3">Birthday</div>
                         <div className="col-9">
-                            {FormatDateTime(Data?.birthday)}
+                            {FormatDate(Data?.birthday)}
                         </div>
                     </div>
                     <div className="row mb-2">
                         <div className="col-3">Join Date</div>
                         <div className="col-9">
-                            {FormatDateTime(Data?.registeredDate)}
+                            {FormatDate(Data?.registeredDate)}
                         </div>
                     </div>
                     <div className="row mb-2">
@@ -86,20 +94,19 @@ const ModalDetail = (props) => {
                             <div className="radio">
                                 <label><input type="radio" className="list_role" value="1" /> Admin</label>
                             </div>
-                            <div class="radio">
+                            <div className="radio">
                                 <label><input type="radio" className="list_role" value="2" /> Employee</label>
                             </div>
                         </div>
-                        <div class="col-8">
-                            <button className='btn btn-primary btn-custom-loading'><div class="loader"></div><span>Change Role</span></button> 
+                        <div className="col-8">
+                            <button className='btn btn-primary btn-custom-loading'><div className="loader"></div><span>Change Role</span></button> 
                         </div>
                     </div>
             </Modal.Body>
             <Modal.Footer>
                 <div className="row mb-2">
                     <div className="col-12">
-                        {/* <u className='cursor-pointer' onClick={() => navigate(`/order/${Data?.customerId}`)}>Watch order list of {Data?.firstName} {Data?.lastName}</u> */}
-                        <u className='cursor-pointer'>Watch activities of {Data?.firstName} {Data?.lastName}</u>
+                        <u className='cursor-pointer' onClick={() => handleWatchActivity(Data?.adminId)}>Watch activities of {Data?.firstName} {Data?.lastName}</u>
                     </div>
                 </div>
             </Modal.Footer>

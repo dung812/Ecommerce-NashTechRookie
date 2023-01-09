@@ -40,6 +40,7 @@ function MainPage(props) {
         setSearchList([...activityList])
     }, [loading])
 
+
     useEffect(() => {
         activityList = [...searchList]
         const result = activityList.filter((item) => {

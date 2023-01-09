@@ -80,7 +80,7 @@ function Product(props) {
         },
         {
             name: "Image",
-            selector: (row) => <img width={100} src={"https://localhost:44324/images/products/Image/" + row.imageFileName} />
+            selector: (row) => <img width={100} src={"http://ntdung812-001-site1.btempurl.com/images/products/Image/" + row.imageFileName} />
         },
         {
             name: "Name",
@@ -107,10 +107,10 @@ function Product(props) {
             cell: (row) => (
                 <div>
                     <OverlayTrigger
-                        key={'success-order'}
+                        key={'restore'}
                         placement={'bottom'}
                         overlay={
-                            <Tooltip id={`success-order`}>
+                            <Tooltip id={`restore`}>
                                 Restore
                             </Tooltip>
                         }
@@ -119,10 +119,10 @@ function Product(props) {
                     </OverlayTrigger>
 
                     <OverlayTrigger
-                        key={'delete-order'}
+                        key={'delete'}
                         placement={'bottom'}
                         overlay={
-                            <Tooltip id={`success-order`}>
+                            <Tooltip id={`delete`}>
                                 Delete
                             </Tooltip>
                         }
@@ -137,7 +137,7 @@ function Product(props) {
     return (
         <React.Fragment>
             <DataTable
-                title='Product Data'
+                title='Disabled Products'
                 columns={columns}
                 data={disabledProductList}
                 pagination

@@ -271,7 +271,7 @@ namespace ShoesShop.UI.Controllers
         {
             if (orderService.DeleteOrderByCustomer(customerId, orderId))
             {
-                TempData["success"] = "Successfully delete your order!";
+                TempData["success"] = "Successfully cancellation your order!";
                 return RedirectToAction("Index", "Home");
             }
             else

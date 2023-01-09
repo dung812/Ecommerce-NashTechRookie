@@ -59,7 +59,7 @@ const OrderDetail = React.forwardRef((props, ref) => {
                                         <div className="row align-items-center">
                                             <div className="col-md-4">
                                                 <img
-                                                    src={`https://localhost:44324/images/products/Image/${item.productImage}`}
+                                                    src={`http://ntdung812-001-site1.btempurl.com/images/products/Image/${item.productImage}`}
                                                     width="80%"
                                                     className='img-fluid'
                                                 />

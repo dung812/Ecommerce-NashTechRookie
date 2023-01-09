@@ -80,7 +80,7 @@ const AddEditPage = () => {
         var imagefile = document.querySelector('#input-image');
         formData.append("objFile", imagefile?.files[0]);
 
-        axios.post('https://localhost:44324/api/SaveImage/SaveImageManufacture', formData, {
+        axios.post(`http://ntdung812-001-site1.btempurl.com/api/SaveImage/SaveImageManufacture`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

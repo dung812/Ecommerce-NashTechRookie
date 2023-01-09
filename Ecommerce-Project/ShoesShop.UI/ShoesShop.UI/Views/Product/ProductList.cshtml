@@ -54,14 +54,12 @@
                     <h3>Filter</h3>
                     <i class="fa-solid fa-xmark fs-1 cursor-poiter" onclick="HandleCloseFilterArea(event)"></i>
                 </div>
-                @if (ViewBag.ManufactureId != null || ViewBag.CatalogId != null)
+                @if (ViewBag.ManufactureId != null || ViewBag.CatalogId != null || ViewBag.Price != null)
                 {
                     <div class="py-3 pe-2 border-bottom d-none d-md-block">
                         <a href="~/Product?cateGender=@ViewBag.CateGender" class="d-block"><u>Clear All Refinements</u></a>
                     </div>
                 }
-
-
                 <div class="py-3 pe-2 border-bottom d-none d-md-block">
                     <p class="fs-6 fs-md-5 fw-semibold m-0 event-none mb-2">Sort by</p>
                     <select class="form-select" id="filter" aria-label="Featured" onchange="FilterProduct(this)">
@@ -97,6 +95,20 @@
                             {
                                 <li class="my-2"><a href="@Url.Action("ProductList", new { page = 1, cateGender = ViewBag.CateGender, manufactureId = i.ManufactureId})">@i.Name</a></li>
                             }
+                        </ul>
+                    </div>
+                </div>
+                <div class="filter-cats py-3 pe-2 border-bottom">
+                    <div class="d-flex justify-content-between align-items-center cursor-poiter" onclick="HandleToggleCatList(event)">
+                        <p class="fs-6 fs-md-5 fw-semibold m-0 event-none">Price</p>
+                        <i class="fa-solid fa-plus event-none fs-5"></i>
+                    </div>
+                    <div class="filter-cat-list">
+                        <ul class="pt-2">
+                            <li class="my-2"><a href="@Url.Action("ProductList", new { page = 1, cateGender = ViewBag.CateGender, price = "30"})">Under $30</a></li>
+                            <li class="my-2"><a href="@Url.Action("ProductList", new { page = 1, cateGender = ViewBag.CateGender, price = "30,50"})">Under $30 to $50</a></li>
+                            <li class="my-2"><a href="@Url.Action("ProductList", new { page = 1, cateGender = ViewBag.CateGender, price = "50,75"})">Under $50 to $75</a></li>
+                            <li class="my-2"><a href="@Url.Action("ProductList", new { page = 1, cateGender = ViewBag.CateGender, price = "75"})">$75+</a></li>
                         </ul>
                     </div>
                 </div>
@@ -270,7 +282,7 @@
                     <div class="pagination-wrap">
                         @if (Model.Count > 0)
                         {
-                            @Html.PagedListPager((IPagedList)Model, page => Url.Action("ProductList", new { page, ViewBag.CateGender, ViewBag.ManufactureId, ViewBag.CatalogId }) )
+                            @Html.PagedListPager((IPagedList)Model, page => Url.Action("ProductList", new { page, ViewBag.CateGender, ViewBag.ManufactureId, ViewBag.CatalogId, ViewBag.Price }) )
                         }
 @*                        <ul>
                             <li class="pagination-items"><a href="#">&lt;</a></li>

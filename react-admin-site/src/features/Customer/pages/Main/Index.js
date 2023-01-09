@@ -87,7 +87,7 @@ function MainPage(props) {
             selector: (row) => (
                 <div onClick={() => handleWatchDetail(row.customerId)} className='d-flex align-items-center gap-1 cursor-pointer'>
                     <img
-                        src={`https://localhost:44324/images/avatars/${row.avatar}`}
+                        src={`http://ntdung812-001-site1.btempurl.com/images/avatars/${row.avatar}`}
                         alt=""
                         className='img-fluid rounded-circle'
                         width="20%"

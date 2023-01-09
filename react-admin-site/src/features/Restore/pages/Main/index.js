@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Tab, Tabs } from 'react-bootstrap';
-import { MultiSelect } from "react-multi-select-component";
-import DatePicker from 'react-datepicker';
-import ReactPaginate from 'react-paginate';
-import ModalDetail from 'features/Admin/components/ModalDetail';
 import Product from 'features/Restore/components/Product';
+import Customer from 'features/Restore/components/Customer';
 
 
 function MainPage(props) {
@@ -32,7 +29,7 @@ function MainPage(props) {
                             Manufacture
                         </Tab>
                         <Tab eventKey="customer" title="Customer">
-                            Customer
+                            <Customer/>
                         </Tab>
                         <Tab eventKey="admin" title="Admin">
                             Admin

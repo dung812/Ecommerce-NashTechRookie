@@ -8,7 +8,7 @@ import ModalDetail from 'features/Admin/components/ModalDetail';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAdmins, fetchAdminsOnclick, filterAdmins, getAdmin, handleDeleteAdmin } from 'features/Admin/AdminSlice';
 import CustomLoader from 'components/CustomLoader/Index';
-import { formatDate, FormatDateTime, UTCWithoutHour } from 'utils';
+import { FormatDate, formatDate, FormatDateTime, UTCWithoutHour } from 'utils';
 import Autocomplete from 'react-autocomplete';
 import { Link, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
@@ -340,7 +340,7 @@ function MainPage(props) {
                                                                 <div>
                                                                     <div className='d-flex align-items-center gap-1'>
                                                                         <img
-                                                                            src={`https://localhost:44324/images/avatars/${item.avatar}`}
+                                                                            src={`http://ntdung812-001-site1.btempurl.com/images/avatars/${item.avatar}`}
                                                                             alt=""
                                                                             className='img-fluid rounded-circle'
                                                                             width="18%"
@@ -359,7 +359,7 @@ function MainPage(props) {
                                                             </td>
                                                             <td onClick={() => handleWatchDetail(item.adminId)}>
                                                                 <div>
-                                                                    {FormatDateTime(item.registeredDate)}
+                                                                    {FormatDate(item.registeredDate)}
                                                                 </div>
                                                             </td>
                                                             <td onClick={() => handleWatchDetail(item.adminId)}>

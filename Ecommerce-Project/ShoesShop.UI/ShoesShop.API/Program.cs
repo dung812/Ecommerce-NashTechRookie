@@ -64,7 +64,17 @@ builder.Services.AddCors(options =>
                           policy.AllowAnyHeader();
                       });
 });
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        builder =>
+        {
+            builder
+                .WithOrigins("http://footwear-manage.surge.sh", "http://localhost:3000")  // Allow requests from this origin
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        });
+});
 
 builder.Services.AddAuthorization();
 
@@ -81,7 +91,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors("AllowAll");
+app.UseCors("AllowSpecificOrigin");
 
 
 app.UseAuthentication();

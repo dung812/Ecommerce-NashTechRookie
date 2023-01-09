@@ -122,7 +122,7 @@ function Sidebar(props) {
                 }
                 <li className="profile">
                     <div className="profile-details">
-                        <img src={`https://localhost:44324/images/avatars/${admin?.avatar ? admin?.avatar : "avatar.jpg"}`} alt="profileImg" />
+                        <img src={`http://ntdung812-001-site1.btempurl.com/images/avatars/${admin?.avatar ? admin?.avatar : "avatar.jpg"}`} alt="profileImg" />
                         <div className="name_job">
                             <div className="name">{`${admin?.firstName} ${admin?.lastName}`}</div>
                             <div className="job">Role: {admin?.roleName}</div>

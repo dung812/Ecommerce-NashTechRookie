@@ -466,7 +466,7 @@ namespace ShoesShop.UI.Controllers
             {
                 OrderId = Functions.CreateKey("HD"),
                 OrderName = infoOrderViewModel.firstName + " " + infoOrderViewModel.lastName,
-                OrderDate = DateTime.Now,
+                OrderDate = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time")),
                 Address = infoOrderViewModel.address,
                 Phone = infoOrderViewModel.phone,
                 Note = infoOrderViewModel.note,

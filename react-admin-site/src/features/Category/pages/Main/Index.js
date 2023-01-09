@@ -134,7 +134,7 @@ function MainPage(props) {
             sortable: true,
         },
         {
-            name: "ID",
+            name: "Name",
             selector: (row) => row.name,
             sortable: true,
         },

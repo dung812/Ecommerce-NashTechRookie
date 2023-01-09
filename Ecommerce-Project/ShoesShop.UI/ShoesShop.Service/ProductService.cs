@@ -7,13 +7,14 @@ using X.PagedList;
 using System;
 using System.Net.WebSockets;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace ShoesShop.Service
 {
     public interface IProductService
     {
         List<ProductViewModel> GetAllProduct();
-        public IPagedList<ProductViewModel> GetAllProductPage(Gender cateGender, int? manufactureId, int? catalogId, int pageNumber, int pageSize);
+        public IPagedList<ProductViewModel> GetAllProductPage(Gender cateGender, int? manufactureId, int? catalogId, string? price, int pageNumber, int pageSize);
         ProductViewModel GetProductById(int productId);
         public List<ProductViewModel> RelatedProduct(int productId);
         public IPagedList<ProductViewModel> FilterProduct(string filterType, Gender cateGender, int pageNumber, int pageSize);
@@ -88,7 +89,7 @@ namespace ShoesShop.Service
             return productList;
         }
 
-        public IPagedList<ProductViewModel> GetAllProductPage(Gender cateGender, int? manufactureId, int? catalogId, int pageNumber, int pageSize)
+        public IPagedList<ProductViewModel> GetAllProductPage(Gender cateGender, int? manufactureId, int? catalogId, string? price, int pageNumber, int pageSize)
         {
             IPagedList<ProductViewModel> productList;
             productList = _context.Products
@@ -177,6 +178,139 @@ namespace ShoesShop.Service
                                             ImageNameGallery3 = "",
                                         }).ToPagedList(pageNumber, pageSize);
             }
+            if (price != null)
+            {
+                string[] myPrice = price.Split(',');
+                switch (myPrice.Length)
+                {
+                    case 1:
+                        // code block
+                        if (myPrice[0] == "30")
+                        {
+                            productList = _context.Products
+                                        .TagWith("Get list product")
+                                        .Where(m => m.Status == true &&
+                                                m.ProductGenderCategory == cateGender &&
+                                                m.OriginalPrice <= 30)
+                                        .Include(m => m.Catalog)
+                                        .Include(m => m.Manufacture)
+                                        .Include(m => m.Admin)
+                                        .Select(m => new ProductViewModel
+                                        {
+                                            ProductId = m.ProductId,
+                                            ProductName = m.ProductName,
+                                            ImageFileName = m.ImageFileName,
+                                            ImageName = m.ImageName,
+                                            OriginalPrice = m.OriginalPrice,
+                                            PromotionPercent = m.PromotionPercent,
+                                            Description = m.Description,
+                                            ProductGenderCategory = m.ProductGenderCategory,
+                                            ManufactureName = m.Manufacture.Name,
+                                            CatalogName = m.Catalog.Name,
+                                            AdminCreate = m.Admin.UserName,
+                                            DateCreate = m.DateCreate,
+                                            ImageNameGallery1 = "",
+                                            ImageNameGallery2 = "",
+                                            ImageNameGallery3 = "",
+                                        }).ToPagedList(pageNumber, pageSize);
+                            break;
+                        }
+                        else if (myPrice[0] == "75")
+                        {
+                            productList = _context.Products
+                                        .TagWith("Get list product")
+                                        .Where(m => m.Status == true &&
+                                                m.ProductGenderCategory == cateGender &&
+                                                m.OriginalPrice >= 75)
+                                        .Include(m => m.Catalog)
+                                        .Include(m => m.Manufacture)
+                                        .Include(m => m.Admin)
+                                        .Select(m => new ProductViewModel
+                                        {
+                                            ProductId = m.ProductId,
+                                            ProductName = m.ProductName,
+                                            ImageFileName = m.ImageFileName,
+                                            ImageName = m.ImageName,
+                                            OriginalPrice = m.OriginalPrice,
+                                            PromotionPercent = m.PromotionPercent,
+                                            Description = m.Description,
+                                            ProductGenderCategory = m.ProductGenderCategory,
+                                            ManufactureName = m.Manufacture.Name,
+                                            CatalogName = m.Catalog.Name,
+                                            AdminCreate = m.Admin.UserName,
+                                            DateCreate = m.DateCreate,
+                                            ImageNameGallery1 = "",
+                                            ImageNameGallery2 = "",
+                                            ImageNameGallery3 = "",
+                                        }).ToPagedList(pageNumber, pageSize);
+                            break;
+                        }    
+                        break;
+                    case 2:
+                        // code block
+                        if (myPrice[0] == "30") // 30-50
+                        {
+                            productList = _context.Products
+                                        .TagWith("Get list product")
+                                        .Where(m => m.Status == true &&
+                                                m.ProductGenderCategory == cateGender &&
+                                                m.OriginalPrice >= 30 && m.OriginalPrice <= 50)
+                                        .Include(m => m.Catalog)
+                                        .Include(m => m.Manufacture)
+                                        .Include(m => m.Admin)
+                                        .Select(m => new ProductViewModel
+                                        {
+                                            ProductId = m.ProductId,
+                                            ProductName = m.ProductName,
+                                            ImageFileName = m.ImageFileName,
+                                            ImageName = m.ImageName,
+                                            OriginalPrice = m.OriginalPrice,
+                                            PromotionPercent = m.PromotionPercent,
+                                            Description = m.Description,
+                                            ProductGenderCategory = m.ProductGenderCategory,
+                                            ManufactureName = m.Manufacture.Name,
+                                            CatalogName = m.Catalog.Name,
+                                            AdminCreate = m.Admin.UserName,
+                                            DateCreate = m.DateCreate,
+                                            ImageNameGallery1 = "",
+                                            ImageNameGallery2 = "",
+                                            ImageNameGallery3 = "",
+                                        }).ToPagedList(pageNumber, pageSize);
+                            break;
+                        }
+                        else if (myPrice[0] == "50") // 50-75
+                        {
+                            productList = _context.Products
+                                        .TagWith("Get list product")
+                                        .Where(m => m.Status == true &&
+                                                m.ProductGenderCategory == cateGender &&
+                                                m.OriginalPrice >= 50 && m.OriginalPrice <= 75)
+                                        .Include(m => m.Catalog)
+                                        .Include(m => m.Manufacture)
+                                        .Include(m => m.Admin)
+                                        .Select(m => new ProductViewModel
+                                        {
+                                            ProductId = m.ProductId,
+                                            ProductName = m.ProductName,
+                                            ImageFileName = m.ImageFileName,
+                                            ImageName = m.ImageName,
+                                            OriginalPrice = m.OriginalPrice,
+                                            PromotionPercent = m.PromotionPercent,
+                                            Description = m.Description,
+                                            ProductGenderCategory = m.ProductGenderCategory,
+                                            ManufactureName = m.Manufacture.Name,
+                                            CatalogName = m.Catalog.Name,
+                                            AdminCreate = m.Admin.UserName,
+                                            DateCreate = m.DateCreate,
+                                            ImageNameGallery1 = "",
+                                            ImageNameGallery2 = "",
+                                            ImageNameGallery3 = "",
+                                        }).ToPagedList(pageNumber, pageSize);
+                            break;
+                        }
+                        break;
+                }
+            }
 
             foreach (var product in productList)
             {
@@ -262,7 +396,24 @@ namespace ShoesShop.Service
                                         CatalogName = m.Catalog.Name,
                                         AdminCreate = m.Admin.UserName,
                                         DateCreate = m.DateCreate,
+                                        ImageNameGallery1 = "",
+                                        ImageNameGallery2 = "",
+                                        ImageNameGallery3 = "",
                                     }).Take(4).ToList();
+            foreach (var i in products)
+            {
+                var gallerys = _context.ProductGalleries.Where(m => m.ProductId == i.ProductId).ToList();
+
+                if (gallerys.Count >= 3)
+                {
+                    i.ImageNameGallery1 = gallerys[0].GalleryName;
+                    i.ImageNameGallery2 = gallerys[1].GalleryName;
+                    i.ImageNameGallery3 = gallerys[2].GalleryName;
+                }
+
+                i.Income = _context.OrderDetails.Where(m => m.ProductId == i.ProductId).Sum(m => m.TotalMoney);
+
+            }
             return products;
         }
 
@@ -398,8 +549,24 @@ namespace ShoesShop.Service
                                         CatalogName = m.Catalog.Name,
                                         AdminCreate = m.Admin.UserName,
                                         DateCreate = m.DateCreate,
+                                        ImageNameGallery1 = "",
+                                        ImageNameGallery2 = "",
+                                        ImageNameGallery3 = "",
                                     }).ToPagedList(pageNumber, pageSize);
+            foreach (var i in productList)
+            {
+                var gallerys = _context.ProductGalleries.Where(m => m.ProductId == i.ProductId).ToList();
 
+                if (gallerys.Count >= 3)
+                {
+                    i.ImageNameGallery1 = gallerys[0].GalleryName;
+                    i.ImageNameGallery2 = gallerys[1].GalleryName;
+                    i.ImageNameGallery3 = gallerys[2].GalleryName;
+                }
+
+                i.Income = _context.OrderDetails.Where(m => m.ProductId == i.ProductId).Sum(m => m.TotalMoney);
+
+            }
             return productList;
         }
         public List<string> GetNameProductList(string keyword)
@@ -438,7 +605,7 @@ namespace ShoesShop.Service
                 Quantity = productViewModel.Quantity,
                 Status = true,
                 ProductGenderCategory = productViewModel.Gender == "Women" ? Gender.Women : Gender.Men,
-                DateCreate = DateTime.Now,
+                DateCreate = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time")),
                 AdminId = productViewModel.AdminId,
                 ManufactureId = productViewModel.ManufactureId,
                 CatalogId = productViewModel.CatalogId
@@ -510,7 +677,7 @@ namespace ShoesShop.Service
                 product.AdminId = productViewModel.AdminId;
                 product.ManufactureId = productViewModel.ManufactureId;
                 product.CatalogId = productViewModel.CatalogId;
-                product.UpdateDate = DateTime.Now;
+                product.UpdateDate = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"));
 
                 _context.Products.Update(product);
                 _context.SaveChanges();

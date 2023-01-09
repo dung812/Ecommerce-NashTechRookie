@@ -34,6 +34,8 @@ namespace ShoesShop.Service
         public bool CheckIsFirstLogin(int customerId);
         public Customer ChangeInformationFirstLogin(int customerId, FirstChangePasswordViewModel firstChangePasswordViewModel);
         public bool DisabledCustomer(int customerId);
+        public bool RestoreCustomer(int customerId);
+        public List<CustomerViewModel> GetAllCustomerDisabled();
     }
     public class CustomerService : ICustomerService
     {
@@ -84,7 +86,7 @@ namespace ShoesShop.Service
                     FirstName = customerViewModel.FirstName,
                     LastName = customerViewModel.LastName,
                     Password = customerViewModel.Password,
-                    RegisterDate = DateTime.Now,
+                    RegisterDate = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time")),
                     IsNewRegister = true,
                     Avatar = "avatar.jpg",
                     Status = true
@@ -163,7 +165,7 @@ namespace ShoesShop.Service
             {
                 Email = email.Trim(),
                 Token = token,
-                CreateDate = DateTime.Now,
+                CreateDate = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time")),
                 Status = true,
                 CustomerId = customerId
             };
@@ -259,6 +261,44 @@ namespace ShoesShop.Service
             else
                 return false;
 
+        }
+
+        public List<CustomerViewModel> GetAllCustomerDisabled()
+        {
+            List<CustomerViewModel> customers = new List<CustomerViewModel>();
+            customers = _context.Customers
+                                .Include(m => m.Orders)
+                                .Where(m => m.Status == false)
+                                .TagWith("Get list disabled customer")
+                                .OrderByDescending(m => m.RegisterDate)
+                                .Select(m => new CustomerViewModel
+                                {
+                                    CustomerId = m.CustomerId,
+                                    FirstName = m.FirstName,
+                                    LastName = m.LastName,
+                                    Avatar = m.Avatar,
+                                    Email = m.Email,
+                                    RegisterDate = m.RegisterDate,
+                                    TotalMoneyPuschased = m.Orders.Sum(m => m.TotalMoney),
+                                    TotalOrderSuccess = 0,
+                                    TotalOrderCancel = 0,
+                                }).ToList();
+
+
+            return customers;
+        }
+
+        public bool RestoreCustomer(int customerId)
+        {
+            var customer = _context.Customers.Find(customerId);
+            if (customer != null)
+            {
+                customer.Status = true;
+                _context.SaveChanges();
+                return true;
+            }
+            else
+                return false;
         }
     }
 }

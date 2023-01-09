@@ -26,7 +26,7 @@ const ModalDetail = (props) => {
                 <Modal.Body className="modal__body px-5">
                     <div className="row mb-2">
                         <div className="col-12 d-flex justify-content-center">
-                            <img width="30%" className="img-fluid" src={`https://localhost:44324/images/avatars/${Data?.avatar}`} />
+                            <img width="30%" className="img-fluid" src={`http://ntdung812-001-site1.btempurl.com/images/avatars/${Data?.avatar}`} />
                         </div>
                     </div>
                     <div className="row mb-2">

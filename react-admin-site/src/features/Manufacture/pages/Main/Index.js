@@ -33,6 +33,11 @@ function MainPage(props) {
     }, [search])
     
 
+    function HandleUpdate(manufactureId) {
+        const editUrl = `/manufacture/${manufactureId}`;
+        navigate(editUrl);
+    }
+
     function HandleRemove(manufactureId) {
         console.log(manufactureId)
         Swal.fire({
@@ -64,7 +69,7 @@ function MainPage(props) {
         },
         {
             name: "Logo",
-            selector: (row) => <img className='cursor-pointer' onClick={() => navigate(`/manufacture/${row.manufactureId}`)} width={100} src={"https://localhost:44324/images/brand/" + row.logo} />
+            selector: (row) => <img className='cursor-pointer' onClick={() => navigate(`/manufacture/${row.manufactureId}`)} width={100} src={"http://ntdung812-001-site1.btempurl.com/images/brand/" + row.logo} />
         },
         {
             name: "Name",
@@ -75,6 +80,7 @@ function MainPage(props) {
             name: "Action",
             cell: (row) => (
                 <div>
+                     <button onClick={() => HandleUpdate(row.manufactureId)} className='btn btn-primary me-1'><i className='bx bx-edit'></i></button>
                     <button onClick={() => HandleRemove(row.manufactureId)} className='btn btn-danger'><i className='bx bx-trash'></i></button>
                 </div>
             )

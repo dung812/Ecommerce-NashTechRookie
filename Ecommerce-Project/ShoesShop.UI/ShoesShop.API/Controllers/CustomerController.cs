@@ -40,5 +40,29 @@ namespace ShoesShop.API.Controllers
             else
                 return BadRequest();
         }
+
+
+        // GET: api/Customer/GetCustomerDisabled
+        [HttpGet("[action]")]
+        public ActionResult<List<CustomerViewModel>> GetCustomerDisabled()
+        {
+            List<CustomerViewModel> customers = customerService.GetAllCustomerDisabled();
+            return customers;
+        }
+
+        // GET: api/Customer/RestoreCustomer/1
+        [HttpGet("[action]/{customerId}")]
+        public ActionResult<List<ProductViewModel>> RestoreCustomer(int customerId)
+        {
+            var status = customerService.RestoreCustomer(customerId);
+
+            if (status)
+            {
+                var adminId = Convert.ToInt32(User.Claims.FirstOrDefault(m => m.Type == "id").Value);
+                adminService.SaveActivity(adminId, "Unban", "Customer", "");
+                return Ok();
+            }
+            else return BadRequest();
+        }
     }
 }

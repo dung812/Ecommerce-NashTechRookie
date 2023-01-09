@@ -54,7 +54,7 @@ namespace ShoesShop.Service
             commentProduct.CustomerId = customerId;
             commentProduct.Star = star;
             commentProduct.Content = content;
-            commentProduct.Date = DateTime.Now;
+            commentProduct.Date = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"));
             commentProduct.Status = true;
 
             _context.CommentProducts.Add(commentProduct);

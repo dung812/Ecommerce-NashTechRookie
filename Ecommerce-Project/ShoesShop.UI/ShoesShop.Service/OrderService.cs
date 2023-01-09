@@ -207,10 +207,11 @@ namespace ShoesShop.Service
             if (order != null)
             {
                 // Delete order detail
-                _context.Database.ExecuteSqlRaw("DELETE FROM OrderDetailS WHERE OrderId = '" + orderId + "'");
+                //_context.Database.ExecuteSqlRaw("DELETE FROM OrderDetailS WHERE OrderId = '" + orderId + "'");
+                order.OrderStatus = OrderStatus.Cancelled;
 
                 // Delete order
-                _context.Orders.Remove(order);
+                //_context.Orders.Remove(order);
                 _context.SaveChanges();
                 return true;
             }
@@ -253,6 +254,24 @@ namespace ShoesShop.Service
 
             if (order != null)
             {
+                // Reduce quantity product
+                var itemOrderDetail = _context.OrderDetails
+                                        .Where(m => m.OrderId == orderId)
+                                        .Include(m => m.Product)
+                                        .Include(m => m.AttributeValue).ToList();
+                foreach (var itemInOrder in itemOrderDetail)
+                {
+                    var getProduct = _context.Products.FirstOrDefault(m => m.ProductId == itemInOrder.ProductId);
+                    if(getProduct != null)
+                    {
+                        getProduct.Quantity = getProduct.Quantity - itemInOrder.Quantity;
+
+                        _context.Products.Update(getProduct);
+                        _context.SaveChanges();
+                    }
+                }
+
+                // Change state order
                 order.OrderStatus = OrderStatus.AwatingShipment;
 
                 _context.Orders.Update(order);
@@ -273,7 +292,7 @@ namespace ShoesShop.Service
             if (order != null)
             {
                 order.OrderStatus = OrderStatus.Delivered;
-                order.DeliveryDate = DateTime.Now;
+                order.DeliveryDate = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"));
 
                 _context.Orders.Update(order);
                 _context.SaveChanges();
@@ -291,7 +310,7 @@ namespace ShoesShop.Service
             if (order != null)
             {
                 order.OrderStatus = OrderStatus.Cancelled;
-                order.CancellationDate = DateTime.Now;
+                order.CancellationDate = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"));
 
                 _context.Orders.Update(order);
                 _context.SaveChanges();
@@ -320,9 +339,10 @@ namespace ShoesShop.Service
         {
             List<OrderViewModel> orders = new List<OrderViewModel>();
             //DateTime today = DateTime.Today;
+            DateTime today = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"));
             orders = _context.Orders
                 .Where(m => m.OrderStatus == OrderStatus.NewOrder &&
-                        m.OrderDate.Date == DateTime.Today)
+                        m.OrderDate.Date == today.Date)
                 .Include(m => m.Payment)
                 .OrderByDescending(m => m.OrderDate)
                 .Select(m => new OrderViewModel

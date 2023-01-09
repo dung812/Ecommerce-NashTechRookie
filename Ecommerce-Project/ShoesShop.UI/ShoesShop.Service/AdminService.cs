@@ -302,7 +302,7 @@ namespace ShoesShop.Service
             activity.ActivityType = action;
             activity.ObjectType = objectType;
             activity.ObjectName = objectName;
-            activity.Time = DateTime.Now;
+            activity.Time = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"));
             _context.Activities.Add(activity);
 
             _context.SaveChanges();
